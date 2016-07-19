@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Local;
+use App\Http\Requests\LocaisRequest;
 
 use App\Http\Requests;
 
@@ -23,10 +24,7 @@ class LocaisController extends Controller
         return view('locais.adicionar');
     }
 
-    public function postSalvar(Request $request){
-        $this->validate($request,[
-            'nome' => 'required|unique:locais'
-        ]);
+    public function postSalvar(LocaisRequest $request){
         $this->local->fill($request->all());
         if ($this->local->save()) {
             return redirect('/locais');
@@ -34,24 +32,23 @@ class LocaisController extends Controller
     }
 
     public function getEditar($id){
-        $local = $this->local->find($id);
+        $local = $this->local->findOrFail($id);
         return view('locais.editar', compact('local'));
     }
 
-    public function postAtualizar(Request $request, $id){
-        $this->validate($request,[
-            'nome' => 'required|unique:locais'
-        ]);
-        $this->local = $this->local->find($id);
+    public function postAtualizar(LocaisRequest $request, $id){
+        $this->local = $this->local->findOrFail($id);
         $this->local->fill($request->all());
-        if ($this->local->save()) {
+        if ($this->local->update()) {
+            \Session::flash('message', 'Local atualizado com sucesso');
             return redirect('/locais');
         }
     }
 
-    public function getExcluir($id){
-        $local = $this->local->find($id);
+    public function postExcluir($id){
+        $local = $this->local->findOrFail($id);
         $local->delete();
+        \Session::flash('message', 'Local excluído com sucesso');
         return redirect('/locais');
     }
 }
