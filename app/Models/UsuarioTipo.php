@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Local extends Model
+class UsuarioTipo extends Model
 {
     protected   $fillable   = ['id','nome'];
-    protected   $table      = 'locais';
+    protected   $table      = 'usuarios_tipos';
     public      $timestamps = false;
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Local;
 use App\Http\Requests\LocaisRequest;
-
 use App\Http\Requests;
 
 class LocaisController extends Controller
