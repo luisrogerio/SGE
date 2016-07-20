@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Route::controller('/locais','LocaisController');
+
+Route::controller('/atividadesTipos','AtividadesTiposController');
+
+Route::controller('/usuariosTipos','UsuariosTiposController');
