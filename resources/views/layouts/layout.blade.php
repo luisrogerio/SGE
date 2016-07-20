@@ -15,7 +15,10 @@
         @include('layouts.header')
         <div class="container">
             @if(Session::has('message'))
-                <div class="alert alert-info">
+                <div class="alert alert-info fade in">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     {{Session::get('message')}}
                 </div>
             @endif
