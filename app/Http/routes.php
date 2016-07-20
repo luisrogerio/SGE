@@ -17,8 +17,6 @@ Route::get('/', function () {
 
 Route::controller('/locais','LocaisController');
 
-Route::controller('/cursos', 'CursosController');
+Route::controller('/atividadesTipos','AtividadesTiposController');
 
-Route::controller('/gruposdeusuario', 'UsuariosGruposController');
-
-Route::controller('/statusdeatividade', 'AtividadesStatusConroller');
+Route::controller('/usuariosTipos','UsuariosTiposController');
