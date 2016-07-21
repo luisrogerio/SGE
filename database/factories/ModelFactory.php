@@ -19,3 +19,40 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Models\Curso::class, function (Faker\Generator $faker) {
+   return [
+       'nome' => $faker->jobTitle,
+       'sigla' => strtoupper($faker->randomLetter)
+   ];
+});
+
+$factory->define(App\Models\AtividadeStatus::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->word
+    ];
+});
+
+$factory->define(App\Models\AtividadeTipo::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->word
+    ];
+});
+
+$factory->define(App\Models\Local::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->word
+    ];
+});
+
+$factory->define(App\Models\UsuarioGrupo::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->word
+    ];
+});
+
+$factory->define(App\Models\UsuarioTipo::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->citySuffix
+    ];
+});

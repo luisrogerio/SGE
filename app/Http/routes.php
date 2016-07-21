@@ -20,3 +20,11 @@ Route::controller('/locais','LocaisController');
 Route::controller('/atividadesTipos','AtividadesTiposController');
 
 Route::controller('/usuariosTipos','UsuariosTiposController');
+
+Route::controller('/cursos', 'CursosController');
+
+Route::controller('/statusdeatividade', 'AtividadesStatusConroller');
+
+Route::controller('/gruposdeusuario', 'UsuariosGruposController');
+
+Route::controller('/atividades', 'AtividadesController');
