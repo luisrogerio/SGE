@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Models\Atividade;
 use App\Http\Requests\AtividadesRequest;
 use App\Http\Requests;
+use App\Models\Curso;
 
 class AtividadesController extends Controller
 {
@@ -21,7 +23,8 @@ class AtividadesController extends Controller
     }
 
     public function getAdicionar(){
-        return view('atividades.adicionar');
+        $cursos = Curso::get();
+        return view('atividades.adicionar', compact('cursos'));
     }
 
     public function postSalvar(AtividadesRequest $request){
@@ -33,7 +36,8 @@ class AtividadesController extends Controller
 
     public function getEditar($id){
         $atividade = $this->atividade->findOrFail($id);
-        return view('atividades.editar', compact('atividade'));
+        $cursos = Curso::all();
+        return view('atividades.editar', compact('atividade', 'cursos'));
     }
 
     public function postAtualizar(AtividadesRequest $request, $id){

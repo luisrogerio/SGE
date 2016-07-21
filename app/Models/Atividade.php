@@ -23,4 +23,8 @@ class Atividade extends Model
     public function atividadesTipos(){
         return $this->hasOne('App\Models\AtividadeTipo', 'idAtividadesTipos');
     }
+
+    public function cursos(){
+        return $this->belongsToMany('App\Models\Curso', 'atividades_cursos', 'idAtividades', 'idCursos');
+    }
 }
