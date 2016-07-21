@@ -13,9 +13,14 @@
                 @if ($errors->has('nome')) <p class="help-block">{{ $errors->first('nome') }}</p> @endif
             </fieldset>
             <fieldset class="form-group">
-                {{Form::label('sigla', 'Sigla') }}
-                {{Form::text('sigla', null, array('class' => 'form-control', 'maxlength' => 10))}}
-                @if ($errors->has('sigla')) <p class="help-block">{{$errors->first('sigla')}}</p> @endif
+                {{Form::label('', 'Cursos') }}
+                <?php $i=0; ?>
+                @foreach($cursos as $curso)
+                    {{Form::checkbox('idCursos['.$i.']', $curso->id, false,
+                        ['id' => 'idCursos['.$i.']'])}} {{Form::label('idCursos['.$i.']', $curso->sigla)}}<br>
+                <?php $i++; ?>
+                @endforeach
+                @if ($errors->has('idCursos['.$i.']')) <p class="help-block">{{$errors->first('idCursos['.$i.']')}}</p> @endif
             </fieldset>
             {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
             {{Form::close()}}
