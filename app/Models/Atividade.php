@@ -21,7 +21,7 @@ class Atividade extends Model
     public $timestamps = false;
 
     public function atividadesTipos(){
-        return $this->hasOne('App\Models\AtividadeTipo', 'idAtividadesTipos');
+        return $this->belongsTo('App\Models\AtividadeTipo', 'idAtividadesTipos');
     }
 
     public function cursos(){
