@@ -1,45 +1,37 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('layouts.layout')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('content')
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+    <table class="table">
+        <tr><th>Data</th><th>Horários</th><th>Locais</th></tr>
+        <tr>
+            <td>Data</td>
+            <td>Horário 1<br> Horário 2</td>
+            <td><select multiple size="3">
+                    <option>local 1</option>
+                    <option>local 2</option>
+                    <option>local 3</option>
+                    <option>local 4</option>
+                    <option>local 54</option>
+                    <option>local 6</option>
+                    <option>local 7</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Data 2</td>
+            <td>Horário 1</td>
+            <td><select multiple size="3">
+                    <option>local 1</option>
+                    <option>local 2</option>
+                    <option>local 3</option>
+                    <option>local 4</option>
+                    <option>local 54</option>
+                    <option>local 6</option>
+                    <option>local 7</option>
+                </select>
+            </td>
+        </tr>
+    </table>
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
-        </div>
-    </body>
-</html>
+@endsection

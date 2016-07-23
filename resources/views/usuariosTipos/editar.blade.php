@@ -3,7 +3,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Atualizar Tipo de Atividade</h3>
+            <h3>Atualizar Tipo de Usuário</h3>
         </div>
         <div class="panel-body">
             {{Form::model($usuarioTipo, array('url'=>'usuariosTipos/atualizar/'.$usuarioTipo->id))}}

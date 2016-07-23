@@ -26,3 +26,5 @@ Route::controller('/cursos', 'CursosController');
 Route::controller('/statusdeatividade', 'AtividadesStatusConroller');
 
 Route::controller('/gruposdeusuario', 'UsuariosGruposController');
+
+Route::controller('/atividades', 'AtividadesController');

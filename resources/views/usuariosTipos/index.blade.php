@@ -2,7 +2,7 @@
 @section('title', 'Tipos de Usuário')
 @section('content')
 
-<h1>Tipos de Atividade</h1>
+<h1>Tipos de Usuário</h1>
 <table class="table table-striped table-bordered">
     <tr><th>Nome</th><th colspan="2" class="text-center">Opções</th></tr>
 @foreach($usuariosTipos as $usuarioTipo)
