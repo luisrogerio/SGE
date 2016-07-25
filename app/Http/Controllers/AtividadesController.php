@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AtividadeTipo;
+use App\Models\Local;
 use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Models\Atividade;
@@ -23,8 +25,10 @@ class AtividadesController extends Controller
     }
 
     public function getAdicionar(){
-        $cursos = Curso::get();
-        return view('atividades.adicionar', compact('cursos'));
+        $cursos             = Curso::get();
+        $atividadesTipos    = AtividadeTipo::get()->lists('nome', 'id');
+        $locais             = Local::get()->lists('nome', 'id');
+        return view('atividades.adicionar', compact('cursos', 'atividadesTipos', 'locais'));
     }
 
     public function postSalvar(AtividadesRequest $request){

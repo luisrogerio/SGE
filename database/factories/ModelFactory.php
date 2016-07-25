@@ -23,7 +23,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Curso::class, function (Faker\Generator $faker) {
    return [
        'nome' => $faker->jobTitle,
-       'sigla' => strtoupper($faker->randomLetter)
+       'sigla' => strtoupper($faker->word)
    ];
 });
 
