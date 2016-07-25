@@ -11,6 +11,6 @@ class AtividadeTipo extends Model
     public      $timestamps = false;
 
     public function atividade(){
-        return $this->belongsTo('App\Models\Atividade');
+        return $this->hasMany('App\Models\Atividade');
     }
 }
