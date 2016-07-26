@@ -14,7 +14,6 @@ class AddForeignKeysToHorariosTable extends Migration {
 	{
 		Schema::table('horarios', function(Blueprint $table)
 		{
-			$table->foreign('idAtividadesDatas', 'fk_horarios_atividades_datas1')->references('id')->on('atividades_datas')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('salvoPor', 'fk_horarios_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
@@ -29,7 +28,6 @@ class AddForeignKeysToHorariosTable extends Migration {
 	{
 		Schema::table('horarios', function(Blueprint $table)
 		{
-			$table->dropForeign('fk_horarios_atividades_datas1');
 			$table->dropForeign('fk_horarios_usuarios1');
 		});
 	}

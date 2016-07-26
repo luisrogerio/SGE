@@ -15,7 +15,6 @@ class CreateHorariosTable extends Migration {
 		Schema::create('horarios', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('idAtividadesDatas')->index('fk_horarios_atividades_datas1_idx');
 			$table->dateTime('inicio');
 			$table->dateTime('termino');
 			$table->dateTime('criadoEm')->nullable();

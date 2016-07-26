@@ -16,7 +16,6 @@ class CreateHorariosLocaisTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('idHorarios')->index('fk_locais_has_horarios_horarios1_idx');
-			$table->integer('idLocais')->index('fk_locais_has_horarios_locais1_idx');
 			$table->dateTime('criadoEm')->nullable();
 			$table->dateTime('modificadoEm')->nullable();
 			$table->integer('salvoPor')->nullable()->index('fk_horarios_locais_usuarios1_idx');

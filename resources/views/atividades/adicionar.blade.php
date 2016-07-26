@@ -100,21 +100,21 @@
                                 </thead>
                                 <tbody>
                                     <tr class="linhaDeConteudo">
-                                        <td>{{Form::date('atividades_datas.data[0]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}</td>
+                                        <td>{{Form::date('atividades_datas.data[]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}</td>
                                         <td class="horarios">
                                             <div class="row">
                                                 <div class="col-xs-4">
-                                                    {{Form::time('horarios.inicio[0][0]', '12:00', array('class' => 'form-control'))}}
+                                                    {{Form::time('horarios.inicio[][0]', '12:00', array('class' => 'form-control'))}}
                                                 </div>
                                                 <div class="col-xs-4">
-                                                    {{Form::time('horarios.termino[0][0]', '13:00', array('class' => 'form-control'))}}
+                                                    {{Form::time('horarios.termino[][0]', '13:00', array('class' => 'form-control'))}}
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <a class="btn btn-default" id="adicionarHorario"><span class="glyphicon glyphicon-plus"></span></a>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{Form::select('locais.id[0][0]', $locais, null, array('class' => 'form-control'))}}</td>
+                                        <td>{{Form::select('locais.id[][0]', $locais, null, array('class' => 'form-control'))}}</td>
                                     </tr>
                                     <tr class="linhaDeConteudo" hidden>
                                         <td>{{Form::date('atividades_datas.data[]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}</td>
@@ -165,7 +165,7 @@
 
             var novaPrimeiraColuna  = primeiraColuna.clone();
             var primeiroInput       = $(novaPrimeiraColuna).find("input:first");
-            primeiroInput.attr('name', 'atividades_datas.data['+contadorData+']');
+            primeiroInput.attr('name', 'atividades_datas.data[]');//+contadorData+']');
 
             var novaSegundaColuna       = segundaColuna.clone();
             var primeiroInputHorario    = $(novaSegundaColuna).find("input:first");
