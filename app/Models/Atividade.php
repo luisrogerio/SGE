@@ -15,7 +15,7 @@ class Atividade extends Model
         'quantidadeVagas',
         'descricao',
         'criadoEm',
-        'modificadoEm',
+        'nodificadoEm',
         'salvoPor'
     ];
     public $timestamps = false;
@@ -26,5 +26,13 @@ class Atividade extends Model
 
     public function cursos(){
         return $this->belongsToMany('App\Models\Curso', 'atividades_cursos', 'idAtividades', 'idCursos');
+    }
+
+    public function atividadesDatas(){
+        return $this->hasMany('App\Models\AtividadeData', 'idAtividades');
+    }
+
+    public function horarios(){
+        return $this->hasManyThrough('App\Models\Horario', 'App\Models\AtividadeData', 'idAtividades', 'idAtividadesDatas', 'id');
     }
 }
