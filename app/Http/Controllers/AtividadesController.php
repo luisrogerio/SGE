@@ -32,11 +32,10 @@ class AtividadesController extends Controller
     }
 
     public function postSalvar(AtividadesRequest $request){
-        var_dump($request->input('atividades_datas_data'));
-//        $this->atividade->fill($request->all());
-//        if ($this->atividade->save()) {
-//            return redirect('/atividades');
-//        }
+        $this->atividade->fill($request->all());
+        if ($this->atividade->save()) {
+            return redirect('/atividades');
+        }
     }
 
     public function getEditar($id){
