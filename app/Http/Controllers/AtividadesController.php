@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AtividadeData;
 use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Models\Atividade;
