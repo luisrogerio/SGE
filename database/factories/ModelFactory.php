@@ -41,7 +41,7 @@ $factory->define(App\Models\AtividadeTipo::class, function (Faker\Generator $fak
 
 $factory->define(App\Models\Local::class, function (Faker\Generator $faker) {
     return [
-        'nome' => $faker->word
+        'nome' => $faker->streetName
     ];
 });
 
@@ -56,3 +56,10 @@ $factory->define(App\Models\UsuarioTipo::class, function (Faker\Generator $faker
         'nome' => $faker->citySuffix
     ];
 });
+
+$factory->define(App\Models\Aparencia::class, function (Faker\Generator $faker) {
+    return [
+        'tema' => $faker->word
+    ];
+});
+

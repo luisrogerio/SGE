@@ -29,4 +29,6 @@ Route::controller('/gruposdeusuario', 'UsuariosGruposController');
 
 Route::controller('/atividades', 'AtividadesController');
 
+Route::controller('/eventos', 'EventosController');
+
 Route::get('/teste',function(){return view('testes.teste');});

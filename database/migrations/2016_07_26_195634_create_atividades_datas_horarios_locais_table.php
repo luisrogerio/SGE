@@ -16,10 +16,10 @@ class CreateAtividadesDatasHorariosLocaisTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('idAtividades')->index('fk_atividadeHorario_atividades1_idx');
+			$table->integer('idLocais')->index('fk_atividades_datas_locais1_idx');
 			$table->date('data');
 			$table->time('horarioInicio');
 			$table->time('horarioTermino');
-			$table->integer('idLocais')->index('fk_atividades_datas_locais1_idx');
 			$table->dateTime('criadoEm')->nullable();
 			$table->dateTime('modificadoEm')->nullable();
 			$table->integer('salvoPor')->nullable()->index('fk_atividades_datas_usuarios1_idx');
