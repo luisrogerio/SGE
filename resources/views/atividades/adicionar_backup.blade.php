@@ -100,22 +100,37 @@
                                 </thead>
                                 <tbody>
                                     <tr class="linhaDeConteudo">
-                                        <td>
-                                            {{Form::date('atividades_datas_horarios_locais.data[]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
-                                        </td>
+                                        <td>{{Form::date('atividades_datas.data[]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}</td>
                                         <td class="horarios">
                                             <div class="row">
                                                 <div class="col-xs-4">
-                                                    {{Form::time('atividades_datas_horarios_locais.horarioInicio[]', '12:00', array('class' => 'form-control'))}}
+                                                    {{Form::time('horarios.inicio[][0]', '12:00', array('class' => 'form-control'))}}
                                                 </div>
                                                 <div class="col-xs-4">
-                                                    {{Form::time('atividades_datas_horarios_locais.horarioTermino[]', '13:00', array('class' => 'form-control'))}}
+                                                    {{Form::time('horarios.termino[][0]', '13:00', array('class' => 'form-control'))}}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                                {{Form::select('atividades_datas_horarios_locais.idLocais[]', $locais, null, array('class' => 'form-control'))}}
+                                                {{Form::select('locais.id[][0]', $locais, null, array('class' => 'form-control'))}}
                                         </td>
+                                    </tr>
+                                    <tr class="linhaDeConteudo" hidden>
+                                        <td>{{Form::date('atividades_datas.data[]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}</td>
+                                        <td class="horarios">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    {{Form::time('horarios.inicio[][]', '12:00', array('class' => 'form-control'))}}
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    {{Form::time('horarios.termino[][]', '13:00', array('class' => 'form-control'))}}
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <a class="btn btn-default" id="adicionarHorario"><span class="glyphicon glyphicon-plus"></span></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{Form::select('locais.id[][]', $locais, null, array('class' => 'form-control'))}}</td>
                                     </tr>
                                     <tr>
                                         <td>
