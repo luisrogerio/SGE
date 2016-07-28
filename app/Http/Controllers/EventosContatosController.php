@@ -43,7 +43,7 @@ class EventosContatosController extends Controller
         $this->eventoContato->fill($request->all());
         $this->eventoContato->redesSociais = implode('<br>', $this->eventoContato->redesSociais);
         if ($this->eventoContato->update()) {
-            \Session::flash('message', 'EventoContato atualizado com sucesso');
+            \Session::flash('message', 'Contato atualizado com sucesso');
             return redirect('/contatos');
         }
     }
@@ -51,7 +51,7 @@ class EventosContatosController extends Controller
     public function postExcluir($id){
         $eventoContato = $this->eventoContato->findOrFail($id);
         $eventoContato->delete();
-        \Session::flash('message', 'EventoContato excluído com sucesso');
+        \Session::flash('message', 'Contato excluído com sucesso');
         return redirect('/contatos');
     }
 }
