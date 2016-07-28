@@ -17,7 +17,7 @@ class EventosController extends Controller
 
     public function getIndex(){
         $eventos = $this->evento->orderBy('nome')->paginate(5);
-        return view('eventos.indexTeste', compact('eventos'));
+        return view('eventos.index', compact('eventos'));
     }
 
     public function getAdicionar(){
