@@ -25,7 +25,7 @@ class AtividadesController extends Controller
     }
 
     public function getAdicionar(){
-        $cursos             = Curso::get();
+        $cursos             = Curso::get()->lists('sigla', 'id');
         $atividadesTipos    = AtividadeTipo::get()->lists('nome', 'id');
         $locais             = Local::get()->lists('nome', 'id');
         return view('atividades.adicionar', compact('cursos', 'atividadesTipos', 'locais'));
