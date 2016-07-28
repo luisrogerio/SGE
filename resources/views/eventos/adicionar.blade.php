@@ -1,130 +1,92 @@
 @extends('layouts.layout')
-@section('title', 'Atividades')
+@section('title', 'Eventos')
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>Adicionar Novo</h3>
         </div>
         <div class="panel-body">
-            {{Form::open(array('url'=>'atividades/salvar'))}}
+            {{Form::open(array('url'=>'eventos/salvar'))}}
                 <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#atividade" aria-controls="atividade" role="tab" data-toggle="tab">Atividade</a>
+                        <a href="#evento" aria-controls="evento" role="tab" data-toggle="tab">Evento</a>
                     </li>
                     <li role="presentation">
-                        <a href="#responsavel" aria-controls="responsavel" role="tab" data-toggle="tab">Responsável</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#horario" aria-controls="horario" role="tab" data-toggle="tab">Data/Horário e Local</a>
+                        <a href="#caracteristica" aria-controls="caracteristica" role="tab" data-toggle="tab">Caracteristicas</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel1" class="tab-pane fade in active" id="atividade">
+                    <div role="tabpanel1" class="tab-pane fade in active" id="evento">
                         <div class="well">
                             <fieldset class="form-group">
-                                {{Form::label('atividades.nome', 'Nome')}}
-                                {{Form::text('atividades.nome', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades.nome')) <p class="help-block">{{ $errors->first('atividades.nome') }}</p> @endif
+                                {{Form::label('eventos.nome', 'Nome')}}
+                                {{Form::text('eventos.nome', null, array('class' => 'form-control'))}}
+                                @if ($errors->has('eventos.nome')) <p class="help-block">{{ $errors->first('eventos.nome') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('atividades.quantidadeVagas', 'Quantidade de Vagas')}}
-                                {{Form::number('atividades.quantidadeVagas', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades.quantidadeVagas')) <p class="help-block">{{ $errors->first('atividades.quantidadeVagas') }}</p> @endif
+                                {{Form::label('eventos.descricao', 'Descrição')}}
+                                {{Form::textarea('eventos.descricao', null, array('class' => 'form-control'))}}
+                                @if ($errors->has('eventos.descricao')) <p class="help-block">{{ $errors->first('descricao') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('atividades.idAtividadesTipos', 'Tipo de Atividade')}}
-                                {{Form::select('atividades.idAtividadesTipos', $atividadesTipos, null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades.idAtividadesTipos')) <p class="help-block">{{ $errors->first('atividades.idAtividadesTipos') }}</p> @endif
+                                {{Form::label('eventos.dataInicioInscricao', 'Data de Início da Inscrição')}}
+                                {{Form::date('eventos.dataInicioInscricao', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
+                                @if ($errors->has('eventos.dataInicioInscricao')) <p class="help-block">{{ $errors->first('dataInicioInscricao') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('atividades.descricao', 'Descrição')}}
-                                {{Form::textarea('atividades.descricao', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades.descricao')) <p class="help-block">{{ $errors->first('descricao') }}</p> @endif
+                                {{Form::label('eventos.dataTerminoInscricao', 'Data de Término da Inscrição')}}
+                                {{Form::date('eventos.dataTerminoInscricao', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
+                                @if ($errors->has('eventos.dataTerminoInscricao')) <p class="help-block">{{ $errors->first('dataTerminoInscricao') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('', 'Cursos') }}
-                                <p class="help-block">Marque nenhum para deixar aberto para qualquer público.</p>
-                                <?php $i=0; ?>
-                                <div class="row">
-                                @foreach($cursos as $curso)
-
-                                        <div class="col-sm-3">
-                                    {{Form::checkbox('atividades.idCursos['.$i.']', $curso->id, false,
-                                        ['id' => 'atividades.idCursos['.$i.']'])}} {{Form::label('atividades.idCursos['.$i.']', $curso->sigla)}}
-                                    <?php $i++; ?>
-                                        </div>
-                                @endforeach
-                                </div>
-                                @if ($errors->has('atividades.idCursos['.$i.']')) <p class="help-block">{{$errors->first('atividades.idCursos['.$i.']')}}</p> @endif
+                                {{Form::label('eventos.dataInicio', 'Data de Início do Evento')}}
+                                {{Form::date('eventos.dataInicio', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
+                                @if ($errors->has('eventos.dataInicio')) <p class="help-block">{{ $errors->first('dataInicio') }}</p> @endif
+                            </fieldset>
+                            <fieldset class="form-group">
+                                {{Form::label('eventos.dataTermino', 'Data de Término do Evento')}}
+                                {{Form::date('eventos.dataTermino', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
+                                @if ($errors->has('eventos.dataTermino')) <p class="help-block">{{ $errors->first('dataTermino') }}</p> @endif
                             </fieldset>
                         </div>
                     </div>
-                    <div role="tabpanel1" class="tab-pane fade" id="responsavel">
+                    <div role="tabpanel1" class="tab-pane fade" id="caracteristica">
                         <div class="well">
-                            <fieldset class="form-group">
-                                {{Form::label('atividades_responsaveis.nome', 'Nome do Responsável')}}
-                                {{Form::text('atividades_responsaveis.nome', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades_responsaveis.nome')) <p class="help-block">{{ $errors->first('atividades_responsaveis.nome') }}</p> @endif
+                            <fieldset class="checkbox form-group">
+                                <label for="eventos_caracteristicas.eEmiteCertificado">
+                                    {{Form::checkbox('eventos_caracteristicas.eEmiteCertificado', true, true,  array('id' => 'eventos_caracteristicas.eEmiteCertificado')) }} Emite Certificado?
+                                </label>
+                                @if ($errors->has('eventos_caracteristicas.eEmiteCertificado')) <p class="help-block">{{ $errors->first('eventos_caracteristicas.eEmiteCertificado') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('atividades_responsaveis.titulacao', 'Titulação do Responsável')}}
-                                {{Form::text('atividades_responsaveis.titulacao', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades_responsaveis.titulacao')) <p class="help-block">{{ $errors->first('atividades_responsaveis.titulacao') }}</p> @endif
+                                {{Form::label('eventos_caracteristicas.dataLiberacaoCertificado', 'Data de Liberação de Certificado')}}
+                                {{Form::date('eventos_caracteristicas.dataLiberacaoCertificado', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
+                                @if ($errors->has('eventos_caracteristicas.dataLiberacaoCertificado')) <p class="help-block">{{ $errors->first('eventos_caracteristicas.dataLiberacaoCertificado') }}</p> @endif
                             </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('atividades_responsaveis.instituicaoOrigem', 'Instituição de Origem do Responsável')}}
-                                {{Form::text('atividades_responsaveis.instituicaoOrigem', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades_responsaveis.instituicaoOrigem')) <p class="help-block">{{ $errors->first('atividades_responsaveis.instituicaoOrigem') }}</p> @endif
+                            <fieldset class="checkbox">
+                                <label for="eventos_caracteristicas.eExistemImagens">
+                                    {{Form::checkbox('eventos_caracteristicas.eExistemImagens', true, true,  array('id' => 'eventos_caracteristicas.eExistemImagens')) }} Existem imagens?
+                                </label>
+                                @if ($errors->has('eventos_caracteristicas.eExistemImagens')) <p class="help-block">{{ $errors->first('eventos_caracteristicas.eExistemImagens') }}</p> @endif
                             </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('atividades_responsaveis.experienciaProfissional', 'Instituição de Origem do Responsável')}}
-                                {{Form::textarea('atividades_responsaveis.experienciaProfissional', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades_responsaveis.experienciaProfissional')) <p class="help-block">{{ $errors->first('atividades_responsaveis.experienciaProfissional') }}</p> @endif
+                            <fieldset class="checkbox">
+                                <label for="eventos_caracteristicas.eExistemNoticias">
+                                    {{Form::checkbox('eventos_caracteristicas.eExistemNoticias', true, true,  array('id' => 'eventos_caracteristicas.eExistemNoticias')) }} Exitem Notícias?
+                                </label>
+                                @if ($errors->has('eventos_caracteristicas.eExistemNoticias')) <p class="help-block">{{ $errors->first('eventos_caracteristicas.eExistemNoticias') }}</p> @endif
                             </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('atividades_responsaveis.instituicaoOrigem', 'Instituição de Origem do Responsável')}}
-                                {{Form::text('atividades_responsaveis.instituicaoOrigem', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('atividades_responsaveis.instituicaoOrigem')) <p class="help-block">{{ $errors->first('atividades_responsaveis.instituicaoOrigem') }}</p> @endif
+                            <fieldset class="checkbox">
+                                <label for="eventos_caracteristicas.eAcademico">
+                                    {{Form::checkbox('eventos_caracteristicas.eAcademico', true, true,  array('id' => 'eventos_caracteristicas.eAcademico')) }} É Acadêmico?
+                                </label>
+                                @if ($errors->has('eventos_caracteristicas.eAcademico')) <p class="help-block">{{ $errors->first('eventos_caracteristicas.eAcademico') }}</p> @endif
                             </fieldset>
-                        </div>
-                    </div>
-                    <div role="tabpanel1" class="tab-pane fade" id="horario">
-                        <div class="well">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Horário</th>
-                                        <th>Local</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="linhaDeConteudo">
-                                        <td>
-                                            {{Form::date('atividades_datas_horarios_locais.data[]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
-                                        </td>
-                                        <td class="horarios">
-                                            <div class="row">
-                                                <div class="col-xs-4">
-                                                    {{Form::time('atividades_datas_horarios_locais.horarioInicio[]', '12:00', array('class' => 'form-control'))}}
-                                                </div>
-                                                <div class="col-xs-4">
-                                                    {{Form::time('atividades_datas_horarios_locais.horarioTermino[]', '13:00', array('class' => 'form-control'))}}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                                {{Form::select('atividades_datas_horarios_locais.idLocais[]', $locais, null, array('class' => 'form-control'))}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="btn btn-default btn-lg" id="adicionarLinha" role="button"><span class="glyphicon glyphicon-plus"></span></a>
-                                            <a class="btn btn-default btn-lg" id="removerLinha" role="button"><span class="glyphicon glyphicon-minus"></span></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <fieldset class="checkbox">
+                                <label for="eventos_caracteristicas.ePropostaAtividade">
+                                    {{Form::checkbox('eventos_caracteristicas.ePropostaAtividade', true, true,  array('id' => 'eventos_caracteristicas.ePropostaAtividade')) }} Aceita propostas de atividades?
+                                </label>
+                                @if ($errors->has('eventos_caracteristicas.ePropostaAtividade')) <p class="help-block">{{ $errors->first('eventos_caracteristicas.ePropostaAtividade') }}</p> @endif
+                            </fieldset>
                         </div>
                     </div>
                 </div>
@@ -132,50 +94,5 @@
             {{Form::close()}}
         </div>
     </div>
-
-    <script type="application/javascript">
-        var contadorData = 0;
-        var contadorHorario = 0;
-        var contadorLocal = 0;
-
-        $('#adicionarLinha').on("click", function(){
-            var ultimaLinha     = $(".linhaDeConteudo:last");
-            var primeiraColuna  = ultimaLinha.children(":first");
-            var segundaColuna   = primeiraColuna.next();
-            var terceiraColuna  = segundaColuna.next();
-
-            var novaLinha       = $("<tr/>").attr('class', 'linhaDeConteudo');
-            contadorData++;
-
-            var novaPrimeiraColuna  = primeiraColuna.clone();
-            var primeiroInput       = $(novaPrimeiraColuna).find("input:first");
-            primeiroInput.attr('name', 'atividades_datas.data[]');//+contadorData+']');
-
-            var novaSegundaColuna       = segundaColuna.clone();
-            var primeiroInputHorario    = $(novaSegundaColuna).find("input:first");
-            primeiroInputHorario.attr('name', 'horarios.inicio['+contadorData+'][0]');
-            var segundoInputHorario     = $(novaSegundaColuna).find("input:last");
-            segundoInputHorario.attr('name', 'horarios.termino['+contadorData+'][0]');
-
-            var novaTerceiraColuna  = terceiraColuna.clone();
-            var terceiroInput       = $(novaTerceiraColuna).find("select:first");
-            terceiroInput.attr('name', 'locais.id['+contadorData+']['+contadorHorario+']');
-
-            novaLinha.append(novaPrimeiraColuna, novaSegundaColuna, novaTerceiraColuna);
-            ultimaLinha.before(novaLinha);
-        });
-
-        $('#adicionarHorario').on('click', function () {
-            var linhaAtual  = $(this).closest('.horarios');
-            var colunaAtual = $(this).closest('.row');
-
-
-        });
-
-        $('#removerLinha').on("click", function() {
-            $(".linhaDeConteudo:visible:last").remove();
-        });
-
-    </script>
 
 @endsection

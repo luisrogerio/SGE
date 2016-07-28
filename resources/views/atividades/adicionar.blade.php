@@ -42,20 +42,10 @@
                                 @if ($errors->has('atividades.descricao')) <p class="help-block">{{ $errors->first('descricao') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('', 'Cursos') }}
-                                <p class="help-block">Marque nenhum para deixar aberto para qualquer público.</p>
-                                <?php $i=0; ?>
-                                <div class="row">
-                                @foreach($cursos as $curso)
+                                {{Form::label('atividades.idCursos', 'Cursos')}}
+                                {{Form::select('atividades.idCursos', $cursos, null,  array('class' => 'form-control idCursos', 'multiple'))}}
 
-                                        <div class="col-sm-3">
-                                    {{Form::checkbox('atividades.idCursos['.$i.']', $curso->id, false,
-                                        ['id' => 'atividades.idCursos['.$i.']'])}} {{Form::label('atividades.idCursos['.$i.']', $curso->sigla)}}
-                                    <?php $i++; ?>
-                                        </div>
-                                @endforeach
-                                </div>
-                                @if ($errors->has('atividades.idCursos['.$i.']')) <p class="help-block">{{$errors->first('atividades.idCursos['.$i.']')}}</p> @endif
+                                @if ($errors->has('atividades.idCursos')) <p class="help-block">{{$errors->first('atividades.idCursos')}}</p> @endif
                             </fieldset>
                         </div>
                     </div>
@@ -170,6 +160,10 @@
             var colunaAtual = $(this).closest('.row');
 
 
+        });
+
+        $('.idCursos').select2({
+            theme : 'bootstrap'
         });
 
         $('#removerLinha').on("click", function() {
