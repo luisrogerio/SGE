@@ -28,8 +28,12 @@ class Atividade extends Model
         return $this->belongsToMany('App\Models\Curso', 'atividades_cursos', 'idAtividades', 'idCursos');
     }
 
-    public function atividadesDatas(){
-        return $this->hasMany('App\Models\AtividadeData', 'idAtividades');
+//    public function atividadesDatas(){
+//        return $this->hasMany('App\Models\AtividadeData', 'idAtividades');
+//    }
+
+    public function atividadesDatasHorariosLocais(){
+        return $this->hasMany('App\Models\AtividadeDataHorariosLocais', 'idAtividades');
     }
 
     public function horarios(){

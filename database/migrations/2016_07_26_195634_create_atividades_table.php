@@ -21,7 +21,7 @@ class CreateAtividadesTable extends Migration {
 			$table->integer('quantidadeVagas')->nullable();
 			$table->text('descricao')->nullable();
 			$table->dateTime('criadoEm')->nullable();
-			$table->dateTime('nodificadoEm')->nullable();
+			$table->dateTime('modificadoEm')->nullable();
 			$table->integer('salvoPor')->nullable()->index('fk_atividades_usuarios1_idx');
 		});
 	}

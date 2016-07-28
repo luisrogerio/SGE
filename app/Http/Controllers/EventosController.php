@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evento;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,7 @@ class EventosController extends Controller
 
     public function getIndex(){
         $eventos = $this->evento->orderBy('nome')->paginate(5);
-        return view('eventos.index', compact('eventos'));
+        return view('eventos.indexTeste', compact('eventos'));
     }
 
     public function getAdicionar(){
