@@ -31,4 +31,6 @@ Route::controller('/atividades', 'AtividadesController');
 
 Route::controller('/eventos', 'EventosController');
 
+Route::controller('/contatos', 'EventosContatosController');
+
 Route::get('/teste',function(){return view('testes.teste');});
