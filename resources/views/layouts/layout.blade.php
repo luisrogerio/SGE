@@ -11,6 +11,7 @@
     {{ Html::style('css/font-awesome.min.css') }}
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     {{ Html::script('js/bootstrap.js') }}
+    {{ Html::script('js/select2.js') }}
 
     <title>SGE - @yield('title')</title>
 </head>
