@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventoCaracteristica extends Model
 {
-    protected   $table      = 'EventosCaracteristicas';
+    protected   $table      = 'eventos_caracteristicas';
     protected   $fillable   = [
         'id'                        ,
 		'idAparencias'              ,
@@ -24,13 +24,14 @@ class EventoCaracteristica extends Model
 		'modificadoEm'              ,
 		'salvoPor'
     ];
+    public $timestamps = false;
 
     public function evento(){
-        $this->belongsTo('App\Models\Evento', 'idEventosCaracteristicas');
+        return $this->belongsTo('App\Models\Evento', 'idEventos');
     }
 
     public function aparencia(){
-        $this->belongsTo('App\Models\Aparencia','idAparencia');
+        return $this->belongsTo('App\Models\Aparencia','idAparencia');
     }
 
 }

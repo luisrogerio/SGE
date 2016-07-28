@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aparencia;
 use App\Models\Evento;
+use App\Models\EventoContato;
 use Illuminate\Http\Request;
+use App\Http\Requests\EventosRequest;
 
 use App\Http\Requests;
+use Mockery\CountValidator\Exception;
 
 class EventosController extends Controller
 {
@@ -21,14 +25,22 @@ class EventosController extends Controller
     }
 
     public function getAdicionar(){
-        return view('eventos.adicionar');
+        $contatos = EventoContato::get()->lists('nome', 'id');
+        $temas = Aparencia::get()->lists('tema', 'id');
+        return view('eventos.adicionar', compact('contatos', 'temas'));
     }
 
     public function postSalvar(EventosRequest $request){
-        $this->evento->fill($request->all());
-        if ($this->evento->save()) {
-            return redirect('/eventos');
+        \DB::beginTransaction();
+        try {
+            $this->evento = $this->evento->create($request->get('eventos'));
+            $this->evento->eventosCaractiristicas()->create($request->get('eventosCaracteristicas'));
+        } catch(Exception $e){
+            \DB::rollBack();
+            \Session::flash('message', 'Falha ao salvar evento');
         }
+        \DB::commit();
+        return redirect('/eventos');
     }
 
     public function getEditar($id){

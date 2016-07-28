@@ -22,6 +22,6 @@ class EventoContato extends Model
     ];
 
     public function evento(){
-        $this->belongsTo('App\Models\Evento','idEvento');
+        $this->belongsToMany('App\Models\Evento', 'contatos_eventos', 'idEventosContatos', 'idEventos');
     }
 }

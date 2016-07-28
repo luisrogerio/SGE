@@ -14,15 +14,14 @@ class CreateEventosTable extends Migration {
 	{
 		Schema::create('eventos', function(Blueprint $table)
 		{
-			$table->integer('id')->primary();
+			$table->integer('id', true);
 			$table->integer('idEdicaoAnterior')->nullable()->index('fk_eventos_eventos2_idx');
-			$table->integer('idEventosCaracteristicas')->index('fk_eventos_eventos_configuracoes1_idx');
 			$table->integer('idPai')->nullable()->index('fk_eventos_eventos1_idx');
 			$table->string('nome', 45);
 			$table->dateTime('dataInicioInscricao');
 			$table->dateTime('dataFimInscricao');
 			$table->dateTime('dataInicio');
-			$table->dateTime('dataFim');
+			$table->dateTime('dataTermino');
 			$table->text('descricao')->nullable();
 			$table->dateTime('criadoEm')->nullable();
 			$table->dateTime('modificadoEm')->nullable();
