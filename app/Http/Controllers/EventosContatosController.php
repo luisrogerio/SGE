@@ -17,11 +17,11 @@ class EventosContatosController extends Controller
 
     public function getIndex(){
         $eventosContatos = $this->eventoContato->orderBy('nome')->paginate(5);
-        return view('eventosContatos.index', compact('eventosContatos'));
+        return view('contatos.index', compact('eventosContatos'));
     }
 
     public function getAdicionar(){
-        return view('eventosContatos.adicionar');
+        return view('contatos.adicionar');
     }
 
     public function postSalvar(EventosContatosRequest $request){
@@ -35,9 +35,7 @@ class EventosContatosController extends Controller
     public function getEditar($id){
         $eventoContato = $this->eventoContato->findOrFail($id);
         $eventoContato->redesSociais = explode('<br>', $eventoContato->redesSociais);
-        $eventoContato->facebook = $eventoContato->redesSociais[0];
-        $eventoContato->twitter = $eventoContato->redesSociais[1];
-        return view('eventosContatos.editar', compact('eventoContato'));
+        return view('contatos.editar', compact('eventoContato'));
     }
 
     public function postAtualizar(EventosContatosRequest $request, $id){
