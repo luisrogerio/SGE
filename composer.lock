@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f069669a2630bf4c6fe7f8fe3b7bc74b",
-    "content-hash": "05de942f74f891f967d91ff94e3f2221",
+    "hash": "41d002963b2a455ff7ed18f11b87ddc5",
+    "content-hash": "aed6c8c0a23778b2831995bc041c2355",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -229,6 +229,47 @@
                 "preload"
             ],
             "time": "2015-11-09 22:51:51"
+        },
+        {
+            "name": "cossou/jasperphp",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cossou/JasperPHP.git",
+                "reference": "6e222fb5cf7b3b0f7118060784919c229c63b4bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cossou/JasperPHP/zipball/6e222fb5cf7b3b0f7118060784919c229c63b4bf",
+                "reference": "6e222fb5cf7b3b0f7118060784919c229c63b4bf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JasperPHP": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hélder Duarte",
+                    "email": "cossou@gmail.com"
+                }
+            ],
+            "description": "Create Reports in PHP with JasperReports",
+            "homepage": "https://github.com/cossou/JasperPHP",
+            "keywords": [
+                "jasper",
+                "jasperreports",
+                "java",
+                "pdf",
+                "reports"
+            ],
+            "time": "2015-10-16 09:07:06"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
