@@ -34,7 +34,15 @@ class EventosController extends Controller
         \DB::beginTransaction();
         try {
             $this->evento = $this->evento->create($request->get('eventos'));
-            $this->evento->eventosCaractiristicas()->create($request->get('eventosCaracteristicas'));
+            $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
+            $eventoCaracteristica = $request->eventosCaracteristicas;
+            if($request->hasFile('eventosCaracteristicas.logoImagem') && $request->file('eventosCaracteristicas.logoImagem')->isValid()){
+                $destino = '/uploads/eventos/';
+                $extensao = $request->file('eventosCaracteristicas.logoImagem')->getClientOriginalExtension();
+                $arquivoNome = 'logo.'.$extensao;
+                $eventoCaracteristica['logo'] = $arquivoNome;
+            }
+            $this->evento->eventosCaractiristicas()->create($eventoCaracteristica);
         } catch(Exception $e){
             \DB::rollBack();
             \Session::flash('message', 'Falha ao salvar evento');
