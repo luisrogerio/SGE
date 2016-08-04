@@ -6,7 +6,8 @@
         @foreach($eventos as $evento)
             <div class="row">
                 <div class="col-md-2">
-                    <img src="/imagens/1.png" class="img-thumbnail img-circle" >
+                    <!--<img src="/imagens/1.png" class="img-thumbnail img-circle" >-->
+                    <img src="/uploads/eventos/{!!$evento->id!!}/logo.jpg" class="img-thumbnail img-circle" >
                 </div>
                 <div class="col-md-10">
                     <h3> {{$evento->nome}}</h3>
