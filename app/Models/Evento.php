@@ -15,7 +15,7 @@ class Evento extends Model
         'dataInicioInscricao'       ,
         'dataFimInscricao'          ,
         'dataInicio'                ,
-        'dataFim'                   ,
+        'dataTermino'               ,
         'descricao'                 ,
         'criadoEm'                  ,
         'modificadoEm'              ,
@@ -25,35 +25,41 @@ class Evento extends Model
     public $timestamps = false;
 
     public function eventoEdicaoAnterior(){
-        $this->hasOne('App\Models\Evento','idEdicaoAnterior', 'id');
+        return $this->hasOne('App\Models\Evento','idEdicaoAnterior', 'id');
     }
 
     public function eventoEdicaoPosterior(){
-        $this->belongsTo('App\Models\Evento','idEdicaoAnterior');
+        return $this->belongsTo('App\Models\Evento','idEdicaoAnterior');
     }
 
     public function eventosFilhos(){
-        $this->hasOne('App\Models\Evento','idPai', 'id');
+        return $this->hasOne('App\Models\Evento','idPai', 'id');
     }
 
     public function eventoPai(){
-        $this->belongsToMany('App\Models\Evento','idPai');
+        return $this->belongsTo('App\Models\Evento','idPai');
     }
 
     public function eventosCaractiristicas(){
-        $this->belongsTo('App\Models\EventoCaracteristica','idEventosCaracteristicas' );
+        return $this->hasOne('App\Models\EventoCaracteristica', 'idEventos');
     }
 
     public function eventosContatos(){
-        $this->hasMany('App\Models\EventoContato','idEventos');
+        return $this->belongsToMany('App\Models\EventoContato', 'contatos_eventos', 'idEventos', 'idEventosContatos');
     }
 
     public function eventosImagens(){
-        $this->hasMany('App\Models\EventoImagem','idEventos');
+        return $this->hasMany('App\Models\EventoImagem','idEventos');
     }
 
     public function eventosNoticias(){
-        $this->hasMany('App\Models\EventoNoticia', 'idEventos');
+        return $this->hasMany('App\Models\EventoNoticia', 'idEventos');
+    }
+
+    public function aparencia(){
+        return $this->hasManyThrough('App\Models\Aparencia', 'App\Models\EventoCaracteristica',
+            'idEventos', 'idEventosCaracteristicas', 'id'
+        );
     }
 
 }

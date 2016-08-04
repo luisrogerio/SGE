@@ -14,7 +14,6 @@ class AddForeignKeysToEventosContatosTable extends Migration {
 	{
 		Schema::table('eventos_contatos', function(Blueprint $table)
 		{
-			$table->foreign('idEventos', 'fk_contatos_eventos1')->references('id')->on('eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('salvoPor', 'fk_eventos_contatos_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
@@ -29,7 +28,6 @@ class AddForeignKeysToEventosContatosTable extends Migration {
 	{
 		Schema::table('eventos_contatos', function(Blueprint $table)
 		{
-			$table->dropForeign('fk_contatos_eventos1');
 			$table->dropForeign('fk_eventos_contatos_usuarios1');
 		});
 	}
