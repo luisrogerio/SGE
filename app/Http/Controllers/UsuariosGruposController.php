@@ -1,12 +1,12 @@
 <?php
 
-namespace SGE\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use SGE\Http\Requests;
-use SGE\Models\UsuarioGrupo;
-use SGE\Http\Requests\UsuariosGruposRequest;
+use App\Http\Requests;
+use App\Models\UsuarioGrupo;
+use App\Http\Requests\UsuariosGruposRequest;
 
 class UsuariosGruposController extends Controller{
     private $usuarioGrupo;

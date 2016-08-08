@@ -1,11 +1,11 @@
 <?php
 
-namespace SGE\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SGE\Models\AtividadeTipo;
-use SGE\Http\Requests\AtividadesTiposRequest;
-use SGE\Http\Requests;
+use App\Models\AtividadeTipo;
+use App\Http\Requests\AtividadesTiposRequest;
+use App\Http\Requests;
 
 class AtividadesTiposController extends Controller
 {

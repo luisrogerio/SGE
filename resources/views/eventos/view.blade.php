@@ -7,9 +7,9 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-2">
-                    <h4>Data do Evento</h4>
-                    <p class="h3 text-left">
+                <div class="col-xs-12 col-md-2">
+                    <h4 class="text-center">Data do Evento</h4>
+                    <p class="h3 text-center">
                         {{ $evento->dataInicio->day }}
                         <small>de </small>
                             <span class="h4 text-capitalize">
@@ -19,8 +19,8 @@
                         <small> de</small>
                         {{ $evento->dataInicio->year }}
                     </p>
-                    <p class="text-capitalize">até</p>
-                    <p class="h3 text-left">
+                    <p class="text-center text-capitalize">até</p>
+                    <p class="h3 text-center">
                         {{ $evento->dataTermino->day }}
                         <small>de </small>
                         <span class="h4 text-capitalize">
@@ -30,13 +30,18 @@
                         <small> de</small>
                         {{ $evento->dataTermino->year }}
                     </p>
+                    <hr>
                 </div>
-                <div class="col-md-10">
-                    <h3>Data de Inscrição</h3>
+                <div class="col-xs-12 col-md-10">
+                    <h4>Data de Inscrição</h4>
                     <p>{{ $evento->dataInicioInscricao->formatLocalized('%d de %B de %Y')}} até
                         {{ $evento->dataFimInscricao->formatLocalized('%d de %B de %Y')}}
                     </p>
-                    <h3>Características</h3>
+                    @if( $evento->eventoEdicaoAnterior != null)
+                        <h4>Edições Anteriores</h4>
+                        {{ link_to_action('EventosController@getVisualizar', array('id' => $evento->eventoEdicaoAnterior->id)) }}
+                    @endif
+                    <h4>Características</h4>
                     <ul class="list-group">
                         <li class="list-group-item {{
                             ($evento->eventoCaracteristica->eEmiteCertificado)?
@@ -79,6 +84,9 @@
                             Haverá Proposta de Atividade
                         </li>
                     </ul>
+                    {{ link_to_action('EventosController@getEditar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
+                    {{ link_to_action('AtividadesController@getAdicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
+
                 </div>
             </div>
         </div>

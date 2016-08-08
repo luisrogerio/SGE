@@ -1,6 +1,6 @@
 <?php
 
-namespace SGE;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,6 +23,6 @@ class EventoNoticia extends Model
     ];
 
     public function evento(){
-        $this->belongsTo('SGE\Models\Evento','idEvento');
+        $this->belongsTo('App\Models\Evento','idEvento');
     }
 }

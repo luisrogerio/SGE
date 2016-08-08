@@ -1,6 +1,6 @@
 <?php
 
-namespace SGE\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,22 +21,22 @@ class Atividade extends Model
     public $timestamps = false;
 
     public function atividadesTipos(){
-        return $this->belongsTo('SGE\Models\AtividadeTipo', 'idAtividadesTipos');
+        return $this->belongsTo('App\Models\AtividadeTipo', 'idAtividadesTipos');
     }
 
     public function cursos(){
-        return $this->belongsToMany('SGE\Models\Curso', 'atividades_cursos', 'idAtividades', 'idCursos');
+        return $this->belongsToMany('App\Models\Curso', 'atividades_cursos', 'idAtividades', 'idCursos');
     }
 
 //    public function atividadesDatas(){
-//        return $this->hasMany('SGE\Models\AtividadeData', 'idAtividades');
+//        return $this->hasMany('App\Models\AtividadeData', 'idAtividades');
 //    }
 
     public function atividadesDatasHorariosLocais(){
-        return $this->hasMany('SGE\Models\AtividadeDataHorariosLocais', 'idAtividades');
+        return $this->hasMany('App\Models\AtividadeDataHorariosLocais', 'idAtividades');
     }
 
     public function horarios(){
-        return $this->hasManyThrough('SGE\Models\Horario', 'SGE\Models\AtividadeData', 'idAtividades', 'idAtividadesDatas', 'id');
+        return $this->hasManyThrough('App\Models\Horario', 'App\Models\AtividadeData', 'idAtividades', 'idAtividadesDatas', 'id');
     }
 }

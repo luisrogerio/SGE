@@ -1,12 +1,12 @@
 <?php
 
-namespace SGE\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use SGE\Http\Requests;
-use SGE\Models\AtividadeStatus;
-use SGE\Http\Requests\AtividadesStatusRequest;
+use App\Http\Requests;
+use App\Models\AtividadeStatus;
+use App\Http\Requests\AtividadesStatusRequest;
 
 class AtividadesStatusConroller extends Controller
 {
