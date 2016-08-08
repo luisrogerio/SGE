@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace SGE\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,14 +24,17 @@ class EventoCaracteristica extends Model
 		'modificadoEm'              ,
 		'salvoPor'
     ];
+    protected $dates        = [
+        'dataLiberacaoCertificado'
+    ];
     public $timestamps = false;
 
     public function evento(){
-        return $this->belongsTo('App\Models\Evento', 'idEventos');
+        return $this->belongsTo('SGE\Models\Evento', 'idEventos');
     }
 
     public function aparencia(){
-        return $this->belongsTo('App\Models\Aparencia','idAparencia');
+        return $this->belongsTo('SGE\Models\Aparencia','idAparencia');
     }
 
 }

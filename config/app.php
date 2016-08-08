@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'locale' => 'pt',
+    'locale' => 'pt-br',
 
     /*
     |--------------------------------------------------------------------------
@@ -151,10 +151,10 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        SGE\Providers\AppServiceProvider::class,
+        SGE\Providers\AuthServiceProvider::class,
+        SGE\Providers\EventServiceProvider::class,
+        SGE\Providers\RouteServiceProvider::class,
 
         /*
          * Other plugins and features
