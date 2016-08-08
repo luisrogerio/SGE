@@ -1,6 +1,6 @@
 <?php
 
-namespace SGE\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,11 +30,11 @@ class EventoCaracteristica extends Model
     public $timestamps = false;
 
     public function evento(){
-        return $this->belongsTo('SGE\Models\Evento', 'idEventos');
+        return $this->belongsTo('App\Models\Evento', 'idEventos');
     }
 
     public function aparencia(){
-        return $this->belongsTo('SGE\Models\Aparencia','idAparencia');
+        return $this->belongsTo('App\Models\Aparencia','idAparencia');
     }
 
 }

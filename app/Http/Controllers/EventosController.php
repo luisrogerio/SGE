@@ -1,15 +1,15 @@
 <?php
 
-namespace SGE\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use SGE\Models\Aparencia;
-use SGE\Models\Evento;
-use SGE\Models\EventoContato;
+use App\Models\Aparencia;
+use App\Models\Evento;
+use App\Models\EventoContato;
 use Illuminate\Http\Request;
-use SGE\Http\Requests\EventosRequest;
+use App\Http\Requests\EventosRequest;
 
-use SGE\Http\Requests;
+use App\Http\Requests;
 use Mockery\CountValidator\Exception;
 
 class EventosController extends Controller

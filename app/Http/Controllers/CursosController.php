@@ -1,12 +1,12 @@
 <?php
 
-namespace SGE\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use SGE\Http\Requests;
-use SGE\Models\Curso;
-use SGE\Http\Requests\CursosRequest;
+use App\Http\Requests;
+use App\Models\Curso;
+use App\Http\Requests\CursosRequest;
 
 class CursosController extends Controller{
     private $curso;
