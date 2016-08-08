@@ -1,11 +1,11 @@
 <?php
 
-namespace SGE\Http\Controllers;
+namespace App\Http\Controllers;
 
-use SGE\Models\EventoContato;
+use App\Models\EventoContato;
 use Illuminate\Http\Request;
-use SGE\Http\Requests\EventosContatosRequest;
-use SGE\Http\Requests;
+use App\Http\Requests\EventosContatosRequest;
+use App\Http\Requests;
 
 class EventosContatosController extends Controller
 {

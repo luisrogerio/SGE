@@ -1,6 +1,6 @@
 <?php
 
-namespace SGE\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,39 +32,39 @@ class Evento extends Model
     public $timestamps = false;
 
     public function eventoEdicaoAnterior(){
-        return $this->hasOne('SGE\Models\Evento','idEdicaoAnterior', 'id');
+        return $this->hasOne('App\Models\Evento','idEdicaoAnterior', 'id');
     }
 
     public function eventoEdicaoPosterior(){
-        return $this->belongsTo('SGE\Models\Evento','idEdicaoAnterior');
+        return $this->belongsTo('App\Models\Evento','idEdicaoAnterior');
     }
 
     public function eventosFilhos(){
-        return $this->hasOne('SGE\Models\Evento','idPai', 'id');
+        return $this->hasOne('App\Models\Evento','idPai', 'id');
     }
 
     public function eventoPai(){
-        return $this->belongsTo('SGE\Models\Evento','idPai');
+        return $this->belongsTo('App\Models\Evento','idPai');
     }
 
     public function eventoCaracteristica(){
-        return $this->hasOne('SGE\Models\EventoCaracteristica', 'idEventos');
+        return $this->hasOne('App\Models\EventoCaracteristica', 'idEventos');
     }
 
     public function eventosContatos(){
-        return $this->belongsToMany('SGE\Models\EventoContato', 'contatos_eventos', 'idEventos', 'idEventosContatos');
+        return $this->belongsToMany('App\Models\EventoContato', 'contatos_eventos', 'idEventos', 'idEventosContatos');
     }
 
     public function eventosImagens(){
-        return $this->hasMany('SGE\Models\EventoImagem','idEventos');
+        return $this->hasMany('App\Models\EventoImagem','idEventos');
     }
 
     public function eventosNoticias(){
-        return $this->hasMany('SGE\Models\EventoNoticia', 'idEventos');
+        return $this->hasMany('App\Models\EventoNoticia', 'idEventos');
     }
 
     public function aparencia(){
-        return $this->hasManyThrough('SGE\Models\Aparencia', 'SGE\Models\EventoCaracteristica',
+        return $this->hasManyThrough('App\Models\Aparencia', 'App\Models\EventoCaracteristica',
             'idEventos', 'idEventosCaracteristicas', 'id'
         );
     }

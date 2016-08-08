@@ -1,6 +1,6 @@
 <?php
 
-namespace SGE\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +11,6 @@ class AtividadeTipo extends Model
     public      $timestamps = false;
 
     public function atividade(){
-        return $this->hasMany('SGE\Models\Atividade');
+        return $this->hasMany('App\Models\Atividade');
     }
 }

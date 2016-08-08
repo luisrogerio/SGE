@@ -1,8 +1,8 @@
 <?php
 
-namespace SGE\Http\Requests;
+namespace App\Http\Requests;
 
-use SGE\Http\Requests\Request;
+use App\Http\Requests\Request;
 
 class EventosRequest extends Request
 {
