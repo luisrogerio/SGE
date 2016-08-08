@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SGE\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Local;
-use App\Http\Requests\LocaisRequest;
-use App\Http\Requests;
+use SGE\Models\Local;
+use SGE\Http\Requests\LocaisRequest;
+use SGE\Http\Requests;
 
 class LocaisController extends Controller
 {

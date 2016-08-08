@@ -29,6 +29,11 @@
                                 @if ($errors->has('eventos.descricao')) <p class="help-block">{{ $errors->first('eventos.descricao') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
+                                {{Form::label('eventos[idEdicaoAnterior]', 'Edição Anterior')}}
+                                {{Form::select('eventos[idEdicaoAnterior]', $edicoesAnteriores, null, array('class' => 'form-control', 'placeholder' => 'Selecione o Evento de Edição Anterior (Opcional)'))}}
+                                @if ($errors->has('eventos.idEdicaoAnterior')) <p class="help-block">{{ $errors->first('eventos.idEdicaoAnterior') }}</p> @endif
+                            </fieldset>
+                            <fieldset class="form-group">
                                 {{Form::label('eventos[dataInicioInscricao]', 'Data de Início da Inscrição')}}
                                 {{Form::date('eventos[dataInicioInscricao]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
                                 @if ($errors->has('eventos.dataInicioInscricao')) <p class="help-block">{{ $errors->first('eventos.dataInicioInscricao') }}</p> @endif
@@ -58,14 +63,14 @@
                     <div role="tabpanel1" class="tab-pane fade" id="caracteristica">
                         <div class="well">
                             <fieldset class="checkbox form-group">
-                                <label for="eventosCaracteristicas[eEmiteCertificado]">
-                                    {{Form::checkbox('eventosCaracteristicas[eEmiteCertificado]', true, true,  array('id' => 'eventosCaracteristicas[eEmiteCertificado')) }} O evento emitirá Certificado?
+                                <label for="eEmiteCertificado">
+                                    {{Form::checkbox('eventosCaracteristicas[eEmiteCertificado]', true, true,  array('id' => 'eEmiteCertificado')) }} O evento emitirá Certificado?
                                 </label>
                                 @if ($errors->has('eventosCaracteristicas.eEmiteCertificado')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.eEmiteCertificado') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('eventosCaracteristicas[dataLiberacaoCertificado]', 'Data de Liberação de Certificado')}}
-                                {{Form::date('eventosCaracteristicas[dataLiberacaoCertificado]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
+                                {{Form::label('dataLiberacaoCertificado', 'Data de Liberação de Certificado')}}
+                                {{Form::date('eventosCaracteristicas[dataLiberacaoCertificado]', \Carbon\Carbon::now(), array('class' => 'form-control', 'id' => 'dataLiberacaoCertificado')) }}
                                 @if ($errors->has('eventosCaracteristicas.dataLiberacaoCertificado')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.dataLiberacaoCertificado') }}</p> @endif
                             </fieldset>
                             <fieldset class="checkbox">
@@ -97,6 +102,19 @@
                                 {{Form::select('eventosCaracteristicas[idAparencias]', $temas, null, array('class' => 'form-control')) }}
                                 @if ($errors->has('eventosCaracteristicas.idAparencias')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.idAparencias') }}</p> @endif
                             </fieldset>
+                            <fieldset class="form-group form-inline">
+                                {{Form::label('planoDeFundo', 'Plano de Fundo')}}
+                                <label for="planoDeFundoCor">
+                                    {{Form::radio('planoDeFundo', true, true, array('id' => 'planoDeFundoCor'))}} Cor de Fundo
+                                </label>
+                                <label for="planoDeFundoImagem">
+                                    {{Form::radio('planoDeFundo', true, false, array('id' => 'planoDeFundoImagem'))}} Imagem de Fundo
+                                </label>
+                            </fieldset>
+                            <div id="planoDeFundo" class="form-group">
+                                {{Form::color('eventosCaracteristicas[backgroundColor]', null, array('class' => 'form-control'))}}
+                                {{Form::file('eventosCaracteristicas[background]', array('style' => 'display:none'))}}
+                            </div>
                             <fieldset class="form-group">
                                 {{Form::label('eventosCaracteristicas[logoImagem]', 'Logo')}}
                                 {!! Form::file('eventosCaracteristicas[logoImagem]') !!}
@@ -112,6 +130,21 @@
     <script type="application/javascript">
         $('.eventosContatos').select2({
             theme: 'bootstrap'
+        });
+        $('#planoDeFundoCor').on('click', function(){
+            $('#planoDeFundo').find('input[type="color"]').fadeIn();
+            $('#planoDeFundo').find('input[type="file"]').fadeOut();
+        });
+        $('#planoDeFundoImagem').on('click', function(){
+            $('#planoDeFundo').find('input[type="color"]').fadeOut();
+            $('#planoDeFundo').find('input[type="file"]').fadeIn();
+        });
+        $('#eEmiteCertificado').on('change', function(){
+            if($(this).is(':checked')){
+                $('#dataLiberacaoCertificado').attr('disabled', null);
+            } else {
+                $('#dataLiberacaoCertificado').attr('disabled', 'disabled');
+            }
         });
     </script>
 @endsection

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SGE\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UsuarioTipo;
-use App\Http\Requests\UsuariosTiposRequest;
-use App\Http\Requests;
+use SGE\Models\UsuarioTipo;
+use SGE\Http\Requests\UsuariosTiposRequest;
+use SGE\Http\Requests;
 
 class UsuariosTiposController extends Controller
 {

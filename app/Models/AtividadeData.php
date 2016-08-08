@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace SGE\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,10 +10,10 @@ class AtividadeData extends Model{
     public      $timestamps = false;
 
     public function horarios(){
-        $this->hasMany('App\Models\Horario', 'idAtividadesDatas');
+        $this->hasMany('SGE\Models\Horario', 'idAtividadesDatas');
     }
 
     public function atividade(){
-        $this->belongsTo('App\Models\Atividade', 'idAtividades');
+        $this->belongsTo('SGE\Models\Atividade', 'idAtividades');
     }
 }
