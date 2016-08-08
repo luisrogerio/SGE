@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace SGE\Http\Requests;
 
-use App\Http\Requests\Request;
+use SGE\Http\Requests\Request;
 
 class UsuariosGruposRequest extends Request
 {

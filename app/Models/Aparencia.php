@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace SGE\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ class Aparencia extends Model
     ];
 
     public function eventosCaracteristicas(){
-        $this->hasMany('App\Models\EventoCaracteristica','idAparencias');
+        $this->hasMany('SGE\Models\EventoCaracteristica','idAparencias');
     }
 
 }

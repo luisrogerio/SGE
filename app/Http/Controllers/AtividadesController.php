@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SGE\Http\Controllers;
 
-use App\Models\AtividadeTipo;
-use App\Models\Local;
+use SGE\Models\AtividadeTipo;
+use SGE\Models\Local;
 use DebugBar\DebugBar;
 use Illuminate\Http\Request;
-use App\Models\Atividade;
-use App\Http\Requests\AtividadesRequest;
-use App\Http\Requests;
-use App\Models\Curso;
+use SGE\Models\Atividade;
+use SGE\Http\Requests\AtividadesRequest;
+use SGE\Http\Requests;
+use SGE\Models\Curso;
 
 class AtividadesController extends Controller
 {

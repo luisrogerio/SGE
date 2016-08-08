@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace SGE\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,10 +10,10 @@ class Horario extends Model{
     public $timestamps = false;
 
     public function locais(){
-        return $this->belongsToMany('App\Models\Local', 'horarios_locais', 'idHorarios', 'idLocais')->withPivot('criadoEm', 'modificadoEm', 'salvoPor');
+        return $this->belongsToMany('SGE\Models\Local', 'horarios_locais', 'idHorarios', 'idLocais')->withPivot('criadoEm', 'modificadoEm', 'salvoPor');
     }
 
     public function atividadeData(){
-        return $this->belongsTo('App\Models\AtividadeData', 'idAtividadesDatas');
+        return $this->belongsTo('SGE\Models\AtividadeData', 'idAtividadesDatas');
     }
 }

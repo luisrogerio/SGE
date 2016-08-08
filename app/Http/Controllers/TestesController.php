@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SGE\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use SGE\Http\Requests;
 
 class TestesController extends Controller
 {
