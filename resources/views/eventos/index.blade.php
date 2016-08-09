@@ -9,7 +9,7 @@
                     <img src="/uploads/eventos/{{ $evento->id }}/{{ $evento->eventoCaracteristica->logo }}" class="img-thumbnail img-circle">
                 </div>
                 <div class="col-md-10">
-                    <h3> {{$evento->nome}}</h3>
+                    <a href="{{ action('EventosController@getVisualizar', array('id' => $evento->id)) }}" class="h3"><small><i class="glyphicon glyphicon-log-in"></i></small> {{$evento->nome }}</a>
                     <blockquote>
                         <p>{!! $evento->descricao !!}}</p>
                     </blockquote>

@@ -55,15 +55,17 @@ class EventosController extends Controller
     }
 
     public function getVisualizar($id){
-        setlocale(LC_ALL, "pt_BR", "pt_BR.iso-8859-1", "pt_BR.utf-8", "portuguese");
-        date_default_timezone_set('America/Sao_Paulo');
         $evento = $this->evento->findOrFail($id);
         return view('eventos.view', compact('evento'));
     }
 
     public function getEditar($id){
-        $evento = $this->evento->findOrFail($id);
-        return view('eventos.editar', compact('evento'));
+        $evento = $this->evento->with('eventoCaracteristica', 'eventosContatos')->findOrFail($id);
+        $contatosSelecionados = $evento->eventosContatos->pluck('id')->toArray();
+        $eventosContatos = EventoContato::get()->lists('nome', 'id');
+        $temas = Aparencia::get()->lists('tema', 'id');
+        $edicoesAnteriores = $this->evento->lists('nome', 'id');
+        return view('eventos.editar', compact('evento', 'eventosContatos', 'contatosSelecionados', 'temas', 'edicoesAnteriores'));
     }
 
     public function postAtualizar(EventosRequest $request, $id){
