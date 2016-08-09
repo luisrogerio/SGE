@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('title', 'Eventos')
 @section('content')
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>Adicionar Novo</h3>
@@ -33,26 +34,42 @@
                                 {{Form::select('eventos[idEdicaoAnterior]', $edicoesAnteriores, null, array('class' => 'form-control', 'placeholder' => 'Selecione o Evento de Edição Anterior (Opcional)'))}}
                                 @if ($errors->has('eventos.idEdicaoAnterior')) <p class="help-block">{{ $errors->first('eventos.idEdicaoAnterior') }}</p> @endif
                             </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('eventos[dataInicioInscricao]', 'Data de Início da Inscrição')}}
-                                {{Form::date('eventos[dataInicioInscricao]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
-                                @if ($errors->has('eventos.dataInicioInscricao')) <p class="help-block">{{ $errors->first('eventos.dataInicioInscricao') }}</p> @endif
-                            </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('eventos[dataFimInscricao]', 'Data de Término da Inscrição')}}
-                                {{Form::date('eventos[dataFimInscricao]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
-                                @if ($errors->has('eventos.dataFimInscricao')) <p class="help-block">{{ $errors->first('eventos.dataFimInscricao') }}</p> @endif
-                            </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('eventos[dataInicio]', 'Data de Início do Evento')}}
-                                {{Form::date('eventos[dataInicio]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
-                                @if ($errors->has('eventos.dataInicio')) <p class="help-block">{{ $errors->first('eventos.dataInicio') }}</p> @endif
-                            </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('eventos[dataTermino]', 'Data de Término do Evento')}}
-                                {{Form::date('eventos[dataTermino]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
-                                @if ($errors->has('eventos.dataTermino')) <p class="help-block">{{ $errors->first('eventos.dataTermino') }}</p> @endif
-                            </fieldset>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <fieldset class="form-group">
+                                        {{Form::label('eventos[dataInicioInscricao]', 'Data de Início da Inscrição')}}
+                                        {{Form::text('eventos[dataInicioInscricao]', null, array('class' => 'form-control', 'id'=>'dataInicioInscricao')) }}
+                                        @if ($errors->has('eventos.dataInicioInscricao')) <p class="help-block">{{ $errors->first('eventos.dataInicioInscricao') }}</p> @endif
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <fieldset class="form-group">
+                                        {{Form::label('eventos[dataFimInscricao]', 'Data de Término da Inscrição')}}
+                                        {{Form::text('eventos[dataFimInscricao]', null, array('class' => 'form-control', 'id' => 'dataFimInscricao')) }}
+                                        @if ($errors->has('eventos.dataFimInscricao')) <p class="help-block">{{ $errors->first('eventos.dataFimInscricao') }}</p> @endif
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <fieldset class="form-group">
+                                        {{Form::label('eventos[dataInicio]', 'Data de Início do Evento')}}
+                                        {{Form::text('eventos[dataInicio]', \Carbon\Carbon::now(), array('class' => 'form-control', 'id'=> 'dataInicio')) }}
+                                        @if ($errors->has('eventos.dataInicio')) <p class="help-block">{{ $errors->first('eventos.dataInicio') }}</p> @endif
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <fieldset class="form-group">
+                                        {{Form::label('eventos[dataTermino]', 'Data de Término do Evento')}}
+                                        {{Form::text('eventos[dataTermino]', \Carbon\Carbon::now(), array('class' => 'form-control', 'id' => 'dataTermino')) }}
+                                        @if ($errors->has('eventos.dataTermino')) <p class="help-block">{{ $errors->first('eventos.dataTermino') }}</p> @endif
+                                    </fieldset>
+                                </div>
+                            </div>
                             <fieldset class="form-group">
                                 {{Form::label('eventosContatos[]', 'Contato(s)')}}
                                 {{Form::select('eventosContatos[]', $contatos, null, array('class' => 'form-control eventosContatos', 'multiple')) }}
@@ -146,5 +163,38 @@
                 $('#dataLiberacaoCertificado').attr('disabled', 'disabled');
             }
         });
+
+        $(function(){
+            $('#dataInicioInscricao').datetimepicker({
+                locale: 'pt-br'
+            });
+            $('#dataFimInscricao').datetimepicker({
+                locale: 'pt-br'
+            });
+            $('#dataInicio').datetimepicker({
+                locale: 'pt-br'
+            });
+            $('#dataTermino').datetimepicker({
+                locale: 'pt-br'
+            });
+        });
+
     </script>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

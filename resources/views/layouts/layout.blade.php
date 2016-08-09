@@ -13,11 +13,14 @@
     {{ Html::style('css/select2.css') }}
     {{ Html::style('css/select2-bootstrap.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
+    {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
     <title>SGE - @yield('title')</title>
 </head>
     <body>
         <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+        {{ Html::script('js/moment.js') }}
         {{ Html::script('js/bootstrap.js') }}
+        {{ Html::script('js/bootstrap-datetimepicker.min.js') }}
         {{ Html::script('js/select2.js') }}
         @include('layouts.header')
         <div class="container">
