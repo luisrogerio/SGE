@@ -32,11 +32,11 @@ class Evento extends Model
     public $timestamps = false;
 
     public function eventoEdicaoAnterior(){
-        return $this->hasOne('App\Models\Evento','idEdicaoAnterior', 'id');
+        return $this->belongsTo('App\Models\Evento','idEdicaoAnterior');
     }
 
     public function eventoEdicaoPosterior(){
-        return $this->belongsTo('App\Models\Evento','idEdicaoAnterior');
+        return $this->hasOne('App\Models\Evento','idEdicaoAnterior', 'id');
     }
 
     public function eventosFilhos(){

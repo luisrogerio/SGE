@@ -24,4 +24,12 @@ class EventoContato extends Model
     public function evento(){
         $this->belongsToMany('App\Models\Evento', 'contatos_eventos', 'idEventosContatos', 'idEventos');
     }
+
+    public function getRedessociaisAttribute($value){
+        return explode("<br>", $value);
+    }
+
+    public function setRedessociaisAttribute($value) {
+        $this->attributes['redesSociais'] = implode("<br>", $value);
+    }
 }
