@@ -45,6 +45,15 @@ class EventosController extends Controller
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
             $eventoCaracteristica = $request->eventoCaracteristica;
             $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y H:i', $eventoCaracteristica['dataLiberacaoCertificado']);
+            if($request->has('eventoCaracteristica.eImagemDeFundo')){
+                if($request->hasFile('eventoCaracteristica.backgroundImagem') && $request->file('eventoCaracteristica.backgroundImagem')->isValid()){
+                    $destino = \App::publicPath().'/uploads/eventos/'.$this->evento->id;
+                    $extensao = $request->file('eventoCaracteristica.backgroundImagem')->getClientOriginalExtension();
+                    $arquivoNome = 'background.'.$extensao;
+                    $eventoCaracteristica['background'] = $arquivoNome;
+                    $request->file('eventoCaracteristica.backgroundImagem')->move($destino, $arquivoNome);
+                }
+            }
             if($request->hasFile('eventoCaracteristica.logoImagem') && $request->file('eventoCaracteristica.logoImagem')->isValid()){
                 $destino = \App::publicPath().'/uploads/eventos/'.$this->evento->id;
                 $extensao = $request->file('eventoCaracteristica.logoImagem')->getClientOriginalExtension();

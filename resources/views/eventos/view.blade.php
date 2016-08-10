@@ -98,6 +98,20 @@
                             Haverá Proposta de Atividade
                         </li>
                     </ul>
+                    <div>
+                        <h4>Background</h4>
+                        <div class="center-block jumbotron"
+                        @if(!$evento->eventoCaracteristica->eImagemDeFundo)
+                            style="background-color: {{ $evento->eventoCaracteristica->backgroundColor }};"
+                            @endif
+                        >
+                            @if($evento->eventoCaracteristica->eImagemDeFundo)
+                                <div class="thumbnail">
+                                    {{ Html::image('/uploads/eventos/'.$evento->id.'/'.$evento->eventoCaracteristica->background, null, array('class' => 'img-responsive')) }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                     @if( $evento->eventoEdicaoAnterior != null)
                         <h4>Edição Anterior</h4>
                         {{ link_to_action('EventosController@getVisualizar', $evento->eventoEdicaoAnterior->nome , array('id' => $evento->eventoEdicaoAnterior->id)) }}

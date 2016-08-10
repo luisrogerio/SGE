@@ -36,6 +36,7 @@ class EventosRequest extends Request
             'eventoCaracteristica.eExistemNoticias' => 'boolean',
             'eventoCaracteristica.eAcademico' => 'boolean',
             'eventoCaracteristica.ePropostaAtividade' => 'boolean',
+            'eventoCaracteristica.eImagemDeFundo' => 'boolean',
             'eventoCaracteristica.idAparencias' => 'required',
             'eventoCaracteristica.logoImagem' => 'required|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
         ];
