@@ -23,21 +23,21 @@ class EventosRequest extends Request
      */
     public function rules() {
         return [
-            'eventos.nome' => 'required',
-            'eventos.descricao' => 'required',
-            'eventos.dataInicioInscricao' => 'required|date',
-            'eventos.dataFimInscricao' => 'required|date',
-            'eventos.dataInicio' => 'required|date',
-            'eventos.dataTermino' => 'required|date',
+            'nome' => 'required',
+            'descricao' => 'required',
+            'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+            'dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+            'dataInicio' => 'required|date_format:"d/m/Y H:i"|after:today',
+            'dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
             'eventosContatos.*' => 'required',
-            'eventosCaracteristicas.eEmiteCertificado' => 'required',
-            'eventosCaracteristicas.dataLiberacaoCertificado' => 'required|date',
-            'eventosCaracteristicas.eExistemImagens' => 'required',
-            'eventosCaracteristicas.eExistemNoticias' => 'required',
-            'eventosCaracteristicas.eAcademico' => 'required',
-            'eventosCaracteristicas.ePropostaAtividade' => 'required',
-            'eventosCaracteristicas.idAparencias' => 'required',
-            'eventosCaracteristicas.logoImagem' => 'required|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
+            'eventoCaracteristica.eEmiteCertificado' => 'boolean',
+            'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y H:i"|after:today',
+            'eventoCaracteristica.eExistemImagens' => 'boolean',
+            'eventoCaracteristica.eExistemNoticias' => 'boolean',
+            'eventoCaracteristica.eAcademico' => 'boolean',
+            'eventoCaracteristica.ePropostaAtividade' => 'boolean',
+            'eventoCaracteristica.idAparencias' => 'required',
+            'eventoCaracteristica.logoImagem' => 'required|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
         ];
     }
 

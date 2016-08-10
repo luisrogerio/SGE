@@ -35,15 +35,22 @@ class EventosController extends Controller
     public function postSalvar(EventosRequest $request){
         \DB::beginTransaction();
         try {
-            $this->evento = $this->evento->create($request->get('eventos'));
+            $request->merge(array(
+                'dataInicioInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicioInscricao),
+                'dataFimInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataFimInscricao),
+                'dataInicio' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicio),
+                'dataTermino' => Carbon::createFromFormat('d/m/Y H:i', $request->dataTermino)
+            ));
+            $this->evento = $this->evento->create($request->all());
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
-            $eventoCaracteristica = $request->eventosCaracteristicas;
-            if($request->hasFile('eventosCaracteristicas.logoImagem') && $request->file('eventosCaracteristicas.logoImagem')->isValid()){
+            $eventoCaracteristica = $request->eventoCaracteristica;
+            $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y H:i', $eventoCaracteristica['dataLiberacaoCertificado']);
+            if($request->hasFile('eventoCaracteristica.logoImagem') && $request->file('eventoCaracteristica.logoImagem')->isValid()){
                 $destino = \App::publicPath().'/uploads/eventos/'.$this->evento->id;
-                $extensao = $request->file('eventosCaracteristicas.logoImagem')->getClientOriginalExtension();
+                $extensao = $request->file('eventoCaracteristica.logoImagem')->getClientOriginalExtension();
                 $arquivoNome = 'logo.'.$extensao;
                 $eventoCaracteristica['logo'] = $arquivoNome;
-                $request->file('eventosCaracteristicas.logoImagem')->move($destino, $arquivoNome);
+                $request->file('eventoCaracteristica.logoImagem')->move($destino, $arquivoNome);
             }
             $this->evento->eventoCaracteristica()->create($eventoCaracteristica);
         } catch(Exception $e){
