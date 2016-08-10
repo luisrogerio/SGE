@@ -81,47 +81,47 @@
                         <div class="well">
                             <fieldset class="checkbox form-group">
                                 <label for="eEmiteCertificado">
-                                    {{Form::checkbox('eventosCaracteristicas[eEmiteCertificado]', true, true,  array('id' => 'eEmiteCertificado')) }} O evento emitirá Certificado?
+                                    {{Form::checkbox('eventoCaracteristica[eEmiteCertificado]', true, true,  array('id' => 'eEmiteCertificado')) }} O evento emitirá Certificado?
                                 </label>
-                                @if ($errors->has('eventosCaracteristicas.eEmiteCertificado')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.eEmiteCertificado') }}</p> @endif
+                                @if ($errors->has('eventoCaracteristica.eEmiteCertificado')) <p class="help-block">{{ $errors->first('eventoCaracteristica.eEmiteCertificado') }}</p> @endif
                             </fieldset>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <fieldset class="form-group">
                                         {{Form::label('dataLiberacaoCertificado', 'Data de Liberação de Certificado')}}
-                                        {{Form::text('eventosCaracteristicas[dataLiberacaoCertificado]', null, array('class' => 'form-control', 'id' => 'dataLiberacaoCertificado')) }}
-                                        @if ($errors->has('eventosCaracteristicas.dataLiberacaoCertificado')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.dataLiberacaoCertificado') }}</p> @endif
+                                        {{Form::text('eventoCaracteristica[dataLiberacaoCertificado]', null, array('class' => 'form-control', 'id' => 'dataLiberacaoCertificado')) }}
+                                        @if ($errors->has('eventoCaracteristica.dataLiberacaoCertificado')) <p class="help-block">{{ $errors->first('eventoCaracteristica.dataLiberacaoCertificado') }}</p> @endif
                                     </fieldset>
                                 </div>
                             </div>
                             <fieldset class="checkbox">
-                                <label for="eventosCaracteristicas[eExistemImagens]">
-                                    {{Form::checkbox('eventosCaracteristicas[eExistemImagens]', true, true,  array('id' => 'eventosCaracteristicas[eExistemImagens]')) }} O evento guardará uma galeria de fotos?
+                                <label for="eventoCaracteristica[eExistemImagens]">
+                                    {{Form::checkbox('eventoCaracteristica[eExistemImagens]', true, true,  array('id' => 'eventoCaracteristica[eExistemImagens]')) }} O evento guardará uma galeria de fotos?
                                 </label>
-                                @if ($errors->has('eventosCaracteristicas.eExistemImagens')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.eExistemImagens') }}</p> @endif
+                                @if ($errors->has('eventoCaracteristica.eExistemImagens')) <p class="help-block">{{ $errors->first('eventoCaracteristica.eExistemImagens') }}</p> @endif
                             </fieldset>
                             <fieldset class="checkbox">
-                                <label for="eventosCaracteristicas[eExistemNoticias]">
-                                    {{Form::checkbox('eventosCaracteristicas[eExistemNoticias]', true, true,  array('id' => 'eventosCaracteristicas[eExistemNoticias]')) }} O evento possuirá notícias?
+                                <label for="eventoCaracteristica[eExistemNoticias]">
+                                    {{Form::checkbox('eventoCaracteristica[eExistemNoticias]', true, true,  array('id' => 'eventoCaracteristica[eExistemNoticias]')) }} O evento possuirá notícias?
                                 </label>
-                                @if ($errors->has('eventosCaracteristicas.eExistemNoticias')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.eExistemNoticias') }}</p> @endif
+                                @if ($errors->has('eventoCaracteristica.eExistemNoticias')) <p class="help-block">{{ $errors->first('eventoCaracteristica.eExistemNoticias') }}</p> @endif
                             </fieldset>
                             <fieldset class="checkbox">
-                                <label for="eventosCaracteristicas[eAcademico]">
-                                    {{Form::checkbox('eventosCaracteristicas[eAcademico]', true, true,  array('id' => 'eventosCaracteristicas[eAcademico]')) }} É um evento acadêmico?
+                                <label for="eventoCaracteristica[eAcademico]">
+                                    {{Form::checkbox('eventoCaracteristica[eAcademico]', true, true,  array('id' => 'eventoCaracteristica[eAcademico]')) }} É um evento acadêmico?
                                 </label>
-                                @if ($errors->has('eventosCaracteristicas.eAcademico.')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.eAcademico') }}</p> @endif
+                                @if ($errors->has('eventoCaracteristica.eAcademico.')) <p class="help-block">{{ $errors->first('eventoCaracteristica.eAcademico') }}</p> @endif
                             </fieldset>
                             <fieldset class="checkbox">
-                                <label for="eventosCaracteristicas[ePropostaAtividade]">
-                                    {{Form::checkbox('eventosCaracteristicas[ePropostaAtividade]', true, true,  array('id' => 'eventosCaracteristicas[ePropostaAtividade]')) }} O evento aceitará propostas de atividades?
+                                <label for="eventoCaracteristica[ePropostaAtividade]">
+                                    {{Form::checkbox('eventoCaracteristica[ePropostaAtividade]', true, true,  array('id' => 'eventoCaracteristica[ePropostaAtividade]')) }} O evento aceitará propostas de atividades?
                                 </label>
-                                @if ($errors->has('eventosCaracteristicas.ePropostaAtividade')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.ePropostaAtividade') }}</p> @endif
+                                @if ($errors->has('eventoCaracteristica.ePropostaAtividade')) <p class="help-block">{{ $errors->first('eventoCaracteristica.ePropostaAtividade') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('eventosCaracteristicas[idAparencias]', 'Tema')}}
-                                {{Form::select('eventosCaracteristicas[idAparencias]', $temas, null, array('class' => 'form-control')) }}
-                                @if ($errors->has('eventosCaracteristicas.idAparencias')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.idAparencias') }}</p> @endif
+                                {{Form::label('eventoCaracteristica[idAparencias]', 'Tema')}}
+                                {{Form::select('eventoCaracteristica[idAparencias]', $temas, null, array('class' => 'form-control')) }}
+                                @if ($errors->has('eventoCaracteristica.idAparencias')) <p class="help-block">{{ $errors->first('eventoCaracteristica.idAparencias') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group form-inline">
                                 {{Form::label('planoDeFundo', 'Plano de Fundo')}}
@@ -133,13 +133,13 @@
                                 </label>
                             </fieldset>
                             <div id="planoDeFundo" class="form-group">
-                                {{Form::color('eventosCaracteristicas[backgroundColor]', null, array('class' => 'form-control'))}}
-                                {{Form::file('eventosCaracteristicas[background]', array('style' => 'display:none'))}}
+                                {{Form::color('eventoCaracteristica[backgroundColor]', null, array('class' => 'form-control'))}}
+                                {{Form::file('eventoCaracteristica[background]', array('style' => 'display:none'))}}
                             </div>
                             <fieldset class="form-group">
-                                {{Form::label('eventosCaracteristicas[logoImagem]', 'Logo')}}
-                                {!! Form::file('eventosCaracteristicas[logoImagem]') !!}
-                                @if ($errors->has('eventosCaracteristicas.logoImagem')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.logoImagem') }}</p> @endif
+                                {{Form::label('eventoCaracteristica[logoImagem]', 'Logo')}}
+                                {!! Form::file('eventoCaracteristica[logoImagem]') !!}
+                                @if ($errors->has('eventoCaracteristica.logoImagem')) <p class="help-block">{{ $errors->first('eventoCaracteristica.logoImagem') }}</p> @endif
                             </fieldset>
                         </div>
                     </div>
@@ -167,7 +167,6 @@
                 $('#dataLiberacaoCertificado').attr('disabled', 'disabled');
             }
         });
-
         $(function() {
             $('#dataInicioInscricao').datetimepicker({
                 locale: 'pt-br',
@@ -210,7 +209,6 @@
                 $dataHora.date(moment($('#dataLiberacaoCertificado').attr('value'), 'DD/MM/YYYY HH:mm'));
             }
         });
-
     </script>
 @endsection
 
