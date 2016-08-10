@@ -20,53 +20,53 @@
                     <div role="tabpanel1" class="tab-pane fade in active" id="evento">
                         <div class="well">
                             <fieldset class="form-group">
-                                {{Form::label('eventos[nome]', 'Nome')}}
-                                {{Form::text('eventos[nome]', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('eventos.nome')) <p class="help-block">{{ $errors->first('eventos.nome') }}</p> @endif
+                                {{Form::label('nome', 'Nome')}}
+                                {{Form::text('nome', null, array('class' => 'form-control'))}}
+                                @if ($errors->has('nome')) <p class="help-block">{{ $errors->first('nome') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('eventos[descricao]', 'Descrição')}}
-                                {{Form::textarea('eventos[descricao]', null, array('class' => 'form-control'))}}
-                                @if ($errors->has('eventos.descricao')) <p class="help-block">{{ $errors->first('eventos.descricao') }}</p> @endif
+                                {{Form::label('descricao', 'Descrição')}}
+                                {{Form::textarea('descricao', null, array('class' => 'form-control'))}}
+                                @if ($errors->has('descricao')) <p class="help-block">{{ $errors->first('descricao') }}</p> @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::label('eventos[idEdicaoAnterior]', 'Edição Anterior')}}
-                                {{Form::select('eventos[idEdicaoAnterior]', $edicoesAnteriores, null, array('class' => 'form-control', 'placeholder' => 'Selecione o Evento de Edição Anterior (Opcional)'))}}
-                                @if ($errors->has('eventos.idEdicaoAnterior')) <p class="help-block">{{ $errors->first('eventos.idEdicaoAnterior') }}</p> @endif
+                                {{Form::label('idEdicaoAnterior', 'Edição Anterior')}}
+                                {{Form::select('idEdicaoAnterior', $edicoesAnteriores, null, array('class' => 'form-control', 'placeholder' => 'Selecione o Evento de Edição Anterior (Opcional)'))}}
+                                @if ($errors->has('idEdicaoAnterior')) <p class="help-block">{{ $errors->first('idEdicaoAnterior') }}</p> @endif
                             </fieldset>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <fieldset class="form-group">
-                                        {{Form::label('eventos[dataInicioInscricao]', 'Data de Início da Inscrição')}}
-                                        {{Form::text('eventos[dataInicioInscricao]', null, array('class' => 'form-control', 'id'=>'dataInicioInscricao')) }}
-                                        @if ($errors->has('eventos.dataInicioInscricao')) <p class="help-block">{{ $errors->first('eventos.dataInicioInscricao') }}</p> @endif
+                                        {{Form::label('dataInicioInscricao', 'Data de Início da Inscrição')}}
+                                        {{Form::text('dataInicioInscricao', null, array('class' => 'form-control', 'id'=>'dataInicioInscricao')) }}
+                                        @if ($errors->has('dataInicioInscricao')) <p class="help-block">{{ $errors->first('dataInicioInscricao') }}</p> @endif
                                     </fieldset>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <fieldset class="form-group">
-                                        {{Form::label('eventos[dataFimInscricao]', 'Data de Término da Inscrição')}}
-                                        {{Form::text('eventos[dataFimInscricao]', null, array('class' => 'form-control', 'id' => 'dataFimInscricao')) }}
-                                        @if ($errors->has('eventos.dataFimInscricao')) <p class="help-block">{{ $errors->first('eventos.dataFimInscricao') }}</p> @endif
+                                        {{Form::label('dataFimInscricao', 'Data de Término da Inscrição')}}
+                                        {{Form::text('dataFimInscricao', null, array('class' => 'form-control', 'id' => 'dataFimInscricao')) }}
+                                        @if ($errors->has('dataFimInscricao')) <p class="help-block">{{ $errors->first('dataFimInscricao') }}</p> @endif
                                     </fieldset>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <fieldset class="form-group">
-                                        {{Form::label('eventos[dataInicio]', 'Data de Início do Evento')}}
-                                        {{Form::text('eventos[dataInicio]', null, array('class' => 'form-control', 'id'=> 'dataInicio')) }}
-                                        @if ($errors->has('eventos.dataInicio')) <p class="help-block">{{ $errors->first('eventos.dataInicio') }}</p> @endif
+                                        {{Form::label('dataInicio', 'Data de Início do Evento')}}
+                                        {{Form::text('dataInicio', null, array('class' => 'form-control', 'id'=> 'dataInicio')) }}
+                                        @if ($errors->has('dataInicio')) <p class="help-block">{{ $errors->first('dataInicio') }}</p> @endif
                                     </fieldset>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <fieldset class="form-group">
-                                        {{Form::label('eventos[dataTermino]', 'Data de Término do Evento')}}
-                                        {{Form::text('eventos[dataTermino]', null, array('class' => 'form-control', 'id' => 'dataTermino')) }}
-                                        @if ($errors->has('eventos.dataTermino')) <p class="help-block">{{ $errors->first('eventos.dataTermino') }}</p> @endif
+                                        {{Form::label('dataTermino', 'Data de Término do Evento')}}
+                                        {{Form::text('dataTermino', null, array('class' => 'form-control', 'id' => 'dataTermino')) }}
+                                        @if ($errors->has('dataTermino')) <p class="help-block">{{ $errors->first('dataTermino') }}</p> @endif
                                     </fieldset>
                                 </div>
                             </div>

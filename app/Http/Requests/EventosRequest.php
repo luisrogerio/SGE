@@ -23,12 +23,12 @@ class EventosRequest extends Request
      */
     public function rules() {
         return [
-            'eventos.nome' => 'required',
-            'eventos.descricao' => 'required',
-            'eventos.dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
-            'eventos.dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
-            'eventos.dataInicio' => 'required|date_format:"d/m/Y H:i"|after:today',
-            'eventos.dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
+            'nome' => 'required',
+            'descricao' => 'required',
+            'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+            'dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+            'dataInicio' => 'required|date_format:"d/m/Y H:i"|after:today',
+            'dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
             'eventosContatos.*' => 'required',
             'eventosCaracteristicas.eEmiteCertificado' => 'boolean',
             'eventosCaracteristicas.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y H:i"|after:today',

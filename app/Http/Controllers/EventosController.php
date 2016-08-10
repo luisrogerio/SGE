@@ -35,11 +35,19 @@ class EventosController extends Controller
     public function postSalvar(EventosRequest $request){
         \DB::beginTransaction();
         try {
+            $request->merge(array(
+                'dataInicioInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicioInscricao),
+                'dataFimInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataFimInscricao),
+                'dataInicio' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicio),
+                'dataTermino' => Carbon::createFromFormat('d/m/Y H:i', $request->dataTermino)
+            ));
             //dd($request);
-            Carbon::setLocale('pt_BR');
-            $this->evento = $this->evento->create($request->get('eventos'));
+            $this->evento = $this->evento->create($request->all());
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
             $eventoCaracteristica = $request->eventosCaracteristicas;
+            if(!isset($eventoCaracteristica['eEmiteCertificado'])){
+                $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y H:i', $eventoCaracteristica['dataLiberacaoCertificado']);
+            }
             if($request->hasFile('eventosCaracteristicas.logoImagem') && $request->file('eventosCaracteristicas.logoImagem')->isValid()){
                 $destino = \App::publicPath().'/uploads/eventos/'.$this->evento->id;
                 $extensao = $request->file('eventosCaracteristicas.logoImagem')->getClientOriginalExtension();
