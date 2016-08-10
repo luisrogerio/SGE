@@ -56,7 +56,7 @@
                                 <div class="col-sm-12">
                                     <fieldset class="form-group">
                                         {{Form::label('eventos[dataInicio]', 'Data de Início do Evento')}}
-                                        {{Form::text('eventos[dataInicio]', \Carbon\Carbon::now(), array('class' => 'form-control', 'id'=> 'dataInicio')) }}
+                                        {{Form::text('eventos[dataInicio]', null, array('class' => 'form-control', 'id'=> 'dataInicio')) }}
                                         @if ($errors->has('eventos.dataInicio')) <p class="help-block">{{ $errors->first('eventos.dataInicio') }}</p> @endif
                                     </fieldset>
                                 </div>
@@ -65,7 +65,7 @@
                                 <div class="col-sm-12">
                                     <fieldset class="form-group">
                                         {{Form::label('eventos[dataTermino]', 'Data de Término do Evento')}}
-                                        {{Form::text('eventos[dataTermino]', \Carbon\Carbon::now(), array('class' => 'form-control', 'id' => 'dataTermino')) }}
+                                        {{Form::text('eventos[dataTermino]', null, array('class' => 'form-control', 'id' => 'dataTermino')) }}
                                         @if ($errors->has('eventos.dataTermino')) <p class="help-block">{{ $errors->first('eventos.dataTermino') }}</p> @endif
                                     </fieldset>
                                 </div>
@@ -85,11 +85,15 @@
                                 </label>
                                 @if ($errors->has('eventosCaracteristicas.eEmiteCertificado')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.eEmiteCertificado') }}</p> @endif
                             </fieldset>
-                            <fieldset class="form-group">
-                                {{Form::label('dataLiberacaoCertificado', 'Data de Liberação de Certificado')}}
-                                {{Form::date('eventosCaracteristicas[dataLiberacaoCertificado]', \Carbon\Carbon::now(), array('class' => 'form-control', 'id' => 'dataLiberacaoCertificado')) }}
-                                @if ($errors->has('eventosCaracteristicas.dataLiberacaoCertificado')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.dataLiberacaoCertificado') }}</p> @endif
-                            </fieldset>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <fieldset class="form-group">
+                                        {{Form::label('dataLiberacaoCertificado', 'Data de Liberação de Certificado')}}
+                                        {{Form::text('eventosCaracteristicas[dataLiberacaoCertificado]', null, array('class' => 'form-control', 'id' => 'dataLiberacaoCertificado')) }}
+                                        @if ($errors->has('eventosCaracteristicas.dataLiberacaoCertificado')) <p class="help-block">{{ $errors->first('eventosCaracteristicas.dataLiberacaoCertificado') }}</p> @endif
+                                    </fieldset>
+                                </div>
+                            </div>
                             <fieldset class="checkbox">
                                 <label for="eventosCaracteristicas[eExistemImagens]">
                                     {{Form::checkbox('eventosCaracteristicas[eExistemImagens]', true, true,  array('id' => 'eventosCaracteristicas[eExistemImagens]')) }} O evento guardará uma galeria de fotos?
@@ -164,19 +168,47 @@
             }
         });
 
-        $(function(){
+        $(function() {
             $('#dataInicioInscricao').datetimepicker({
-                locale: 'pt-br'
+                locale: 'pt-br',
+                minDate: moment()
             });
             $('#dataFimInscricao').datetimepicker({
-                locale: 'pt-br'
+                locale: 'pt-br',
+                minDate: moment()
             });
             $('#dataInicio').datetimepicker({
-                locale: 'pt-br'
+                locale: 'pt-br',
+                minDate: moment()
             });
             $('#dataTermino').datetimepicker({
-                locale: 'pt-br'
+                locale: 'pt-br',
+                minDate: moment()
             });
+            $('#dataLiberacaoCertificado').datetimepicker({
+                locale: 'pt-br',
+                minDate: moment()
+            });
+            if($('#dataInicioInscricao').attr('value')){
+                $dataHora = $('#dataInicioInscricao').data("DateTimePicker");
+                $dataHora.date(moment($('#dataInicioInscricao').attr('value'), 'DD/MM/YYYY HH:mm'));
+            }
+            if($('#dataFimInscricao').attr('value')){
+                $dataHora = $('#dataFimInscricao').data("DateTimePicker");
+                $dataHora.date(moment($('#dataFimInscricao').attr('value'), 'DD/MM/YYYY HH:mm'));
+            }
+            if($('#dataInicio').attr('value')){
+                $dataHora = $('#dataInicio').data("DateTimePicker");
+                $dataHora.date(moment($('#dataInicio').attr('value'), 'DD/MM/YYYY HH:mm'));
+            }
+            if($('#dataTermino').attr('value')){
+                $dataHora = $('#dataTermino').data("DateTimePicker");
+                $dataHora.date(moment($('#dataTermino').attr('value'), 'DD/MM/YYYY HH:mm'));
+            }
+            if($('#dataLiberacaoCertificado').attr('value')){
+                $dataHora = $('#dataLiberacaoCertificado').data("DateTimePicker");
+                $dataHora.date(moment($('#dataLiberacaoCertificado').attr('value'), 'DD/MM/YYYY HH:mm'));
+            }
         });
 
     </script>

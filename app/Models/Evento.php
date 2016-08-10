@@ -31,6 +31,7 @@ class Evento extends Model
 
     public $timestamps = false;
 
+
     public function eventoEdicaoAnterior(){
         return $this->belongsTo('App\Models\Evento','idEdicaoAnterior');
     }

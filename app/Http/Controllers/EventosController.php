@@ -35,6 +35,8 @@ class EventosController extends Controller
     public function postSalvar(EventosRequest $request){
         \DB::beginTransaction();
         try {
+            //dd($request);
+            Carbon::setLocale('pt_BR');
             $this->evento = $this->evento->create($request->get('eventos'));
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
             $eventoCaracteristica = $request->eventosCaracteristicas;
