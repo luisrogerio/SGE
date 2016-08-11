@@ -141,7 +141,6 @@
                     </div>
                     {{ link_to_action('EventosController@getEditar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
                     {{ link_to_action('AtividadesController@getAdicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
-
                 </div>
             </div>
         </div>

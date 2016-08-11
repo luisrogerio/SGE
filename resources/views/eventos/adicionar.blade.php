@@ -224,6 +224,7 @@
                 minDate: moment()
             });
             $('#dataLiberacaoCertificado').datetimepicker({
+                format: 'DD/MM/YYYY',
                 locale: 'pt-br',
                 minDate: moment()
             });
@@ -245,7 +246,7 @@
             }
             if ($('#dataLiberacaoCertificado').attr('value')) {
                 $dataHora = $('#dataLiberacaoCertificado').data("DateTimePicker");
-                $dataHora.date(moment($('#dataLiberacaoCertificado').attr('value'), 'DD/MM/YYYY HH:mm'));
+                $dataHora.date(moment($('#dataLiberacaoCertificado').attr('value'), 'DD/MM/YYYY'));
             }
         });
     </script>
