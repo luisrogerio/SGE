@@ -70,6 +70,10 @@ class Evento extends Model
         );
     }
 
+    public function setIdedicaoanteriorAttribute($value){
+        $this->attributes['idEdicaoAnterior'] = trim($value) == '' ? null : trim($value);
+    }
+
 }
 
 

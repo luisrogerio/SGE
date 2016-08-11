@@ -17,6 +17,7 @@ class CreateEventosCaracteristicasTable extends Migration {
 			$table->integer('id', true);
 			$table->integer('idAparencias')->index('fk_eventos_configuracoes_aparencias1_idx');
 			$table->integer('idEventos')->index('fk_eventos_caracteristicas_eventos1_idx');
+			$table->boolean('eImagemDeFundo')->nullable();
 			$table->string('background', 45)->nullable();
 			$table->string('backgroundColor', 45)->nullable();
 			$table->boolean('eEmiteCertificado');

@@ -22,23 +22,46 @@ class EventosRequest extends Request
      * @return array
      */
     public function rules() {
-        return [
-            'nome' => 'required',
-            'descricao' => 'required',
-            'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
-            'dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
-            'dataInicio' => 'required|date_format:"d/m/Y H:i"|after:today',
-            'dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
-            'eventosContatos.*' => 'required',
-            'eventoCaracteristica.eEmiteCertificado' => 'boolean',
-            'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y H:i"|after:today',
-            'eventoCaracteristica.eExistemImagens' => 'boolean',
-            'eventoCaracteristica.eExistemNoticias' => 'boolean',
-            'eventoCaracteristica.eAcademico' => 'boolean',
-            'eventoCaracteristica.ePropostaAtividade' => 'boolean',
-            'eventoCaracteristica.idAparencias' => 'required',
-            'eventoCaracteristica.logoImagem' => 'required|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
-        ];
+        switch($this->method()){
+            case 'POST':
+                return [
+                    'nome' => 'required',
+                    'descricao' => 'required',
+                    'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'dataInicio' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'eventosContatos.*' => 'required',
+                    'eventoCaracteristica.eEmiteCertificado' => 'boolean',
+                    'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y H:i"|after:today',
+                    'eventoCaracteristica.eExistemImagens' => 'boolean',
+                    'eventoCaracteristica.eExistemNoticias' => 'boolean',
+                    'eventoCaracteristica.eAcademico' => 'boolean',
+                    'eventoCaracteristica.ePropostaAtividade' => 'boolean',
+                    'eventoCaracteristica.eImagemDeFundo' => 'boolean',
+                    'eventoCaracteristica.idAparencias' => 'required',
+                    'eventoCaracteristica.logoImagem' => 'required_unless:id|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
+                ];
+            break;
+            case 'PATCH':
+                return [
+                    'nome' => 'required',
+                    'descricao' => 'required',
+                    'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'dataInicio' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
+                    'eventosContatos.*' => 'required',
+                    'eventoCaracteristica.eEmiteCertificado' => 'boolean',
+                    'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y"|after:today',
+                    'eventoCaracteristica.eExistemImagens' => 'boolean',
+                    'eventoCaracteristica.eExistemNoticias' => 'boolean',
+                    'eventoCaracteristica.eAcademico' => 'boolean',
+                    'eventoCaracteristica.ePropostaAtividade' => 'boolean',
+                    'eventoCaracteristica.idAparencias' => 'required',
+                ];
+        }
+
     }
 
     public function messages()
