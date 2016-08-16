@@ -22,6 +22,7 @@
         {{ Html::script('js/bootstrap.js') }}
         {{ Html::script('js/bootstrap-datetimepicker.min.js') }}
         {{ Html::script('js/select2.js') }}
+
         @include('layouts.header')
         <div class="container">
             @if(Session::has('message'))

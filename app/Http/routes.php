@@ -33,4 +33,15 @@ Route::controller('/eventos', 'EventosController');
 
 Route::controller('/contatos', 'EventosContatosController');
 
-Route::controller('/testes', 'TestesController');
+//Route::controller('/testes', 'TestesController');
+
+Route::get('testes',function(){return view('testes.teste');});
+
+Route::post('/getmsg','TestesController@index');
+
+Route::get('popup', function()
+{
+    dd('agora está indo');
+    $atividadesTipos = curso::get()->lists('id', 'nome');
+    return Response::json($atividadesTipos->get(array('id','nome')));
+});

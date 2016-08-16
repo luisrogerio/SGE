@@ -51,4 +51,17 @@ class CursosController extends Controller{
         \Session::flash('message', 'Curso excluído com sucesso');
         return redirect('/cursos');
     }
+
+    public function getPopup(CursosRequest $request){
+        $this->curso->fill($request->all());
+        if ($this->curso->save()) {
+            return redirect('/cursos');
+        }
+//        $this->atividadeTipo->nome = $nome;
+//        if ($this->atividadeTipo->save()) {
+//            $atividadesTiposCombo = AtividadeTipo::orderBy('nome');
+//            //return Response::json($atividadesTiposCombo->get(array('id','nome')));
+//            return response()->json($atividadesTiposCombo->get(array('id','nome')));
+//        }
+    }
 }

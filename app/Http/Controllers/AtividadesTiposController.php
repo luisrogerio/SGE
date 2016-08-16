@@ -50,4 +50,14 @@ class AtividadesTiposController extends Controller
         \Session::flash('message', 'Tipo de atividade excluído com sucesso');
         return redirect('/atividadesTipos');
     }
+
+    public function getPopup($nome){
+        //$this->atividadeTipo->fill($request->all());
+        $this->atividadeTipo->nome = $nome;
+        if ($this->atividadeTipo->save()) {
+            $atividadesTiposCombo = AtividadeTipo::orderBy('nome');
+            //return Response::json($atividadesTiposCombo->get(array('id','nome')));
+            return response()->json($atividadesTiposCombo->get(array('id','nome')));
+        }
+    }
 }
