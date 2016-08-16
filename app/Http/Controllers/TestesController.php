@@ -8,8 +8,8 @@ use App\Http\Requests;
 
 class TestesController extends Controller
 {
-    public function getIndex()
-    {
-        return view('testes.teste');
+    public function index(){
+        $msg = "This is a simple message.";
+        return response()->json(array('msg'=> $msg), 200);
     }
 }
