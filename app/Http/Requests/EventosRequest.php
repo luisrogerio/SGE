@@ -33,14 +33,14 @@ class EventosRequest extends Request
                     'dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
                     'eventosContatos.*' => 'required',
                     'eventoCaracteristica.eEmiteCertificado' => 'boolean',
-                    'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y H:i"|after:today',
+                    'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y"|after:today',
                     'eventoCaracteristica.eExistemImagens' => 'boolean',
                     'eventoCaracteristica.eExistemNoticias' => 'boolean',
                     'eventoCaracteristica.eAcademico' => 'boolean',
                     'eventoCaracteristica.ePropostaAtividade' => 'boolean',
                     'eventoCaracteristica.eImagemDeFundo' => 'boolean',
                     'eventoCaracteristica.idAparencias' => 'required',
-                    'eventoCaracteristica.logoImagem' => 'required_unless:id|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
+                    'eventoCaracteristica.logoImagem' => 'required_without:eEventoPai|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
                 ];
             break;
             case 'PATCH':
