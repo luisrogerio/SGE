@@ -10,6 +10,7 @@ class EventoCaracteristica extends Model
     protected   $fillable   = [
         'id'                        ,
 		'idAparencias'              ,
+        'eImagemDeFundo'            ,
 		'background'                ,
 		'backgroundColor'           ,
 		'eEmiteCertificado'         ,

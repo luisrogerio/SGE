@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Event;
+use App\Models\EventoCaracteristica;
 use Carbon\Carbon;
 use App\Models\Aparencia;
 use App\Models\Evento;
@@ -10,63 +12,103 @@ use Illuminate\Http\Request;
 use App\Http\Requests\EventosRequest;
 
 use App\Http\Requests;
+use Illuminate\Pagination\Paginator;
 use Mockery\CountValidator\Exception;
 
 class EventosController extends Controller
 {
     private $evento;
 
-    public function __construct(Evento $evento){
+    public function __construct(Evento $evento)
+    {
         $this->evento = $evento;
     }
 
-    public function getIndex(){
+    public function getIndex()
+    {
         $eventos = $this->evento->orderBy('nome')->with('eventoCaracteristica')->paginate(5);
         return view('eventos.index', compact('eventos'));
     }
 
-    public function getAdicionar(){
+    public function getAdicionar($idPai = 0)
+    {
         $contatos = EventoContato::get()->lists('nome', 'id');
         $temas = Aparencia::get()->lists('tema', 'id');
         $edicoesAnteriores = $this->evento->lists('nome', 'id');
-        return view('eventos.adicionar', compact('contatos', 'temas', 'edicoesAnteriores'));
+        $eventoPai = $this->evento->with('eventosContatos')->find($idPai);
+        $contatosSelecionados = null;
+        if($eventoPai){
+            $contatosSelecionados = $eventoPai->eventosContatos->pluck('id')->toArray();
+        }
+        return view('eventos.adicionar', compact('contatos', 'temas', 'edicoesAnteriores', 'eventoPai', 'contatosSelecionados'));
     }
 
-    public function postSalvar(EventosRequest $request){
-        \DB::beginTransaction();
-        try {
+    public function postSalvar(EventosRequest $request, $idPai = 0)
+    {
+        \DB::transaction(function () use ($request, $idPai) {
             $request->merge(array(
                 'dataInicioInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicioInscricao),
                 'dataFimInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataFimInscricao),
                 'dataInicio' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicio),
                 'dataTermino' => Carbon::createFromFormat('d/m/Y H:i', $request->dataTermino)
             ));
+            if($idPai!= 0){
+                $request->merge(array(
+                    'idPai' => $idPai
+                ));
+            }
             $this->evento = $this->evento->create($request->all());
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
             $eventoCaracteristica = $request->eventoCaracteristica;
-            $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y H:i', $eventoCaracteristica['dataLiberacaoCertificado']);
-            if($request->hasFile('eventoCaracteristica.logoImagem') && $request->file('eventoCaracteristica.logoImagem')->isValid()){
-                $destino = \App::publicPath().'/uploads/eventos/'.$this->evento->id;
-                $extensao = $request->file('eventoCaracteristica.logoImagem')->getClientOriginalExtension();
-                $arquivoNome = 'logo.'.$extensao;
-                $eventoCaracteristica['logo'] = $arquivoNome;
-                $request->file('eventoCaracteristica.logoImagem')->move($destino, $arquivoNome);
+            if($eventoCaracteristica['eEmiteCertificado']){
+                $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
+            }
+            if($idPai == 0 || !$request->get('eEventoPai')){
+                if ($request->has('eventoCaracteristica.eImagemDeFundo')) {
+                    if ($request->hasFile('eventoCaracteristica.backgroundImagem') && $request->file('eventoCaracteristica.backgroundImagem')->isValid()) {
+                        $destino = \App::publicPath() . '/uploads/eventos/' . $this->evento->id;
+                        $extensao = $request->file('eventoCaracteristica.backgroundImagem')->getClientOriginalExtension();
+                        $arquivoNome = 'background.' . $extensao;
+                        $eventoCaracteristica['background'] = '/uploads/eventos/' . $this->evento->id.'/'.$arquivoNome;
+                        $request->file('eventoCaracteristica.backgroundImagem')->move($destino, $arquivoNome);
+                    }
+                }
+                if ($request->hasFile('eventoCaracteristica.logoImagem') && $request->file('eventoCaracteristica.logoImagem')->isValid()) {
+                    $destino = \App::publicPath() . '/uploads/eventos/' . $this->evento->id;
+                    $extensao = $request->file('eventoCaracteristica.logoImagem')->getClientOriginalExtension();
+                    $arquivoNome = 'logo.' . $extensao;
+                    $eventoCaracteristica['logo'] = '/uploads/eventos/' . $this->evento->id.'/'.$arquivoNome;
+                    $request->file('eventoCaracteristica.logoImagem')->move($destino, $arquivoNome);
+                }
+            }
+            if($request->get('eEventoPai')){
+                $eventoCaracteristica['logo'] = $this->evento->eventoPai->eventoCaracteristica->logo;
+                $eventoCaracteristica['eImagemDeFundo'] = $this->evento->eventoPai->eventoCaracteristica->eImagemDeFundo;
+                $eventoCaracteristica['background'] = $this->evento->eventoPai->eventoCaracteristica->background;
+                $eventoCaracteristica['idAparencias'] = $this->evento->eventoPai->eventoCaracteristica->idAparencias;
+                $eventoCaracteristica['backgroundColor'] = $this->evento->eventoPai->eventoCaracteristica->backgroundColor;
             }
             $this->evento->eventoCaracteristica()->create($eventoCaracteristica);
-        } catch(Exception $e){
-            \DB::rollBack();
-            \Session::flash('message', 'Falha ao salvar evento');
-        }
-        \DB::commit();
+        });
+        \Session::flash('message', 'Evento criado com sucesso!');
         return redirect('/eventos');
     }
 
-    public function getVisualizar($id){
+    public function getVisualizar($id)
+    {
         $evento = $this->evento->findOrFail($id);
-        return view('eventos.view', compact('evento'));
+        $subeventos = $evento->eventosFilhos()->paginate(5);
+        $eventosPai = $evento->getEventosPai();
+        if (request()->ajax()) {
+            return response()->json(view('subeventos.subeventos')->with([
+                'subeventos' => $subeventos
+            ])->render());
+        }
+        return view('eventos.view', compact('evento', 'subeventos', 'eventosPai'));
     }
 
-    public function getEditar($id){
+    public function getEditar($id)
+    {
         $evento = $this->evento->with('eventoCaracteristica', 'eventosContatos')->findOrFail($id);
         $contatosSelecionados = $evento->eventosContatos->pluck('id')->toArray();
         $eventosContatos = EventoContato::get()->lists('nome', 'id');
@@ -75,16 +117,31 @@ class EventosController extends Controller
         return view('eventos.editar', compact('evento', 'eventosContatos', 'contatosSelecionados', 'temas', 'edicoesAnteriores'));
     }
 
-    public function postAtualizar(EventosRequest $request, $id){
+    public function patchAtualizar(EventosRequest $request, $id)
+    {
         $this->evento = $this->evento->findOrFail($id);
-        $this->evento->fill($request->all());
-        if ($this->evento->update()) {
-            \Session::flash('message', 'Evento atualizado com sucesso');
-            return redirect('/eventos');
-        }
+        \DB::transaction(function () use ($request) {
+            $request->merge(array(
+                'dataInicioInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicioInscricao),
+                'dataFimInscricao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataFimInscricao),
+                'dataInicio' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicio),
+                'dataTermino' => Carbon::createFromFormat('d/m/Y H:i', $request->dataTermino)
+            ));
+            $this->evento->fill($request->all());
+            $this->evento->update();
+            $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
+            $eventoCaracteristica = $request->get('eventoCaracteristica');
+            if($eventoCaracteristica['eEmiteCertificado']){
+                $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
+            }
+            $this->evento->eventoCaracteristica()->update($eventoCaracteristica);
+        });
+        \Session::flash('message', 'Evento atualizado com sucesso');
+        return redirect('/eventos');
     }
 
-    public function postExcluir($id){
+    public function postExcluir($id)
+    {
         $evento = $this->evento->findOrFail($id);
         $evento->delete();
         \Session::flash('message', 'Evento excluído com sucesso');

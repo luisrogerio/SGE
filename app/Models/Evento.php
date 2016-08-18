@@ -41,7 +41,7 @@ class Evento extends Model
     }
 
     public function eventosFilhos(){
-        return $this->hasOne('App\Models\Evento','idPai', 'id');
+        return $this->hasMany('App\Models\Evento','idPai', 'id');
     }
 
     public function eventoPai(){
@@ -68,6 +68,20 @@ class Evento extends Model
         return $this->hasManyThrough('App\Models\Aparencia', 'App\Models\EventoCaracteristica',
             'idEventos', 'idEventosCaracteristicas', 'id'
         );
+    }
+
+    public function setIdedicaoanteriorAttribute($value){
+        $this->attributes['idEdicaoAnterior'] = trim($value) == '' ? null : trim($value);
+    }
+
+    public function getEventosPai(){
+        $eventosPai = [];
+        $eventoAtual = $this;
+        while($eventoAtual->eventoPai != null){
+            $eventosPai[] = $eventoAtual->eventoPai;
+            $eventoAtual = $eventoAtual->eventoPai;
+        }
+        return array_reverse($eventosPai);
     }
 
 }
