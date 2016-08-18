@@ -85,6 +85,12 @@
                             @if ($errors->has('eventosContatos.*')) <p
                                     class="help-block">{{ $errors->first('eventosContatos.*') }}</p> @endif
                         </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('usuariosTipos[]', 'Tipo(s) de Usuário(s) permitido(s) nesse evento')}}
+                            {{Form::select('usuariosTipos[]', $tiposDeUsuario, $tiposDeUsuario, array('class' => 'form-control usuariosTipos', 'multiple')) }}
+                            @if ($errors->has('usuariosTipos.*')) <p
+                                    class="help-block">{{ $errors->first('usuariosTipos.*') }}</p> @endif
+                        </fieldset>
                     </div>
                 </div>
                 <div role="tabpanel1" class="tab-pane fade" id="caracteristica">
@@ -224,7 +230,9 @@
             $('.eventosContatos').select2({
                 theme: 'bootstrap'
             });
-
+            $('.usuariosTipos').select2({
+                theme: 'bootstrap'
+            });
             @if($eventoPai!=null)
 
             if(!$('#eEventoPai').is(':checked')){

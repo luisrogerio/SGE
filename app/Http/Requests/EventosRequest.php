@@ -32,6 +32,7 @@ class EventosRequest extends Request
                     'dataInicio' => 'required|date_format:"d/m/Y H:i"|after:today',
                     'dataTermino' => 'required|date_format:"d/m/Y H:i"|after:today',
                     'eventosContatos.*' => 'required',
+                    'usuariosTipos.*' => 'required',
                     'eventoCaracteristica.eEmiteCertificado' => 'boolean',
                     'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y"|after:today',
                     'eventoCaracteristica.eExistemImagens' => 'boolean',
