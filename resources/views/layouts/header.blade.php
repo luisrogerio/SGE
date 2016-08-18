@@ -16,8 +16,8 @@
                 <li><a href="/atividadesTipos">Tipo de Atividade</a></li>
                 <li><a href="/cursos">Cursos</a></li>
                 <li><a href="/locais">Locais</a></li>
-                <li><a href="/usuariosGrupos">Grupos de Usuário</a></li>
-                <li><a href="/atividadesStatus">Status de Atividade</a></li>
+                <li><a href="/gruposdeusuario">Grupos de Usuário</a></li>
+                <li><a href="/statusdeatividade">Status de Atividade</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div><!--/.nav-collapse -->

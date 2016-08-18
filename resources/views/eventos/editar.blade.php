@@ -78,6 +78,12 @@
                             {{Form::select('eventosContatos[]', $eventosContatos, $contatosSelecionados, array('class' => 'form-control eventosContatos', 'multiple')) }}
                             @if ($errors->has('eventosContatos.*')) <p class="help-block">{{ $errors->first('eventosContatos.*') }}</p> @endif
                         </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('usuariosTipos[]', 'Tipo(s) de Usuário(s) permitido(s) nesse evento')}}
+                            {{Form::select('usuariosTipos[]', $tiposDeUsuario, $tiposSelecionados, array('class' => 'form-control usuariosTipos', 'multiple')) }}
+                            @if ($errors->has('usuariosTipos.*')) <p
+                                    class="help-block">{{ $errors->first('usuariosTipos.*') }}</p> @endif
+                        </fieldset>
                     </div>
                 </div>
                 <div role="tabpanel1" class="tab-pane fade" id="caracteristica">
@@ -142,6 +148,9 @@
     <script type="application/javascript">
         $(function () {
             $('.eventosContatos').select2({
+                theme: 'bootstrap'
+            });
+            $('.usuariosTipos').select2({
                 theme: 'bootstrap'
             });
             $('#eEmiteCertificado').on('change', function () {

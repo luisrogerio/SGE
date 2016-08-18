@@ -149,9 +149,11 @@
                                     </div>
                                 @endforeach
                             </div>
-                            {{ link_to_action('EventosController@getEditar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
-                            {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'btn btn-success')) }}
-                            {{ link_to_action('AtividadesController@getAdicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
+                            <div class="btn-group">
+                                {{ link_to_action('EventosController@getEditar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
+                                {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'btn btn-success')) }}
+                                {{ link_to_action('AtividadesController@getAdicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
+                            </div>
                         </div>
                         <div class="tab-pane fade" role="tabpanel" id="subeventos">
                             <div class="panel panel-default">
