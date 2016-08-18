@@ -70,6 +70,10 @@ class Evento extends Model
         );
     }
 
+    public function tiposDeUsuario(){
+        return $this->belongsToMany('App\Models\UsuarioTipo', 'eventos_usuarios_tipos', 'idEventos', 'idUsuariosTipos');
+    }
+
     public function setIdedicaoanteriorAttribute($value){
         $this->attributes['idEdicaoAnterior'] = trim($value) == '' ? null : trim($value);
     }

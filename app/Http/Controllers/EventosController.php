@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\Event;
 use App\Models\EventoCaracteristica;
+use App\Models\UsuarioTipo;
 use Carbon\Carbon;
 use App\Models\Aparencia;
 use App\Models\Evento;
@@ -34,13 +35,14 @@ class EventosController extends Controller
     {
         $contatos = EventoContato::get()->lists('nome', 'id');
         $temas = Aparencia::get()->lists('tema', 'id');
+        $tiposDeUsuario = UsuarioTipo::get()->lists('nome', 'id');
         $edicoesAnteriores = $this->evento->lists('nome', 'id');
         $eventoPai = $this->evento->with('eventosContatos')->find($idPai);
         $contatosSelecionados = null;
         if($eventoPai){
             $contatosSelecionados = $eventoPai->eventosContatos->pluck('id')->toArray();
         }
-        return view('eventos.adicionar', compact('contatos', 'temas', 'edicoesAnteriores', 'eventoPai', 'contatosSelecionados'));
+        return view('eventos.adicionar', compact('contatos', 'temas', 'edicoesAnteriores', 'eventoPai', 'contatosSelecionados', 'tiposDeUsuario'));
     }
 
     public function postSalvar(EventosRequest $request, $idPai = 0)
@@ -59,6 +61,7 @@ class EventosController extends Controller
             }
             $this->evento = $this->evento->create($request->all());
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
+            $this->evento->tiposDeUsuario()->sync($request->get('usuariosTipos'));
             $eventoCaracteristica = $request->eventoCaracteristica;
             if($eventoCaracteristica['eEmiteCertificado']){
                 $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
@@ -111,10 +114,12 @@ class EventosController extends Controller
     {
         $evento = $this->evento->with('eventoCaracteristica', 'eventosContatos')->findOrFail($id);
         $contatosSelecionados = $evento->eventosContatos->pluck('id')->toArray();
+        $tiposSelecionados = $evento->tiposDeUsuario->pluck('id')->toArray();
+        $tiposDeUsuario = UsuarioTipo::get()->lists('nome', 'id');
         $eventosContatos = EventoContato::get()->lists('nome', 'id');
         $temas = Aparencia::get()->lists('tema', 'id');
         $edicoesAnteriores = $this->evento->lists('nome', 'id');
-        return view('eventos.editar', compact('evento', 'eventosContatos', 'contatosSelecionados', 'temas', 'edicoesAnteriores'));
+        return view('eventos.editar', compact('evento', 'eventosContatos', 'contatosSelecionados', 'temas', 'edicoesAnteriores', 'tiposDeUsuario', 'tiposSelecionados'));
     }
 
     public function patchAtualizar(EventosRequest $request, $id)
@@ -130,6 +135,7 @@ class EventosController extends Controller
             $this->evento->fill($request->all());
             $this->evento->update();
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
+            $this->evento->tiposDeUsuario()->sync($request->get('usuariosTipos'));
             $eventoCaracteristica = $request->get('eventoCaracteristica');
             if($eventoCaracteristica['eEmiteCertificado']){
                 $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
