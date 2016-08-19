@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventoContato extends Model
 {
-    public      $timestamps = false;
     protected   $table      = 'eventos_contatos';
     protected   $fillable   = [
         'id'            ,

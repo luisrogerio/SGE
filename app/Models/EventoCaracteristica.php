@@ -25,10 +25,10 @@ class EventoCaracteristica extends Model
 		'modificadoEm'              ,
 		'salvoPor'
     ];
+
     protected $dates        = [
         'dataLiberacaoCertificado'
     ];
-    public $timestamps = false;
 
     public function evento(){
         return $this->belongsTo('App\Models\Evento', 'idEventos');

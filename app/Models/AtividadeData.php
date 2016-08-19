@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class AtividadeData extends Model{
     protected   $table      = "atividades_datas";
     protected   $fillable   = ['data', 'idAtividades', 'criadoEm', 'modificadoEm', 'salvoPor'];
-    public      $timestamps = false;
 
     public function horarios(){
         $this->hasMany('App\Models\Horario', 'idAtividadesDatas');

@@ -8,7 +8,6 @@ class AtividadeDatasHorariosLocais extends Model
 {
     protected   $table      = "atividades_datas_horarios_locais";
     protected   $fillable   = ['data','horarioInicio', 'horarioTermino', 'idLocais', 'idAtividades', 'criadoEm', 'modificadoEm', 'salvoPor'];
-    public      $timestamps = false;
 
     public function atividade(){
         $this->belongsTo('App\Models\Atividade', 'idAtividades');

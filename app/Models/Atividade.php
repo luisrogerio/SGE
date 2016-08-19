@@ -18,7 +18,6 @@ class Atividade extends Model
         'nodificadoEm',
         'salvoPor'
     ];
-    public $timestamps = false;
 
     public function atividadesTipos(){
         return $this->belongsTo('App\Models\AtividadeTipo', 'idAtividadesTipos');

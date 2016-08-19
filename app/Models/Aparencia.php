@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Aparencia extends Model
 {
-    public      $timestamps = false;
     protected   $table      = 'aparencias';
     protected   $fillable   = [
         'id'            ,

@@ -8,7 +8,6 @@ class AtividadeTipo extends Model
 {
     protected   $fillable   = ['id', 'nome'];
     protected   $table      = 'atividades_tipos';
-    public      $timestamps = false;
 
     public function atividade(){
         return $this->hasMany('App\Models\Atividade');
