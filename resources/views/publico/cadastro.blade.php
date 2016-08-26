@@ -45,7 +45,7 @@
             {{ Form::close() }}
         </div>
         <div class="col-xs-12 col-md-4">
-            {{ Form::open(array('url' => '/cadastroExterno', 'class' => 'center-block formularioCadastro')) }}
+            {{ Form::open(array('url' => '/cadastroExterno', 'class' => 'center-block formularioCadastro', 'method' => 'GET')) }}
             <h2 class="formularioCadastro-heading">Cadastro Externo</h2>
             <fieldset class="{{ $errors->has('cpfExterno')? 'has-error':'' }}">
                 {{ Form::text('cpfExterno', null, array('class' => 'form-control input-lg', 'placeholder' => 'CPF',

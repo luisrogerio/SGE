@@ -9,6 +9,15 @@
 @section('title', 'Cadastro Externo')
 @section('content')
     <div class="row">
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="col-xs-12 col-md-6 col-md-offset-3">
             <h3>Preencha o restante do formulário com seus dados</h3>
             {{Form::open(array('url' => '/salvarExterno'))}}

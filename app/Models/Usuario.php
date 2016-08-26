@@ -22,10 +22,14 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
     protected $dates = [
         'dataNascimento'
     ];
-    protected $dateFormat = 'd/m/Y';
 
     public function usuarioTipo(){
         return $this->belongsTo('App\Models\UsuarioTipo', 'idUsuariosTipos');
+    }
+
+    public function usuariosGrupos(){
+        return $this->belongsToMany('App\Models\UsuarioGrupo', 'usuarios_usuarios_grupos',
+            'idUsuarios', 'idUsuariosGrupos');
     }
 
     public function getAuthPassword(){

@@ -10,5 +10,5 @@ return [
     | Texto que retorna quando dar um erro na validação do cpf
     |
     */
-    'message' => 'Cpf inválido'
+    'message' => 'CPF inválido'
 ];

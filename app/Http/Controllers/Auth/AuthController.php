@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Usuario;
+use App\Models\UsuarioGrupo;
 use App\Models\UsuarioTipo;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
@@ -38,7 +39,8 @@ class AuthController extends Controller
     protected $redirectTo = '/dashboard';
     protected $loginView = 'publico.login';
     protected $username = 'login';
-    protected $maxLoginAttempts = 3;
+    protected $maxLoginAttempts = 5;
+    protected $lockoutTime = 300;
 
     protected function getCredentials(Request $request){
         return [
@@ -67,7 +69,7 @@ class AuthController extends Controller
         return view('publico.cadastro');
     }
 
-    public function postCadastroExterno(Request $request){
+    public function getCadastroExterno(Request $request){
         $this->validate($request, [
             'cpfExterno' => 'required|cpf',
             'nome' => 'required'
@@ -79,7 +81,7 @@ class AuthController extends Controller
     }
 
     public function postSalvarExterno(Request $request){
-        $this->validate($request, [
+        if($validator = $this->validate($request, [
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios',
             'dataNascimento' => 'required|date_format:d/m/Y',
@@ -87,17 +89,25 @@ class AuthController extends Controller
             'senha' => 'required|alpha_dash|between:8,20|same:confirmarSenha'
         ], [
             'dataNascimento.required' => 'O campo Data de Nascimento é obrigatório'
-        ]);
+        ])){
+            return view('publico.cadastroExterno')->withErrors($validator)->withInput();
+        }
+
         $this->usuario = new Usuario();
         $this->usuario->usuarioTipo()->associate(UsuarioTipo::where('nome', 'Externo')->first());
+        $request->merge([
+            'dataNascimento' => Carbon::createFromFormat('d/m/Y', $request->dataNascimento)
+        ]);
         $this->usuario->fill($request->all());
         $this->usuario->senha = \Hash::make($this->usuario->senha);
         $this->usuario->login = $this->usuario->email;
         if ($usuario = $this->usuario->create($this->usuario->attributesToArray())){
-            \Auth::guard($this->getGuard()->login($usuario));
-            return redirect('/home');
+            $usuario->usuariosGrupos()->attach(UsuarioGrupo::where('nome', 'Usuário Comum')->pluck('id')->first());
+            \Auth::guard($this->getGuard())->login($usuario);
+            return redirect('/dashboard');
         }
-        return back();
+        \Session::flash('message', 'Houve algum erro ao tentar cadastrar este usuário');
+        return redirect()->back();
     }
 
 }

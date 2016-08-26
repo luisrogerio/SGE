@@ -16,7 +16,7 @@ Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@logout');
 
 Route::get('/cadastro', 'Auth\AuthController@getCadastro');
-Route::post('/cadastroExterno', 'Auth\AuthController@postCadastroExterno');
+Route::get('/cadastroExterno', 'Auth\AuthController@getCadastroExterno');
 Route::post('/salvarExterno', 'Auth\AuthController@postSalvarExterno');
 
 
