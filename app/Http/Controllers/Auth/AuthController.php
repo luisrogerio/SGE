@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\Usuario;
+use App\Models\UsuarioTipo;
+use Carbon\Carbon;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -21,15 +28,31 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesUsers, ThrottlesLogins;
 
     /**
      * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/dashboard';
+    protected $loginView = 'publico.login';
+    protected $username = 'login';
+    protected $maxLoginAttempts = 3;
 
+    protected function getCredentials(Request $request){
+        return [
+            $this->loginUsername() => $request->get($this->loginUsername()),
+            'password' => $request->get('senha')
+        ];
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->loginUsername() => 'required', 'senha' => 'required',
+        ]);
+    }
     /**
      * Create a new authentication controller instance.
      *
@@ -40,33 +63,41 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+    public function getCadastro(){
+        return view('publico.cadastro');
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+    public function postCadastroExterno(Request $request){
+        $this->validate($request, [
+            'cpfExterno' => 'required|cpf',
+            'nome' => 'required'
+        ], [
+            'cpfExterno.required' => 'O CPF é obrigatório',
+            'cpfExterno.cpf' => 'O CPF fornecido não é válido'
         ]);
+        return view('publico.cadastroExterno')->with(array('nome' => $request->nome, 'cpf' => $request->cpfExterno));
     }
+
+    public function postSalvarExterno(Request $request){
+        $this->validate($request, [
+            'nome' => 'required',
+            'email' => 'required|email|unique:usuarios',
+            'dataNascimento' => 'required|date_format:d/m/Y',
+            'cpf' => 'required|cpf',
+            'senha' => 'required|alpha_dash|between:8,20|same:confirmarSenha'
+        ], [
+            'dataNascimento.required' => 'O campo Data de Nascimento é obrigatório'
+        ]);
+        $this->usuario = new Usuario();
+        $this->usuario->usuarioTipo()->associate(UsuarioTipo::where('nome', 'Externo')->first());
+        $this->usuario->fill($request->all());
+        $this->usuario->senha = \Hash::make($this->usuario->senha);
+        $this->usuario->login = $this->usuario->email;
+        if ($usuario = $this->usuario->create($this->usuario->attributesToArray())){
+            \Auth::guard($this->getGuard()->login($usuario));
+            return redirect('/home');
+        }
+        return back();
+    }
+
 }

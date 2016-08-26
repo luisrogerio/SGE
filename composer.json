@@ -11,7 +11,8 @@
         "twbs/bootstrap": "3.3.6",
         "barryvdh/laravel-debugbar": "^2.2",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "cossou/jasperphp": "^2.1"
+        "cossou/jasperphp": "^2.1",
+        "jailtonsc/validador-cpf-laravel": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

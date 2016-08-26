@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "41d002963b2a455ff7ed18f11b87ddc5",
-    "content-hash": "aed6c8c0a23778b2831995bc041c2355",
+    "hash": "a84666b067dffde42a3edf2289981d2e",
+    "content-hash": "863834caf2aee24d9983e10322b46e70",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -370,6 +370,46 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "jailtonsc/validador-cpf-laravel",
+            "version": "v2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jailtonsc/validador-cpf-laravel.git",
+                "reference": "0ad80ee78703356bf2f98dfae06d1304cf386079"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jailtonsc/validador-cpf-laravel/zipball/0ad80ee78703356bf2f98dfae06d1304cf386079",
+                "reference": "0ad80ee78703356bf2f98dfae06d1304cf386079",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ValidadorCpf\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jailton S. C.",
+                    "email": "jailton.dos.santos.cruz@gmail.com"
+                }
+            ],
+            "description": "Validador de cpf com suporte para laravel 5.*",
+            "keywords": [
+                "cpf",
+                "laravel"
+            ],
+            "time": "2015-07-12 15:46:10"
         },
         {
             "name": "jakub-onderka/php-console-color",

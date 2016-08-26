@@ -163,7 +163,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        ValidadorCpf\CpfServiceProvider::class
     ],
 
     /*
