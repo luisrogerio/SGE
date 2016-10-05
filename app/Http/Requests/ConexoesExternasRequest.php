@@ -26,6 +26,8 @@ class ConexoesExternasRequest extends Request
         return [
             'driver' => 'required',
             'host' => 'required',
+            'database' => 'required',
+            'view' => 'required',
             'login' => 'required',
             'senha' => 'required'
         ];

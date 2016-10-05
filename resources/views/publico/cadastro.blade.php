@@ -21,7 +21,7 @@
                 {{ Form::text('matricula', null, array('class' => 'form-control input-lg', 'placeholder' => 'Matrícula')) }}
             </fieldset>
             <fieldset>
-                {{ Form::text('cpfAluno', null,array('class' => 'form-control input-lg', 'placeholder' => 'CPF')) }}
+                {{ Form::text('cpfAluno', null,array('class' => 'form-control input-lg', 'placeholder' => 'CPF', 'id' => 'cpfAluno')) }}
             </fieldset>
             </fieldset>
             <fieldset>
@@ -63,6 +63,7 @@
     </div>
     <script type="text/javascript">
         $(function (){
+            $("#cpfAluno").mask('000.000.000-00');
             $("#cpfExterno").mask('000.000.000-00');
         });
     </script>

@@ -10,6 +10,8 @@ class ConexaoExterna extends Model
     protected $fillable = [
         'driver'    ,
         'host'      ,
+        'database'  ,
+        'view'      ,
         'login'     ,
         'senha'
     ];

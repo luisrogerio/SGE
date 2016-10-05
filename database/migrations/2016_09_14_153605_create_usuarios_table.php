@@ -15,7 +15,7 @@ class CreateUsuariosTable extends Migration {
 		Schema::create('usuarios', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('idCursos')->index('fk_usuarios_curso1_idx');
+			$table->integer('idCursos')->nullable()->index('fk_usuarios_curso1_idx');
 			$table->integer('idUsuariosTipos')->index('fk_usuarios_usuarios_tipos1_idx');
 			$table->string('nome', 45)->nullable();
 			$table->string('email', 45)->nullable();

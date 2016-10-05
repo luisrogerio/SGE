@@ -18,7 +18,7 @@ Route::get('/logout', 'Auth\AuthController@logout');
 Route::get('/cadastro', 'Auth\AuthController@getCadastro');
 Route::get('/cadastroExterno', 'Auth\AuthController@getCadastroExterno');
 Route::post('/salvarExterno', 'Auth\AuthController@postSalvarExterno');
-
+Route::get('/cadastroAluno', 'Auth\AuthController@getCadastroAluno');
 
 
 // Password Reset Routes...

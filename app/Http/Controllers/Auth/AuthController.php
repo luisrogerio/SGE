@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Aluno;
 use App\Models\Usuario;
 use App\Models\UsuarioGrupo;
 use App\Models\UsuarioTipo;
@@ -67,6 +68,46 @@ class AuthController extends Controller
 
     public function getCadastro(){
         return view('publico.cadastro');
+    }
+
+    public function getCadastroAluno(Request $request){
+        $this->validate($request, [
+            'cpfAluno' => 'required|cpf',
+            'matricula' => 'required'
+        ], [
+            'cpfAluno.required' => 'O CPF é obrigatório',
+            'cpfAluno.cpf' => 'O CPF fornecido não é válido'
+        ]);
+        $tipoAluno = UsuarioTipo::where('nome', 'Aluno');
+        if($tipoAluno->conexaoExterna != null){
+            $tipoAluno->configurarConexao();
+            Aluno::setTable($tipoAluno->conexaoExterna->view);
+            $aluno = Aluno::checarCadastro($request->id, $request->cpf);
+            if($aluno){
+                $this->usuario = new Usuario();
+                $this->usuario = [
+                    'nome'              =>  $aluno->nome,
+                    'email'             =>  $aluno->email,
+                    'dataDeNascimento'  =>  $aluno->dataDeNascimento,
+                    'login'             =>  $aluno->id,
+                    'senha'             =>  $aluno->dataDeNascimento->format('dmY'),
+                    'idCursos'          =>  $aluno->idCurso,
+                    'idUsuariosTipo'    =>  $tipoAluno->id
+                ];
+                if ($usuario = $this->usuario->create($this->usuario->attributesToArray())){
+                    $usuario->usuariosGrupos()->attach(UsuarioGrupo::where('nome', 'Usuário Comum')->pluck('id')->first());
+                    \Auth::guard($this->getGuard())->login($usuario);
+                    return redirect('/dashboard');
+                }
+            } else {
+                \Session::flash('message', 'CPF e Matricula não reconhecidos');
+                return redirect()->back();
+            }
+        } else {
+            //Parte do Código para quando não houver conexão Externa para o Aluno
+        }
+        \Session::flash('message', 'Houve algum erro ao tentar cadastrar este usuário');
+        return redirect()->back();
     }
 
     public function getCadastroExterno(Request $request){

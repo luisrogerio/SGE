@@ -19,7 +19,7 @@ class UsuarioTipo extends Model
             'host'      => $this->conexaoExterna->host,
             'username'  => $this->conexaoExterna->login,
             'password'  => $this->conexaoExterna->senha,
-            'database'  => 'conexao'.$this->nome
+            'database'  => $this->conexaoExterna->database
         ));
     }
 }

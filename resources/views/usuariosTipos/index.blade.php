@@ -45,7 +45,7 @@
     </tr>
 @endforeach
     <tr>
-        <td colspan="3">{{link_to_action('UsuariosTiposController@getAdicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
+        <td colspan="4">{{link_to_action('UsuariosTiposController@getAdicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
     </tr>
 </table>
 {{$usuariosTipos->links()}}

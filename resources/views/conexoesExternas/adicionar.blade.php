@@ -18,6 +18,16 @@
                 @if ($errors->has('host')) <p class="help-block">{{ $errors->first('host') }}</p> @endif
             </fieldset>
             <fieldset class="form-group">
+                {{Form::label('database', 'Database de Conexão')}}
+                {{Form::text('database', null, array('class' => 'form-control', 'placeholder' => 'Nome da Base de Dados'))}}
+                @if ($errors->has('database')) <p class="help-block">{{ $errors->first('database') }}</p> @endif
+            </fieldset>
+            <fieldset class="form-group">
+                {{Form::label('view', 'Nome da View')}}
+                {{Form::text('view', null, array('class' => 'form-control', 'placeholder' => 'Nome da View'))}}
+                @if ($errors->has('view')) <p class="help-block">{{ $errors->first('view') }}</p> @endif
+            </fieldset>
+            <fieldset class="form-group">
                 {{Form::label('login', 'Login da Conexão')}}
                 {{Form::text('login', null, array('class' => 'form-control'))}}
                 @if ($errors->has('login')) <p class="help-block">{{ $errors->first('login') }}</p> @endif

@@ -14,7 +14,7 @@ class CreateUsuariosUsuariosGruposTable extends Migration {
 	{
 		Schema::create('usuarios_usuarios_grupos', function(Blueprint $table)
 		{
-			$table->integer('id')->primary();
+			$table->integer('id', true);
 			$table->integer('idUsuariosGrupos')->index('fk_usuarios_grupos_has_usuarios_usuarios_grupos1_idx');
 			$table->integer('idUsuarios')->index('fk_usuarios_grupos_has_usuarios_usuarios1_idx');
 		});

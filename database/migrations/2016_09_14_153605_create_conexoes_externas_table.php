@@ -18,6 +18,8 @@ class CreateConexoesExternasTable extends Migration {
 			$table->integer('idUsuariosTipos')->index('fk_conexoesExternas_usuarios_tipos1_idx');
 			$table->string('driver', 20);
 			$table->string('host', 45);
+			$table->string('database', 45);
+			$table->string('view', 45);
 			$table->string('login', 20);
 			$table->string('senha', 20);
 			$table->timestamps();
