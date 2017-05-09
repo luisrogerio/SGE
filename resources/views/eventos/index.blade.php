@@ -9,7 +9,7 @@
                     <img src="/uploads/eventos/{{ $evento->id }}/{{ $evento->eventoCaracteristica->logo }}" class="img-thumbnail img-circle">
                 </div>
                 <div class="col-md-10">
-                    <a href="{{ action('EventosController@getVisualizar', array('id' => $evento->id)) }}" class="h3"><small><i class="glyphicon glyphicon-log-in"></i></small> {{$evento->nome }}</a>
+                    <a href="{{ route('visualizar', array('id' => $evento->id)) }}" class="h3"><small><i class="glyphicon glyphicon-log-in"></i></small> {{$evento->nome }}</a>
                     <blockquote>
                         <p>{!! $evento->descricao !!}}</p>
                     </blockquote>
@@ -19,7 +19,7 @@
         @endforeach
         <div class="row">
             <div class="col-md-12">
-                {{link_to_action('EventosController@getAdicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}
+                {{link_to_route('eventos::adicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}
             </div>
         </div>
     </div>

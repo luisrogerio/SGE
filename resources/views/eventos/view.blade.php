@@ -80,6 +80,13 @@
                                     }}
                                 </li>
                                 <li class="list-group-item {{
+                            ($evento->eventoCaracteristica->eSubmissaoArtigo)?
+                            'list-group-item-success':
+                            'list-group-item-danger'
+                            }}">
+                                    Submissão de Artigos
+                                </li>
+                                <li class="list-group-item {{
                             ($evento->eventoCaracteristica->eExistemImagens)?
                             'list-group-item-success':
                             'list-group-item-danger'

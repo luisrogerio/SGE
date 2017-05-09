@@ -112,7 +112,7 @@ Route::group([ 'prefix' => 'contatos/', 'as' => 'contatos::'], function() {
 
 });
 
-Route::controller('/testes', 'TestesController');
+//Route::controller('/testes', 'TestesController');
 
 //Route::group(['prefix' => '/evento/{$idEvento}'], function () {
 //    Route::get('/adicionar', ['uses' => 'EventosController@getAdicionar']);
@@ -129,13 +129,13 @@ Route::group([ 'prefix' => 'usuariosTipos/', 'as' => 'usuariosTipos::', ], funct
     Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'UsuariosTiposController@postAtualizar']);
     Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'UsuariosTiposController@postExcluir']);
 
-    Route::group([ 'prefix' => '{idUsuarioTipo}'], function ($idUsuarioTipo){
-        Route::get('/adicionarConexao', ['as' => 'adicionarConexao', 'uses' => 'ConexoesExternasController@getAdicionar']);
-        Route::post('/salvarConexao', ['as' => 'salvarConexao', 'uses' => 'ConexoesExternasController@postSalvar']);
-        Route::get('/editarConexao/{id}', ['as' => 'editarConexao', 'uses' => 'ConexoesExternasController@getEditar']);
-        Route::post('/atualizarConexao/{id}', ['as' => 'atualizarConexao', 'uses' => 'ConexoesExternasController@postAtualizar']);
-        Route::post('/excluirConexao/{id}', ['as' => 'excluirConexao', 'uses' => 'ConexoesExternasController@postExcluir']);
-    });
+//    Route::group([ 'prefix' => '{idUsuarioTipo}'], function ($idUsuarioTipo){
+//        Route::get('/adicionarConexao', ['as' => 'adicionarConexao', 'uses' => 'ConexoesExternasController@getAdicionar']);
+//        Route::post('/salvarConexao', ['as' => 'salvarConexao', 'uses' => 'ConexoesExternasController@postSalvar']);
+//        Route::get('/editarConexao/{id}', ['as' => 'editarConexao', 'uses' => 'ConexoesExternasController@getEditar']);
+//        Route::post('/atualizarConexao/{id}', ['as' => 'atualizarConexao', 'uses' => 'ConexoesExternasController@postAtualizar']);
+//        Route::post('/excluirConexao/{id}', ['as' => 'excluirConexao', 'uses' => 'ConexoesExternasController@postExcluir']);
+//    });
 });
 
 Route::group([ 'prefix' => 'eventos/', 'as' => 'eventos::', ], function () {

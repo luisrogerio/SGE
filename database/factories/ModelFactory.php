@@ -28,12 +28,12 @@ $factory->define(App\Models\AtividadeTipo::class, function (Faker\Generator $fak
         'nome' => $faker->word
     ];
 });
-
-$factory->define(App\Models\Local::class, function (Faker\Generator $faker) {
-    return [
-        'nome' => $faker->streetName
-    ];
-});
+//
+//$factory->define(App\Models\Local::class, function (Faker\Generator $faker) {
+//    return [
+//        'nome' => $faker->streetName
+//    ];
+//});
 
 $factory->define(App\Models\UsuarioGrupo::class, function (Faker\Generator $faker) {
     return [

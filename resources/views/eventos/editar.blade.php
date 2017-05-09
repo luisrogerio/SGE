@@ -106,6 +106,15 @@
                             </div>
                         </div>
                         <fieldset class="checkbox">
+                            <label for="eventoCaracteristica[eSubmissaoArtigo]">
+                                {{ Form::hidden('eventoCaracteristica[eSubmissaoArtigo]', false) }}
+                                {{Form::checkbox('eventoCaracteristica[eSubmissaoArtigo]', true, null,  array('id' => 'eventoCaracteristica[eSubmissaoArtigo]')) }}
+                                Haverá submissão de Artigos para o Evento?
+                            </label>
+                            @if ($errors->has('eventoCaracteristica.eExistemImagens')) <p
+                                    class="help-block">{{ $errors->first('eventoCaracteristica.eSubmissaoArtigo') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="checkbox">
                             <label for="eventoCaracteristica[eExistemImagens]">
                                 {{ Form::hidden('eventoCaracteristica[eExistemImagens]', false) }}
                                 {{Form::checkbox('eventoCaracteristica[eExistemImagens]', true, null,  array('id' => 'eventoCaracteristica[eExistemImagens]')) }} O evento guardará uma galeria de fotos?
