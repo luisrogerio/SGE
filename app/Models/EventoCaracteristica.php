@@ -15,6 +15,7 @@ class EventoCaracteristica extends Model
 		'backgroundColor'           ,
 		'eEmiteCertificado'         ,
 		'dataLiberacaoCertificado'  ,
+        'eSubmissaoArtigo'          ,
 		'eExistemImagens'           ,
 		'eExistemNoticias'          ,
 		'favicon'                   ,

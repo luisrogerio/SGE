@@ -18,6 +18,6 @@ class EventoImagem extends Model
     ];
 
     public function evento(){
-        $this->belongsTo('App\Models\Evento','idEvento');
+        $this->belongsTo('App\Models\Evento','idEventos');
     }
 }
