@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Local extends Model
 {
-    protected   $fillable   = ['id','nome'];
-    protected   $table      = 'locais';
+    protected $fillable = ['id', 'nome'];
+    protected $table = 'locais';
 
-    public function unidade(){
+    public function unidade()
+    {
         return $this->belongsTo('App\Models\Unidade', 'idUnidades');
     }
 }

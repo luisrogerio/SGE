@@ -21,8 +21,9 @@ class EventosRequest extends Request
      *
      * @return array
      */
-    public function rules() {
-        switch($this->method()){
+    public function rules()
+    {
+        switch ($this->method()) {
             case 'POST':
                 return [
                     'nome' => 'required',
@@ -44,7 +45,7 @@ class EventosRequest extends Request
                     'eventoCaracteristica.idAparencias' => 'required',
                     'eventoCaracteristica.logoImagem' => 'required_without:eEventoPai|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
                 ];
-            break;
+                break;
             case 'PATCH':
                 return [
                     'nome' => 'required',

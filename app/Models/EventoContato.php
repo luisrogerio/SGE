@@ -6,29 +6,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventoContato extends Model
 {
-    protected   $table      = 'eventos_contatos';
-    protected   $fillable   = [
-        'id'            ,
-        'idEventos'     ,
-        'nome'          ,
-        'telefone'      ,
-        'celular'       ,
-        'email'         ,
-        'redesSociais'  ,
-        'criadoEm'      ,
-        'modificadoEm'  ,
+    protected $table = 'eventos_contatos';
+    protected $fillable = [
+        'id',
+        'idEventos',
+        'nome',
+        'telefone',
+        'celular',
+        'email',
+        'redesSociais',
+        'criadoEm',
+        'modificadoEm',
         'salvoPor'
     ];
 
-    public function evento(){
+    public function evento()
+    {
         $this->belongsToMany('App\Models\Evento', 'contatos_eventos', 'idEventosContatos', 'idEventos');
     }
 
-    public function getRedessociaisAttribute($value){
+    public function getRedessociaisAttribute($value)
+    {
         return explode("<br>", $value);
     }
 
-    public function setRedessociaisAttribute($value) {
+    public function setRedessociaisAttribute($value)
+    {
         $this->attributes['redesSociais'] = implode("<br>", $value);
     }
 }

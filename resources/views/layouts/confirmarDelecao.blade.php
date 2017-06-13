@@ -28,7 +28,7 @@
     });
 
     <!-- Form confirm (yes/ok) handler, submits form -->
-    $('#confirmDelete').find('.modal-footer #confirm').on('click', function(){
+    $('#confirmDelete').find('.modal-footer #confirm').on('click', function () {
         $(this).data('form').submit();
     });
 </script>

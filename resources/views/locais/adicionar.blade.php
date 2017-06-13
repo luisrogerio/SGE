@@ -3,7 +3,12 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Adicionar Novo Local - Unidade {{ $unidade->nome }}</h3>
+            <h3>
+                <ol class="breadcrumb">
+                    <li>{{ link_to_route("unidades::index", "Unidade ".$unidade->nome) }}</li>
+                    <li>Adicionar Local</li>
+                </ol>
+            </h3>
         </div>
         <div class="panel-body">
             {{Form::open(array('url'=>'locais/salvar'))}}

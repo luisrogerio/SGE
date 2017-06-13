@@ -5,7 +5,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Novo Link Externo</h4>
                 </div>
                 {{Form::open(array('url' => 'eventos/salvarLinkExterno', 'id' => 'adicionarLinkExterno'))}}
@@ -43,8 +44,8 @@
                     <h4 class="text-center">Data do Evento</h4>
                     <p class="h3 text-center">
                         {{ $evento->dataInicio->day }}
-                        <small>de </small>
-                            <span class="h4 text-capitalize">
+                        <small>de</small>
+                        <span class="h4 text-capitalize">
                             {{ $evento->dataInicio->formatLocalized('%B')}}
                             </span>
                         <br/>
@@ -54,7 +55,7 @@
                     <p class="text-center text-capitalize">até</p>
                     <p class="h3 text-center">
                         {{ $evento->dataTermino->day }}
-                        <small>de </small>
+                        <small>de</small>
                         <span class="h4 text-capitalize">
                             {{ $evento->dataTermino->formatLocalized('%B')}}
                             </span>
@@ -66,7 +67,7 @@
                     <h4 class="text-center">Data de Inscrição</h4>
                     <p class="h3 text-center">
                         {{ $evento->dataInicioInscricao->day }}
-                        <small>de </small>
+                        <small>de</small>
                         <span class="h4 text-capitalize">
                             {{ $evento->dataInicioInscricao->formatLocalized('%B')}}
                             </span>
@@ -77,7 +78,7 @@
                     <p class="text-center text-capitalize">até</p>
                     <p class="h3 text-center">
                         {{ $evento->dataFimInscricao->day }}
-                        <small>de </small>
+                        <small>de</small>
                         <span class="h4 text-capitalize">
                             {{ $evento->dataFimInscricao->formatLocalized('%B')}}
                             </span>
@@ -89,7 +90,8 @@
                 <div class="col-xs-12 col-md-10">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                         <li role="presentation" class="active">
-                            <a href="#caracteristica" aria-controls="caracteristica" role="tab" data-toggle="tab">Evento</a>
+                            <a href="#caracteristica" aria-controls="caracteristica" role="tab"
+                               data-toggle="tab">Evento</a>
                         </li>
                         <li role="presentation">
                             <a href="#subeventos" aria-controls="subeventos" role="tab" data-toggle="tab">Subeventos</a>
@@ -198,7 +200,9 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button class="btn btn-default" type='button' data-toggle="modal" data-target="#modalLinkExterno">Adicionar Link Externo</button>
+                                <button class="btn btn-default" type='button' data-toggle="modal"
+                                        data-target="#modalLinkExterno">Adicionar Link Externo
+                                </button>
                                 {{ link_to_route('eventos::editar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
                                 {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'btn btn-success')) }}
                                 {{ link_to_route('atividades::adicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
@@ -220,7 +224,7 @@
         </div>
     </div>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(document).on('click', '.pagination a', function (e) {
                 getSubeventos($(this).attr('href').split('page=')[1]);
                 e.preventDefault();
@@ -231,10 +235,10 @@
         })
         function getSubeventos(page) {
             $.ajax({
-                url: $(document).attr('URL') + '?page='+page,
+                url: $(document).attr('URL') + '?page=' + page,
                 dataType: 'json',
             }).done(function (data) {
-                $('#subeventosPaginacao').fadeOut('slow', function (){
+                $('#subeventosPaginacao').fadeOut('slow', function () {
                     $('#subeventosPaginacao').html(data);
                     $('#subeventosPaginacao').fadeIn('slow');
                 });
@@ -243,7 +247,7 @@
             });
         }
         $(function () {
-            $('#adicionarLinkExterno').on('submit', function(e){
+            $('#adicionarLinkExterno').on('submit', function (e) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -251,27 +255,27 @@
                 })
                 e.preventDefault(e);
                 $.ajax({
-                    type:"POST",
-                    url:'/eventos/salvarLinkExterno',
+                    type: "POST",
+                    url: '/eventos/salvarLinkExterno',
                     data: $(this).serialize(),
                     dataType: 'json',
-                    success: function(){
+                    success: function () {
                         $("#linksExternos").append(
-                                '<p><strong>'+$("#descricaoInput").val()+'</strong></p>'+
-                                '<p><a href="'+$("#urlInput").val()+'">'+$("#urlInput").val()+'</a></p>');
+                                '<p><strong>' + $("#descricaoInput").val() + '</strong></p>' +
+                                '<p><a href="' + $("#urlInput").val() + '">' + $("#urlInput").val() + '</a></p>');
                         $("#descricaoInput").val('');
                         $("#urlInput").val('');
                         $('#descricao p').text("");
                         $('#url p').text("");
                         $("#modalLinkExterno").modal('toggle');
                     },
-                    error: function(data){
+                    error: function (data) {
                         var erro = data.responseJSON;
                         var descricao = "", url = "";
-                        if(erro.descricao !== undefined){
+                        if (erro.descricao !== undefined) {
                             descricao = erro.descricao;
                         }
-                        if(erro.url !== undefined){
+                        if (erro.url !== undefined) {
                             url = erro.url;
                         }
                         $("#descricao p").text(descricao);

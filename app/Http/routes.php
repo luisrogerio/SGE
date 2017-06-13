@@ -42,92 +42,92 @@ Route::post('reset', 'Auth\PasswordController@reset');
 
 //Route::controller('/contatos', 'EventosContatosController');
 
-Route::group([ 'prefix' => 'salas/', 'as' => 'salas::'], function() {
-    Route::get('/{idLocais}', [ 'as' => 'index', 'uses' => 'SalasController@getIndex']);
-    Route::get('/adicionar/{idLocais}', [ 'as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'SalasController@getEditar']);
-    Route::post('/adicionar/{idLocais}', [ 'as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'SalasController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'SalasController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'SalasController@postExcluir']);
+Route::group(['prefix' => 'salas/', 'as' => 'salas::'], function () {
+    Route::get('/{idLocais}', ['as' => 'index', 'uses' => 'SalasController@getIndex']);
+    Route::get('/adicionar/{idLocais}', ['as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'SalasController@getEditar']);
+    Route::post('/adicionar/{idLocais}', ['as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'SalasController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'SalasController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'SalasController@postExcluir']);
 });
 
-Route::group([ 'prefix' => 'locais/', 'as' => 'locais::'], function() {
-    Route::get('/{idUnidades}', [ 'as' => 'index', 'uses' => 'LocaisController@getIndex']);
-    Route::get('/adicionar/{idUnidades}', [ 'as' => 'adicionar', 'uses' => 'LocaisController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'LocaisController@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'LocaisController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'LocaisController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'LocaisController@postExcluir']);
+Route::group(['prefix' => 'locais/', 'as' => 'locais::'], function () {
+    Route::get('/{idUnidades}', ['as' => 'index', 'uses' => 'LocaisController@getIndex']);
+    Route::get('/adicionar/{idUnidades}', ['as' => 'adicionar', 'uses' => 'LocaisController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'LocaisController@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'LocaisController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'LocaisController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'LocaisController@postExcluir']);
 });
 
-Route::group([ 'prefix' => 'unidades/', 'as' => 'unidades::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'UnidadesController@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'UnidadesController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'UnidadesController@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'UnidadesController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'UnidadesController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'UnidadesController@postExcluir']);
-
-});
-
-Route::group([ 'prefix' => 'atividadesTipos/', 'as' => 'atividadesTipos::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'AtividadesTiposController@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'AtividadesTiposController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'AtividadesTiposController@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'AtividadesTiposController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'AtividadesTiposController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'AtividadesTiposController@postExcluir']);
+Route::group(['prefix' => 'unidades/', 'as' => 'unidades::'], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'UnidadesController@getIndex']);
+    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'UnidadesController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'UnidadesController@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'UnidadesController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'UnidadesController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'UnidadesController@postExcluir']);
 
 });
 
-Route::group([ 'prefix' => 'cursos/', 'as' => 'cursos::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'CursosController@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'CursosController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'CursosController@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'CursosController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'CursosController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'CursosController@postExcluir']);
+Route::group(['prefix' => 'atividadesTipos/', 'as' => 'atividadesTipos::'], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'AtividadesTiposController@getIndex']);
+    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'AtividadesTiposController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'AtividadesTiposController@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesTiposController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesTiposController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'AtividadesTiposController@postExcluir']);
 
 });
 
-Route::group([ 'prefix' => 'statusdeatividade/', 'as' => 'statusdeatividade::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'AtividadesStatusConroller@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'AtividadesStatusConroller@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'AtividadesStatusConroller@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'AtividadesStatusConroller@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'AtividadesStatusConroller@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'AtividadesStatusConroller@postExcluir']);
+Route::group(['prefix' => 'cursos/', 'as' => 'cursos::'], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'CursosController@getIndex']);
+    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'CursosController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'CursosController@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'CursosController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'CursosController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'CursosController@postExcluir']);
 
 });
 
-Route::group([ 'prefix' => 'gruposdeusuario/', 'as' => 'gruposdeusuario::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'UsuariosGruposController@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'UsuariosGruposController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'UsuariosGruposController@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'UsuariosGruposController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'UsuariosGruposController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'UsuariosGruposController@postExcluir']);
+Route::group(['prefix' => 'statusdeatividade/', 'as' => 'statusdeatividade::'], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'AtividadesStatusConroller@getIndex']);
+    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'AtividadesStatusConroller@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'AtividadesStatusConroller@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesStatusConroller@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesStatusConroller@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'AtividadesStatusConroller@postExcluir']);
 
 });
 
-Route::group([ 'prefix' => 'atividades/', 'as' => 'atividades::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'AtividadesController@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'AtividadesController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'AtividadesController@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'AtividadesController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'AtividadesController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'AtividadesController@postExcluir']);
+Route::group(['prefix' => 'gruposdeusuario/', 'as' => 'gruposdeusuario::'], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'UsuariosGruposController@getIndex']);
+    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'UsuariosGruposController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'UsuariosGruposController@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'UsuariosGruposController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'UsuariosGruposController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'UsuariosGruposController@postExcluir']);
 
 });
 
-Route::group([ 'prefix' => 'contatos/', 'as' => 'contatos::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'EventosContatosController@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'EventosContatosController@getAdicionar']);
-    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'EventosContatosController@getEditar']);
-    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'EventosContatosController@postSalvar']);
-    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'EventosContatosController@postAtualizar']);
-    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'EventosContatosController@postExcluir']);
+Route::group(['prefix' => 'atividades/', 'as' => 'atividades::'], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'AtividadesController@getIndex']);
+    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'AtividadesController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'AtividadesController@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'AtividadesController@postExcluir']);
+
+});
+
+Route::group(['prefix' => 'contatos/', 'as' => 'contatos::'], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'EventosContatosController@getIndex']);
+    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'EventosContatosController@getAdicionar']);
+    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'EventosContatosController@getEditar']);
+    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'EventosContatosController@postSalvar']);
+    Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EventosContatosController@postAtualizar']);
+    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosContatosController@postExcluir']);
 
 });
 
@@ -140,8 +140,8 @@ Route::group([ 'prefix' => 'contatos/', 'as' => 'contatos::'], function() {
 
 //Route::controller('/usuariosTipos','UsuariosTiposController');
 
-Route::group([ 'prefix' => 'usuariosTipos/', 'as' => 'usuariosTipos::', ], function () {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'UsuariosTiposController@getIndex', ]);
+Route::group(['prefix' => 'usuariosTipos/', 'as' => 'usuariosTipos::',], function () {
+    Route::get('/', ['as' => 'index', 'uses' => 'UsuariosTiposController@getIndex',]);
     Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'UsuariosTiposController@getAdicionar']);
     Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'UsuariosTiposController@getEditar']);
     Route::post('/salvar', ['as' => 'salvar', 'uses' => 'UsuariosTiposController@postSalvar']);
@@ -157,9 +157,9 @@ Route::group([ 'prefix' => 'usuariosTipos/', 'as' => 'usuariosTipos::', ], funct
 //    });
 });
 
-Route::group([ 'prefix' => 'eventos/', 'as' => 'eventos::', ], function () {
+Route::group(['prefix' => 'eventos/', 'as' => 'eventos::',], function () {
 
-    Route::get('/', [ 'as' => 'index', 'uses' => 'EventosController@getIndex', ]);
+    Route::get('/', ['as' => 'index', 'uses' => 'EventosController@getIndex',]);
     Route::get('/visualizar/{id}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizar']);
     Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'EventosController@getAdicionar']);
     Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'EventosController@getEditar']);
@@ -169,7 +169,7 @@ Route::group([ 'prefix' => 'eventos/', 'as' => 'eventos::', ], function () {
     Route::get('/subeventos', ['as' => 'paginacaoSubeventos', 'uses' => 'EventosController@getSubeventos']);
     Route::post('/salvarLinkExterno', ['as' => 'salvarLinkExterno', 'uses' => 'EventosController@salvarLinkExterno']);
 
-    Route::group([ 'prefix' => '{idPai?}'], function ($idPai = 0){
+    Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
         Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);
         Route::post('/salvar', ['as' => 'salvarSubevento', 'uses' => 'EventosController@postSalvar']);
     });
@@ -178,22 +178,22 @@ Route::group([ 'prefix' => 'eventos/', 'as' => 'eventos::', ], function () {
 
 Route::get('/dashboard', 'HomeController@index');
 
-Route::get('/novoLogin', function(){
+Route::get('/novoLogin', function () {
     return view('login');
 });
 
-Route::get('/novoEvento', function(){
+Route::get('/novoEvento', function () {
     return view('eventos.eventoMaster');
 });
 
-Route::get('/novoEvento2', function(){
+Route::get('/novoEvento2', function () {
     return view('eventos.eventos');
 });
 
-Route::get('/novoEvento3', function(){
+Route::get('/novoEvento3', function () {
     return view('eventos.eventosFinalizados');
 });
 
-Route::get('/novoCadastro', function(){
+Route::get('/novoCadastro', function () {
     return view('cadastro');
 });

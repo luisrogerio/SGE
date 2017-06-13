@@ -62,7 +62,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(function (){
+        $(function () {
             $("#cpfAluno").mask('000.000.000-00');
             $("#cpfExterno").mask('000.000.000-00');
         });

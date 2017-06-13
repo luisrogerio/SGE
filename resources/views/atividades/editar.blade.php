@@ -14,14 +14,14 @@
             </fieldset>
             <fieldset class="form-group">
                 {{Form::label('', 'Cursos') }}
-                <?php $i=0; ?>
+                <?php $i = 0; ?>
                 @foreach($cursos as $curso)
                     {{Form::checkbox('idCursos['.$i.']',
                         $curso->id,
                         ($atividade->cursos->contains($curso->id))? true:false,
                         ['id' => 'idCursos['.$i.']'])
                      }}  {{Form::label('idCursos['.$i.']', $curso->sigla)}}<br>
-                <?php $i++; ?>
+                    <?php $i++; ?>
                 @endforeach
                 @if ($errors->has('sigla')) <p class="help-block">{{$errors->first('sigla')}}</p> @endif
             </fieldset>

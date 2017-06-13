@@ -3,7 +3,12 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Atualizar Local - Unidade {{ $local->unidade->nome }}</h3>
+            <h3>
+                <ol class="breadcrumb">
+                    <li>{{ link_to_route("unidades::index", "Unidade ".$local->unidade->nome) }}</li>
+                    <li>Atualizar Local {{ $local->nome }}</li>
+                </ol>
+            </h3>
         </div>
         <div class="panel-body">
             {{Form::model($local, array('url'=>'locais/atualizar/'.$local->id))}}

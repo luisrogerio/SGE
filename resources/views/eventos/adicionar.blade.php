@@ -244,7 +244,7 @@
             });
             @if($eventoPai!=null)
 
-            if(!$('#eEventoPai').is(':checked')){
+            if (!$('#eEventoPai').is(':checked')) {
                 $('#eImagemDeFundo').attr('disabled', null);
                 $('form input[name="eventoCaracteristica[backgroundColor]"]').attr('disabled', null);
                 $('form input[name="eventoCaracteristica[backgroundImagem]"]').attr('disabled', null);
@@ -255,8 +255,8 @@
                 $('form input[name="eventoCaracteristica[backgroundImagem]"]').attr('disabled', 'disabled');
                 $('form input[name="eventoCaracteristica[logoImagem]"]').attr('disabled', 'disabled');
             }
-            $('#eEventoPai').on('change', function(){
-                if(!$('#eEventoPai').is(':checked')){
+            $('#eEventoPai').on('change', function () {
+                if (!$('#eEventoPai').is(':checked')) {
                     $('#eImagemDeFundo').attr('disabled', null);
                     $('form input[name="eventoCaracteristica[backgroundColor]"]').attr('disabled', null);
                     $('form input[name="eventoCaracteristica[backgroundImagem]"]').attr('disabled', null);

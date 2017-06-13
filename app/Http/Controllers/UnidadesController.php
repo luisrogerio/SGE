@@ -8,32 +8,39 @@ use App\Models\Unidade;
 class UnidadesController extends Controller
 {
     private $unidade;
-    public function __construct(Unidade $unidade){
+
+    public function __construct(Unidade $unidade)
+    {
         $this->unidade = $unidade;
     }
 
-    public function getIndex(){
+    public function getIndex()
+    {
         $unidades = Unidade::orderBy('nome')->paginate(5);
-        return view('unidades.index',compact('unidades'));
+        return view('unidades.index', compact('unidades'));
     }
 
-    public function getAdicionar(){
+    public function getAdicionar()
+    {
         return view('unidades.adicionar');
     }
 
-    public function postSalvar(UnidadesRequest $request){
+    public function postSalvar(UnidadesRequest $request)
+    {
         $this->unidade->fill($request->all());
         if ($this->unidade->save()) {
             return redirect('/unidades');
         }
     }
 
-    public function getEditar($id){
+    public function getEditar($id)
+    {
         $unidade = $this->unidade->findOrFail($id);
         return view('unidades.editar', compact('unidade'));
     }
 
-    public function postAtualizar(UnidadesRequest $request, $id){
+    public function postAtualizar(UnidadesRequest $request, $id)
+    {
         $this->unidade = $this->unidade->findOrFail($id);
         $this->unidade->fill($request->all());
         if ($this->unidade->update()) {
@@ -42,7 +49,8 @@ class UnidadesController extends Controller
         }
     }
 
-    public function postExcluir($id){
+    public function postExcluir($id)
+    {
         $unidade = $this->unidade->findOrFail($id);
         $unidade->delete();
         \Session::flash('message', 'Unidade excluída com sucesso');

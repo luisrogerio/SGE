@@ -11,28 +11,31 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
     use Authenticatable, CanResetPassword;
     protected $table = 'usuarios';
     protected $fillable = [
-        'nome'              ,
-        'email'             ,
-        'dataNascimento'    ,
-        'login'             ,
-        'senha'             ,
-        'idCursos'          ,
-        'idUsuariosTipos'   ,
+        'nome',
+        'email',
+        'dataNascimento',
+        'login',
+        'senha',
+        'idCursos',
+        'idUsuariosTipos',
     ];
     protected $dates = [
         'dataNascimento'
     ];
 
-    public function usuarioTipo(){
+    public function usuarioTipo()
+    {
         return $this->belongsTo('App\Models\UsuarioTipo', 'idUsuariosTipos');
     }
 
-    public function usuariosGrupos(){
+    public function usuariosGrupos()
+    {
         return $this->belongsToMany('App\Models\UsuarioGrupo', 'usuarios_usuarios_grupos',
             'idUsuarios', 'idUsuariosGrupos');
     }
 
-    public function getAuthPassword(){
+    public function getAuthPassword()
+    {
         return $this->senha;
     }
 }

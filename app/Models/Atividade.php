@@ -19,11 +19,13 @@ class Atividade extends Model
         'salvoPor'
     ];
 
-    public function atividadesTipos(){
+    public function atividadesTipos()
+    {
         return $this->belongsTo('App\Models\AtividadeTipo', 'idAtividadesTipos');
     }
 
-    public function cursos(){
+    public function cursos()
+    {
         return $this->belongsToMany('App\Models\Curso', 'atividades_cursos', 'idAtividades', 'idCursos');
     }
 
@@ -31,11 +33,13 @@ class Atividade extends Model
 //        return $this->hasMany('App\Models\AtividadeData', 'idAtividades');
 //    }
 
-    public function atividadesDatasHorariosLocais(){
+    public function atividadesDatasHorariosLocais()
+    {
         return $this->hasMany('App\Models\AtividadeDataHorariosLocais', 'idAtividades');
     }
 
-    public function horarios(){
+    public function horarios()
+    {
         return $this->hasManyThrough('App\Models\Horario', 'App\Models\AtividadeData', 'idAtividades', 'idAtividadesDatas', 'id');
     }
 }

@@ -12,7 +12,8 @@ class Sala extends Model
 
     protected $table = 'salas';
 
-    public function local(){
+    public function local()
+    {
         return $this->belongsTo('App\Models\Local', 'idLocais');
     }
 }

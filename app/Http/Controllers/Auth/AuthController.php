@@ -43,7 +43,8 @@ class AuthController extends Controller
     protected $maxLoginAttempts = 5;
     protected $lockoutTime = 300;
 
-    protected function getCredentials(Request $request){
+    protected function getCredentials(Request $request)
+    {
         return [
             $this->loginUsername() => $request->get($this->loginUsername()),
             'password' => $request->get('senha')
@@ -56,6 +57,7 @@ class AuthController extends Controller
             $this->loginUsername() => 'required', 'senha' => 'required',
         ]);
     }
+
     /**
      * Create a new authentication controller instance.
      *
@@ -66,11 +68,13 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
-    public function getCadastro(){
+    public function getCadastro()
+    {
         return view('publico.cadastro');
     }
 
-    public function getCadastroAluno(Request $request){
+    public function getCadastroAluno(Request $request)
+    {
         $this->validate($request, [
             'cpfAluno' => 'required|cpf',
             'matricula' => 'required'
@@ -79,22 +83,22 @@ class AuthController extends Controller
             'cpfAluno.cpf' => 'O CPF fornecido não é válido'
         ]);
         $tipoAluno = UsuarioTipo::where('nome', 'Aluno');
-        if($tipoAluno->conexaoExterna != null){
+        if ($tipoAluno->conexaoExterna != null) {
             $tipoAluno->configurarConexao();
             Aluno::setTable($tipoAluno->conexaoExterna->view);
             $aluno = Aluno::checarCadastro($request->id, $request->cpf);
-            if($aluno){
+            if ($aluno) {
                 $this->usuario = new Usuario();
                 $this->usuario = [
-                    'nome'              =>  $aluno->nome,
-                    'email'             =>  $aluno->email,
-                    'dataDeNascimento'  =>  $aluno->dataDeNascimento,
-                    'login'             =>  $aluno->id,
-                    'senha'             =>  $aluno->dataDeNascimento->format('dmY'),
-                    'idCursos'          =>  $aluno->idCurso,
-                    'idUsuariosTipo'    =>  $tipoAluno->id
+                    'nome' => $aluno->nome,
+                    'email' => $aluno->email,
+                    'dataDeNascimento' => $aluno->dataDeNascimento,
+                    'login' => $aluno->id,
+                    'senha' => $aluno->dataDeNascimento->format('dmY'),
+                    'idCursos' => $aluno->idCurso,
+                    'idUsuariosTipo' => $tipoAluno->id
                 ];
-                if ($usuario = $this->usuario->create($this->usuario->attributesToArray())){
+                if ($usuario = $this->usuario->create($this->usuario->attributesToArray())) {
                     $usuario->usuariosGrupos()->attach(UsuarioGrupo::where('nome', 'Usuário Comum')->pluck('id')->first());
                     \Auth::guard($this->getGuard())->login($usuario);
                     return redirect('/dashboard');
@@ -110,7 +114,8 @@ class AuthController extends Controller
         return redirect()->back();
     }
 
-    public function getCadastroExterno(Request $request){
+    public function getCadastroExterno(Request $request)
+    {
         $this->validate($request, [
             'cpfExterno' => 'required|cpf',
             'nome' => 'required'
@@ -121,8 +126,9 @@ class AuthController extends Controller
         return view('publico.cadastroExterno')->with(array('nome' => $request->nome, 'cpf' => $request->cpfExterno));
     }
 
-    public function postSalvarExterno(Request $request){
-        if($validator = $this->validate($request, [
+    public function postSalvarExterno(Request $request)
+    {
+        if ($validator = $this->validate($request, [
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios',
             'dataNascimento' => 'required|date_format:d/m/Y',
@@ -130,7 +136,8 @@ class AuthController extends Controller
             'senha' => 'required|alpha_dash|between:8,20|same:confirmarSenha'
         ], [
             'dataNascimento.required' => 'O campo Data de Nascimento é obrigatório'
-        ])){
+        ])
+        ) {
             return view('publico.cadastroExterno')->withErrors($validator)->withInput();
         }
 
@@ -142,7 +149,7 @@ class AuthController extends Controller
         $this->usuario->fill($request->all());
         $this->usuario->senha = \Hash::make($this->usuario->senha);
         $this->usuario->login = $this->usuario->email;
-        if ($usuario = $this->usuario->create($this->usuario->attributesToArray())){
+        if ($usuario = $this->usuario->create($this->usuario->attributesToArray())) {
             $usuario->usuariosGrupos()->attach(UsuarioGrupo::where('nome', 'Usuário Comum')->pluck('id')->first());
             \Auth::guard($this->getGuard())->login($usuario);
             return redirect('/dashboard');

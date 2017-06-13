@@ -11,32 +11,38 @@ class EventosContatosController extends Controller
 {
     private $eventoContato;
 
-    public function __construct(EventoContato $eventoContato){
+    public function __construct(EventoContato $eventoContato)
+    {
         $this->eventoContato = $eventoContato;
     }
 
-    public function getIndex(){
+    public function getIndex()
+    {
         $eventosContatos = $this->eventoContato->orderBy('nome')->paginate(5);
         return view('contatos.index', compact('eventosContatos'));
     }
 
-    public function getAdicionar(){
+    public function getAdicionar()
+    {
         return view('contatos.adicionar');
     }
 
-    public function postSalvar(EventosContatosRequest $request){
+    public function postSalvar(EventosContatosRequest $request)
+    {
         $this->eventoContato->fill($request->all());
         if ($this->eventoContato->save()) {
             return redirect('/contatos');
         }
     }
 
-    public function getEditar($id){
+    public function getEditar($id)
+    {
         $eventoContato = $this->eventoContato->findOrFail($id);
         return view('contatos.editar', compact('eventoContato'));
     }
 
-    public function postAtualizar(EventosContatosRequest $request, $id){
+    public function postAtualizar(EventosContatosRequest $request, $id)
+    {
         $this->eventoContato = $this->eventoContato->findOrFail($id);
         $this->eventoContato->fill($request->all());
         if ($this->eventoContato->update()) {
@@ -45,7 +51,8 @@ class EventosContatosController extends Controller
         }
     }
 
-    public function postExcluir($id){
+    public function postExcluir($id)
+    {
         $eventoContato = $this->eventoContato->findOrFail($id);
         $eventoContato->delete();
         \Session::flash('message', 'Contato excluído com sucesso');

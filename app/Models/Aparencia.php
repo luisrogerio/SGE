@@ -21,17 +21,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Aparencia extends Model
 {
-    protected   $table      = 'aparencias';
-    protected   $fillable   = [
-        'id'            ,
-        'nome'          ,
-        'criadoEm'      ,
-        'modificadoEm'  ,
+    protected $table = 'aparencias';
+    protected $fillable = [
+        'id',
+        'nome',
+        'criadoEm',
+        'modificadoEm',
         'salvoPor'
     ];
 
-    public function eventosCaracteristicas(){
-        $this->hasMany('App\Models\EventoCaracteristica','idAparencias');
+    public function eventosCaracteristicas()
+    {
+        $this->hasMany('App\Models\EventoCaracteristica', 'idAparencias');
     }
 
 }

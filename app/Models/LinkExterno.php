@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class LinkExterno extends Model
 {
-    protected   $fillable =
+    protected $fillable =
         [
-            'descricao' ,
-            'url'       ,
+            'descricao',
+            'url',
         ];
-    protected   $table = 'links_externos';
+    protected $table = 'links_externos';
 
-    public function evento(){
-        $this->belongsTo('App\Models\Evento','idEventos');
+    public function evento()
+    {
+        $this->belongsTo('App\Models\Evento', 'idEventos');
     }
 }

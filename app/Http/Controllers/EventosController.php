@@ -40,7 +40,7 @@ class EventosController extends Controller
         $edicoesAnteriores = $this->evento->lists('nome', 'id');
         $eventoPai = $this->evento->with('eventosContatos')->find($idPai);
         $contatosSelecionados = null;
-        if($eventoPai){
+        if ($eventoPai) {
             $contatosSelecionados = $eventoPai->eventosContatos->pluck('id')->toArray();
         }
         return view('eventos.adicionar', compact('contatos', 'temas', 'edicoesAnteriores', 'eventoPai', 'contatosSelecionados', 'tiposDeUsuario'));
@@ -55,7 +55,7 @@ class EventosController extends Controller
                 'dataInicio' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicio),
                 'dataTermino' => Carbon::createFromFormat('d/m/Y H:i', $request->dataTermino)
             ));
-            if($idPai!= 0){
+            if ($idPai != 0) {
                 $request->merge(array(
                     'idPai' => $idPai
                 ));
@@ -64,16 +64,16 @@ class EventosController extends Controller
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
             $this->evento->tiposDeUsuario()->sync($request->get('usuariosTipos'));
             $eventoCaracteristica = $request->eventoCaracteristica;
-            if($eventoCaracteristica['eEmiteCertificado']){
+            if ($eventoCaracteristica['eEmiteCertificado']) {
                 $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
             }
-            if($idPai == 0 || !$request->get('eEventoPai')){
+            if ($idPai == 0 || !$request->get('eEventoPai')) {
                 if ($request->has('eventoCaracteristica.eImagemDeFundo')) {
                     if ($request->hasFile('eventoCaracteristica.backgroundImagem') && $request->file('eventoCaracteristica.backgroundImagem')->isValid()) {
                         $destino = \App::publicPath() . '/uploads/eventos/' . $this->evento->id;
                         $extensao = $request->file('eventoCaracteristica.backgroundImagem')->getClientOriginalExtension();
                         $arquivoNome = 'background.' . $extensao;
-                        $eventoCaracteristica['background'] = '/uploads/eventos/' . $this->evento->id.'/'.$arquivoNome;
+                        $eventoCaracteristica['background'] = '/uploads/eventos/' . $this->evento->id . '/' . $arquivoNome;
                         $request->file('eventoCaracteristica.backgroundImagem')->move($destino, $arquivoNome);
                     }
                 }
@@ -81,11 +81,11 @@ class EventosController extends Controller
                     $destino = \App::publicPath() . '/uploads/eventos/' . $this->evento->id;
                     $extensao = $request->file('eventoCaracteristica.logoImagem')->getClientOriginalExtension();
                     $arquivoNome = 'logo.' . $extensao;
-                    $eventoCaracteristica['logo'] = '/uploads/eventos/' . $this->evento->id.'/'.$arquivoNome;
+                    $eventoCaracteristica['logo'] = '/uploads/eventos/' . $this->evento->id . '/' . $arquivoNome;
                     $request->file('eventoCaracteristica.logoImagem')->move($destino, $arquivoNome);
                 }
             }
-            if($request->get('eEventoPai')){
+            if ($request->get('eEventoPai')) {
                 $eventoCaracteristica['logo'] = $this->evento->eventoPai->eventoCaracteristica->logo;
                 $eventoCaracteristica['eImagemDeFundo'] = $this->evento->eventoPai->eventoCaracteristica->eImagemDeFundo;
                 $eventoCaracteristica['background'] = $this->evento->eventoPai->eventoCaracteristica->background;
@@ -138,7 +138,7 @@ class EventosController extends Controller
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
             $this->evento->tiposDeUsuario()->sync($request->get('usuariosTipos'));
             $eventoCaracteristica = $request->get('eventoCaracteristica');
-            if($eventoCaracteristica['eEmiteCertificado']){
+            if ($eventoCaracteristica['eEmiteCertificado']) {
                 $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
             }
             $this->evento->eventoCaracteristica()->update($eventoCaracteristica);
@@ -155,7 +155,8 @@ class EventosController extends Controller
         return redirect('/eventos');
     }
 
-    public function salvarLinkExterno(Request $request){
+    public function salvarLinkExterno(Request $request)
+    {
         $this->validate($request, [
             'descricao' => 'required',
             'url' => 'required|url',
@@ -163,7 +164,7 @@ class EventosController extends Controller
         $linkExterno = new LinkExterno();
         $linkExterno->fill($request->all());
         $this->evento = Evento::findOrFail($request->idEventos);
-        if(!$this->evento->linksExternos()->save($linkExterno)){
+        if (!$this->evento->linksExternos()->save($linkExterno)) {
             return response()->json(['msg' => 'Ocorreu um erro no salvamento'], 400);
         }
         return response()->json(['msg' => 'Link Salvo com Sucesso'], 200);

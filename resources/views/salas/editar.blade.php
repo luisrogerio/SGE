@@ -3,7 +3,13 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Unidade {{ $sala->local->unidade->nome }} - Local {{ $sala->local->nome }} - Atualizar Sala</h3>
+            <h3>
+                <ol class="breadcrumb">
+                    <li>{{ link_to_route("unidades::index", "Unidade ".$sala->local->unidade->nome) }}</li>
+                    <li>{{ link_to_route("locais::index", "Local ".$sala->local->nome, ['id' => $sala->local->unidade->id]) }}</li>
+                    <li>Atualizar Sala {{ $sala->nome }}</li>
+                </ol>
+            </h3>
         </div>
         <div class="panel-body">
             {{Form::model($sala, array('url'=>'salas/atualizar/'.$sala->id))}}
@@ -25,7 +31,7 @@
                 @if ($errors->has('sufixo')) <p class="help-block">{{ $errors->first('sufixo') }}</p> @endif
             </fieldset>
 
-            <br />
+            <br/>
             {{Form::submit('Editar', array('class' => 'btn btn-primary'))}}
             {{Form::close()}}
         </div>

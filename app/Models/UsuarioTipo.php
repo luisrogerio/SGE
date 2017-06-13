@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UsuarioTipo extends Model
 {
-    protected   $fillable   = ['id','nome'];
-    protected   $table      = 'usuarios_tipos';
+    protected $fillable = ['id', 'nome'];
+    protected $table = 'usuarios_tipos';
 
 }
