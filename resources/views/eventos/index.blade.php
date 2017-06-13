@@ -9,7 +9,7 @@
                     <img src="/uploads/eventos/{{ $evento->id }}/{{ $evento->eventoCaracteristica->logo }}" class="img-thumbnail img-circle">
                 </div>
                 <div class="col-md-10">
-                    <a href="{{ route('visualizar', array('id' => $evento->id)) }}" class="h3"><small><i class="glyphicon glyphicon-log-in"></i></small> {{$evento->nome }}</a>
+                    <a href="{{ route('eventos::visualizar', array('id' => $evento->id)) }}" class="h3"><small><i class="glyphicon glyphicon-log-in"></i></small> {{$evento->nome }}</a>
                     <blockquote>
                         <p>{!! $evento->descricao !!}}</p>
                     </blockquote>

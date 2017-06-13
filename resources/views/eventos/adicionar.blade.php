@@ -1,37 +1,6 @@
 @extends('layouts.layout')
 @section('title', 'Eventos')
 @section('content')
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalLinkExterno">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Novo Link Externo</h4>
-                </div>
-                {{Form::open(array('url' => 'eventos/salvarLinkExterno'))}}
-                <div class="modal-body">
-                    <fieldset class="form-group">
-                        {{Form::label('linkExterno[descricao]', 'Descrição')}}
-                        {{Form::text('linkExterno[descricao]', null, array('class' => 'form-control'))}}
-                        @if ($errors->has('linkExterno.descricao')) <p class="help-block">{{ $errors->first('linkExterno.descricao') }}</p> @endif
-                    </fieldset>
-                    <fieldset class="form-group">
-                        {{Form::label('linkExterno[url]', 'URL')}}
-                        <div class="input-group">
-                            {{Form::url('linkExterno[url]', null, array('class' => 'form-control'))}}
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-bookmark"></span> </span>
-                        </div>
-                        @if ($errors->has('linkExterno.url')) <p class="help-block">{{ $errors->first('linkExterno.url') }}</p> @endif
-                    </fieldset>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-                {{Form::close()}}
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>Adicionar Novo</h3>
@@ -121,20 +90,6 @@
                             {{Form::select('usuariosTipos[]', $tiposDeUsuario, $tiposDeUsuario, array('class' => 'form-control usuariosTipos', 'multiple')) }}
                             @if ($errors->has('usuariosTipos.*')) <p
                                     class="help-block">{{ $errors->first('usuariosTipos.*') }}</p> @endif
-                        </fieldset>
-                        <fieldset>
-                            {{Form::label('linksExternos[]', 'Links Externos ao Evento')}}
-                            <div class="input-group">
-                                {{Form::select('linksExternos[]', [], null, array('class' => 'form-control linksExternos')) }}
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modalLinkExterno">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-minus"></span></button>
-                                </span>
-                            </div>
-                            @if ($errors->has('linksExternos.*')) <p
-                                    class="help-block">{{ $errors->first('linksExternos.*') }}</p> @endif
                         </fieldset>
                     </div>
                 </div>

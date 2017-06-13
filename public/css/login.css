@@ -1,0 +1,480 @@
+body {
+  background: #efefef;
+  color: #555;
+  font-family: 'RobotoDraft', 'Roboto', sans-serif;
+  margin-top: 70px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.navbar-default {
+  border-color: #e7e7e7;
+  background-color: #dedede;
+  box-shadow: 0 0 5px #303030;
+}
+
+
+/* Title */
+
+.navbar-default .navbar-brand {
+  color: #777;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #5e5e5e;
+}
+
+
+/* Link */
+
+.navbar-default .navbar-nav>li>a {
+  color: #777;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  color: #333;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+  background-color: #e7e7e7;
+  color: #555;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+  background-color: #d5d5d5;
+  color: #555;
+}
+
+
+/* Caret */
+
+.navbar-default .navbar-nav>.dropdown>a .caret {
+  border-top-color: #777;
+  border-bottom-color: #777;
+}
+
+.navbar-default .navbar-nav>.dropdown>a:hover .caret, .navbar-default .navbar-nav>.dropdown>a:focus .caret {
+  border-top-color: #333;
+  border-bottom-color: #333;
+}
+
+.navbar-default .navbar-nav>.open>a .caret, .navbar-default .navbar-nav>.open>a:hover .caret, .navbar-default .navbar-nav>.open>a:focus .caret {
+  border-top-color: #555;
+  border-bottom-color: #555;
+}
+
+
+/* Mobile version */
+
+.navbar-default .navbar-toggle {
+  border-color: #ddd;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #ddd;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ccc;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: #777;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover, .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #333;
+  }
+}
+
+/* Scroll To Bottom */
+#codepen, #portfolio {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  background: #363636;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  color: #ffffff;
+  text-align: center;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+#codepen i, #portfolio i {
+  line-height: 56px;
+}
+#codepen:hover, #portfolio:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+/* CodePen */
+#portfolio {
+  right: 36px;
+  bottom: 96px;
+  width: 44px;
+  height: 44px;
+  background: #1bad2a;
+  -webkit-animation: buttonFadeInUp 1s ease;
+  animation: buttonFadeInUp 1s ease;
+}
+#portfolio i {
+  line-height: 44px;
+}
+
+/* Container */
+.container {
+  position: relative;
+  margin: 0 auto 20px;
+  max-width: 460px;
+  width: 100%;
+}
+.container.active .card:first-child {
+  margin: 0 15px;
+  background: #f2f2f2;
+}
+.container.active .card:nth-child(2) {
+  margin: 0 10px;
+  background: #fafafa;
+}
+.container.active .card.alt {
+  top: 20px;
+  right: 0;
+  overflow: hidden;
+  padding: 60px 0 40px;
+  min-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.container.active .card.alt .toggle {
+  position: absolute;
+  top: 40px;
+  right: -70px;
+  box-shadow: none;
+  -webkit-transition: -webkit-transform .3s ease;
+  transition: -webkit-transform .3s ease;
+  transition: transform .3s ease;
+  transition: transform .3s ease, -webkit-transform .3s ease;
+  -webkit-transform: scale(10);
+  transform: scale(10);
+}
+.container.active .card.alt .toggle:before {
+  content: '';
+}
+.container.active .card.alt .title,
+.container.active .card.alt .input-container,
+.container.active .card.alt .button-container {
+  left: 0;
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.container.active .card.alt .title {
+  -webkit-transition-delay: .3s;
+          transition-delay: .3s;
+}
+.container.active .card.alt .input-container {
+  -webkit-transition-delay: .4s;
+          transition-delay: .4s;
+}
+.container.active .card.alt .input-container:nth-child(2) {
+  -webkit-transition-delay: .5s;
+          transition-delay: .5s;
+}
+.container.active .card.alt .input-container:nth-child(3) {
+  -webkit-transition-delay: .6s;
+          transition-delay: .6s;
+}
+.container.active .card.alt .button-container {
+  -webkit-transition-delay: .7s;
+          transition-delay: .7s;
+}
+
+/* Card */
+.card {
+  position: relative;
+  box-sizing: border-box;
+  padding: 20px 0 10px 0;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  /* Title */
+  /* Inputs */
+  /* Button */
+  /* Footer */
+  /* Alt Card */
+}
+.card:first-child {
+  margin: 0 10px;
+  padding: 0;
+  height: 10px;
+  border-radius: 5px 5px 0 0;
+  background: #fafafa;
+}
+.card .title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 35px;
+  padding: 10px 0 10px 50px;
+  border-left: 5px solid #1bad2a;
+  color: #1bad2a;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2.5rem;
+}
+.card .input-container {
+  position: relative;
+  margin: 0 60px 50px;
+}
+.card .input-container input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 60px;
+  outline: none;
+  border: 0;
+  background: none;
+  color: #212121;
+  font-weight: 400;
+  font-size: 2rem;
+}
+.card .input-container input:focus ~ label {
+  color: #9d9d9d;
+  -webkit-transform: translate(-12%, -50%) scale(0.75);
+          transform: translate(-12%, -50%) scale(0.75);
+}
+.card .input-container input:focus ~ .bar:before, .card .input-container input:focus ~ .bar:after {
+  width: 50%;
+}
+.card .input-container input:valid ~ label {
+  color: #9d9d9d;
+  -webkit-transform: translate(-12%, -50%) scale(0.75);
+          transform: translate(-12%, -50%) scale(0.75);
+}
+.card .input-container label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #757575;
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 40px;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+.card .input-container .bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #757575;
+}
+.card .input-container .bar:before, .card .input-container .bar:after {
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #1bad2a;
+  content: '';
+  -webkit-transition: .2s ease;
+  transition: .2s ease;
+}
+.card .input-container .bar:before {
+  left: 50%;
+}
+.card .input-container .bar:after {
+  right: 50%;
+}
+.card .button-container {
+  margin: 0 30px;
+  text-align: center;
+}
+.card .button-container button {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 10px 0;
+  width: 240px;
+  outline: 0;
+  border: 2px solid #1bad2a;
+  background: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .button-container button span {
+  position: relative;
+  z-index: 1;
+  color: #333;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .button-container button:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  margin: -15px 0 0 -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background: #1bad2a;
+  content: '';
+  opacity: 0;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .button-container button:hover, .card .button-container button:active, .card .button-container button:focus {
+  border-color: #1bad2a;
+}
+.card .button-container button:hover span, .card .button-container button:active span, .card .button-container button:focus span {
+  color: #1bad2a;
+}
+.card .button-container button:active span, .card .button-container button:focus span {
+  color: #ffffff;
+}
+.card .button-container button:active:before, .card .button-container button:focus:before {
+  opacity: 1;
+  -webkit-transform: scale(10);
+  transform: scale(10);
+}
+.card .footer {
+  margin: 20px 0 0;
+  color: #aaa;
+  text-align: center;
+  font-weight: 300;
+  font-size: 24px;
+}
+.card .footer a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .footer a:hover {
+  color: #888;
+}
+.card.alt {
+  position: absolute;
+  top: 40px;
+  right: -70px;
+  z-index: 10;
+  padding: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 100%;
+  background: none;
+  box-shadow: none;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  /* Toggle */
+  /* Title */
+  /* Input */
+  /* Button */
+}
+.card.alt .toggle {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 100%;
+  background: #1bad2a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  color: #ffffff;
+  text-align: center;
+  font-size: 58px;
+  line-height: 140px;
+  cursor: pointer;
+}
+.card.alt .toggle:before {
+  display: inline-block;
+  content: '\f040';
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.card.alt .title,
+.card.alt .input-container,
+.card.alt .button-container {
+  left: 100px;
+  visibility: hidden;
+  opacity: 0;
+}
+.card.alt .title {
+  position: relative;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.card.alt .title .close {
+  position: absolute;
+  top: 0;
+  right: 60px;
+  display: inline;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 58px;
+  cursor: pointer;
+}
+.card.alt .title .close:before {
+  content: '\00d7';
+}
+.card.alt .input-container input {
+  color: #ffffff;
+}
+.card.alt .input-container input:focus ~ label {
+  color: #ffffff;
+}
+.card.alt .input-container input:focus ~ .bar:before, .card.alt .input-container input:focus ~ .bar:after {
+  background: #ffffff;
+}
+.card.alt .input-container input:valid ~ label {
+  color: #ffffff;
+}
+.card.alt .input-container label {
+  color: rgba(255, 255, 255, 0.8);
+}
+.card.alt .input-container .bar {
+  background: rgba(255, 255, 255, 0.8);
+}
+.card.alt .button-container button {
+  width: 100%;
+  border-color: #ffffff;
+  background: #ffffff;
+}
+.card.alt .button-container button span {
+  color: #1bad2a;
+}
+.card.alt .button-container button:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+.card.alt .button-container button:active:before, .card.alt .button-container button:focus:before {
+  display: none;
+}
+
+/* Keyframes */
+@-webkit-keyframes buttonFadeInUp {
+  0% {
+    bottom: 30px;
+    opacity: 0;
+  }
+}
+@keyframes buttonFadeInUp {
+  0% {
+    bottom: 30px;
+    opacity: 0;
+  }
+}

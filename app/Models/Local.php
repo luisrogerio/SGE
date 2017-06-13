@@ -9,7 +9,7 @@ class Local extends Model
     protected   $fillable   = ['id','nome'];
     protected   $table      = 'locais';
 
-    public function horarios(){
-        return $this->belongsToMany('App\Models\Horario', 'horarios_locais', 'idLocais', 'idHorarios')->withPivot('criadoEm', 'modificadoEm', 'salvoPor');
+    public function unidade(){
+        return $this->belongsTo('App\Models\Unidade', 'idUnidades');
     }
 }

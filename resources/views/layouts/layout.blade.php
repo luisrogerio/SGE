@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--CSS para Bootstrap, Select e Ícones-->
     {{ Html::style('css/bootstrap.min.css') }}
@@ -14,6 +15,7 @@
     {{ Html::style('css/select2-bootstrap.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
+    {{ Html::style('css/styles.css') }}
     <title>SGE - @yield('title')</title>
 </head>
     <body>

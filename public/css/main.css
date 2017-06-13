@@ -1,0 +1,240 @@
+body {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+}
+
+.espacos {
+  padding-bottom: 1em;
+}
+
+.paragrafo {
+  text-indent: 1em;
+}
+
+.nav-tabs>li, .nav-pills>li {
+  float: none;
+  display: inline-block;
+  *display: inline;
+  /* ie7 fix */
+  zoom: 1;
+  /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+  text-align: center;
+}
+
+
+/* --------------------- navbar --------------------- */
+
+.navbar-default {
+  border-color: #e7e7e7;
+  background-color: #dedede;
+  box-shadow: 0 0 5px #303030;
+}
+
+
+/* Title */
+
+.navbar-default .navbar-brand {
+  color: #777;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #5e5e5e;
+}
+
+
+/* Link */
+
+.navbar-default .navbar-nav>li>a {
+  color: #777;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  color: #333;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+  background-color: #e7e7e7;
+  color: #555;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+  background-color: #d5d5d5;
+  color: #555;
+}
+
+
+/* Caret */
+
+.navbar-default .navbar-nav>.dropdown>a .caret {
+  border-top-color: #777;
+  border-bottom-color: #777;
+}
+
+.navbar-default .navbar-nav>.dropdown>a:hover .caret, .navbar-default .navbar-nav>.dropdown>a:focus .caret {
+  border-top-color: #333;
+  border-bottom-color: #333;
+}
+
+.navbar-default .navbar-nav>.open>a .caret, .navbar-default .navbar-nav>.open>a:hover .caret, .navbar-default .navbar-nav>.open>a:focus .caret {
+  border-top-color: #555;
+  border-bottom-color: #555;
+}
+
+
+/* Mobile version */
+
+.navbar-default .navbar-toggle {
+  border-color: #ddd;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #ddd;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ccc;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: #777;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover, .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #333;
+  }
+}
+
+
+/*Carrousel Fix*/
+
+.hide-bullets {
+  margin-top: 20px;
+  margin-left: -40px;
+  list-style: none;
+}
+
+
+/* --------------------- Badges styles --------------------- */
+
+.badge-error {
+  background-color: #b94a48;
+}
+
+.badge-error:hover {
+  background-color: #953b39;
+}
+
+.badge-warning {
+  background-color: #f89406;
+}
+
+.badge-warning:hover {
+  background-color: #c67605;
+}
+
+.badge-success {
+  background-color: #468847;
+}
+
+.badge-success:hover {
+  background-color: #356635;
+}
+
+.badge-info {
+  background-color: #3a87ad;
+}
+
+.badge-info:hover {
+  background-color: #2d6987;
+}
+
+.badge-inverse {
+  background-color: #333333;
+}
+
+.badge-inverse:hover {
+  background-color: #1a1a1a;
+}
+
+
+/* --------------------- Tabs Lists --------------------- */
+
+
+/* Style the tab */
+
+div.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+
+/* Style the buttons inside the tab */
+
+div.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+
+/* Change background color of buttons on hover */
+
+div.tab button:hover {
+  background-color: #ddd;
+}
+
+
+/* Create an active/current tablink class */
+
+div.tab button.active {
+  background-color: #ccc;
+}
+
+
+/* Style the tab content */
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+
+/* Style the close button */
+
+.topright {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.topright:hover {
+  color: red;
+}
+
+
+/* -------------------- Footer -------------------- */
+
+footer {
+  text-align: center;
+  background-color: #dedede;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-width: 2px 0px 0px 0px;
+  border-color: #525252;
+}
+
+footer>h2>a {
+  color: #222;
+}

@@ -7,7 +7,7 @@
         @foreach($cursos as $curso)
             <tr>
                 <td>{{$curso->nome}}</td>
-                <td class="text-center">{{link_to_action('CursosController@getEditar','Editar',['id'=>$curso->id], ['class' => 'btn btn-primary'])}}</td>
+                <td class="text-center">{{link_to_route('cursos::editar','Editar',['id'=>$curso->id], ['class' => 'btn btn-primary'])}}</td>
                 <td class="text-center">
                     {{ Form::open(array('method' => 'POST', 'url' => 'cursos/excluir/'.$curso->id, 'style' => 'display:inline;')) }}
                     <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete" data-title="Deletar Curso" data-message='Você tem certeza que deseja deletar esse curso?'>
@@ -18,7 +18,7 @@
             </tr>
         @endforeach
         <tr>
-            <td colspan="3">{{link_to_action('CursosController@getAdicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
+            <td colspan="3">{{link_to_route('cursos::adicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
         </tr>
     </table>
     {{$cursos->links()}}

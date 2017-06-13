@@ -24,7 +24,8 @@ class LocaisRequest extends Request
     public function rules()
     {
         return [
-            'nome' => 'required|unique:locais'
+            'nome' => 'required|unique:locais',
+            'idUnidades' => 'required'
         ];
     }
 }

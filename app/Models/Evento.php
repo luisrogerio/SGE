@@ -62,6 +62,10 @@ class Evento extends Model
         return $this->hasMany('App\Models\EventoNoticia', 'idEventos');
     }
 
+    public function linksExternos(){
+        return $this->hasMany('App\Models\LinkExterno', 'idEventos');
+    }
+
     public function aparencia(){
         return $this->hasManyThrough('App\Models\Aparencia', 'App\Models\EventoCaracteristica',
             'idEventos', 'idEventosCaracteristicas', 'id'

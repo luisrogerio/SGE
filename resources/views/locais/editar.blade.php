@@ -3,7 +3,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Atualizar Local</h3>
+            <h3>Atualizar Local - Unidade {{ $local->unidade->nome }}</h3>
         </div>
         <div class="panel-body">
             {{Form::model($local, array('url'=>'locais/atualizar/'.$local->id))}}

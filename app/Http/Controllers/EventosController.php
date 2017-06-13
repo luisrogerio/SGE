@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\Event;
 use App\Models\EventoCaracteristica;
+use App\Models\LinkExterno;
 use App\Models\UsuarioTipo;
 use Carbon\Carbon;
 use App\Models\Aparencia;
@@ -107,7 +108,7 @@ class EventosController extends Controller
                 'subeventos' => $subeventos
             ])->render());
         }
-        return view('eventos.view', compact('evento', 'subeventos', 'eventosPai'));
+        return view('eventos.view', compact('evento', 'subeventos', 'eventosPai', 'linksExternos'));
     }
 
     public function getEditar($id)
@@ -152,5 +153,19 @@ class EventosController extends Controller
         $evento->delete();
         \Session::flash('message', 'Evento excluído com sucesso');
         return redirect('/eventos');
+    }
+
+    public function salvarLinkExterno(Request $request){
+        $this->validate($request, [
+            'descricao' => 'required',
+            'url' => 'required|url',
+        ]);
+        $linkExterno = new LinkExterno();
+        $linkExterno->fill($request->all());
+        $this->evento = Evento::findOrFail($request->idEventos);
+        if(!$this->evento->linksExternos()->save($linkExterno)){
+            return response()->json(['msg' => 'Ocorreu um erro no salvamento'], 400);
+        }
+        return response()->json(['msg' => 'Link Salvo com Sucesso'], 200);
     }
 }

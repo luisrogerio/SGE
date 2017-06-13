@@ -1,6 +1,38 @@
 @extends('layouts.layout')
 @section('title', 'Visualizar Evento')
 @section('content')
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalLinkExterno">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Novo Link Externo</h4>
+                </div>
+                {{Form::open(array('url' => 'eventos/salvarLinkExterno', 'id' => 'adicionarLinkExterno'))}}
+                <div class="modal-body">
+                    <fieldset class="form-group" id="descricao">
+                        {{Form::label('descricao', 'Descrição')}}
+                        {{Form::text('descricao', null, array('class' => 'form-control', 'id' => 'descricaoInput'))}}
+                        <p class="help-block"></p>
+                    </fieldset>
+                    <fieldset class="form-group" id="url">
+                        {{Form::label('url', 'URL')}}
+                        <div class="input-group">
+                            {{Form::url('url', null, array('class' => 'form-control', 'id' => 'urlInput'))}}
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span> </span>
+                        </div>
+                        <p class="help-block"></p>
+                    </fieldset>
+                    {{ Form::hidden('idEventos', $evento->id) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+                {{Form::close()}}
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>@include('subeventos.eventoBreadcrumb')</h2>
@@ -131,7 +163,7 @@
                             </div>
                             @if( $evento->eventoEdicaoAnterior != null)
                                 <h4>Edição Anterior</h4>
-                                {{ link_to_action('EventosController@getVisualizar', $evento->eventoEdicaoAnterior->nome , array('id' => $evento->eventoEdicaoAnterior->id)) }}
+                                {{ link_to_route('eventos::visualizar', $evento->eventoEdicaoAnterior->nome , array('id' => $evento->eventoEdicaoAnterior->id)) }}
                             @endif
                             <h4>Contatos</h4>
                             <div class="row">
@@ -156,10 +188,20 @@
                                     </div>
                                 @endforeach
                             </div>
+                            <div>
+                                <h4>Links Externos</h4>
+                                <div id="linksExternos">
+                                    @foreach($evento->linksExternos as $linkExterno)
+                                        <p><strong>{{$linkExterno->descricao}}</strong></p>
+                                        <p>{{ Html::link($linkExterno->url) }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
                             <div class="btn-group">
-                                {{ link_to_action('EventosController@getEditar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
+                                <button class="btn btn-default" type='button' data-toggle="modal" data-target="#modalLinkExterno">Adicionar Link Externo</button>
+                                {{ link_to_route('eventos::editar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
                                 {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'btn btn-success')) }}
-                                {{ link_to_action('AtividadesController@getAdicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
+                                {{ link_to_route('atividades::adicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
                             </div>
                         </div>
                         <div class="tab-pane fade" role="tabpanel" id="subeventos">
@@ -184,6 +226,9 @@
                 e.preventDefault();
             });
         });
+        $('#modalLinkExterno').on('hide.bs.modal', function () {
+            $('#modalLinkExterno').removeData();
+        })
         function getSubeventos(page) {
             $.ajax({
                 url: $(document).attr('URL') + '?page='+page,
@@ -197,5 +242,43 @@
                 alert('Os subeventos não puderam ser carregados');
             });
         }
+        $(function () {
+            $('#adicionarLinkExterno').on('submit', function(e){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                e.preventDefault(e);
+                $.ajax({
+                    type:"POST",
+                    url:'/eventos/salvarLinkExterno',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(){
+                        $("#linksExternos").append(
+                                '<p><strong>'+$("#descricaoInput").val()+'</strong></p>'+
+                                '<p><a href="'+$("#urlInput").val()+'">'+$("#urlInput").val()+'</a></p>');
+                        $("#descricaoInput").val('');
+                        $("#urlInput").val('');
+                        $('#descricao p').text("");
+                        $('#url p').text("");
+                        $("#modalLinkExterno").modal('toggle');
+                    },
+                    error: function(data){
+                        var erro = data.responseJSON;
+                        var descricao = "", url = "";
+                        if(erro.descricao !== undefined){
+                            descricao = erro.descricao;
+                        }
+                        if(erro.url !== undefined){
+                            url = erro.url;
+                        }
+                        $("#descricao p").text(descricao);
+                        $("#url p").text(url);
+                    }
+                })
+            });
+        });
     </script>
 @endsection

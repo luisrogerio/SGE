@@ -42,13 +42,32 @@ Route::post('reset', 'Auth\PasswordController@reset');
 
 //Route::controller('/contatos', 'EventosContatosController');
 
+Route::group([ 'prefix' => 'salas/', 'as' => 'salas::'], function() {
+    Route::get('/{idLocais}', [ 'as' => 'index', 'uses' => 'SalasController@getIndex']);
+    Route::get('/adicionar/{idLocais}', [ 'as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
+    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'SalasController@getEditar']);
+    Route::post('/adicionar/{idLocais}', [ 'as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
+    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'SalasController@postSalvar']);
+    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'SalasController@postAtualizar']);
+    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'SalasController@postExcluir']);
+});
+
 Route::group([ 'prefix' => 'locais/', 'as' => 'locais::'], function() {
-    Route::get('/', [ 'as' => 'index', 'uses' => 'LocaisController@getIndex']);
-    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'LocaisController@getAdicionar']);
+    Route::get('/{idUnidades}', [ 'as' => 'index', 'uses' => 'LocaisController@getIndex']);
+    Route::get('/adicionar/{idUnidades}', [ 'as' => 'adicionar', 'uses' => 'LocaisController@getAdicionar']);
     Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'LocaisController@getEditar']);
     Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'LocaisController@postSalvar']);
     Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'LocaisController@postAtualizar']);
     Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'LocaisController@postExcluir']);
+});
+
+Route::group([ 'prefix' => 'unidades/', 'as' => 'unidades::'], function() {
+    Route::get('/', [ 'as' => 'index', 'uses' => 'UnidadesController@getIndex']);
+    Route::get('/adicionar', [ 'as' => 'adicionar', 'uses' => 'UnidadesController@getAdicionar']);
+    Route::get('/edital/{id}', [ 'as' => 'editar', 'uses' => 'UnidadesController@getEditar']);
+    Route::post('/salvar', [ 'as' => 'salvar', 'uses' => 'UnidadesController@postSalvar']);
+    Route::post('/atualizar/{id}', [ 'as' => 'atualizar', 'uses' => 'UnidadesController@postAtualizar']);
+    Route::post('/excluir/{id}', [ 'as' => 'excluir', 'uses' => 'UnidadesController@postExcluir']);
 
 });
 
@@ -148,6 +167,7 @@ Route::group([ 'prefix' => 'eventos/', 'as' => 'eventos::', ], function () {
     Route::patch('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EventosController@patchAtualizar']);
     Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosController@postExcluir']);
     Route::get('/subeventos', ['as' => 'paginacaoSubeventos', 'uses' => 'EventosController@getSubeventos']);
+    Route::post('/salvarLinkExterno', ['as' => 'salvarLinkExterno', 'uses' => 'EventosController@salvarLinkExterno']);
 
     Route::group([ 'prefix' => '{idPai?}'], function ($idPai = 0){
         Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);
@@ -157,3 +177,23 @@ Route::group([ 'prefix' => 'eventos/', 'as' => 'eventos::', ], function () {
 //Route::auth();
 
 Route::get('/dashboard', 'HomeController@index');
+
+Route::get('/novoLogin', function(){
+    return view('login');
+});
+
+Route::get('/novoEvento', function(){
+    return view('eventos.eventoMaster');
+});
+
+Route::get('/novoEvento2', function(){
+    return view('eventos.eventos');
+});
+
+Route::get('/novoEvento3', function(){
+    return view('eventos.eventosFinalizados');
+});
+
+Route::get('/novoCadastro', function(){
+    return view('cadastro');
+});
