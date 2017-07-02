@@ -50,6 +50,7 @@ Route::group(['prefix' => 'salas/', 'as' => 'salas::'], function () {
     Route::post('/salvar', ['as' => 'salvar', 'uses' => 'SalasController@postSalvar']);
     Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'SalasController@postAtualizar']);
     Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'SalasController@postExcluir']);
+    Route::post('/getSalas/{idLocais}', ['as' => 'getSalas', 'uses' => 'SalasController@getSalasByLocais']);
 });
 
 Route::group(['prefix' => 'locais/', 'as' => 'locais::'], function () {
@@ -59,6 +60,7 @@ Route::group(['prefix' => 'locais/', 'as' => 'locais::'], function () {
     Route::post('/salvar', ['as' => 'salvar', 'uses' => 'LocaisController@postSalvar']);
     Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'LocaisController@postAtualizar']);
     Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'LocaisController@postExcluir']);
+    Route::post('/getLocais/{idUnidades}', ['as' => 'getLocais', 'uses' => 'LocaisController@getLocaisByUnidade']);
 });
 
 Route::group(['prefix' => 'unidades/', 'as' => 'unidades::'], function () {
@@ -112,8 +114,8 @@ Route::group(['prefix' => 'gruposdeusuario/', 'as' => 'gruposdeusuario::'], func
 });
 
 Route::group(['prefix' => 'atividades/', 'as' => 'atividades::'], function () {
-    Route::get('/', ['as' => 'index', 'uses' => 'AtividadesController@getIndex']);
-    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'AtividadesController@getAdicionar']);
+    //Route::get('/{idEventos}', ['as' => 'index', 'uses' => 'AtividadesController@getIndex']);
+    Route::get('/adicionar/{idEventos}', ['as' => 'adicionar', 'uses' => 'AtividadesController@getAdicionar']);
     Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'AtividadesController@getEditar']);
     Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesController@postSalvar']);
     Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesController@postAtualizar']);

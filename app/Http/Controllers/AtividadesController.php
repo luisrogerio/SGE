@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AtividadeStatus;
 use App\Models\AtividadeTipo;
+use App\Models\Evento;
 use App\Models\Local;
+use App\Models\Unidade;
+use Carbon\Carbon;
 use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Models\Atividade;
@@ -26,20 +30,56 @@ class AtividadesController extends Controller
         return view('atividades.index', compact('atividades'));
     }
 
-    public function getAdicionar()
+    public function getAdicionar($idEventos)
     {
+        $evento = Evento::findOrFail($idEventos);
         $cursos = Curso::get()->lists('sigla', 'id');
         $atividadesTipos = AtividadeTipo::get()->lists('nome', 'id');
-        $locais = Local::get()->lists('nome', 'id');
-        return view('atividades.adicionar', compact('cursos', 'atividadesTipos', 'locais'));
+        $unidades = Unidade::get()->lists('nome', 'id');
+        return view('atividades.adicionar', compact('evento', 'cursos', 'atividadesTipos', 'unidades'));
     }
 
     public function postSalvar(AtividadesRequest $request)
     {
-        $this->atividade->fill($request->all());
-        if ($this->atividade->save()) {
-            return redirect('/atividades');
-        }
+        \DB::transaction(function () use ($request) {
+            $this->atividade->fill($request->all());
+
+            $evento = Evento::findOrFail($this->atividade->idEventos);
+            $this->atividade->evento()->associate($evento);
+
+            $this->atividade->save();
+
+            $cursos = (array) $request->atividades['idCursos'];
+            $dataInscricao = array_fill(0, count($cursos),
+                [
+                    'dataInicio' => $request->atividadesCursos['dataInicio'],
+                    'dataFim' => $request->atividadesCursos['dataFim']
+                ]);
+            $cursosDatas = array_combine($cursos, $dataInscricao);
+
+            $this->atividade->cursos()->sync($cursosDatas);
+
+            if ($evento->eventoCaracteristica->ePropostaAtividade) {
+                $statusDeAtividade = AtividadeStatus::where('nome', 'Proposta')->first();
+            } else {
+                $statusDeAtividade = AtividadeStatus::where('nome', 'Aceita')->first();
+            }
+            $this->atividade->statusDeAtividade()->attach($statusDeAtividade->id);
+
+            for ($i = 0; $i < count($request->atividades_data); $i++) {
+                $this->atividade->atividadesDatasHoras()->create([
+                    'data' => Carbon::createFromFormat('d/m/Y', $request->atividades_data[$i]),
+                    'horarioInicio' => $request->atividades_horarioInicio[$i],
+                    'horarioTermino' => $request->atividades_horarioTermino[$i],
+                    'idUnidades' => $request->atividades['unidades'],
+                    'idLocal' => $request->atividades['locais'],
+                    'idSalas' => $request->atividades['salas']
+                ]);
+            }
+
+        });
+        \Session::flash('message', 'Atividade salva com sucesso');
+        return view('atividadesResponsaveis.adicionar')->with(['quantidadeResponsaveis', $request->atividade->quantidadeResponsaveis]);
     }
 
     public function getEditar($id)

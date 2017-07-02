@@ -64,4 +64,9 @@ class LocaisController extends Controller
         \Session::flash('message', 'Local excluído com sucesso');
         return redirect('/locais/' . $idUnidades);
     }
+
+    public function getLocaisByUnidade($idUnidades){
+        $locais = $this->local->where('idUnidades', '=', $idUnidades)->get()->lists('nome', 'id');
+        return response()->json([$locais->toJson()], 200);
+    }
 }

@@ -24,7 +24,21 @@ class AtividadesRequest extends Request
     public function rules()
     {
         return [
-            //
+            'nome' => 'required',
+            'quantidadeVagas' => 'required|numeric',
+            'idAtividadesTipos' => 'required',
+            'descricao' => 'required',
+            'funcaoResponsavel' => 'required',
+            'atividades.quantidadeResponsaveis' => 'required|numeric',
+            'atividades.idCursos' => 'required',
+
+            'atividades.unidades' => 'required',
+            'atividades.locais' => 'required',
+            'atividades.salas' => 'required',
+
+            'atividades.data.*' => 'required|date_format:"d/m/Y"',
+            'atividades.horarioInicio.*' => 'required|date_format:"H:i"',
+            'atividades.horarioTermino.*' => 'required|date_format:"H:i"',
         ];
     }
 }

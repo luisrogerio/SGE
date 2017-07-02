@@ -4,10 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AtividadeDatasHorariosLocais extends Model
+class AtividadeDatasHora extends Model
 {
     protected $table = "atividades_datas_horarios_locais";
-    protected $fillable = ['data', 'horarioInicio', 'horarioTermino', 'idLocais', 'idAtividades', 'criadoEm', 'modificadoEm', 'salvoPor'];
+    protected $fillable =
+        [
+            'data',
+            'horarioInicio',
+            'horarioTermino',
+            'idUnidades',
+            'idLocais',
+            'idSalas',
+            'idAtividades',
+            'salvoPor'
+        ];
 
     public function atividade()
     {

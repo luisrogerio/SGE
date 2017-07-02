@@ -3,7 +3,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Adicionar Novo</h3>
+            <h3>Adicionar Nova</h3>
         </div>
         <div class="panel-body">
             {{Form::open(array('url'=>'atividades/salvar'))}}
@@ -12,176 +12,365 @@
                     <a href="#atividade" aria-controls="atividade" role="tab" data-toggle="tab">Atividade</a>
                 </li>
                 <li role="presentation">
-                    <a href="#responsavel" aria-controls="responsavel" role="tab" data-toggle="tab">Responsável</a>
-                </li>
-                <li role="presentation">
-                    <a href="#horario" aria-controls="horario" role="tab" data-toggle="tab">Data/Horário e Local</a>
+                    <a href="#horario" aria-controls="horario" role="tab" data-toggle="tab">Datas e Horários</a>
                 </li>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel1" class="tab-pane fade in active" id="atividade">
                     <div class="well">
                         <fieldset class="form-group">
-                            {{Form::label('atividades.nome', 'Nome')}}
-                            {{Form::text('atividades.nome', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades.nome')) <p
-                                    class="help-block">{{ $errors->first('atividades.nome') }}</p> @endif
+                            {{Form::label('nome', 'Nome')}}
+                            {{Form::text('nome', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('nome')) <p
+                                    class="help-block">{{ $errors->first('nome') }}</p> @endif
                         </fieldset>
                         <fieldset class="form-group">
-                            {{Form::label('atividades.quantidadeVagas', 'Quantidade de Vagas')}}
-                            {{Form::number('atividades.quantidadeVagas', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades.quantidadeVagas')) <p
-                                    class="help-block">{{ $errors->first('atividades.quantidadeVagas') }}</p> @endif
+                            {{Form::label('quantidadeVagas', 'Quantidade de Vagas')}}
+                            {{Form::number('quantidadeVagas', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('quantidadeVagas')) <p
+                                    class="help-block">{{ $errors->first('quantidadeVagas') }}</p> @endif
                         </fieldset>
                         <fieldset class="form-group">
-                            {{Form::label('atividades.idAtividadesTipos', 'Tipo de Atividade')}}
-                            {{Form::select('atividades.idAtividadesTipos', $atividadesTipos, null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades.idAtividadesTipos')) <p
-                                    class="help-block">{{ $errors->first('atividades.idAtividadesTipos') }}</p> @endif
+                            {{Form::label('idAtividadesTipos', 'Tipo de Atividade')}}
+                            {{Form::select('idAtividadesTipos', $atividadesTipos, null, array('class' => 'form-control'))}}
+                            @if ($errors->has('idAtividadesTipos')) <p
+                                    class="help-block">{{ $errors->first('idAtividadesTipos') }}</p> @endif
                         </fieldset>
                         <fieldset class="form-group">
-                            {{Form::label('atividades.descricao', 'Descrição')}}
-                            {{Form::textarea('atividades.descricao', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades.descricao')) <p
+                            {{Form::label('descricao', 'Descrição')}}
+                            {{Form::textarea('descricao', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('descricao')) <p
                                     class="help-block">{{ $errors->first('descricao') }}</p> @endif
                         </fieldset>
                         <fieldset class="form-group">
-                            {{Form::label('atividades.idCursos', 'Cursos')}}
-                            {{Form::select('atividades.idCursos', $cursos, null,  array('class' => 'form-control idCursos', 'multiple'))}}
+                            {{Form::label('funcaoResponsavel', 'Nome da Função do Responsável da Atividade')}}
+                            {{Form::text('funcaoResponsavel', null, array('class' => 'form-control', 'placeholder' => 'Ex.: Palestrante ou Diretor da Mesa Redonda'))}}
+                            @if ($errors->has('funcaoResponsavel')) <p
+                                    class="help-block">{{ $errors->first('funcaoResponsavel') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('atividades[quantidadeResponsaveis]', 'Número de Responsáveis pela Atividade')}}
+                            {{Form::number('atividades[quantidadeResponsaveis]', "1", array('class' => 'form-control'))}}
+                            @if ($errors->has('atividades.quantidadeResponsaveis')) <p
+                                    class="help-block">{{ $errors->first('quantidadeResponsaveis') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('atividades[idCursos]', 'Cursos')}}
+                            {{Form::select('atividades[idCursos]', $cursos, $cursos,  array('class' => 'form-control idCursos', 'multiple'))}}
 
                             @if ($errors->has('atividades.idCursos')) <p
                                     class="help-block">{{$errors->first('atividades.idCursos')}}</p> @endif
                         </fieldset>
-                    </div>
-                </div>
-                <div role="tabpanel1" class="tab-pane fade" id="responsavel">
-                    <div class="well">
                         <fieldset class="form-group">
-                            {{Form::label('atividades_responsaveis.nome', 'Nome do Responsável')}}
-                            {{Form::text('atividades_responsaveis.nome', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades_responsaveis.nome')) <p
-                                    class="help-block">{{ $errors->first('atividades_responsaveis.nome') }}</p> @endif
+                            {{Form::label('atividadesCursosDatas', 'Datas de Inscrição para os Cursos')}}
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    {{Form::text('atividadesCursos.dataInicio', $evento->dataInicioInscricao->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataInicioInscricao'))}}
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    {{Form::text('atividadesCursos.dataFim', $evento->dataFimInscricao->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataFimInscricao'))}}
+                                </div>
+                            </div>
                         </fieldset>
                         <fieldset class="form-group">
-                            {{Form::label('atividades_responsaveis.titulacao', 'Titulação do Responsável')}}
-                            {{Form::text('atividades_responsaveis.titulacao', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades_responsaveis.titulacao')) <p
-                                    class="help-block">{{ $errors->first('atividades_responsaveis.titulacao') }}</p> @endif
+                            {{ Form::label('unidadeLocalSala', 'Unidade/Local/Sala') }}
+                            {{Form::select('atividades[unidades]', $unidades, null,
+                                array('class' => 'form-control', 'placeholder' => 'Selecione uma Unidade', 'id' => 'selectUnidade'))}}
+                            {{Form::select('atividades[locais]', array(), null,
+                                array('class' => 'form-control', 'placeholder' => 'Selecione um Local', 'id' => 'selectLocal'))}}
+                            {{Form::select('atividades[salas]', array(), null,
+                                array('class' => 'form-control', 'placeholder' => 'Selecione uma Sala', 'id' => 'selectSala'))}}
+
+                            @if ($errors->has('atividades.unidades')) <p
+                                    class="help-block">{{$errors->first('atividades.unidades')}}</p> @endif
+                            @if ($errors->has('atividades.locais')) <p
+                                    class="help-block">{{$errors->first('atividades.locais')}}</p> @endif
+                            @if ($errors->has('atividades.salas')) <p
+                                    class="help-block">{{$errors->first('atividades.salas')}}</p> @endif
                         </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('atividades_responsaveis.instituicaoOrigem', 'Instituição de Origem do Responsável')}}
-                            {{Form::text('atividades_responsaveis.instituicaoOrigem', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades_responsaveis.instituicaoOrigem')) <p
-                                    class="help-block">{{ $errors->first('atividades_responsaveis.instituicaoOrigem') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('atividades_responsaveis.experienciaProfissional', 'Instituição de Origem do Responsável')}}
-                            {{Form::textarea('atividades_responsaveis.experienciaProfissional', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades_responsaveis.experienciaProfissional')) <p
-                                    class="help-block">{{ $errors->first('atividades_responsaveis.experienciaProfissional') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('atividades_responsaveis.instituicaoOrigem', 'Instituição de Origem do Responsável')}}
-                            {{Form::text('atividades_responsaveis.instituicaoOrigem', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades_responsaveis.instituicaoOrigem')) <p
-                                    class="help-block">{{ $errors->first('atividades_responsaveis.instituicaoOrigem') }}</p> @endif
-                        </fieldset>
+                        {{ Form::button('Próximo', array('class' => 'btn btn-primary btnProximo')) }}
                     </div>
                 </div>
                 <div role="tabpanel1" class="tab-pane fade" id="horario">
                     <div class="well">
+                        @if ($errors->has('atividades.data.*')) <p
+                                class="help-block">{{$errors->first('atividades.data.*')}}</p> @endif
+                        @if ($errors->has('atividades.horarioInicio.*')) <p
+                                class="help-block">{{$errors->first('atividades.data.*')}}</p> @endif
+                        @if ($errors->has('atividades.horarioTermino.*')) <p
+                                class="help-block">{{$errors->first('atividades.data.*')}}</p> @endif
                         <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Horário</th>
-                                <th>Local</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="linhaDeConteudo">
-                                <td>
-                                    {{Form::date('atividades_datas_horarios_locais.data[]', \Carbon\Carbon::now(), array('class' => 'form-control')) }}
-                                </td>
-                                <td class="horarios">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            {{Form::time('atividades_datas_horarios_locais.horarioInicio[]', '12:00', array('class' => 'form-control'))}}
+                            <tbody id="tabelaTempo">
+                            @if(old('atividades_data'))
+                                @foreach(old('atividades_data') as $key => $value)
+                                    <tr>
+                                        <td>
+                                            {{Form::text('atividades.data['.$key.']', old('atividades_data.'.$key), array('class' => 'form-control', 'id' => 'dataAtividade'.($key+1))) }}
+                                        </td>
+                                        <td class="horarios">
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-12">
+                                                    {{Form::text('atividades.horarioInicio['.$key.']', old('atividades_horarioInicio.'.$key), array('class' => 'form-control', 'id' => 'horaInicioAtividade'.($key+1)))}}
+                                                </div>
+                                                <div class="col-md-6 col-xs-12">
+                                                    {{Form::text('atividades.horarioTermino['.$key.']', old('atividades_horarioTermino'.$key), array('class' => 'form-control', 'id' => 'horaTerminoAtividade'.($key+1)))}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td>
+                                        {{Form::text('atividades.data[0]', '', array('class' => 'form-control', 'id' => 'dataAtividade1')) }}
+                                    </td>
+                                    <td class="horarios">
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-12">
+                                                {{Form::text('atividades.horarioInicio[0]', '12:00', array('class' => 'form-control', 'id' => 'horaInicioAtividade1'))}}
+                                            </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                {{Form::text('atividades.horarioTermino[0]', '13:00', array('class' => 'form-control', 'id' => 'horaTerminoAtividade1'))}}
+                                            </div>
                                         </div>
-                                        <div class="col-xs-4">
-                                            {{Form::time('atividades_datas_horarios_locais.horarioTermino[]', '13:00', array('class' => 'form-control'))}}
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    {{Form::select('atividades_datas_horarios_locais.idLocais[]', $locais, null, array('class' => 'form-control'))}}
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td>
-                                    <a class="btn btn-default btn-lg" id="adicionarLinha" role="button"><span
-                                                class="glyphicon glyphicon-plus"></span></a>
-                                    <a class="btn btn-default btn-lg" id="removerLinha" role="button"><span
-                                                class="glyphicon glyphicon-minus"></span></a>
+                                    <a id="btnAdd" class="btn btn-default">
+                                        <span class="glyphicon-plus"></span>
+                                    </a>
+                                    <a id="btnMinus" class="btn btn-default">
+                                        <span class="glyphicon-minus"></span>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+                        {{Form::hidden('idEventos', $evento->id) }}
+                        {{Form::button('Anterior', array('class' => 'btn btn-primary btnAnterior')) }}
+                        {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+                        {{Form::close()}}
                     </div>
                 </div>
             </div>
-            {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
-            {{Form::close()}}
         </div>
     </div>
-
     <script type="application/javascript">
-        var contadorData = 0;
-        var contadorHorario = 0;
-        var contadorLocal = 0;
-
-        $('#adicionarLinha').on("click", function () {
-            var ultimaLinha = $(".linhaDeConteudo:last");
-            var primeiraColuna = ultimaLinha.children(":first");
-            var segundaColuna = primeiraColuna.next();
-            var terceiraColuna = segundaColuna.next();
-
-            var novaLinha = $("<tr/>").attr('class', 'linhaDeConteudo');
-            contadorData++;
-
-            var novaPrimeiraColuna = primeiraColuna.clone();
-            var primeiroInput = $(novaPrimeiraColuna).find("input:first");
-            primeiroInput.attr('name', 'atividades_datas.data[]');//+contadorData+']');
-
-            var novaSegundaColuna = segundaColuna.clone();
-            var primeiroInputHorario = $(novaSegundaColuna).find("input:first");
-            primeiroInputHorario.attr('name', 'horarios.inicio[' + contadorData + '][0]');
-            var segundoInputHorario = $(novaSegundaColuna).find("input:last");
-            segundoInputHorario.attr('name', 'horarios.termino[' + contadorData + '][0]');
-
-            var novaTerceiraColuna = terceiraColuna.clone();
-            var terceiroInput = $(novaTerceiraColuna).find("select:first");
-            terceiroInput.attr('name', 'locais.id[' + contadorData + '][' + contadorHorario + ']');
-
-            novaLinha.append(novaPrimeiraColuna, novaSegundaColuna, novaTerceiraColuna);
-            ultimaLinha.before(novaLinha);
-        });
-
-        $('#adicionarHorario').on('click', function () {
-            var linhaAtual = $(this).closest('.horarios');
-            var colunaAtual = $(this).closest('.row');
-
-
-        });
-
         $('.idCursos').select2({
             theme: 'bootstrap'
         });
-
-        $('#removerLinha').on("click", function () {
-            $(".linhaDeConteudo:visible:last").remove();
+        @if(old('atividades_data'))
+            @foreach(old('atividades_data') as $key => $value)
+                $('#horaInicioAtividade{{ ($key+1) }}').datetimepicker({
+            format: 'HH:mm',
+            locale: 'pt-br',
+            stepping: 5
+        });
+        $('#horaTerminoAtividade{{ ($key+1) }}').datetimepicker({
+            format: 'HH:mm',
+            locale: 'pt-br',
+            stepping: 5
+        });
+        $('#dataAtividade{{ ($key+1)}}').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'pt-br',
+            minDate: '{{ $evento->dataInicio->format('m-d-Y') }}',
+            maxDate: '{{ $evento->dataTermino->format('m-d-Y') }}'
+        });
+        $('#dataAtividade{{ ($key+1)}}').ready(function () {
+            $dataHora = $('#dataAtividade{{ ($key+1)}}').data("DateTimePicker");
+            $dataHora.date(moment($('#dataAtividade{{ ($key+1)}}').attr('value'), 'DD/MM/YYYY'));
+        });
+        @endforeach
+        @else
+        $('#horaInicioAtividade1').datetimepicker({
+            format: 'HH:mm',
+            locale: 'pt-br',
+            stepping: 5
+        });
+        $('#horaTerminoAtividade1').datetimepicker({
+            format: 'HH:mm',
+            locale: 'pt-br',
+            stepping: 5
+        });
+        $('#dataAtividade1').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'pt-br',
+            minDate: '{{ $evento->dataInicio->format('m-d-Y') }}',
+            maxDate: '{{ $evento->dataTermino->format('m-d-Y') }}'
+        });
+        @endif
+        $('#dataInicioInscricao').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'pt-br',
+            maxDate: '{{ $evento->dataFimInscricao->format('m-d-Y') }}',
+            minDate: '{{ $evento->dataInicioInscricao->format('m-d-Y') }}'
+        });
+        $('#dataInicioInscricao').ready(function () {
+            $dataHora = $('#dataInicioInscricao').data("DateTimePicker");
+            $dataHora.date(moment($('#dataInicioInscricao').attr('value'), 'DD/MM/YYYY'));
+        });
+        $('#dataFimInscricao').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'pt-br',
+            minDate: '{{ $evento->dataInicioInscricao->format('m-d-Y') }}',
+            maxDate: '{{ $evento->dataFimInscricao->format('m-d-Y') }}'
+        });
+        $('#dataFimInscricao').ready(function () {
+            $dataHora = $('#dataFimInscricao').data("DateTimePicker");
+            $dataHora.date(moment($('#dataFimInscricao').attr('value'), 'DD/MM/YYYY'));
         });
 
-    </script>
+            $('.btnProximo').click(function () {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
 
+        $('.btnAnterior').click(function () {
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+        $('#selectUnidade').on('change', function () {
+            var idUnidade = $(this).val();
+            if (idUnidade != "") {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "POST",
+                    url: '/locais/getLocais/' + idUnidade
+                }).done(function (locais) {
+                    var selectLocais = $("#selectLocal");
+                    selectLocais.empty();
+                    locais = JSON.parse(locais);
+                    selectLocais.append('<option value>Selecione um Local do ' + $('#selectUnidade option:selected').text() + '</option>');
+                    $.each(locais, function (index, element) {
+                        selected = "";
+                        @if(old('atividades.locais'))
+                        if (index == {{ old('atividades.locais') }}) {
+                            selected = "selected";
+                        }
+                        @endif
+                        selectLocais.append('<option ' + selected + ' value=' + index + '>' + element + '</option>');
+                    });
+                    @if(old('atividades.locais'))
+                        $('#selectLocal').trigger('change');
+                    @endif
+                });
+            } else {
+                $("#selectLocal")
+                        .find('option')
+                        .remove()
+                        .end()
+                        .append('<option value>Selecione um Local</option>');
+                $("#selectSala")
+                        .find('option')
+                        .remove()
+                        .end()
+                        .append('<option value>Selecione uma Sala</option>');
+            }
+        });
+        $('#selectLocal').on('change', function () {
+            var idLocal = $(this).val();
+            if (idLocal != "") {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "POST",
+                    url: '/salas/getSalas/' + idLocal
+                }).done(function (salas) {
+                    var selectSalas = $("#selectSala");
+                    selectSalas.empty();
+                    salas = JSON.parse(salas);
+                    selectSalas.append('<option value>Selecione uma Sala do ' + $('#selectLocal option:selected').text() + '</option>');
+                    $.each(salas, function (index, element) {
+                        selected = "";
+                        @if(old('atividades.salas'))
+                        if (index == {{ old('atividades.salas') }}) {
+                            selected = "selected";
+                        }
+                        @endif
+                        selectSalas.append('<option ' + selected + ' value=' + index + '>' + element + '</option>');
+                    });
+                });
+            } else {
+                $("#selectSala")
+                        .find('option')
+                        .remove()
+                        .end()
+                        .append('<option value>Selecione uma Sala</option>');
+            }
+        });
+        @if($errors->any())
+            $('#selectUnidade').trigger('change');
+                @endif
+        var linha = 1;
+        $('#btnAdd').click(function () {
+            if (linha == 0) {
+                $('#btnMinus').removeClass('disabled');
+            }
+            linha++;
+            var linhaCopiada =
+                    "<tr> <td> " +
+                    "<input class=\"form-control\" id=\"dataAtividade1\" name=\"atividades.data[]\" type=\"text\" value=\"\"> " +
+                    "<\/td> <td class=\"horarios\"> <div class=\"row\"> <div class=\"col-md-6 col-xs-12\"> " +
+                    "<input class=\"form-control\" id=\"horaInicioAtividade1\" name=\"atividades.horarioInicio[]\" " +
+                    "type=\"text\" value=\"12:00\"> <\/div> <div class=\"col-md-6 col-xs-12\"> " +
+                    "<input class=\"form-control\" id=\"horaTerminoAtividade1\" name=\"atividades.horarioTermino[]\" " +
+                    "type=\"text\" value=\"13:00\"> " +
+                    "<\/div> <\/div> " +
+                    "<\/td> " +
+                    "<\/tr>";
+
+            var parentTr = $(this).parents('tr:first');
+            novaLinha = $(linhaCopiada).insertBefore(parentTr);
+            console.log(novaLinha);
+            novoInputData =
+                    novaLinha.find('td')
+                            .eq(0)
+                            .find('input:first');
+            novoInputData.attr('id', 'dataAtividade' + linha);
+            novoInputData.datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'pt-br',
+                minDate: '{{ $evento->dataInicio->format('m-d-Y') }}',
+                maxDate: '{{ $evento->dataTermino->format('m-d-Y') }}'
+            }).on('ready', function () {
+                $dataHora = $(this).data("DateTimePicker");
+                $dataHora.date(moment($(this).attr('value'), 'DD/MM/YYYY'));
+            });
+
+            novoInputHoraInicio =
+                    novaLinha.find('td')
+                            .eq(1)
+                            .find('input:first');
+            novoInputHoraInicio.attr('id', 'horaInicioAtividade' + linha);
+            novoInputHoraInicio.datetimepicker({
+                format: 'HH:mm',
+                locale: 'pt-br',
+                stepping: 5
+            });
+
+            novoInputHoraTermino =
+                    novaLinha.find('td')
+                            .eq(1)
+                            .find('input:last');
+            novoInputHoraTermino.attr('id', 'horaTerminoAtividade' + linha);
+            novoInputHoraTermino.datetimepicker({
+                format: 'HH:mm',
+                locale: 'pt-br',
+                stepping: 5
+            });
+
+        });
+        $('#btnMinus').click(function () {
+            //var parentTr = $(this).parents('tr:first');
+            $('#tabelaTempo').find('tr:last').prev().remove();
+            linha--;
+            if (linha == 0) {
+                $('#btnMinus').addClass('disabled');
+            }
+        });
+    </script>
 @endsection

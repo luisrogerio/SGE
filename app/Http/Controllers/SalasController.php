@@ -78,4 +78,9 @@ class SalasController extends Controller
         \Session::flash('message', 'Sala excluída com sucesso');
         return redirect('/salas/' . $idLocais);
     }
+
+    public function getSalasByLocais($idLocais){
+        $salas = $this->sala->where('idLocais', '=', $idLocais)->get()->lists('nome', 'id');
+        return response()->json([$salas->toJson()], 200);
+    }
 }
