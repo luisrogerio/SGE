@@ -4,6 +4,47 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Evento
+ *
+ * @property integer $id
+ * @property integer $idEdicaoAnterior
+ * @property integer $idPai
+ * @property string $nome
+ * @property \Carbon\Carbon $dataInicioInscricao
+ * @property \Carbon\Carbon $dataFimInscricao
+ * @property \Carbon\Carbon $dataInicio
+ * @property \Carbon\Carbon $dataTermino
+ * @property string $descricao
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property integer $salvoPor
+ * @property-read \App\Models\Evento $eventoEdicaoAnterior
+ * @property-read \App\Models\Evento $eventoEdicaoPosterior
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Evento[] $eventosFilhos
+ * @property-read \App\Models\Evento $eventoPai
+ * @property-read \App\Models\EventoCaracteristica $eventoCaracteristica
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventoContato[] $eventosContatos
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventoImagem[] $eventosImagens
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventoNoticia[] $eventosNoticias
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LinkExterno[] $linksExternos
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Aparencia[] $aparencia
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UsuarioTipo[] $tiposDeUsuario
+ * @property-write mixed $idedicaoanterior
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereIdEdicaoAnterior($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereIdPai($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereNome($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereDataInicioInscricao($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereDataFimInscricao($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereDataInicio($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereDataTermino($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereDescricao($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereSalvoPor($value)
+ * @mixin \Eloquent
+ */
 class Evento extends Model
 {
     protected $table = 'eventos';

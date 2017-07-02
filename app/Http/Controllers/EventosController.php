@@ -89,7 +89,7 @@ class EventosController extends Controller
                 $eventoCaracteristica['logo'] = $this->evento->eventoPai->eventoCaracteristica->logo;
                 $eventoCaracteristica['eImagemDeFundo'] = $this->evento->eventoPai->eventoCaracteristica->eImagemDeFundo;
                 $eventoCaracteristica['background'] = $this->evento->eventoPai->eventoCaracteristica->background;
-                $eventoCaracteristica['idAparencias'] = $this->evento->eventoPai->eventoCaracteristica->idAparencias;
+                //$eventoCaracteristica['idAparencias'] = $this->evento->eventoPai->eventoCaracteristica->idAparencias;
                 $eventoCaracteristica['backgroundColor'] = $this->evento->eventoPai->eventoCaracteristica->backgroundColor;
             }
             $this->evento->eventoCaracteristica()->create($eventoCaracteristica);

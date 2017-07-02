@@ -120,7 +120,8 @@ Route::group(['prefix' => 'atividades/', 'as' => 'atividades::'], function () {
     Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesController@postSalvar']);
     Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesController@postAtualizar']);
     Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'AtividadesController@postExcluir']);
-
+    Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavel', 'uses' => 'AtividadesResponsaveisController@getAdicionar']);
+    Route::post('/salvarResponsavel', ['as' => 'salvarResponsavel', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavel']);
 });
 
 Route::group(['prefix' => 'contatos/', 'as' => 'contatos::'], function () {

@@ -42,7 +42,7 @@ class EventosRequest extends Request
                     'eventoCaracteristica.eAcademico' => 'boolean',
                     'eventoCaracteristica.ePropostaAtividade' => 'boolean',
                     'eventoCaracteristica.eImagemDeFundo' => 'boolean',
-                    'eventoCaracteristica.idAparencias' => 'required',
+                    //'eventoCaracteristica.idAparencias' => 'required',
                     'eventoCaracteristica.logoImagem' => 'required_without:eEventoPai|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
                 ];
                 break;

@@ -159,12 +159,13 @@
                             @if ($errors->has('eventoCaracteristica.ePropostaAtividade')) <p
                                     class="help-block">{{ $errors->first('eventoCaracteristica.ePropostaAtividade') }}</p> @endif
                         </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('eventoCaracteristica[idAparencias]', 'Tema')}}
-                            {{Form::select('eventoCaracteristica[idAparencias]', $temas, null, array('class' => 'form-control', $eventoPai? 'readonly':'')) }}
-                            @if ($errors->has('eventoCaracteristica.idAparencias')) <p
-                                    class="help-block">{{ $errors->first('eventoCaracteristica.idAparencias') }}</p> @endif
-                        </fieldset>
+                        {{----}}
+                        {{--<fieldset class="form-group">--}}
+                            {{--{{Form::label('eventoCaracteristica[idAparencias]', 'Tema')}}--}}
+                            {{--{{Form::select('eventoCaracteristica[idAparencias]', $temas, null, array('class' => 'form-control', $eventoPai? 'readonly':'')) }}--}}
+                            {{--@if ($errors->has('eventoCaracteristica.idAparencias')) <p--}}
+                                    {{--class="help-block">{{ $errors->first('eventoCaracteristica.idAparencias') }}</p> @endif--}}
+                        {{--</fieldset>--}}
                         @if ($eventoPai != null)
                             <fieldset class="form-group">
                                 <label for="eEventoPai">

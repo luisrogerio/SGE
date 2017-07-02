@@ -18,6 +18,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Aparencia whereModificadoEm($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Aparencia whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Aparencia whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Aparencia whereUpdatedAt($value)
  */
 class Aparencia extends Model
 {

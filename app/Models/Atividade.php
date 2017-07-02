@@ -4,6 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Atividade
+ *
+ * @property integer $id
+ * @property integer $idEventos
+ * @property integer $idAtividadesTipos
+ * @property string $nome
+ * @property integer $quantidadeVagas
+ * @property string $descricao
+ * @property string $funcaoResponsavel
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property integer $salvoPor
+ * @property-read \App\Models\AtividadeTipo $tipoDeAtividade
+ * @property-read \App\Models\Evento $evento
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AtividadeStatus[] $statusDeAtividade
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Curso[] $cursos
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AtividadeDataHora[] $atividadesDatasHoras
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereIdEventos($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereIdAtividadesTipos($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereNome($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereQuantidadeVagas($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereDescricao($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereFuncaoResponsavel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereSalvoPor($value)
+ * @mixin \Eloquent
+ */
 class Atividade extends Model
 {
     protected $table = 'atividades';
@@ -13,6 +43,7 @@ class Atividade extends Model
         'idAtividadesTipos',
         'nome',
         'quantidadeVagas',
+        'funcaoResponsavel',
         'descricao',
         'salvoPor'
     ];
@@ -44,6 +75,11 @@ class Atividade extends Model
     public function atividadesDatasHoras()
     {
         return $this->hasMany('App\Models\AtividadeDataHora', 'idAtividades');
+    }
+
+    public function atividadesResponsaveis()
+    {
+        return $this->hasMany('App\Models\AtividadeResponsavel', 'idAtividades');
     }
 
 //    public function horarios()

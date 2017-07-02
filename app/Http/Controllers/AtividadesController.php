@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AtividadeResponsavelRequest;
+use App\Http\Requests\AtividadesRequest;
+use App\Models\Atividade;
 use App\Models\AtividadeStatus;
 use App\Models\AtividadeTipo;
+use App\Models\Curso;
 use App\Models\Evento;
-use App\Models\Local;
 use App\Models\Unidade;
 use Carbon\Carbon;
-use DebugBar\DebugBar;
-use Illuminate\Http\Request;
-use App\Models\Atividade;
-use App\Http\Requests\AtividadesRequest;
-use App\Http\Requests;
-use App\Models\Curso;
 
 class AtividadesController extends Controller
 {
@@ -49,7 +46,7 @@ class AtividadesController extends Controller
 
             $this->atividade->save();
 
-            $cursos = (array) $request->atividades['idCursos'];
+            $cursos = (array)$request->atividades['idCursos'];
             $dataInscricao = array_fill(0, count($cursos),
                 [
                     'dataInicio' => $request->atividadesCursos['dataInicio'],
@@ -60,9 +57,9 @@ class AtividadesController extends Controller
             $this->atividade->cursos()->sync($cursosDatas);
 
             if ($evento->eventoCaracteristica->ePropostaAtividade) {
-                $statusDeAtividade = AtividadeStatus::where('nome', 'Proposta')->first();
+                $statusDeAtividade = AtividadeStatus::whereNome('Proposta')->first();
             } else {
-                $statusDeAtividade = AtividadeStatus::where('nome', 'Aceita')->first();
+                $statusDeAtividade = AtividadeStatus::whereNome('Aceita')->first();
             }
             $this->atividade->statusDeAtividade()->attach($statusDeAtividade->id);
 
@@ -72,14 +69,17 @@ class AtividadesController extends Controller
                     'horarioInicio' => $request->atividades_horarioInicio[$i],
                     'horarioTermino' => $request->atividades_horarioTermino[$i],
                     'idUnidades' => $request->atividades['unidades'],
-                    'idLocal' => $request->atividades['locais'],
+                    'idLocais' => $request->atividades['locais'],
                     'idSalas' => $request->atividades['salas']
                 ]);
             }
 
         });
         \Session::flash('message', 'Atividade salva com sucesso');
-        return view('atividadesResponsaveis.adicionar')->with(['quantidadeResponsaveis', $request->atividade->quantidadeResponsaveis]);
+        return redirect()->route('atividades::adicionarResponsavel', [
+            'idAtividade' => $this->atividade->id,
+            'quantidadeResponsaveis' => $request->atividades['quantidadeResponsaveis']
+        ]);
     }
 
     public function getEditar($id)
