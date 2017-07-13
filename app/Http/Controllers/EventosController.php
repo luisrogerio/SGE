@@ -60,6 +60,9 @@ class EventosController extends Controller
                     'idPai' => $idPai
                 ));
             }
+            $request->merge([
+                'nomeSlug' => str_slug($request->nome)
+            ]);
             $this->evento = $this->evento->create($request->all());
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
             $this->evento->tiposDeUsuario()->sync($request->get('usuariosTipos'));
@@ -95,7 +98,7 @@ class EventosController extends Controller
             $this->evento->eventoCaracteristica()->create($eventoCaracteristica);
         });
         \Session::flash('message', 'Evento criado com sucesso!');
-        return redirect('/eventos');
+        return redirect()->route('eventos::index');
     }
 
     public function getVisualizar($id)
@@ -108,7 +111,7 @@ class EventosController extends Controller
                 'subeventos' => $subeventos
             ])->render());
         }
-        return view('eventos.view', compact('evento', 'subeventos', 'eventosPai', 'linksExternos'));
+        return view('eventos.view', compact('evento', 'subeventos', 'eventosPai'));
     }
 
     public function getEditar($id)
@@ -144,7 +147,7 @@ class EventosController extends Controller
             $this->evento->eventoCaracteristica()->update($eventoCaracteristica);
         });
         \Session::flash('message', 'Evento atualizado com sucesso');
-        return redirect('/eventos');
+        return redirect()->route('eventos::index');
     }
 
     public function postExcluir($id)
@@ -152,7 +155,7 @@ class EventosController extends Controller
         $evento = $this->evento->findOrFail($id);
         $evento->delete();
         \Session::flash('message', 'Evento excluído com sucesso');
-        return redirect('/eventos');
+        return redirect()->route('eventos::index');
     }
 
     public function salvarLinkExterno(Request $request)
@@ -168,5 +171,19 @@ class EventosController extends Controller
             return response()->json(['msg' => 'Ocorreu um erro no salvamento'], 400);
         }
         return response()->json(['msg' => 'Link Salvo com Sucesso'], 200);
+    }
+
+    public function getIndexPublico()
+    {
+        $eventos = $this->evento->orderBy('nome')->with('eventoCaracteristica')->paginate(5);
+        Carbon::setLocale('pt_BR');
+        return view('publico.eventos.index', compact('eventos'));
+    }
+
+    public function getVisualizarPublico($id)
+    {
+        $evento = $this->evento->findOrFail($id);
+        $subeventos = $evento->eventosFilhos();
+        return view('publico.eventos.view', compact('evento', 'subeventos', 'eventosPai'));
     }
 }

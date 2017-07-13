@@ -12,7 +12,7 @@
             </h3>
         </div>
         <div class="panel-body">
-            {{Form::model($sala, array('url'=>'salas/atualizar/'.$sala->id))}}
+            {{Form::model($sala, array('url'=>route('salas::atualizar', ['id' => $sala->id])))}}
             <fieldset class="form-group">
                 {{Form::label('prefixo', 'Prefixo')}}
                 {{ Form::select('prefixo', array(

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Atividade;
 
 /**
  * App\Models\Evento
@@ -70,6 +71,9 @@ class Evento extends Model
         'dataTermino'
     ];
 
+    public function atividades(){
+        return $this->hasMany('App\Models\Atividade', 'idEventos');
+    }
 
     public function eventoEdicaoAnterior()
     {

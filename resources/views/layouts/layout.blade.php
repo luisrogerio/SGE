@@ -9,12 +9,12 @@
 
     <!--CSS para Bootstrap, Select e Ícones-->
     {{ Html::style('css/bootstrap.min.css') }}
-    {{ Html::style('css/bootstrap-theme.css') }}
     {{ Html::style('css/footer.css') }}
     {{ Html::style('css/select2.css') }}
     {{ Html::style('css/select2-bootstrap.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
+    {{ Html::style('css/beautify.css') }}
     {{ Html::style('css/styles.css') }}
     <title>SGE - @yield('title')</title>
 </head>

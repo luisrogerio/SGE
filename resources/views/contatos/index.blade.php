@@ -12,7 +12,7 @@
                 <td>{{$eventoContato->nome}}</td>
                 <td class="text-center">{{link_to_route('contatos::editar','Editar',['id'=>$eventoContato->id], ['class' => 'btn btn-primary'])}}</td>
                 <td class="text-center">
-                    {{ Form::open(array('method' => 'POST', 'url' => 'contatos/excluir/'.$eventoContato->id, 'style' => 'display:inline;')) }}
+                    {{ Form::open(array('method' => 'POST', 'url' => route('contatos::excluir', ['id'=>$eventoContato->id]), 'style' => 'display:inline;')) }}
                     <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Contato"
                             data-message='Você tem certeza que deseja deletar esse contato?'>

@@ -12,7 +12,7 @@
                 <td>{{$curso->nome}}</td>
                 <td class="text-center">{{link_to_route('cursos::editar','Editar',['id'=>$curso->id], ['class' => 'btn btn-primary'])}}</td>
                 <td class="text-center">
-                    {{ Form::open(array('method' => 'POST', 'url' => 'cursos/excluir/'.$curso->id, 'style' => 'display:inline;')) }}
+                    {{ Form::open(array('method' => 'POST', 'url' => route('cursos::excluir', ['id' => $curso->id]), 'style' => 'display:inline;')) }}
                     <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Curso" data-message='Você tem certeza que deseja deletar esse curso?'>
                         Deletar

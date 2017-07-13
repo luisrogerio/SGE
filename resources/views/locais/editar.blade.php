@@ -11,7 +11,7 @@
             </h3>
         </div>
         <div class="panel-body">
-            {{Form::model($local, array('url'=>'locais/atualizar/'.$local->id))}}
+            {{Form::model($local, array('url'=>route('locais::atualizar', ['id' => $local->id])))}}
             <fieldset class="form-group">
                 {{Form::label('nome', 'Nome')}}
                 {{Form::text('nome', null, array('class' => 'form-control'))}}

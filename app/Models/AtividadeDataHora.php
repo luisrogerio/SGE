@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -45,25 +46,36 @@ class AtividadeDataHora extends Model
             'idAtividades',
             'salvoPor'
         ];
+    protected $dates = [
+        'data'
+    ];
+
+    public function getHorarioinicioAttribute($value){
+        return Carbon::createFromFormat('H:i:s', $value);
+    }
+
+    public function getHorarioterminoAttribute($value){
+        return Carbon::createFromFormat('H:i:s', $value);
+    }
 
     public function atividade()
     {
-        $this->belongsTo('App\Models\Atividade', 'idAtividades');
+        return $this->belongsTo('App\Models\Atividade', 'idAtividades');
     }
 
     public function unidade()
     {
-        $this->belongsTo('App\Models\Unidade', 'idUnidades');
+        return $this->belongsTo('App\Models\Unidade', 'idUnidades');
     }
 
     public function local()
     {
-        $this->belongsTo('App\Models\Local', 'idLocais');
+        return $this->belongsTo('App\Models\Local', 'idLocais');
     }
 
     public function sala()
     {
-        $this->belongsTo('App\Models\Sala', 'idSalas');
+        return $this->belongsTo('App\Models\Sala', 'idSalas');
     }
 
 }

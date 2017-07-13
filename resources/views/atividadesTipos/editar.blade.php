@@ -6,7 +6,7 @@
             <h3>Atualizar Tipo de Atividade</h3>
         </div>
         <div class="panel-body">
-            {{Form::model($atividadeTipo, array('url'=>'atividadesTipos/atualizar/'.$atividadeTipo->id))}}
+            {{Form::model($atividadeTipo, array('url'=>route('atividadesTipos::atualizar', ['id' => $atividadeTipo->id])))}}
             <fieldset class="form-group">
                 {{Form::label('nome', 'Nome')}}
                 {{Form::text('nome', null, array('class' => 'form-control'))}}

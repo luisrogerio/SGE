@@ -32,7 +32,7 @@ class UsuariosGruposController extends Controller
     {
         $this->usuarioGrupo->fill($request->all());
         if ($this->usuarioGrupo->save()) {
-            return redirect('/gruposdeusuario');
+            return redirect()->route('gruposdeusuario::index');
         }
     }
 
@@ -48,7 +48,7 @@ class UsuariosGruposController extends Controller
         $this->usuarioGrupo->fill($request->all());
         if ($this->usuarioGrupo->update()) {
             \Session::flash('message', 'Grupo de Usuário atualizado com sucesso');
-            return redirect('/gruposdeusuario');
+            return redirect()->route('gruposdeusuario::index');
         }
     }
 
@@ -57,6 +57,6 @@ class UsuariosGruposController extends Controller
         $usuarioGrupo = $this->usuarioGrupo->findOrFail($id);
         $usuarioGrupo->delete();
         \Session::flash('message', 'Grupo de Usuário excluído com sucesso');
-        return redirect('/gruposdeusuario');
+        return redirect()->route('gruposdeusuario::index');
     }
 }

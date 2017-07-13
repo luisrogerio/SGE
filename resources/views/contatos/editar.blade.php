@@ -6,7 +6,7 @@
             <h3>Atualizar Contato</h3>
         </div>
         <div class="panel-body">
-            {{Form::model($eventoContato, array('url'=>'contatos/atualizar/'.$eventoContato->id))}}
+            {{Form::model($eventoContato, array('url'=>route('contatos::atualizar', ['id'=>$eventoContato->id])))}}
             @include('contatos.campos')
             {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
             {{Form::close()}}

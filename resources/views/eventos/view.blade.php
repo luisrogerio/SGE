@@ -1,39 +1,6 @@
 @extends('layouts.layout')
 @section('title', 'Visualizar Evento')
 @section('content')
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalLinkExterno">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Novo Link Externo</h4>
-                </div>
-                {{Form::open(array('url' => 'eventos/salvarLinkExterno', 'id' => 'adicionarLinkExterno'))}}
-                <div class="modal-body">
-                    <fieldset class="form-group" id="descricao">
-                        {{Form::label('descricao', 'Descrição')}}
-                        {{Form::text('descricao', null, array('class' => 'form-control', 'id' => 'descricaoInput'))}}
-                        <p class="help-block"></p>
-                    </fieldset>
-                    <fieldset class="form-group" id="url">
-                        {{Form::label('url', 'URL')}}
-                        <div class="input-group">
-                            {{Form::url('url', null, array('class' => 'form-control', 'id' => 'urlInput'))}}
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span> </span>
-                        </div>
-                        <p class="help-block"></p>
-                    </fieldset>
-                    {{ Form::hidden('idEventos', $evento->id) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-                {{Form::close()}}
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>@include('subeventos.eventoBreadcrumb')</h2>
@@ -41,65 +8,72 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 col-md-2">
-                    <h4 class="text-center">Data do Evento</h4>
-                    <p class="h3 text-center">
-                        {{ $evento->dataInicio->day }}
-                        <small>de</small>
-                        <span class="h4 text-capitalize">
+                    <div class="data-box">
+                        <h4 class="text-center data-header">Data do Evento</h4>
+                        <p class="h3 text-center">
+                            {{ $evento->dataInicio->day }}
+                            <small>de</small>
+                            <span class="h4 text-capitalize">
                             {{ $evento->dataInicio->formatLocalized('%B')}}
                             </span>
-                        <br/>
-                        <small> de</small>
-                        {{ $evento->dataInicio->year }}
-                    </p>
-                    <p class="text-center text-capitalize">até</p>
-                    <p class="h3 text-center">
-                        {{ $evento->dataTermino->day }}
-                        <small>de</small>
-                        <span class="h4 text-capitalize">
+                            <br/>
+                            <small> de</small>
+                            {{ $evento->dataInicio->year }}
+                        </p>
+                        <p class="text-center text-capitalize">até</p>
+                        <p class="h3 text-center">
+                            {{ $evento->dataTermino->day }}
+                            <small>de</small>
+                            <span class="h4 text-capitalize">
                             {{ $evento->dataTermino->formatLocalized('%B')}}
                             </span>
-                        <br/>
-                        <small> de</small>
-                        {{ $evento->dataTermino->year }}
-                    </p>
-                    <hr>
-                    <h4 class="text-center">Data de Inscrição</h4>
-                    <p class="h3 text-center">
-                        {{ $evento->dataInicioInscricao->day }}
-                        <small>de</small>
-                        <span class="h4 text-capitalize">
+                            <br/>
+                            <small> de</small>
+                            {{ $evento->dataTermino->year }}
+                        </p>
+                    </div>
+
+                    <div class="data-box">
+                        <h4 class="text-center data-header">Data de Inscrição</h4>
+                        <p class="h3 text-center">
+                            {{ $evento->dataInicioInscricao->day }}
+                            <small>de</small>
+                            <span class="h4 text-capitalize">
                             {{ $evento->dataInicioInscricao->formatLocalized('%B')}}
                             </span>
-                        <br/>
-                        <small> de</small>
-                        {{ $evento->dataInicioInscricao->year }}
-                    </p>
-                    <p class="text-center text-capitalize">até</p>
-                    <p class="h3 text-center">
-                        {{ $evento->dataFimInscricao->day }}
-                        <small>de</small>
-                        <span class="h4 text-capitalize">
+                            <br/>
+                            <small> de</small>
+                            {{ $evento->dataInicioInscricao->year }}
+                        </p>
+                        <p class="text-center text-capitalize">até</p>
+                        <p class="h3 text-center">
+                            {{ $evento->dataFimInscricao->day }}
+                            <small>de</small>
+                            <span class="h4 text-capitalize">
                             {{ $evento->dataFimInscricao->formatLocalized('%B')}}
                             </span>
-                        <br/>
-                        <small> de</small>
-                        {{ $evento->dataFimInscricao->year }}
-                    </p>
+                            <br/>
+                            <small> de</small>
+                            {{ $evento->dataFimInscricao->year }}
+                        </p>
+                    </div>
+
                 </div>
                 <div class="col-xs-12 col-md-10">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                         <li role="presentation" class="active">
                             <a href="#caracteristica" aria-controls="caracteristica" role="tab"
-                               data-toggle="tab">Evento</a>
+                               data-toggle="tab"><h5>Evento</h5></a>
                         </li>
                         <li role="presentation">
-                            <a href="#subeventos" aria-controls="subeventos" role="tab" data-toggle="tab">Subeventos</a>
+                            <a href="#subeventos" aria-controls="subeventos" role="tab" data-toggle="tab">
+                                <h5>Subeventos</h5>
+                            </a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade in active" role="tabpanel" id="caracteristica">
-                            <h4>Características</h4>
+                        <div class="tab-pane active" role="tabpanel" id="caracteristica">
+                            <h3>Características</h3>
                             <ul class="list-group">
                                 <li class="list-group-item {{
                             ($evento->eventoCaracteristica->eEmiteCertificado)?
@@ -149,65 +123,95 @@
                                     Haverá Proposta de Atividade
                                 </li>
                             </ul>
-                            <div>
-                                <h4>Background</h4>
-                                <div class="center-block jumbotron"
-                                     @if(!$evento->eventoCaracteristica->eImagemDeFundo)
-                                     style="background-color: {{ $evento->eventoCaracteristica->backgroundColor }};"
-                                        @endif
-                                >
-                                    @if($evento->eventoCaracteristica->eImagemDeFundo)
-                                        <div class="thumbnail">
+                            <div class="container">
+                                <div class="row">
+                                    @if(!$evento->eventoCaracteristica->eImagemDeFundo)
+                                        <h3>Cor de Fundo: <i class="fa fa-square
+                                                @if(!$evento->eventoCaracteristica->eImagemDeFundo)
+                                                    style=" background-color:
+                                                             {{ $evento->eventoCaracteristica->backgroundColor }}
+                                                             ;"
+                                            @endif" aria-hidden="true"></i></h3>
+                                    @else
+                                        <div class="img-thumbnail" width="256px">
                                             {{ Html::image('/uploads/eventos/'.$evento->id.'/'.$evento->eventoCaracteristica->background, null, array('class' => 'img-responsive')) }}
                                         </div>
                                     @endif
+
                                 </div>
                             </div>
+
                             @if( $evento->eventoEdicaoAnterior != null)
                                 <h4>Edição Anterior</h4>
                                 {{ link_to_route('eventos::visualizar', $evento->eventoEdicaoAnterior->nome , array('id' => $evento->eventoEdicaoAnterior->id)) }}
                             @endif
-                            <h4>Contatos</h4>
-                            <div class="row">
-                                @foreach($evento->eventosContatos as $eventoContato)
-                                    <div class="col-xs-12 col-md-6 col-lg-4">
-                                        <address>
-                                            <strong>{{ $eventoContato->nome }}</strong><br>
-                                            @if($eventoContato->telefone)
-                                                Telefone: {{$eventoContato->telefone}}<br>
-                                            @endif
-                                            @if($eventoContato->telefone)
-                                                Celular: {{$eventoContato->celular}}<br>
-                                            @endif
-                                            Email: {{ $eventoContato->email }}<br>
-                                            @if($eventoContato->redesSociais[0])
-                                                Facebook: {!! link_to($eventoContato->redesSociais[0]) !!}<br>
-                                            @endif
-                                            @if($eventoContato->redesSociais[1])
-                                                Twitter: {{$eventoContato->redesSociais[1]}}<br>
-                                            @endif
-                                        </address>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                        <div class="thumbnail">
+                                            <div class="caption">
+                                                <h3>Contatos</h3>
+                                                @foreach($evento->eventosContatos as $eventoContato)
+                                                    <p>
+                                                    <address>
+                                                        <strong>{{ $eventoContato->nome }}</strong><br>
+                                                        @if($eventoContato->telefone)
+                                                            Telefone: {{$eventoContato->telefone}}<br>
+                                                        @endif
+                                                        @if($eventoContato->telefone)
+                                                            Celular: {{$eventoContato->celular}}<br>
+                                                        @endif
+                                                        Email: {{ $eventoContato->email }}<br>
+                                                        @if($eventoContato->redesSociais[0])
+                                                            Facebook: {!! link_to($eventoContato->redesSociais[0]) !!}
+                                                            <br>
+                                                        @endif
+                                                        @if($eventoContato->redesSociais[1])
+                                                            Twitter: {{$eventoContato->redesSociais[1]}}<br>
+                                                        @endif
+                                                    </address>
+                                                    </p>
+                                                    <hr>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
-                                @endforeach
+                                </div>
                             </div>
-                            <div>
-                                <h4>Links Externos</h4>
+                            <div class="row">
+                                <h3>Links Externos
+                                    <small><i class="glyphicon glyphicon-link" aria-hidden="true"></i></small>
+                                </h3>
                                 <div id="linksExternos">
                                     @foreach($evento->linksExternos as $linkExterno)
-                                        <p><strong>{{$linkExterno->descricao}}</strong></p>
-                                        <p>{{ Html::link($linkExterno->url) }}</p>
+                                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">{{$linkExterno->descricao}}</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    {{ Html::link($linkExterno->url) }}
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="btn-group">
-                                <button class="btn btn-default" type='button' data-toggle="modal"
-                                        data-target="#modalLinkExterno">Adicionar Link Externo
+                            <div>
+                                <button class="button button-cyan" type='button' data-toggle="modal"
+                                        data-target="#modalLinkExterno"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Adicionar Link Externo
                                 </button>
-                                {{ link_to_route('eventos::editar', 'Editar Evento', array('id' => $evento->id), array('class' => 'btn btn-default')) }}
-                                {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'btn btn-success')) }}
-                                {{ link_to_route('atividades::adicionar', 'Adicionar Atividade', ['idEventos' => $evento->id], array('class' => 'btn btn-success')) }}
+                            </div>
+
+                            <hr>
+                            <div class="btn-group">
+                                {{ link_to_route('eventos::editar', 'Editar Evento', array('id' => $evento->id), array('class' => 'button button-blue')) }}
+                                {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'button button-blue')) }}
+                                {{ link_to_route('atividades::index', 'Visualizar Atividades', ['idEventos' => $evento->id], array('class' => 'button button-blue')) }}
                             </div>
                         </div>
+
                         <div class="tab-pane fade" role="tabpanel" id="subeventos">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -223,6 +227,41 @@
             </div>
         </div>
     </div>
+    </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalLinkExterno">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Novo Link Externo</h4>
+                </div>
+                {{Form::open(array('url' => route('eventos::salvarLinkExterno'), 'id' => 'adicionarLinkExterno'))}}
+                <div class="modal-body">
+                    <fieldset class="form-group" id="descricao">
+                        {{Form::label('descricao', 'Descrição')}}
+                        {{Form::text('descricao', null, array('class' => 'form-control', 'id' => 'descricaoInput'))}}
+                        <p class="help-block"></p>
+                    </fieldset>
+                    <fieldset class="form-group" id="url">
+                        {{Form::label('url', 'URL')}}
+                        <div class="input-group">
+                            {{Form::url('url', null, array('class' => 'form-control', 'id' => 'urlInput'))}}
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span> </span>
+                        </div>
+                        <p class="help-block"></p>
+                    </fieldset>
+                    {{ Form::hidden('idEventos', $evento->id) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button button-orange" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="button button-blue">Salvar</button>
+                </div>
+                {{Form::close()}}
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <script>
         $(document).ready(function () {
             $(document).on('click', '.pagination a', function (e) {
@@ -256,13 +295,13 @@
                 e.preventDefault(e);
                 $.ajax({
                     type: "POST",
-                    url: '/eventos/salvarLinkExterno',
+                    url: '{{ route('eventos::salvarLinkExterno') }}',
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function () {
                         $("#linksExternos").append(
-                                '<p><strong>' + $("#descricaoInput").val() + '</strong></p>' +
-                                '<p><a href="' + $("#urlInput").val() + '">' + $("#urlInput").val() + '</a></p>');
+                            '<p><strong>' + $("#descricaoInput").val() + '</strong></p>' +
+                            '<p><a href="' + $("#urlInput").val() + '">' + $("#urlInput").val() + '</a></p>');
                         $("#descricaoInput").val('');
                         $("#urlInput").val('');
                         $('#descricao p').text("");

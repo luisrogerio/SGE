@@ -15,7 +15,7 @@
             </h3>
         </div>
         <div class="panel-body">
-            {{Form::open(array('url'=>'salas/salvar'))}}
+            {{Form::open(array('url'=> route('salas::salvar')))}}
             @if($numeroDeSalas != 0)
                 <div class="row">
                     @for($i = 0; $i < $numeroDeSalas; $i++)

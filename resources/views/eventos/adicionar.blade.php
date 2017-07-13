@@ -7,9 +7,9 @@
         </div>
         <div class="panel-body">
             @if ($eventoPai != null)
-                {{Form::model($eventoPai, array('url'=>'eventos/'.$eventoPai->id.'/salvar', 'files' => true))}}
+                {{Form::model($eventoPai, array('url'=>route('eventos::salvarSubevento', ['idPai' => $eventoPai->id]), 'files' => true))}}
             @else
-                {{Form::open(array('url'=>'eventos/salvar', 'files' => true))}}
+                {{Form::open(array('url'=>route('eventos::salvar'), 'files' => true))}}
             @endif
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li role="presentation" class="active">

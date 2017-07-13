@@ -40,6 +40,6 @@ class AtividadesResponsaveisController extends Controller
                 $atividade->atividadesResponsaveis()->create($atividadeResponsavel);
             }
         }
-        return redirect('/eventos/visualizar/'.$atividade->evento->id);
+        return redirect()->route('eventos::visualizar', ['id' => $atividade->evento->id]);
     }
 }

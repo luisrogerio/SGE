@@ -6,7 +6,7 @@
             <h3>Editar Evento</h3>
         </div>
         <div class="panel-body">
-            {{Form::model($evento, array('url'=>'eventos/atualizar/'.$evento->id, 'method' => 'PATCH'))}}
+            {{Form::model($evento, array('url'=>route('eventos::atualizar', ['id' => $evento->id]), 'method' => 'PATCH'))}}
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li role="presentation" class="active">
                     <a href="#evento" aria-controls="evento" role="tab" data-toggle="tab">Evento</a>

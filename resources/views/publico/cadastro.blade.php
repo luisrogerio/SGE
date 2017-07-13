@@ -1,64 +1,76 @@
-@extends('layouts.layoutPublico')
-@section('scriptsExtras')
-    {{Html::script('js/jquery.mask.js')}}
-@endsection
-@section('title', 'Login')
+@extends('layouts.eventoLayout')
+@section('title', "- Cadastro")
 @section('content')
     <div class="row">
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
+        <div class="conteiner">
+            <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+                <h1 class="text-center">Cadastro de Usuários</h1>
+                <p class="paragrafo">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <ul class="nav nav-tabs">
+                    <div class="espacos"></div>
+                    <li class="active">
+                        <a data-toggle="tab" href="#alunos">
+                            <h4>Alunos</h4>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#professores">
+                            <h4>Servidores</h4>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#servidores">
+                            <h4>Visitantes</h4>
+                        </a>
+                    </li>
                 </ul>
+                <div class="tab-content">
+                    <div id="alunos" class="tab-pane fade in active">
+                        {{ Form::open(array('url' => '/cadastroAluno', 'class' => 'form-inline text-center')) }}
+                        <h3>Cadastro de Alunos</h3>
+                        <label>
+                            Matrícula: {{ Form::text('matricula', null, array('placeholder' => 'Matrícula')) }}
+                        </label>
+                        <label>
+                            CPF do
+                            Aluno: {{ Form::text('cpfAluno', null,array('placeholder' => 'CPF', 'id' => 'cpfAluno')) }}
+                        </label>
+                        {{ Form::submit('Cadastrar', ['class' => 'button button-blue']) }}
+                        {{ Form::close() }}
+                    </div>
+                    <div id="professores" class="tab-pane fade">
+                        {{ Form::open(array('url' => '/cadastroServidor', 'class' => 'form-inline text-center')) }}
+                        <h3>Cadstro de Servidores</h3>
+                        <label>
+                            SIAPE: {{ Form::text('matricula', null, array('placeholder' => 'Matrícula')) }}
+                        </label>
+                        <label>
+                            CPF do Servidor: {{ Form::text('cpfServidor', null, array('placeholder' => 'CPF')) }}
+                        </label>
+                        {{ Form::submit('Cadastrar', array('class' => 'button button-blue')) }}
+                        {{ Form::close() }}
+                    </div>
+                    <div id="servidores" class="tab-pane fade">
+                        {{ Form::open(array('url' => '/cadastroExterno', 'class' => 'form-inline text-center')) }}
+                            <h3>Visitantes</h3>
+                            <label>
+                                Nome: {{ Form::text('nome', null, array('placeholder' => 'Nome Completo')) }}
+                            </label>
+                            <label>
+                                CPF do
+                                Visitante: {{ Form::text('cpfExterno', null, array('placeholder' => 'CPF', $errors->cpfExterno? 'autofocus':'', 'id' => 'cpfExterno')) }}
+                            </label>
+                        {{ Form::submit('Cadastrar', array('class' => 'button button-blue')) }}
+                        {{ Form::close() }}
+                    </div>
+                </div>
             </div>
-        @endif
-        <div class="col-xs-12 col-md-4">
-            {{ Form::open(array('url' => '/cadastroAluno', 'class' => 'center-block formularioCadastro')) }}
-            <h2 class="formularioCadastro-heading">Cadastro Aluno</h2>
-            <fieldset>
-                {{ Form::text('matricula', null, array('class' => 'form-control input-lg', 'placeholder' => 'Matrícula')) }}
-            </fieldset>
-            <fieldset>
-                {{ Form::text('cpfAluno', null,array('class' => 'form-control input-lg', 'placeholder' => 'CPF', 'id' => 'cpfAluno')) }}
-            </fieldset>
-            </fieldset>
-            <fieldset>
-                {{ Form::submit('Cadastre-se', array('class' => 'btn btn-lg btn-primary btn-block')) }}
-            </fieldset>
-            {{ Form::close() }}
-        </div>
-        <div class="col-xs-12 col-md-4">
-            {{ Form::open(array('url' => '/cadastroServidor', 'class' => 'center-block formularioCadastro')) }}
-            <h2 class="formularioCadastro-heading">Cadastro Servidor</h2>
-            <fieldset>
-                {{ Form::text('matricula', null, array('class' => 'form-control input-lg', 'placeholder' => 'Matrícula')) }}
-            </fieldset>
-            <fieldset>
-                {{ Form::text('cpfServidor', null, array('class' => 'form-control input-lg', 'placeholder' => 'CPF')) }}
-            </fieldset>
-            </fieldset>
-            <fieldset>
-                {{ Form::submit('Cadastre-se', array('class' => 'btn btn-lg btn-primary btn-block')) }}
-            </fieldset>
-            {{ Form::close() }}
-        </div>
-        <div class="col-xs-12 col-md-4">
-            {{ Form::open(array('url' => '/cadastroExterno', 'class' => 'center-block formularioCadastro', 'method' => 'GET')) }}
-            <h2 class="formularioCadastro-heading">Cadastro Externo</h2>
-            <fieldset class="{{ $errors->has('cpfExterno')? 'has-error':'' }}">
-                {{ Form::text('cpfExterno', null, array('class' => 'form-control input-lg', 'placeholder' => 'CPF',
-                    $errors->cpfExterno? 'autofocus':'', 'id' => 'cpfExterno')) }}
-            </fieldset>
-            <fieldset class="{{ $errors->has('nome')? 'has-error':'' }}">
-                {{ Form::text('nome', null,array('class' => 'form-control input-lg', 'placeholder' => 'Nome Completo')) }}
-            </fieldset>
-            </fieldset>
-            <fieldset>
-                {{ Form::submit('Cadastre-se', array('class' => 'btn btn-lg btn-primary btn-block')) }}
-            </fieldset>
-            {{ Form::close() }}
         </div>
     </div>
     <script type="text/javascript">

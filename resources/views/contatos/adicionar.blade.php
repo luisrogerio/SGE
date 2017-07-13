@@ -6,7 +6,7 @@
             <h3>Adicionar Novo</h3>
         </div>
         <div class="panel-body">
-            {{Form::open(array('url'=>'contatos/salvar'))}}
+            {{Form::open(array('url'=>route('contatos::salvar')))}}
             @include('contatos.campos')
             {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
             {{Form::close()}}

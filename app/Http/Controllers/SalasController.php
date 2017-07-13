@@ -48,7 +48,7 @@ class SalasController extends Controller
                 }
             }
         });
-        return redirect('/salas/' . $local->id);
+        return redirect()->route('salas::index', ['idLocais' => $local->id]);
     }
 
     public function getEditar($id)
@@ -66,7 +66,7 @@ class SalasController extends Controller
         $this->sala->nome = $request->prefixo . ' ' . $request->sufixo;
         if ($this->sala->update()) {
             \Session::flash('message', 'Sala atualizada com sucesso');
-            return redirect('/salas/' . $this->sala->local->id);
+            return redirect()->route('salas::index', ['idLocais' => $this->sala->local->id]);
         }
     }
 
@@ -76,7 +76,7 @@ class SalasController extends Controller
         $idLocais = $sala->local->id;
         $sala->delete();
         \Session::flash('message', 'Sala excluída com sucesso');
-        return redirect('/salas/' . $idLocais);
+        return redirect()->route('salas::index', ['idLocais' => $idLocais]);
     }
 
     public function getSalasByLocais($idLocais){

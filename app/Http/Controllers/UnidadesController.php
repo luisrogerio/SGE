@@ -29,7 +29,7 @@ class UnidadesController extends Controller
     {
         $this->unidade->fill($request->all());
         if ($this->unidade->save()) {
-            return redirect('/unidades');
+            return redirect()->route('unidades::index');
         }
     }
 
@@ -45,7 +45,7 @@ class UnidadesController extends Controller
         $this->unidade->fill($request->all());
         if ($this->unidade->update()) {
             \Session::flash('message', 'Unidade atualizada com sucesso');
-            return redirect('/unidades');
+            return redirect()->route('unidades::index');
         }
     }
 
@@ -54,6 +54,6 @@ class UnidadesController extends Controller
         $unidade = $this->unidade->findOrFail($id);
         $unidade->delete();
         \Session::flash('message', 'Unidade excluída com sucesso');
-        return redirect('/unidades');
+        return redirect()->route('unidades::index');
     }
 }

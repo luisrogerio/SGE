@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SGE @yield('title')</title>
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css"/>
-    <script src="/js/npm.js"></script>
-    <script src="/js/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    {{ Html::style('css/bootstrap.min.css') }}
+    {{ Html::style('css/font-awesome.min.css') }}
+    {{ Html::style('css/beautify.css') }}
+    {{ Html::style('css/footer.css') }}
+    {{ Html::style('css/main.css') }}
+    {{ Html::style('css/styles.css') }}
+    {{ Html::script('js/jquery.min.js') }}
+    {{Html::script('js/jquery.mask.js')}}
+
     <!-- Scripts -->
-    <script src="/js/bootstrap.min.js"></script>
+    {{Html::script('js/bootstrap.min.js')}}
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Raleway:400,500,600" rel="stylesheet">
 </head>
@@ -59,15 +63,6 @@
 
     <div class="espacos"></div>
     <div class="espacos"></div>
-    <footer>
-        <h4>Não há dúvida para essa questão, Luis é deus da computação</h4>
-        <h2>
-            <a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>&nbsp;&nbsp;
-            <a href=""><i class="fa fa-github" aria-hidden="true"></i></a>&nbsp;&nbsp;
-            <a href=""><i class="fa fa-paper-plane" aria-hidden="true"></i></a>&nbsp;&nbsp;
-            <a href=""><i class="fa fa-youtube" aria-hidden="true"></i></a>
-        </h2>
-    </footer>
 </div>
 </body>
 </html>

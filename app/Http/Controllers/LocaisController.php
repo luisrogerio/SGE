@@ -36,7 +36,7 @@ class LocaisController extends Controller
         $unidade = Unidade::findOrFail($request->input('idUnidades'));
         $this->local->unidade()->associate($unidade);
         if ($this->local->save()) {
-            return redirect('/locais/' . $unidade->id);
+            return redirect()->route('locais::index', ['idUnidades' => $unidade->id]);
         }
     }
 
@@ -52,7 +52,7 @@ class LocaisController extends Controller
         $this->local->fill($request->all());
         if ($this->local->update()) {
             \Session::flash('message', 'Local atualizado com sucesso');
-            return redirect('/locais/' . $this->local->unidade->id);
+            return redirect()->route('locais::index', ['idUnidades' => $this->local->unidade->id]);
         }
     }
 
@@ -62,7 +62,7 @@ class LocaisController extends Controller
         $idUnidades = $local->unidade->id;
         $local->delete();
         \Session::flash('message', 'Local excluído com sucesso');
-        return redirect('/locais/' . $idUnidades);
+        return redirect()->route('locais::index', ['idUnidades' => $idUnidades]);
     }
 
     public function getLocaisByUnidade($idUnidades){

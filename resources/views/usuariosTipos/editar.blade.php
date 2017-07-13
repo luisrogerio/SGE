@@ -6,7 +6,7 @@
             <h3>Atualizar Tipo de Usuário</h3>
         </div>
         <div class="panel-body">
-            {{Form::model($usuarioTipo, array('url'=>'usuariosTipos/atualizar/'.$usuarioTipo->id))}}
+            {{Form::model($usuarioTipo, array('url'=>route('usuariosTipos::atualizar', ['id' => $usuarioTipo->id])))}}
             <fieldset class="form-group">
                 {{Form::label('nome', 'Nome')}}
                 {{Form::text('nome', null, array('class' => 'form-control'))}}

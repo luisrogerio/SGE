@@ -6,7 +6,7 @@
             <h3>Atualizar Curso</h3>
         </div>
         <div class="panel-body">
-            {{Form::model($curso, array('url'=>'cursos/atualizar/'.$curso->id))}}
+            {{Form::model($curso, array('url'=>route('cursos::atualizar', ['id' => $curso->id])))}}
             <fieldset class="form-group">
                 {{Form::label('nome', 'Nome')}}
                 {{Form::text('nome', null, array('class' => 'form-control'))}}

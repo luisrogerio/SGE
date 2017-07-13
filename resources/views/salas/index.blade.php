@@ -19,7 +19,7 @@
                 <td>{{$sala->nome}}</td>
                 <td class="text-center">{{link_to_route('salas::editar','Editar',['id'=>$sala->id], ['class' => 'btn btn-primary'])}}</td>
                 <td class="text-center">
-                    {{ Form::open(array('method' => 'POST', 'url' => 'salas/excluir/'.$sala->id, 'style' => 'display:inline;')) }}
+                    {{ Form::open(array('method' => 'POST', 'url' => route('salas::excluir', ['id' => $sala->id]), 'style' => 'display:inline;')) }}
                     <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Sala" data-message='Você tem certeza que deseja deletar essa sala?'>
                         Deletar

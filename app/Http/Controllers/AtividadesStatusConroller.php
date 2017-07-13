@@ -32,7 +32,7 @@ class AtividadesStatusConroller extends Controller
     {
         $this->atividadeStatus->fill($request->all());
         if ($this->atividadeStatus->save()) {
-            return redirect('/statusdeatividade');
+            return redirect()->route('statusdeatividade::index');
         }
     }
 
@@ -48,7 +48,8 @@ class AtividadesStatusConroller extends Controller
         $this->atividadeStatus->fill($request->all());
         if ($this->atividadeStatus->update()) {
             \Session::flash('message', 'Status de Atividade atualizado com sucesso');
-            return redirect('/statusdeatividade');
+            return redirect()->route('statusdeatividade::index');
+
         }
     }
 
@@ -57,6 +58,6 @@ class AtividadesStatusConroller extends Controller
         $atividadeStatus = $this->atividadeStatus->findOrFail($id);
         $atividadeStatus->delete();
         \Session::flash('message', 'Status de Atividade excluído com sucesso');
-        return redirect('/statusdeatividade');
+        return redirect()->route('statusdeatividade::index');
     }
 }

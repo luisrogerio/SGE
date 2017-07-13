@@ -6,7 +6,7 @@
             <h3>Atualizar Unidade</h3>
         </div>
         <div class="panel-body">
-            {{Form::model($unidade, array('url'=>'locais/atualizar/'.$unidade->id))}}
+            {{Form::model($unidade, array('url'=>route('unidades::atualizar', ['id' => $unidade->id])))}}
             <fieldset class="form-group">
                 {{Form::label('nome', 'Nome')}}
                 {{Form::text('nome', null, array('class' => 'form-control'))}}

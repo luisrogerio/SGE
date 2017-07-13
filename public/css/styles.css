@@ -1,10 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Raleway');
-/*Classes e Tags HTML */
 
+h1, h2, h3, h4, h5, h6{
+    font-family: "Montserrat", sans-serif;
+}
 
+p, q, blockquote{
+    font-family: 'Raleway', sans-serif;
+}
 
-
-
+.paragrafo{
+    font-size: 1.2em;
+    text-align: justify;
+    text-indent: 2em;
+}
 /* navbar */
 .navbar-default {
     background-color: #e5e5e5;
@@ -28,7 +36,7 @@
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
     color: #222;
-    background-color: #e7e7e7;
+    background-color: #f0f0f0;
     box-shadow: 0 3px #121212;
 }
 .navbar-default .navbar-nav > .active > a,
@@ -78,4 +86,21 @@
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
         color: #333;
     }
+}
+
+.data-box{
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    margin-bottom: 1em;
+}
+
+.data-header{
+    margin-top: -1px;
+    background-color: #429FBA;
+    color: #fff;
+    padding: 0.5em;
+}
+
+.input-group-select .form-control{
+    width: 50%;
 }

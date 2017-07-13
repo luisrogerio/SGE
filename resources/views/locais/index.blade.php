@@ -19,7 +19,7 @@
                 <td class="text-center">{{$local->nome}}</td>
                 <td class="text-center">{{link_to_route('locais::editar','Editar',['id'=>$local->id], ['class' => 'btn btn-primary'])}}</td>
                 <td class="text-center">
-                    {{ Form::open(array('method' => 'POST', 'url' => 'locais/excluir/'.$local->id, 'style' => 'display:inline;')) }}
+                    {{ Form::open(array('method' => 'POST', 'url' => route('locais::excluir', ['id' => $local->id]), 'style' => 'display:inline;')) }}
                     <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Local" data-message='Você tem certeza que deseja deletar esse local?'>
                         Deletar
@@ -28,7 +28,7 @@
                     {{ Form::close() }}
                 </td>
                 <td>
-                    {{Form::open(array('method' => 'POST', 'url' => 'salas/adicionar/'.$local->id, 'class' => 'form-inline;')) }}
+                    {{Form::open(array('method' => 'GET', 'url' => route('salas::adicionar', ['idLocais' => $local->id]), 'class' => 'form-inline;')) }}
                     <fieldset class="form-group">
                         <div class="input-group">
                             {{Form::number('numeroDeSalas', null, array('class' => 'form-control', 'placeholder' => 'Número de Salas a Adicionar')) }}

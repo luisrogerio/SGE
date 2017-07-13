@@ -1,4 +1,4 @@
-@extends('layouts.new_layout')
+@extends('layouts.eventoLayout')
 @section('title', "- Eventos")
 @section('content')
     <div id="wrapper">

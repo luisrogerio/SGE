@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AtividadeResponsavel[] $atividadesResponsaveis
  */
 class Atividade extends Model
 {
@@ -58,6 +59,11 @@ class Atividade extends Model
         return $this->belongsTo('App\Models\Evento', 'idEventos');
     }
 
+    public function eventoCaracteristica()
+    {
+        return $this->hasManyThrough('App\Models\EventoCaracteristica', 'App\Models\Evento', 'idEventos', 'idEventos');
+    }
+
     public function statusDeAtividade()
     {
         return $this->belongsToMany('App\Models\AtividadeStatus', 'atividades_atividades_status', 'idAtividades', 'idAtividadesStatus')->withPivot('observacao');
@@ -67,10 +73,6 @@ class Atividade extends Model
     {
         return $this->belongsToMany('App\Models\Curso', 'atividades_cursos', 'idAtividades', 'idCursos')->withPivot('dataInicio', 'dataFim');
     }
-
-//    public function atividadesDatas(){
-//        return $this->hasMany('App\Models\AtividadeData', 'idAtividades');
-//    }
 
     public function atividadesDatasHoras()
     {
@@ -82,8 +84,12 @@ class Atividade extends Model
         return $this->hasMany('App\Models\AtividadeResponsavel', 'idAtividades');
     }
 
-//    public function horarios()
-//    {
-//        return $this->hasManyThrough('App\Models\Horario', 'App\Models\AtividadeData', 'idAtividades', 'idAtividadesDatas', 'id');
-//    }
+    public function scopeAceitas($query){
+        return $query
+            ->join('atividades_atividades_status', 'atividades.id', '=', 'atividades_atividades_status.idAtividades')
+            ->join('atividades_status', 'atividades_status.id', '=', 'atividades_atividades_status.idAtividadesStatus')
+            ->where('atividades_status.nome', '=', 'Aceita')
+            ->get();
+    }
+
 }

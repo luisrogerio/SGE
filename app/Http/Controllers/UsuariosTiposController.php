@@ -31,7 +31,7 @@ class UsuariosTiposController extends Controller
     {
         $this->usuarioTipo->fill($request->all());
         if ($this->usuarioTipo->save()) {
-            return redirect('/usuariosTipos');
+            return redirect()->route('usuariosTipos::index');
         }
     }
 
@@ -47,7 +47,7 @@ class UsuariosTiposController extends Controller
         $this->usuarioTipo->fill($request->all());
         if ($this->usuarioTipo->update()) {
             \Session::flash('message', 'Tipo de Usuário atualizado com sucesso');
-            return redirect('/usuariosTipos');
+            return redirect()->route('usuariosTipos::index');
         }
     }
 
@@ -56,6 +56,6 @@ class UsuariosTiposController extends Controller
         $usuarioTipo = $this->usuarioTipo->findOrFail($id);
         $usuarioTipo->delete();
         \Session::flash('message', 'Tipo de Usuário excluído com sucesso');
-        return redirect('/usuariosTipos');
+        return redirect()->route('usuariosTipos::index');
     }
 }

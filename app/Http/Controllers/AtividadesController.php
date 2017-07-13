@@ -21,10 +21,11 @@ class AtividadesController extends Controller
         $this->atividade = $atividade;
     }
 
-    public function getIndex()
+    public function getIndex($idEventos)
     {
-        $atividades = $this->atividade->orderBy('nome')->paginate(5);
-        return view('atividades.index', compact('atividades'));
+        $evento = Evento::findOrFail($idEventos);
+        $atividades = $this->atividade->where('idEventos', $idEventos)->orderBy('nome')->paginate(5);
+        return view('atividades.index', compact('atividades', 'evento'));
     }
 
     public function getAdicionar($idEventos)
@@ -34,6 +35,12 @@ class AtividadesController extends Controller
         $atividadesTipos = AtividadeTipo::get()->lists('nome', 'id');
         $unidades = Unidade::get()->lists('nome', 'id');
         return view('atividades.adicionar', compact('evento', 'cursos', 'atividadesTipos', 'unidades'));
+    }
+
+    public function getView($id)
+    {
+        $atividade = $this->atividade->findOrFail($id);
+        return view('atividades.view', compact('atividade'));
     }
 
     public function postSalvar(AtividadesRequest $request)
@@ -102,8 +109,9 @@ class AtividadesController extends Controller
     public function postExcluir($id)
     {
         $atividade = $this->atividade->findOrFail($id);
+        $idEvento = $atividade->evento->id;
         $atividade->delete();
-        \Session::flash('message', 'Atividade excluído com sucesso');
-        return redirect('/atividades');
+        \Session::flash('message', 'Atividade excluída com sucesso');
+        return redirect()->route('atividades::index', ['idEventos'=> $idEvento]);
     }
 }

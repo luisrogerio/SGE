@@ -26,7 +26,7 @@ class EventosRequest extends Request
         switch ($this->method()) {
             case 'POST':
                 return [
-                    'nome' => 'required',
+                    'nome' => 'required|unique:eventos',
                     'descricao' => 'required',
                     'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
                     'dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
@@ -48,7 +48,7 @@ class EventosRequest extends Request
                 break;
             case 'PATCH':
                 return [
-                    'nome' => 'required',
+                    'nome' => 'required|unique:eventos,nome,'.$this->route('id'),
                     'descricao' => 'required',
                     'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
                     'dataFimInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',

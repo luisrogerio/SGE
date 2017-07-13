@@ -6,7 +6,7 @@
             <h3>Adicionar Novo</h3>
         </div>
         <div class="panel-body">
-            {{Form::open(array('url'=>'cursos/salvar'))}}
+            {{Form::open(array('url'=>route('cursos::salvar')))}}
             <fieldset class="form-group">
                 {{Form::label('nome', 'Nome')}}
                 {{Form::text('nome', null, array('class' => 'form-control'))}}

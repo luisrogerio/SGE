@@ -32,16 +32,10 @@
                             class="help-block">{{ $errors->first('instituicaoOrigem.'.$i) }}</p> @endif
                 </fieldset>
                 <fieldset class="form-group">
-                    {{Form::label('experienciaProfissional['.$i.']', 'Instituição de Origem do Responsável '.($i+1))}}
+                    {{Form::label('experienciaProfissional['.$i.']', 'Experiência Profissional do Responsável '.($i+1))}}
                     {{Form::textarea('experienciaProfissional['.$i.']', null, array('class' => 'form-control'))}}
                     @if ($errors->has('experienciaProfissional.'.$i)) <p
                             class="help-block">{{ $errors->first('experienciaProfissional.'.$i) }}</p> @endif
-                </fieldset>
-                <fieldset class="form-group">
-                    {{Form::label('instituicaoOrigem['.$i.']', 'Instituição de Origem do Responsável '.($i+1))}}
-                    {{Form::text('instituicaoOrigem['.$i.']', null, array('class' => 'form-control'))}}
-                    @if ($errors->has('instituicaoOrigem.'.$i)) <p
-                            class="help-block">{{ $errors->first('instituicaoOrigem.'.$i) }}</p> @endif
                 </fieldset>
             </div>
         @endfor

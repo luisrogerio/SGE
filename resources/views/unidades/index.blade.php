@@ -14,7 +14,7 @@
                 <td>{{$unidade->nome}}</td>
                 <td class="text-center">{{link_to_route('unidades::editar','Editar',['id'=>$unidade->id], ['class' => 'btn btn-primary'])}}</td>
                 <td class="text-center">
-                    {{ Form::open(array('method' => 'POST', 'url' => 'unidades/excluir/'.$unidade->id, 'style' => 'display:inline;')) }}
+                    {{ Form::open(array('method' => 'POST', 'url' => route('unidades::excluir', ['id' => $unidade->id]), 'style' => 'display:inline;')) }}
                     <a class="btn btn-link" type='button' data-toggle="modal" data-target="#confirmDelete"
                        data-title="Deletar Unidade" data-message='Você tem certeza que deseja deletar esse unidade?'>
                         <i class="fa fa-trash-o" aria-hidden="true"></i>

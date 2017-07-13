@@ -6,7 +6,7 @@
             <h3>Adicionar Nova</h3>
         </div>
         <div class="panel-body">
-            {{Form::open(array('url'=>'atividades/salvar'))}}
+            {{Form::open(array('url'=>route('atividades::salvar')))}}
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li role="presentation" class="active">
                     <a href="#atividade" aria-controls="atividade" role="tab" data-toggle="tab">Atividade</a>
@@ -238,7 +238,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     method: "POST",
-                    url: '/locais/getLocais/' + idUnidade
+                    url: '{{ route('locais::getLocais', null) }}/' + idUnidade
                 }).done(function (locais) {
                     var selectLocais = $("#selectLocal");
                     selectLocais.empty();
@@ -278,7 +278,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     method: "POST",
-                    url: '/salas/getSalas/' + idLocal
+                    url: '{{ route('salas::getSalas', null) }}/' + idLocal
                 }).done(function (salas) {
                     var selectSalas = $("#selectSala");
                     selectSalas.empty();

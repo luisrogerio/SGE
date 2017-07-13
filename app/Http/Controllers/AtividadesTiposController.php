@@ -31,7 +31,7 @@ class AtividadesTiposController extends Controller
     {
         $this->atividadeTipo->fill($request->all());
         if ($this->atividadeTipo->save()) {
-            return redirect('/atividadesTipos');
+            return redirect()->route('atividadesTipos::index');
         }
     }
 
@@ -47,7 +47,7 @@ class AtividadesTiposController extends Controller
         $this->atividadeTipo->fill($request->all());
         if ($this->atividadeTipo->update()) {
             \Session::flash('message', 'Tipo de atividade atualizado com sucesso');
-            return redirect('/atividadesTipos');
+            return redirect()->route('atividadesTipos::index');
         }
     }
 
@@ -56,6 +56,6 @@ class AtividadesTiposController extends Controller
         $atividadeTipo = $this->atividadeTipo->findOrFail($id);
         $atividadeTipo->delete();
         \Session::flash('message', 'Tipo de atividade excluído com sucesso');
-        return redirect('/atividadesTipos');
+        return redirect()->route('atividadesTipos::index');
     }
 }

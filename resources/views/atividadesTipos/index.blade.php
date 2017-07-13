@@ -13,7 +13,7 @@
                 <td>{{$atividadeTipo->nome}}</td>
                 <td class="text-center">{{link_to_route('atividadesTipos::editar','Editar',['id'=>$atividadeTipo->id], ['class' => 'btn btn-primary'])}}</td>
                 <td class="text-center">
-                    {{ Form::open(array('method' => 'POST', 'url' => 'atividadesTipos/excluir/'.$atividadeTipo->id, 'style' => 'display:inline;')) }}
+                    {{ Form::open(array('method' => 'POST', 'url' => route('atividadesTipos::excluir', ['id' => $atividadeTipo->id]), 'style' => 'display:inline;')) }}
                     <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Tipo de Atividade"
                             data-message='Você tem certeza que deseja deletar esse tipo de atividade?'>

@@ -32,7 +32,7 @@ class CursosController extends Controller
     {
         $this->curso->fill($request->all());
         if ($this->curso->save()) {
-            return redirect('/cursos');
+            return redirect()->route('cursos::index');
         }
     }
 
@@ -48,7 +48,7 @@ class CursosController extends Controller
         $this->curso->fill($request->all());
         if ($this->curso->update()) {
             \Session::flash('message', 'Curso atualizado com sucesso');
-            return redirect('/cursos');
+            return redirect()->route('cursos::index');
         }
     }
 
@@ -57,6 +57,6 @@ class CursosController extends Controller
         $curso = $this->curso->findOrFail($id);
         $curso->delete();
         \Session::flash('message', 'Curso excluído com sucesso');
-        return redirect('/cursos');
+        return redirect()->route('cursos::index');
     }
 }

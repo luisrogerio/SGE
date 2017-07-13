@@ -31,7 +31,7 @@ class EventosContatosController extends Controller
     {
         $this->eventoContato->fill($request->all());
         if ($this->eventoContato->save()) {
-            return redirect('/contatos');
+            return redirect()->route('contatos::index');
         }
     }
 
@@ -47,7 +47,7 @@ class EventosContatosController extends Controller
         $this->eventoContato->fill($request->all());
         if ($this->eventoContato->update()) {
             \Session::flash('message', 'Contato atualizado com sucesso');
-            return redirect('/contatos');
+            return redirect()->route('contatos::index');
         }
     }
 
@@ -56,6 +56,6 @@ class EventosContatosController extends Controller
         $eventoContato = $this->eventoContato->findOrFail($id);
         $eventoContato->delete();
         \Session::flash('message', 'Contato excluído com sucesso');
-        return redirect('/contatos');
+        return redirect()->route('contatos::index');
     }
 }
