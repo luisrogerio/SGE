@@ -63,19 +63,4 @@ class AtividadeDataHora extends Model
         return $this->belongsTo('App\Models\Atividade', 'idAtividades');
     }
 
-    public function unidade()
-    {
-        return $this->belongsTo('App\Models\Unidade', 'idUnidades');
-    }
-
-    public function local()
-    {
-        return $this->belongsTo('App\Models\Local', 'idLocais');
-    }
-
-    public function sala()
-    {
-        return $this->belongsTo('App\Models\Sala', 'idSalas');
-    }
-
 }

@@ -9,6 +9,8 @@ use App\Models\AtividadeStatus;
 use App\Models\AtividadeTipo;
 use App\Models\Curso;
 use App\Models\Evento;
+use App\Models\Local;
+use App\Models\Sala;
 use App\Models\Unidade;
 use Carbon\Carbon;
 
@@ -63,6 +65,14 @@ class AtividadesController extends Controller
 
             $this->atividade->cursos()->sync($cursosDatas);
 
+            $unidade = Unidade::find($request->atividades['unidades']);
+            $local = Local::find($request->atividades['locais']);
+            $sala = Sala::find($request->atividades['salas']);
+
+            $this->atividade->unidade()->associate($unidade);
+            $this->atividade->local()->associate($local);
+            $this->atividade->sala()->associate($sala);
+
             if ($evento->eventoCaracteristica->ePropostaAtividade) {
                 $statusDeAtividade = AtividadeStatus::whereNome('Proposta')->first();
             } else {
@@ -70,14 +80,12 @@ class AtividadesController extends Controller
             }
             $this->atividade->statusDeAtividade()->attach($statusDeAtividade->id);
 
+
             for ($i = 0; $i < count($request->atividades_data); $i++) {
                 $this->atividade->atividadesDatasHoras()->create([
                     'data' => Carbon::createFromFormat('d/m/Y', $request->atividades_data[$i]),
                     'horarioInicio' => $request->atividades_horarioInicio[$i],
-                    'horarioTermino' => $request->atividades_horarioTermino[$i],
-                    'idUnidades' => $request->atividades['unidades'],
-                    'idLocais' => $request->atividades['locais'],
-                    'idSalas' => $request->atividades['salas']
+                    'horarioTermino' => $request->atividades_horarioTermino[$i]
                 ]);
             }
 
@@ -92,8 +100,21 @@ class AtividadesController extends Controller
     public function getEditar($id)
     {
         $atividade = $this->atividade->findOrFail($id);
-        $cursos = Curso::all();
-        return view('atividades.editar', compact('atividade', 'cursos'));
+        $cursos = Curso::get()->lists('sigla', 'id');
+        $atividadesTipos = AtividadeTipo::get()->lists('nome', 'id');
+        $unidades = Unidade::get()->lists('nome', 'id');
+
+        $cursosSelecionados = $atividade->cursos()->pluck('idCursos')->toArray();
+        $atividadesTiposSelecionada = $atividade->tipoDeAtividade()->pluck('id')->toArray();
+        $unidadesSelecionadas = $atividade->unidade()->pluck('id')->toArray();
+        $locaisSelecionados = $atividade->local()->pluck('id')->toArray();
+        $salasSelecionados = $atividade->sala()->pluck('id')->toArray();
+
+        $atividadesDataHoras = $atividade->atividadesDatasHoras;
+        return view('atividades.editar',
+            compact('atividade', 'cursos', 'atividadesTipos', 'unidades', 'cursosSelecionados',
+                'atividadesTiposSelecionada', 'unidadesSelecionadas', 'locaisSelecionados', 'salasSelecionados',
+                'atividadesDataHoras'));
     }
 
     public function postAtualizar(AtividadesRequest $request, $id)

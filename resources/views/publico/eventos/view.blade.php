@@ -75,8 +75,8 @@
                                                 @endforeach
                                             </li>
                                             <li><i class="fa-li fa fa-chevron-right"
-                                                   aria-hidden="true"></i>Local: {{ $unidade->nome }}
-                                                - {{ $local->nome }} - {{ $sala->nome }}</li>
+                                                   aria-hidden="true"></i>Local: {{ $atividade->unidade->nome }}
+                                                - {{ $atividade->local->nome }} - {{ $atividade->sala->nome }}</li>
                                             <li><i class="fa-li fa fa-chevron-right" aria-hidden="true"></i>Cursos:
                                                 @php
                                                     $cursosSiglas = "";

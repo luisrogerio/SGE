@@ -59,10 +59,10 @@ class Atividade extends Model
         return $this->belongsTo('App\Models\Evento', 'idEventos');
     }
 
-    public function eventoCaracteristica()
-    {
-        return $this->hasManyThrough('App\Models\EventoCaracteristica', 'App\Models\Evento', 'idEventos', 'idEventos');
-    }
+//    public function eventoCaracteristica()
+//    {
+//        return $this->hasManyThrough('App\Models\EventoCaracteristica', 'App\Models\Evento', 'idEventos', 'idEventos');
+//    }
 
     public function statusDeAtividade()
     {
@@ -84,7 +84,23 @@ class Atividade extends Model
         return $this->hasMany('App\Models\AtividadeResponsavel', 'idAtividades');
     }
 
-    public function scopeAceitas($query){
+    public function unidade()
+    {
+        return $this->belongsTo('App\Models\Unidade', 'idUnidades');
+    }
+
+    public function local()
+    {
+        return $this->belongsTo('App\Models\Local', 'idLocais');
+    }
+
+    public function sala()
+    {
+        return $this->belongsTo('App\Models\Sala', 'idSalas');
+    }
+
+    public function scopeAceitas($query)
+    {
         return $query
             ->join('atividades_atividades_status', 'atividades.id', '=', 'atividades_atividades_status.idAtividades')
             ->join('atividades_status', 'atividades_status.id', '=', 'atividades_atividades_status.idAtividadesStatus')

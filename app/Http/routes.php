@@ -147,6 +147,8 @@ Route::group(['prefix' => 'admin/'], function () {
         /* Rotas para Responsável da Atividade*/
         Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavel', 'uses' => 'AtividadesResponsaveisController@getAdicionar']);
         Route::post('/salvarResponsavel', ['as' => 'salvarResponsavel', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavel']);
+
+        Route::get('/analisar/{id}/{status}', ['as' => 'analisar', 'uses']);
     });
 
     Route::group(['prefix' => 'contatos/', 'as' => 'contatos::'], function () {
