@@ -49,7 +49,8 @@ Route::post('reset', 'Auth\PasswordController@reset');
 Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::',], function () {
 
     Route::get('/', ['as' => 'index', 'uses' => 'EventosController@getIndexPublico',]);
-    Route::get('/{id}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
+    Route::get('/atividades/{nomeSlug}', ['as' => 'atividadesEvento', 'uses' => 'EventosController@getAtividadesPublico',]);
+    Route::get('/{nomeSlug}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
 //    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'EventosController@getAdicionar']);
 //    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'EventosController@getEditar']);
 //    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'EventosController@postSalvar']);

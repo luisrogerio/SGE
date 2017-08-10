@@ -91,6 +91,7 @@
                             @if ($errors->has('usuariosTipos.*')) <p
                                     class="help-block">{{ $errors->first('usuariosTipos.*') }}</p> @endif
                         </fieldset>
+                        {{ Form::button('Próximo', array('class' => 'btn btn-primary btnProximo')) }}
                     </div>
                 </div>
                 <div role="tabpanel1" class="tab-pane fade" id="caracteristica">
@@ -204,7 +205,7 @@
                             <fieldset class="form-group">
                                 <label for="eImagemDeFundo">
                                     {{Form::checkbox('eventoCaracteristica[eImagemDeFundo]', 1, false, array('id' => 'eImagemDeFundo'))}}
-                                    Terá uma Imagem de Fundo
+                                    Terá um Imagem de Cabeçalho
                                 </label>
                             </fieldset>
                             <div class="form-group">
@@ -216,7 +217,7 @@
                                 </div>
                                 <div id="planoDeFundo" style="display: none;">
                                     <label for="eventoCaracteristica[backgroundImagem]">
-                                        Imagem de Fundo
+                                        Imagem de Cabeçalho
                                     </label>
                                     {{Form::file('eventoCaracteristica[backgroundImagem]')}}
                                 </div>
@@ -228,15 +229,23 @@
                                         class="help-block">{{ $errors->first('eventoCaracteristica.logoImagem') }}</p> @endif
                             </fieldset>
                         @endif
+                        {{Form::button('Anterior', array('class' => 'btn btn-primary btnAnterior')) }}
+                        {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+                        {{Form::close()}}
                     </div>
                 </div>
             </div>
-            {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
-            {{Form::close()}}
         </div>
     </div>
     <script type="application/javascript">
         $(function () {
+            $('.btnProximo').click(function () {
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            });
+
+            $('.btnAnterior').click(function () {
+                $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+            });
             $('.eventosContatos').select2({
                 theme: 'bootstrap'
             });

@@ -223,7 +223,7 @@
             $dataHora.date(moment($('#dataFimInscricao').attr('value'), 'DD/MM/YYYY'));
         });
 
-            $('.btnProximo').click(function () {
+        $('.btnProximo').click(function () {
             $('.nav-tabs > .active').next('li').find('a').trigger('click');
         });
 

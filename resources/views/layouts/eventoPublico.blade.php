@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SGE @yield('title')</title>
     <!-- Styles -->
-    {{ Html::style('css/bootstrap.min.css') }}
-    {{ Html::style('css/font-awesome.min.css') }}
-    {{ Html::style('css/beautify.css') }}
-    {{ Html::style('css/footer.css') }}
-    {{ Html::style('css/main.css') }}
+{{ Html::style('css/bootstrap.min.css') }}
+{{ Html::style('css/font-awesome.min.css') }}
+{{ Html::style('css/footer.css') }}
 
-    {{ Html::script('js/jquery.min.js') }}
-    {{Html::script('js/jquery.mask.js')}}
+{{ Html::script('js/jquery.min.js') }}
+{{Html::script('js/jquery.mask.js')}}
 
-    <!-- Scripts -->
+<!-- Scripts -->
     {{Html::script('js/bootstrap.min.js')}}
+    {{ Html::style('css/beautify.css') }}
+    {{ Html::style('css/main.css') }}
 </head>
 <body>
 <header>
@@ -40,12 +40,6 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{!! route("eventosPublico::index") !!}" class=""><i class="fa fa-home"
-                                                                                     aria-hidden="true"></i> Inicial</a>
-                    </li>
-                    {{--<li><a href=""><i class="fa fa-certificate" aria-hidden="true"></i> Certificados</a></li>--}}
-                    <li><a href=""><i class="fa fa-calendar" aria-hidden="true"></i> Atividades</a></li>
-                    <li><a href=""><i class="fa fa-picture-o" aria-hidden="true"></i> Galeria</a></li>
                     <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
                     <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
                 </ul>

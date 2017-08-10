@@ -53,6 +53,14 @@ class AtividadesController extends Controller
             $evento = Evento::findOrFail($this->atividade->idEventos);
             $this->atividade->evento()->associate($evento);
 
+            $unidade = Unidade::find($request->atividades['unidades']);
+            $local = Local::find($request->atividades['locais']);
+            $sala = Sala::find($request->atividades['salas']);
+
+            $this->atividade->unidade()->associate($unidade);
+            $this->atividade->local()->associate($local);
+            $this->atividade->sala()->associate($sala);
+
             $this->atividade->save();
 
             $cursos = (array)$request->atividades['idCursos'];
@@ -64,14 +72,6 @@ class AtividadesController extends Controller
             $cursosDatas = array_combine($cursos, $dataInscricao);
 
             $this->atividade->cursos()->sync($cursosDatas);
-
-            $unidade = Unidade::find($request->atividades['unidades']);
-            $local = Local::find($request->atividades['locais']);
-            $sala = Sala::find($request->atividades['salas']);
-
-            $this->atividade->unidade()->associate($unidade);
-            $this->atividade->local()->associate($local);
-            $this->atividade->sala()->associate($sala);
 
             if ($evento->eventoCaracteristica->ePropostaAtividade) {
                 $statusDeAtividade = AtividadeStatus::whereNome('Proposta')->first();
@@ -88,7 +88,6 @@ class AtividadesController extends Controller
                     'horarioTermino' => $request->atividades_horarioTermino[$i]
                 ]);
             }
-
         });
         \Session::flash('message', 'Atividade salva com sucesso');
         return redirect()->route('atividades::adicionarResponsavel', [

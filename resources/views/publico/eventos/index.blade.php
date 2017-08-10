@@ -1,4 +1,4 @@
-@extends('layouts.eventoLayout')
+@extends('layouts.eventoPublico')
 @section('title', "- Eventos")
 @section('content')
     <div id="wrapper">
@@ -25,7 +25,7 @@
                                         <div class="panel-heading">
                                             <h3>Lista geral dos eventos</h3>
                                         </div>
-                                        <div class="panel-body">
+                                        <div class="panel-body paragrafo">
                                             <p>Seguem listados todos os eventos</p>
                                         </div>
                                         <div class="row">
@@ -36,14 +36,24 @@
                                                              alt="Logo do evento" width="30%" class="img-circle">
                                                         <div class="caption">
                                                             <h3>{{ $evento->nome }}</h3>
-                                                            <p>Data do Evento: {{ $evento->dataInicio->day }} de {{ $evento->dataInicio->formatLocalized('%B')}} de {{ $evento->dataInicio->year }}</p>
-                                                            <p>Fim do Evento: {{ $evento->dataTermino->day }} de {{ $evento->dataTermino->formatLocalized('%B')}} de {{ $evento->dataTermino->year }} </p>
-                                                            <p>Inscrições: {{ $evento->dataInicioInscricao->day }} de {{ $evento->dataInicioInscricao->formatLocalized('%B')}} de {{ $evento->dataInicioInscricao->year }}
+                                                            <p class="non-paragrafo">Data do
+                                                                Evento: {{ $evento->dataInicio->day }}
+                                                                de {{ $evento->dataInicio->formatLocalized('%B')}}
+                                                                de {{ $evento->dataInicio->year }}</p>
+                                                            <p class="non-paragrafo">Fim do
+                                                                Evento: {{ $evento->dataTermino->day }}
+                                                                de {{ $evento->dataTermino->formatLocalized('%B')}}
+                                                                de {{ $evento->dataTermino->year }} </p>
+                                                            <p class="non-paragrafo">
+                                                                Inscrições: {{ $evento->dataInicioInscricao->day }}
+                                                                de {{ $evento->dataInicioInscricao->formatLocalized('%B')}}
+                                                                de {{ $evento->dataInicioInscricao->year }}
                                                                 até
                                                                 {{ $evento->dataFimInscricao->day }} de {{ $evento->dataFimInscricao->formatLocalized('%B')}} de {{ $evento->dataFimInscricao->year}} </p>
                                                             <p>
-                                                                <a href="" class="btn btn-default" role="button">Atividades</a>
-                                                                <a href="{{ route('eventosPublico::visualizar', ['id' => $evento->id]) }}" class="btn btn-primary" role="button">Evento</a>
+                                                                <a href="" class="button button-orange" role="button">Atividades</a>
+                                                                <a href="{{ route('eventosPublico::visualizar', ['nomeSlug' => $evento->nomeSlug]) }}"
+                                                                   class="button button-blue" role="button">Evento</a>
                                                             </p>
                                                         </div>
                                                     </div>

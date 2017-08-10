@@ -1,27 +1,21 @@
-# Laravel PHP Framework
+# Sistema de Gestão de Eventos
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+O Sistema de Gestão de Eventos (SGE) é um sistema em desenvolvimento para atender as necessidades sistêmicas relacionadas aos eventos acadêmicos e não-acadêmicos do Instituto Federal de Educação, Ciência e Tecnologia do Sudeste de Minas Gerais. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+O SGE é um sistema levantado a partir de processos dos eventos anteriormente organizados pela Instituição. Assim buscando ser capaz de gerir eventos variados, com diferentes tipos de atividades e demandas, como horários e datas flexíveis, controle de salas e locais, cadastro de pessoas externas ou internas à Instiuição, tendo diferentes comportamentos para cada usuário. 
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Documentação Oficial
 
-## Official Documentation
+A Documentação Oficial do SGE pode ser encontrada [aqui](https://www.dropbox.com/s/vb3iisixl9oenbt/Documento%20de%20Requisitos.docx?dl=0).
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## Contribuição
 
-## Contributing
+Agradecimentos à Diretoria de Extensão e Relações Comunitárias, ao TI do Campus Juiz de Fora e da Reitoria e aos outros alunos envolvidos no projeto.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Vulnerabilidades de Segurança
 
-## Security Vulnerabilities
+Caso você encontre uma vulnerabilidade de segurança no sistema, por favor, envie um e-mail para Luís Rogério em luisrogeriojf@gmail.com. Todas as vulnerabilidades serão encaminhadas para tratamento.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Licença
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+O SGE utiliza o Framework Laravel, e possui uma Licença de software open-source dentro da [Licença MIT](http://opensource.org/licenses/MIT).

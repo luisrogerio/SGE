@@ -136,6 +136,9 @@ class EventosController extends Controller
                 'dataInicio' => Carbon::createFromFormat('d/m/Y H:i', $request->dataInicio),
                 'dataTermino' => Carbon::createFromFormat('d/m/Y H:i', $request->dataTermino)
             ));
+            $request->merge([
+                'nomeSlug' => str_slug($request->nome)
+            ]);
             $this->evento->fill($request->all());
             $this->evento->update();
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
@@ -180,9 +183,19 @@ class EventosController extends Controller
         return view('publico.eventos.index', compact('eventos'));
     }
 
-    public function getVisualizarPublico($id)
+    public function getAtividadesPublico($nomeSlug)
     {
-        $evento = $this->evento->findOrFail($id);
+        $evento = $this->evento
+            ->whereNomeslug($nomeSlug)
+            ->orderBy('nome')
+            ->first();
+        Carbon::setLocale('pt_BR');
+        return view('publico.eventos.atividades', compact('evento'));
+    }
+
+    public function getVisualizarPublico($nomeSlug)
+    {
+        $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         $subeventos = $evento->eventosFilhos();
         return view('publico.eventos.view', compact('evento', 'subeventos', 'eventosPai'));
     }

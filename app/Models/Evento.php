@@ -54,6 +54,7 @@ class Evento extends Model
         'idEventosCaracteristicas',
         'idPai',
         'nome',
+        'nomeSlug',
         'dataInicioInscricao',
         'dataFimInscricao',
         'dataInicio',
