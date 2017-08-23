@@ -27,8 +27,17 @@ class Curso extends Model
     protected $table = 'cursos';
     protected $fillable = ['id', 'nome', 'sigla'];
 
+    public function newPivot(Model $parent, array $attributes, $table, $exists)
+    {
+        if ($parent instanceof Atividade) {
+            return new AtividadeCursoPivot($parent, $attributes, $table, $exists);
+        }
+
+        return parent::newPivot($parent, $attributes, $table, $exists);
+    }
+
     public function atividade()
     {
-        return $this->belongsToMany('App\Models\Atividade', 'atividades_cursos', 'idCursos', 'idAtividades');
+        return $this->belongsToMany('App\Models\Atividade', 'atividades_cursos', 'idCursos', 'idAtividades')->withPivot('dataInicio', 'dataFim');
     }
 }

@@ -40,6 +40,34 @@ class AtividadesResponsaveisController extends Controller
                 $atividade->atividadesResponsaveis()->create($atividadeResponsavel);
             }
         }
-        return redirect()->route('eventos::visualizar', ['id' => $atividade->evento->id]);
+        return redirect()->route('atividades::index', ['idEventos' => $atividade->evento->id]);
+    }
+
+    public function editarResponsavel($id)
+    {
+        $atividadeResponsavel = AtividadeResponsavel::findOrFail($id);
+        return view('atividadesResponsaveis.editar', compact('atividadeResponsavel'));
+    }
+
+    public function atualizarResponsavel(AtividadeResponsavelRequest $request, $id)
+    {
+        $atividadeResponsavel = AtividadeResponsavel::findOrFail($id);
+        $atividadeResponsavel->fill($request->all());
+        if ($atividadeResponsavel->save()) {
+            \Session::flash('message', 'Responsável atualizado com sucesso');
+        } else {
+            \Session::flash('message', 'House um problema ao tentar atualizar o responsável');
+        }
+        return redirect()->route('atividades::view', ['id' => $atividadeResponsavel->atividade->id]);
+    }
+
+    public function excluirResponsavel($id)
+    {
+        $atividadeResponsavel = AtividadeResponsavel::findOrFail($id);
+        $idAtividade = $atividadeResponsavel->atividade->id;
+        if ($atividadeResponsavel->delete()) {
+            \Session::flash('message', 'Responsável removido com sucesso');
+            return redirect()->route('atividades::view', ['id' => $idAtividade]);
+        }
     }
 }

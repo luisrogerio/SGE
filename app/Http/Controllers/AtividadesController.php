@@ -63,13 +63,14 @@ class AtividadesController extends Controller
 
             $this->atividade->save();
 
-            $cursos = (array)$request->atividades['idCursos'];
-            $dataInscricao = array_fill(0, count($cursos),
-                [
-                    'dataInicio' => $request->atividadesCursos['dataInicio'],
-                    'dataFim' => $request->atividadesCursos['dataFim']
-                ]);
-            $cursosDatas = array_combine($cursos, $dataInscricao);
+            $cursos[] = $request->atividades['idCursos'];
+            foreach ($cursos as $idCursos) {
+                $cursosDatas[$idCursos] =
+                    [
+                        'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
+                        'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
+                    ];
+            }
 
             $this->atividade->cursos()->sync($cursosDatas);
 
@@ -119,11 +120,32 @@ class AtividadesController extends Controller
     public function postAtualizar(AtividadesRequest $request, $id)
     {
         $this->atividade = $this->atividade->findOrFail($id);
-        $this->atividade->fill($request->all());
-        if ($this->atividade->update()) {
-            \Session::flash('message', 'Atividade atualizado com sucesso');
-            return redirect('/atividades');
-        }
+        \DB::transaction(function () use ($request) {
+            $this->atividade->fill($request->all());
+
+            $unidade = Unidade::find($request->atividades['unidades']);
+            $local = Local::find($request->atividades['locais']);
+            $sala = Sala::find($request->atividades['salas']);
+
+            $this->atividade->unidade()->associate($unidade);
+            $this->atividade->local()->associate($local);
+            $this->atividade->sala()->associate($sala);
+
+            if ($this->atividade->update()) {
+                $cursos = $request->atividades['idCursos'];
+                $cursosDatas = array();
+                foreach ($cursos as $idCursos) {
+                    $cursosDatas[$idCursos] =
+                        [
+                            'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
+                            'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
+                        ];
+                }
+                $this->atividade->cursos()->sync($cursosDatas);
+            }
+        });
+        \Session::flash('message', 'Atividade atualizado com sucesso');
+        return redirect()->route('atividades::view', ['id' => $this->atividade->id]);
     }
 
     public function postExcluir($id)
@@ -132,6 +154,6 @@ class AtividadesController extends Controller
         $idEvento = $atividade->evento->id;
         $atividade->delete();
         \Session::flash('message', 'Atividade excluída com sucesso');
-        return redirect()->route('atividades::index', ['idEventos'=> $idEvento]);
+        return redirect()->route('atividades::index', ['idEventos' => $idEvento]);
     }
 }

@@ -34,6 +34,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Atividade whereSalvoPor($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AtividadeResponsavel[] $atividadesResponsaveis
+ * @property int $idUnidades
+ * @property int $idLocais
+ * @property int $idSalas
+ * @property-read \App\Models\Local $local
+ * @property-read \App\Models\Sala $sala
+ * @property-read \App\Models\Unidade $unidade
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade aceitas()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade whereIdLocais($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade whereIdSalas($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade whereIdUnidades($value)
  */
 class Atividade extends Model
 {
@@ -49,6 +59,15 @@ class Atividade extends Model
         'salvoPor'
     ];
 
+    public function newPivot(Model $parent, array $attributes, $table, $exists)
+    {
+        if ($parent instanceof Curso) {
+            return new AtividadeCursoPivot($parent, $attributes, $table, $exists);
+        }
+
+        return parent::newPivot($parent, $attributes, $table, $exists);
+    }
+
     public function tipoDeAtividade()
     {
         return $this->belongsTo('App\Models\AtividadeTipo', 'idAtividadesTipos');
@@ -58,11 +77,6 @@ class Atividade extends Model
     {
         return $this->belongsTo('App\Models\Evento', 'idEventos');
     }
-
-//    public function eventoCaracteristica()
-//    {
-//        return $this->hasManyThrough('App\Models\EventoCaracteristica', 'App\Models\Evento', 'idEventos', 'idEventos');
-//    }
 
     public function statusDeAtividade()
     {

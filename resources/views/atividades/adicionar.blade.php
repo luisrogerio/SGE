@@ -55,8 +55,8 @@
                                     class="help-block">{{ $errors->first('quantidadeResponsaveis') }}</p> @endif
                         </fieldset>
                         <fieldset class="form-group">
-                            {{Form::label('atividades[idCursos]', 'Cursos')}}
-                            {{Form::select('atividades[idCursos]', $cursos, $cursos,  array('class' => 'form-control idCursos', 'multiple'))}}
+                            {{Form::label('atividades[idCursos][]', 'Cursos')}}
+                            {{Form::select('atividades[idCursos][]', $cursos, $cursos->keys()->toArray(), array('class' => 'form-control idCursos', 'multiple'))}}
 
                             @if ($errors->has('atividades.idCursos')) <p
                                     class="help-block">{{$errors->first('atividades.idCursos')}}</p> @endif

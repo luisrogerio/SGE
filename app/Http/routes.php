@@ -94,7 +94,6 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'UnidadesController@postSalvar']);
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'UnidadesController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'UnidadesController@postExcluir']);
-
     });
 
     Route::group(['prefix' => 'atividadesTipos/', 'as' => 'atividadesTipos::'], function () {
@@ -104,7 +103,6 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesTiposController@postSalvar']);
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesTiposController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'AtividadesTiposController@postExcluir']);
-
     });
 
     Route::group(['prefix' => 'cursos/', 'as' => 'cursos::'], function () {
@@ -114,7 +112,6 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'CursosController@postSalvar']);
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'CursosController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'CursosController@postExcluir']);
-
     });
 
     Route::group(['prefix' => 'statusdeatividade/', 'as' => 'statusdeatividade::'], function () {
@@ -124,7 +121,6 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesStatusConroller@postSalvar']);
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesStatusConroller@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'AtividadesStatusConroller@postExcluir']);
-
     });
 
     Route::group(['prefix' => 'gruposdeusuario/', 'as' => 'gruposdeusuario::'], function () {
@@ -134,7 +130,6 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'UsuariosGruposController@postSalvar']);
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'UsuariosGruposController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'UsuariosGruposController@postExcluir']);
-
     });
 
     Route::group(['prefix' => 'atividades/', 'as' => 'atividades::'], function () {
@@ -142,12 +137,23 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::get('/adicionar/{idEventos}', ['as' => 'adicionar', 'uses' => 'AtividadesController@getAdicionar']);
         Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'AtividadesController@getEditar']);
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'AtividadesController@postSalvar']);
-        Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesController@postAtualizar']);
+        Route::patch('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'AtividadesController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'AtividadesController@postExcluir']);
         Route::get('/view/{id}', ['as' => 'view', 'uses' => 'AtividadesController@getView']);
         /* Rotas para Responsável da Atividade*/
         Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavel', 'uses' => 'AtividadesResponsaveisController@getAdicionar']);
         Route::post('/salvarResponsavel', ['as' => 'salvarResponsavel', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavel']);
+        Route::get('/editarResponsavel/{id}', ['as' => 'editarResponsavel', 'uses' => 'AtividadesResponsaveisController@editarResponsavel']);
+        Route::patch('/atualizarResponsavel/{id}', ['as' => 'atualizarResponsavel', 'uses' => 'AtividadesResponsaveisController@atualizarResponsavel']);
+        Route::post('/excluirResponsavel/{id}', ['as' => 'excluirResponsavel', 'uses' => 'AtividadesResponsaveisController@excluirResponsavel']);
+
+
+        /* Rotas para Datas e Horários da Atividade*/
+        Route::get('/adicionarDataHora/{idAtividade}', ['as' => 'adicionarDataHora', 'uses' => 'AtividadesDatasHorasController@getAdicionar']);
+        Route::post('/salvarDataHora', ['as' => 'salvarDataHora', 'uses' => 'AtividadesDatasHorasController@postSalvarDataHora']);
+        Route::get('/editarDataHora/{id}', ['as' => 'editarDataHora', 'uses' => 'AtividadesDatasHorasController@editarDataHora']);
+        Route::patch('/atualizarDataHora/{id}', ['as' => 'atualizarDataHora', 'uses' => 'AtividadesDatasHorasController@atualizarDataHora']);
+        Route::post('/excluirDataHora/{id}', ['as' => 'excluirDataHora', 'uses' => 'AtividadesDatasHorasController@excluirDataHora']);
 
         Route::get('/analisar/{id}/{status}', ['as' => 'analisar', 'uses']);
     });
@@ -159,7 +165,6 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'EventosContatosController@postSalvar']);
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EventosContatosController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosContatosController@postExcluir']);
-
     });
 
     Route::group(['prefix' => 'usuariosTipos/', 'as' => 'usuariosTipos::',], function () {

@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $idSalas
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AtividadeDataHora whereIdLocais($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AtividadeDataHora whereIdSalas($value)
+ * @property-read \App\Models\Atividade $atividade
+ * @property-read mixed $horarioinicio
+ * @property-read mixed $horariotermino
  */
 class AtividadeDataHora extends Model
 {

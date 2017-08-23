@@ -45,6 +45,9 @@ use App\Models\Atividade;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Evento whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property string $nomeSlug
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Atividade[] $atividades
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Evento whereNomeSlug($value)
  */
 class Evento extends Model
 {
