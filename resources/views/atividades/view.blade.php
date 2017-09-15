@@ -51,8 +51,8 @@
                             até {{$atividadeDataHora->horarioTermino->format("H:i")}}h</p>
                         <div class="btn-group">
                             {{--TODO Lembrar de fazer o editar e remover de Datas e Horários--}}
-                            {{Form::button('Editar', ['class' => 'btn btn-default'])}}
-                            {{ Form::open(array('method' => 'POST', 'url' => route('atividades::excluirResponsavel', ['id' => $atividadeDataHora->id]), 'style' => 'display:inline;')) }}
+                            {{link_to_route('atividades::editarDataHora', 'Editar', ['id' => $atividadeDataHora->id], ['class' => 'btn btn-default'])}}
+                            {{ Form::open(array('method' => 'POST', 'url' => route('atividades::excluirDataHora', ['id' => $atividadeDataHora->id]), 'style' => 'display:inline;')) }}
                             {{Form::button('Remover', ['class' => 'btn btn-default', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete',
                                 'data-title' => 'Remover Data e Horário', 'data-message' => 'Você tem certeza que deseja deletar essa data e horários?'])}}
                             {{Form::close()}}
@@ -60,13 +60,21 @@
                     </div>
                 @endforeach
             </div>
+            {{ link_to_route('atividades::adicionarDataHora', 'Adicionar', ['idAtividade' => $atividade->id], ['class' => 'btn btn-default']) }}
             <hr/>
-            <div class="btn-group">
-                @if($atividade->evento->eventoCaracteristica->ePropostaAtividade)
-                    {{link_to_route('atividades::analisar', 'Aprovar', ['id' => $atividade->id, 'status' => 'Aprovar'], ['class' => 'btn btn-default']) }}
-                    {{link_to_route('atividades::analisar', 'Reprovar', ['id' => $atividade->id, 'status' => 'Aprovar'], ['class' => 'btn btn-default']) }}
-                @endif
-            </div>
+            <h4>Aprovação</h4>
+            <h5>Status atual: {{$ultimoStatus->nome}}</h5>
+            @if($atividade->evento->eventoCaracteristica->ePropostaAtividade && $ultimoStatus->nome == 'Proposta')
+                {{ Form::open(array('url' => route('atividades::analisar', ['id' => $atividade->id]))) }}
+                <label for="comentario">Comentário</label>
+                {{ Form::textarea('comentario', null, array('class' => 'form-control')) }}
+                <div class="btn-group">
+                    {{Form::submit('Aprovar', ['class' => 'btn btn-default', 'name' => 'status']) }}
+                    {{Form::submit('Reprovar', ['class' => 'btn btn-default', 'name' => 'status']) }}
+                </div>
+                {{ Form::close() }}
+            @endif
+            <hr/>
             {{link_to_route('atividades::editar','Editar',['id'=>$atividade->id], ['class' => 'btn btn-primary'])}}
         </div>
     </div>

@@ -155,7 +155,7 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::patch('/atualizarDataHora/{id}', ['as' => 'atualizarDataHora', 'uses' => 'AtividadesDatasHorasController@atualizarDataHora']);
         Route::post('/excluirDataHora/{id}', ['as' => 'excluirDataHora', 'uses' => 'AtividadesDatasHorasController@excluirDataHora']);
 
-        Route::get('/analisar/{id}/{status}', ['as' => 'analisar', 'uses']);
+        Route::post('/analisar/{id}', ['as' => 'analisar', 'uses' => 'AtividadesController@analisar']);
     });
 
     Route::group(['prefix' => 'contatos/', 'as' => 'contatos::'], function () {

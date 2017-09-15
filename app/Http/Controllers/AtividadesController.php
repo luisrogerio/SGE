@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AtividadeResponsavelRequest;
 use App\Http\Requests\AtividadesRequest;
+use Illuminate\Http\Request;
 use App\Models\Atividade;
 use App\Models\AtividadeStatus;
 use App\Models\AtividadeTipo;
@@ -42,7 +42,8 @@ class AtividadesController extends Controller
     public function getView($id)
     {
         $atividade = $this->atividade->findOrFail($id);
-        return view('atividades.view', compact('atividade'));
+        $ultimoStatus = $atividade->statusDeAtividade->last();
+        return view('atividades.view', compact('atividade', 'ultimoStatus'));
     }
 
     public function postSalvar(AtividadesRequest $request)
@@ -155,5 +156,16 @@ class AtividadesController extends Controller
         $atividade->delete();
         \Session::flash('message', 'Atividade excluída com sucesso');
         return redirect()->route('atividades::index', ['idEventos' => $idEvento]);
+    }
+
+    public function analisar(Request $request, $id)
+    {
+        $this->atividade = $this->atividade->findOrFail($id);
+        $nomeStatus = '';
+        if ($request->status == 'Aprovar') $nomeStatus = 'Aceita';
+        if ($request->status == 'Reprovar') $nomeStatus = 'Recusada';
+        $status = AtividadeStatus::whereNome($nomeStatus)->first();
+        $this->atividade->statusDeAtividade()->attach($status->id, ["observacao" => $request->comentario]);
+        return redirect()->back();
     }
 }

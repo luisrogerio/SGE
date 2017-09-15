@@ -43,9 +43,6 @@ class AtividadeDataHora extends Model
             'data',
             'horarioInicio',
             'horarioTermino',
-            'idUnidades',
-            'idLocais',
-            'idSalas',
             'idAtividades',
             'salvoPor'
         ];
