@@ -1,14 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Questrial');
-
-#wrapper {
-    padding: 3px;
-}
-
-body {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    overflow-x: hidden;
-}
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Raleway');
 
 .espacos {
     padding-bottom: 1.5em;
@@ -143,162 +133,28 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.data-box {
-    border: 1px solid #ddd;
-    background-color: #fafafa;
-    margin-bottom: 1em;
+.title-box {
+    color: #202020;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.data-header {
-    margin-top: -1px;
-    background-color: #429FBA;
-    color: #fff;
-    padding: 0.5em;
+.title-desc {
+    font-family: 'Raleway', sans-serif;
+    text-indent: 1em;
 }
 
-.input-group-select .form-control {
-    width: 50%;
+.admin-box {
+    background-color: #b5d4dd;
 }
 
-/*Carrousel Fix*/
-
-.hide-bullets {
-    margin-top: 20px;
-    margin-left: -40px;
-    list-style: none;
-}
-
-/* --------------------- Badges styles --------------------- */
-
-.badge-error {
-    background-color: #b94a48;
-}
-
-.badge-error:hover {
-    background-color: #953b39;
-}
-
-.badge-warning {
-    background-color: #f89406;
-}
-
-.badge-warning:hover {
-    background-color: #c67605;
-}
-
-.badge-success {
-    background-color: #468847;
-}
-
-.badge-success:hover {
-    background-color: #356635;
-}
-
-.badge-info {
-    background-color: #3a87ad;
-}
-
-.badge-info:hover {
-    background-color: #2d6987;
-}
-
-.badge-inverse {
-    background-color: #333333;
-}
-
-.badge-inverse:hover {
-    background-color: #1a1a1a;
-}
-
-.nav-tabs, .nav-pills {
-    border-radius: 0;
-}
-
-/*Cards for Events*/
-
-.card {
-    border: 1px ridge #ddd;
-    transition: 0.3s;
-}
-
-.container {
-    padding: 4px 10px;
-}
-
-.text-wrapper {
-    text-wrap: normal;
-    display: inline-block;
-    word-wrap: break-word;
-    word-break: break-all;
-}
-
-/* --------------------- Tabs Lists --------------------- */
-
-/* Style the tab */
-
-div.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-}
-
-/* Style the buttons inside the tab */
-
-div.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
+.admin-box:hover {
+    background-color: #b6cad0;
     cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    font-size: 17px;
 }
 
-/* Change background color of buttons on hover */
-
-div.tab button:hover {
-    background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-
-div.tab button.active {
-    background-color: #ccc;
-}
-
-/* Style the tab content */
-
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-
-/* Style the close button */
-
-.topright {
-    float: right;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.topright:hover {
-    color: red;
-}
-
-/* -------------------- Footer -------------------- */
-
-footer {
-    text-align: center;
-    background-color: #dedede;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-width: 2px 0px 0px 0px;
-    border-color: #525252;
-}
-
-footer > h2 > a {
-    color: #222;
+.box {
+    border-width: 0px;
+    box-model: border-box;
+    border: 10px solid #fff;
+    background-clip: padding-box;
 }

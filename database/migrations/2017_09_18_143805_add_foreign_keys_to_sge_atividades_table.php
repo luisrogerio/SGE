@@ -17,6 +17,9 @@ class AddForeignKeysToSgeAtividadesTable extends Migration {
 			$table->foreign('idAtividadesTipos', 'fk_atividades_atividades_tipos1')->references('id')->on('sge_atividades_tipos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('idEventos', 'fk_atividades_eventos')->references('id')->on('sge_eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('salvoPor', 'fk_atividades_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idLocais', 'fk_sge_atividades_sge_locais1')->references('id')->on('sge_locais')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idSalas', 'fk_sge_atividades_sge_salas1')->references('id')->on('sge_salas')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idUnidades', 'fk_sge_atividades_sge_unidades1')->references('id')->on('sge_unidades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 
@@ -33,6 +36,9 @@ class AddForeignKeysToSgeAtividadesTable extends Migration {
 			$table->dropForeign('fk_atividades_atividades_tipos1');
 			$table->dropForeign('fk_atividades_eventos');
 			$table->dropForeign('fk_atividades_usuarios1');
+            $table->dropForeign('fk_sge_atividades_sge_locais1');
+            $table->dropForeign('fk_sge_atividades_sge_salas1');
+            $table->dropForeign('fk_sge_atividades_sge_unidades1');
 		});
 	}
 

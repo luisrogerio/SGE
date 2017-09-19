@@ -15,7 +15,7 @@ Route::get('/composer', function(){
     Artisan::call('db:seed');
 });
 
-Route::get('/', 'Auth\AuthController@getLogin');
+Route::get('/', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@logout');
 
@@ -67,6 +67,9 @@ Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::',], function () 
 
 
 Route::group(['prefix' => 'admin/'], function () {
+
+    Route::get('/', ['uses' => 'HomeController@indexAdmin']);
+
     Route::group(['prefix' => 'salas/', 'as' => 'salas::'], function () {
         Route::get('/{idLocais}', ['as' => 'index', 'uses' => 'SalasController@getIndex']);
         Route::get('/adicionar/{idLocais}', ['as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);

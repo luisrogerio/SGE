@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SGE @yield('title')</title>
     <!-- Styles -->
-    {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
-    {{ Html::style('css/beautify.css') }}
+{{ Html::style('css/beautify.min.css') }}
     {{ Html::style('css/footer.css') }}
     {{ Html::style('css/main.css') }}
 
@@ -47,7 +46,7 @@
                     <li><a href=""><i class="fa fa-calendar" aria-hidden="true"></i> Atividades</a></li>
                     <li><a href=""><i class="fa fa-picture-o" aria-hidden="true"></i> Galeria</a></li>
                     <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
-                    <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+                    <li><a href="{{route('login')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

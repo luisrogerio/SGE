@@ -16,9 +16,6 @@ class CreateSgeAtividadesDatasHorasTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('idAtividades')->index('fk_atividadeHorario_atividades1_idx');
-			$table->integer('idUnidades')->index('fk_sge_atividades_datas_horarios_locais_sge_unidades1_idx');
-			$table->integer('idLocais')->index('fk_sge_atividades_datas_horarios_locais_sge_locais1_idx');
-			$table->integer('idSalas')->index('fk_sge_atividades_datas_horarios_locais_sge_salas1_idx');
 			$table->date('data');
 			$table->time('horarioInicio');
 			$table->time('horarioTermino');

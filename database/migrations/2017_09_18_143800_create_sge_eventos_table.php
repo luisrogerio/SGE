@@ -17,12 +17,13 @@ class CreateSgeEventosTable extends Migration {
 			$table->integer('id', true);
 			$table->integer('idEdicaoAnterior')->nullable()->index('fk_eventos_eventos2_idx');
 			$table->integer('idPai')->nullable()->index('fk_eventos_eventos1_idx');
-			$table->string('nome', 45);
+            $table->string('nome', 150)->unique('nome_UNIQUE');
+            $table->string('nomeSlug', 200)->unique('nomeSlug_UNIQUE');
 			$table->dateTime('dataInicioInscricao');
 			$table->dateTime('dataFimInscricao');
 			$table->dateTime('dataInicio');
 			$table->dateTime('dataTermino');
-			$table->text('descricao')->nullable();
+            $table->text('descricao');
 			$table->timestamps();
 			$table->integer('salvoPor')->nullable()->index('fk_eventos_usuarios1_idx');
 		});
