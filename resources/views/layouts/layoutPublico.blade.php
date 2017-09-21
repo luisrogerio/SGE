@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SGE @yield('title')</title>
     <!-- Styles -->
-    {{ Html::style('css/font-awesome.min.css') }}
+{{ Html::style('css/font-awesome.min.css') }}
 {{ Html::style('css/beautify.min.css') }}
 {{ Html::style('css/footer.css') }}
 {{ Html::style('css/main.css') }}
-
+{{ Html::style('css/bootstrap-datetimepicker.min.css') }}
 {{ Html::script('js/jquery.min.js') }}
 {{Html::script('js/jquery.mask.js')}}
-
 <!-- Scripts -->
+    {{ Html::script('js/moment.js') }}
     {{Html::script('js/bootstrap.min.js')}}
+    {{ Html::script('js/bootstrap-datetimepicker.min.js') }}
 </head>
 <body>
 <header>
@@ -36,7 +37,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -45,17 +45,15 @@
                         </a>
                     </li>
                     <li><a href=""><i class="fa fa-calendar-o" aria-hidden="true"></i> Eventos</a></li>
-                    <li><a href="{!! route('login') !!}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                    <li><a href="{{ route('auth::login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 </header>
-
 <div class="conteiner">
-
     @yield('content')
-
     <div class="espacos"></div>
     <div class="espacos"></div>
 </div>
