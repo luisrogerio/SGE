@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Locais')
 @section('content')
     <div class="panel panel-default">
@@ -17,7 +17,7 @@
                 {{Form::text('nome', null, array('class' => 'form-control'))}}
                 @if ($errors->has('nome')) <p class="help-block">{{ $errors->first('nome') }}</p> @endif
             </fieldset>
-            {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+            {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
             {{Form::close()}}
         </div>
     </div>

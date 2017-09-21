@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-5 col-md-offset-4">
             <div class="btn-group">
-                {{ link_to_route('eventos::editar', 'Editar Subevento', array('id' => $subevento->id), array('class' => 'btn btn-default')) }}
+                {{ link_to_route('eventos::editar', 'Editar Subevento', array('id' => $subevento->id), array('class' => 'button button-blue')) }}
                 {{ link_to_route('atividades::adicionar', 'Adicionar Atividade', null, array('class' => 'btn btn-success')) }}
             </div>
         </div>

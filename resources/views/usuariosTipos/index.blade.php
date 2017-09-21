@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Tipos de Usuário')
 @section('content')
 
@@ -11,10 +11,10 @@
         @foreach($usuariosTipos as $usuarioTipo)
             <tr>
                 <td>{{$usuarioTipo->nome}}</td>
-                <td class="text-center">{{link_to_route('usuariosTipos::editar','Editar',['id'=>$usuarioTipo->id], ['class' => 'btn btn-primary'])}}</td>
+                <td class="text-center">{{link_to_route('usuariosTipos::editar','Editar',['id'=>$usuarioTipo->id], ['class' => 'button button-blue'])}}</td>
                 <td class="text-center">
                     {{ Form::open(array('method' => 'POST', 'url' => route('usuariosTipos::excluir', ['id' => $usuarioTipo->id]), 'style' => 'display:inline;')) }}
-                    <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
+                    <button class='button button-red' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Tipo de Usuário"
                             data-message='Você tem certeza que deseja deletar esse tipo de usuário?'>
                         Deletar
@@ -25,7 +25,7 @@
             </tr>
         @endforeach
         <tr>
-            <td colspan="4">{{link_to_route('usuariosTipos::adicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
+            <td colspan="4">{{link_to_route('usuariosTipos::adicionar','Adicionar Novo', null, ['class' => 'button button-blue'])}}</td>
         </tr>
     </table>
     {{$usuariosTipos->links()}}

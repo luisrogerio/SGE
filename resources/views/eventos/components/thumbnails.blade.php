@@ -12,8 +12,8 @@
                 Breve descrição dessa caralha aqui
             </p>
             <p>
-                <a href="#" class="btn btn-default" role="button">Atividades</a>
-                <a href="#" class="btn btn-primary" role="button">Evento</a>
+                <a href="#" class="button button-blue" role="button">Atividades</a>
+                <a href="#" class="button button-blue" role="button">Evento</a>
             </p>
         </div>
     </div>

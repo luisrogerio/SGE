@@ -167,11 +167,11 @@ body {
 .container.active .card.alt .title,
 .container.active .card.alt .input-container,
 .container.active .card.alt .button-container {
-  left: 0;
-  visibility: visible;
+    left: 0 !important;
+    visibility: visible !important;
   opacity: 1;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
+    -webkit-transition: .3s ease !important;
+    transition: .3s ease !important;
 }
 .container.active .card.alt .title {
   -webkit-transition-delay: .3s;

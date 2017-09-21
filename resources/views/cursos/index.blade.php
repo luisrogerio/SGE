@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Curso')
 @section('content')
     <h1>Cursos</h1>
@@ -10,11 +10,18 @@
         @foreach($cursos as $curso)
             <tr>
                 <td>{{$curso->nome}}</td>
-                <td class="text-center">{{link_to_route('cursos::editar','Editar',['id'=>$curso->id], ['class' => 'btn btn-primary'])}}</td>
+                <td class="text-center">
+                    {{ Form::open(array('method' => 'GET', 'url' => route('cursos::editar', ['id' => $curso->id]), 'style' => 'display:inline;')) }}
+                    <button class='button button-blue' type='submit'>
+                        Editar
+                    </button>
+                    {{ Form::close() }}
+                </td>
                 <td class="text-center">
                     {{ Form::open(array('method' => 'POST', 'url' => route('cursos::excluir', ['id' => $curso->id]), 'style' => 'display:inline;')) }}
-                    <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
+                    <button class='button button-link' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Curso" data-message='Você tem certeza que deseja deletar esse curso?'>
+                        <i class="fa fa-trash-o"></i>
                         Deletar
                     </button>
                     {{ Form::close() }}
@@ -22,7 +29,7 @@
             </tr>
         @endforeach
         <tr>
-            <td colspan="3">{{link_to_route('cursos::adicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
+            <td colspan="3">{{link_to_route('cursos::adicionar','Adicionar Novo', null, ['class' => 'button button-green'])}}</td>
         </tr>
     </table>
     {{$cursos->links()}}

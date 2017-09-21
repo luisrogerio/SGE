@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Atividades')
 @section('content')
     <div class="panel panel-default">
@@ -88,7 +88,7 @@
                             @if ($errors->has('atividades.salas')) <p
                                     class="help-block">{{$errors->first('atividades.salas')}}</p> @endif
                         </fieldset>
-                        {{ Form::button('Próximo', array('class' => 'btn btn-primary btnProximo')) }}
+                        {{ Form::button('Próximo', array('class' => 'button button-blue btnProximo')) }}
                     </div>
                 </div>
                 <div role="tabpanel1" class="tab-pane fade" id="horario">
@@ -138,10 +138,10 @@
                             @endif
                             <tr>
                                 <td>
-                                    <a id="btnAdd" class="btn btn-default">
+                                    <a id="btnAdd" class="button button-blue">
                                         <span class="glyphicon-plus"></span>
                                     </a>
-                                    <a id="btnMinus" class="btn btn-default">
+                                    <a id="btnMinus" class="button button-blue">
                                         <span class="glyphicon-minus"></span>
                                     </a>
                                 </td>
@@ -149,8 +149,8 @@
                             </tbody>
                         </table>
                         {{Form::hidden('idEventos', $evento->id) }}
-                        {{Form::button('Anterior', array('class' => 'btn btn-primary btnAnterior')) }}
-                        {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+                        {{Form::button('Anterior', array('class' => 'button button-blue btnAnterior')) }}
+                        {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
                         {{Form::close()}}
                     </div>
                 </div>

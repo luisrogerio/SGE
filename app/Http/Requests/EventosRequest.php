@@ -43,7 +43,7 @@ class EventosRequest extends Request
                     'eventoCaracteristica.ePropostaAtividade' => 'boolean',
                     'eventoCaracteristica.eImagemDeFundo' => 'boolean',
                     //'eventoCaracteristica.idAparencias' => 'required',
-                    'eventoCaracteristica.logoImagem' => 'required_without:eEventoPai|image|dimensions:min_width=140,min_height=140,max_height=200,max_height=200'
+                    'eventoCaracteristica.logoImagem' => 'required_without:eEventoPai|image|dimensions:min_width=100,min_height=100,max_height=200,max_height=200'
                 ];
                 break;
             case 'PATCH':
@@ -71,7 +71,7 @@ class EventosRequest extends Request
     public function messages()
     {
         return [
-            'eventosCaracteristicas.logoImagem.dimensions' => 'Dimensões permitidas 140x140 até 200x200'
+            'eventoCaracteristica.logoImagem.dimensions' => 'Dimensões permitidas 140x140 até 200x200'
         ];
     }
 

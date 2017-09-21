@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Responsável da Atividade')
 @section('content')
     <div class="panel panel-default">
@@ -34,7 +34,7 @@
                         class="help-block">{{ $errors->first('experienciaProfissional') }}</p> @endif
             </fieldset>
         </div>
-        {{Form::submit('Editar', array('class' => 'btn btn-primary'))}}
+        {{Form::submit('Editar', array('class' => 'button button-blue'))}}
         {{Form::close()}}
     </div>
 @endsection

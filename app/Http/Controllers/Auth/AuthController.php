@@ -130,15 +130,14 @@ class AuthController extends Controller
     {
         if ($validator = $this->validate($request, [
             'nome' => 'required',
-            'email' => 'required|email|unique:usuarios',
+            'email' => 'required|email|unique:usuarios|same:confirmarEmail',
             'dataNascimento' => 'required|date_format:d/m/Y',
-            'cpf' => 'required|cpf',
             'senha' => 'required|alpha_dash|between:8,20|same:confirmarSenha'
         ], [
             'dataNascimento.required' => 'O campo Data de Nascimento é obrigatório'
         ])
         ) {
-            return view('publico.cadastroExterno')->withErrors($validator)->withInput();
+            return view('publico.cadastro')->withErrors($validator)->withInput();
         }
 
         $this->usuario = new Usuario();

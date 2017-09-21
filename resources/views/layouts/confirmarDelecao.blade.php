@@ -9,8 +9,8 @@
                 <p>Are you sure about this ?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirm">Delete</button>
+                <button type="button" class="button button-blue" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="button button-red" id="confirm">Deletar</button>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('eventos.layout')
+@extends('eventos.layout_admin')
 @section('content')
 
     <div class="row">
@@ -44,7 +44,7 @@
                                 <input type="checkbox" class="form-input"/>
                                 Manter Conectado?
                             </label>
-                            <input type="submit" class="btn btn-primary" value="Cadastrar"/>
+                            <input type="submit" class="button button-blue" value="Cadastrar"/>
                         </form>
                     </div>
                     <div id="professores" class="tab-pane fade">
@@ -60,7 +60,7 @@
                                 <input type="checkbox" class="form-input"/>
                                 Manter Conectado?
                             </label>
-                            <input type="submit" class="btn btn-primary" value="Cadastrar"/>
+                            <input type="submit" class="button button-blue" value="Cadastrar"/>
                         </form>
                     </div>
                     <div id="servidores" class="tab-pane fade">
@@ -76,7 +76,7 @@
                                 <input type="checkbox" class="form-input"/>
                                 Manter Conectado?
                             </label>
-                            <input type="submit" class="btn btn-primary" value="Cadastrar"/>
+                            <input type="submit" class="button button-blue" value="Cadastrar"/>
                         </form>
                     </div>
                 </div>

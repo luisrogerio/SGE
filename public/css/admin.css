@@ -157,4 +157,9 @@ h1, h2, h3, h4, h5, h6 {
     box-model: border-box;
     border: 10px solid #fff;
     background-clip: padding-box;
+    min-height: 190px;
+}
+
+.hack-espaco {
+    margin-bottom: 10px;
 }

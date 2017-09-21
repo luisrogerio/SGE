@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Salas')
 @section('content')
     <div class="panel panel-default">
@@ -32,7 +32,7 @@
             </fieldset>
 
             <br/>
-            {{Form::submit('Editar', array('class' => 'btn btn-primary'))}}
+            {{Form::submit('Editar', array('class' => 'button button-blue'))}}
             {{Form::close()}}
         </div>
     </div>

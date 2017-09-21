@@ -44,8 +44,11 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url('/') }}" class=""><i class="fa fa-home" aria-hidden="true"></i> Inicial</a></li>
-                    <li><a href="{{ url('/cadastro') }}" class=""><i class="fa fa-plus" aria-hidden="true"></i> Cadastro</a></li>
+                    <li><a href="{{ route('eventosPublico::index') }}" class=""><i class="fa fa-home"
+                                                                                   aria-hidden="true"></i> Inicial</a>
+                    </li>
+                    <li><a href="{{ route('auth::cadastro') }}" class=""><i class="fa fa-plus" aria-hidden="true"></i>
+                            Cadastro</a></li>
                     <li><a href="{{ url('/reset') }}" class=""><i class="fa fa-question" aria-hidden="true"></i> Esqueci minha Senha</a>
                     </li>
                 </ul>
@@ -67,16 +70,16 @@
     <div class="card"></div>
     <div class="card">
         <h1 class="title">Sistema de Gestão de Eventos- Login</h1>
-        {{ Form::open([ 'url' => '/login', 'class']) }}
+        {{ Form::open([ 'url' => route('auth::logar')]) }}
             <div class="input-container">
-                <input type="#{type}" id="#{label}" name="login" required="required"/>
-                <label for="#{label}">Usuário</label>
+                <input type="text" id="login" name="login" required="required"/>
+                <label for="login">Usuário</label>
                 <div class="bar"></div>
             </div>
 
             <div class="input-container">
-                <input type="#{type}" id="#{label}" name="senha" required="required"/>
-                <label for="#{label}">Senha</label>
+                <input type="password" id="senha" name="senha" required="required"/>
+                <label for="senha">Senha</label>
                 <div class="bar"></div>
             </div>
 

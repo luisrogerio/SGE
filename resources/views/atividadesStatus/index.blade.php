@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Status de Atividade')
 @section('content')
 
@@ -11,10 +11,10 @@
         @foreach($atividadesStatus as $atividadeStatus)
             <tr>
                 <td>{{$atividadeStatus->nome}}</td>
-                <td class="text-center">{{link_to_route('statusdeatividade::editar','Editar',['id'=>$atividadeStatus->id], ['class' => 'btn btn-primary'])}}</td>
+                <td class="text-center">{{link_to_route('statusdeatividade::editar','Editar',['id'=>$atividadeStatus->id], ['class' => 'button button-blue'])}}</td>
                 <td class="text-center">
                     {{ Form::open(array('method' => 'POST', 'url' => route('statusdeatividade::excluir', ['id' => $atividadeStatus->id]), 'style' => 'display:inline;')) }}
-                    <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#confirmDelete"
+                    <button class='button button-red' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Status da Atividade"
                             data-message='Você tem certeza que deseja deletar esse status de atividade?'>
                         Deletar
@@ -25,7 +25,7 @@
             </tr>
         @endforeach
         <tr>
-            <td colspan="3">{{link_to_route('statusdeatividade::adicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
+            <td colspan="3">{{link_to_route('statusdeatividade::adicionar','Adicionar Novo', null, ['class' => 'button button-blue'])}}</td>
         </tr>
     </table>
     {{$atividadesStatus->links()}}

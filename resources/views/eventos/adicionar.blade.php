@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Eventos')
 @section('content')
     <div class="panel panel-default">
@@ -91,7 +91,7 @@
                             @if ($errors->has('usuariosTipos.*')) <p
                                     class="help-block">{{ $errors->first('usuariosTipos.*') }}</p> @endif
                         </fieldset>
-                        {{ Form::button('Próximo', array('class' => 'btn btn-primary btnProximo')) }}
+                        {{ Form::button('Próximo', array('class' => 'button button-blue btnProximo')) }}
                     </div>
                 </div>
                 <div role="tabpanel1" class="tab-pane fade" id="caracteristica">
@@ -223,14 +223,14 @@
                                 </div>
                             </div>
                             <fieldset class="form-group">
-                                {{Form::label('eventoCaracteristica[logoImagem]', 'Logo')}}
+                                {{Form::label('eventoCaracteristica[logoImagem]', 'Logo (Dimensões: 100px até 200px)')}}
                                 {!! Form::file('eventoCaracteristica[logoImagem]') !!}
                                 @if ($errors->has('eventoCaracteristica.logoImagem')) <p
                                         class="help-block">{{ $errors->first('eventoCaracteristica.logoImagem') }}</p> @endif
                             </fieldset>
                         @endif
-                        {{Form::button('Anterior', array('class' => 'btn btn-primary btnAnterior')) }}
-                        {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+                        {{Form::button('Anterior', array('class' => 'button button-blue btnAnterior')) }}
+                        {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
                         {{Form::close()}}
                     </div>
                 </div>

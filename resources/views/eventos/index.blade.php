@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Evento')
 @section('content')
     <h1>Evento</h1>
@@ -21,7 +21,7 @@
         @endforeach
         <div class="row">
             <div class="col-md-12">
-                {{link_to_route('eventos::adicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}
+                {{link_to_route('eventos::adicionar','Adicionar Novo', null, ['class' => 'button button-blue'])}}
             </div>
         </div>
     </div>

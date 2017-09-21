@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Visualizar Evento')
 @section('content')
     <div class="panel panel-default">

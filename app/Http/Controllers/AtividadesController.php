@@ -65,7 +65,7 @@ class AtividadesController extends Controller
             $this->atividade->save();
 
             $cursos[] = $request->atividades['idCursos'];
-            foreach ($cursos as $idCursos) {
+            foreach ($cursos['0'] as $idCursos) {
                 $cursosDatas[$idCursos] =
                     [
                         'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),

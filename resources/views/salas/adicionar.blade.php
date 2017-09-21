@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Salas')
 @section('content')
     <div class="panel panel-default">
@@ -21,7 +21,7 @@
                     @for($i = 0; $i < $numeroDeSalas; $i++)
                         <div class="form-inline col-md-6 col-sm-12">
                             <fieldset class="form-group">
-                                {{Form::label('prefixo[]', 'Nome')}}
+                                {{Form::label('prefixo[]', 'Espaço ', ['class' => 'hack-espaco'])}}
                                 {{ Form::select('prefixo[]', array(
                                     'Sala' => 'Sala',
                                     'Laboratório' => 'Laboratório',
@@ -29,12 +29,13 @@
                                     'Galpão' => 'Galpão',
                                     'Quadra' => 'Quadra',
                                     'Salão' => 'Salão'
-                                    ), null, array('class' => 'form-control')) }}
+                                    ), null, array('class' => 'form-control hack-espaco')) }}
                                 @if ($errors->has('prefixo[]')) <p
-                                        class="help-block">{{ $errors->first('prefixo[]') }}</p> @endif
+                                        class="help-block">{{ $errors->first('prefixo[]') }}</p>
+                                @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::text('sufixo[]', null, array('class' => 'form-control col-xs-2'))}}
+                                {{Form::text('sufixo[]', null, array('class' => 'form-control col-xs-2 hack-espaco'))}}
                                 @if ($errors->has('sufixo[]')) <p
                                         class="help-block">{{ $errors->first('sufixo[]') }}</p> @endif
                             </fieldset>
@@ -64,8 +65,11 @@
             {{Form::hidden('idLocais', $local->id)}}
             {{Form::hidden('numeroDeSalas', $numeroDeSalas)}}
             @if ($errors->has('idLocais')) <p class="help-block">{{ $errors->first('idLocais') }}</p> @endif
-            {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+            {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
             {{Form::close()}}
         </div>
     </div>
+    <div class="espacos"></div>
+    <div class="espacos"></div>
+    <div class="espacos"></div>
 @endsection

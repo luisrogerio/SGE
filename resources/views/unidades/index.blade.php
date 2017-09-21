@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Unidades')
 @section('content')
 
@@ -11,27 +11,36 @@
         </tr>
         @foreach($unidades as $unidade)
             <tr>
-                <td>{{$unidade->nome}}</td>
-                <td class="text-center">{{link_to_route('unidades::editar','Editar',['id'=>$unidade->id], ['class' => 'btn btn-primary'])}}</td>
+                <td>
+                    <h3>{{$unidade->nome}}</h3>
+                </td>
                 <td class="text-center">
+                    <div class="espacos"></div>
+                    {{link_to_route('unidades::editar','Editar',['id'=>$unidade->id], ['class' => 'button button-blue'])}}
+                </td>
+                <td class="text-center">
+                    <div class="espacos"></div>
                     {{ Form::open(array('method' => 'POST', 'url' => route('unidades::excluir', ['id' => $unidade->id]), 'style' => 'display:inline;')) }}
-                    <a class="btn btn-link" type='button' data-toggle="modal" data-target="#confirmDelete"
+                    <a class="button button-link" type='button' data-toggle="modal" data-target="#confirmDelete"
                        data-title="Deletar Unidade" data-message='Você tem certeza que deseja deletar esse unidade?'>
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                         Deletar
                     </a>
-
                     {{ Form::close() }}
                 </td>
                 <td class="text-center">
-                    {{ link_to_route('locais::index','<i class="fa fa-picture-o" aria-hidden="true"></i>Locais', ['unidadeId' => $unidade->id], ['class' => 'btn btn-link'])}}
+                    <div class="espacos"></div>
+                    {{ link_to_route('locais::index','Locais', ['unidadeId' => $unidade->id], ['class' => 'button button-orange']) }}
                 </td>
             </tr>
         @endforeach
         <tr>
-            <td colspan="4">{{ link_to_route('unidades::adicionar','Adicionar Novo', null, ['class' => 'btn btn-primary'])}}</td>
+            <td colspan="4">
+                {{ link_to_route('unidades::adicionar','Adicionar Novo', null, ['class' => 'button button-green'])}}
+            </td>
         </tr>
     </table>
+
     {{$unidades->links()}}
     @include('layouts.confirmarDelecao')
 @endsection

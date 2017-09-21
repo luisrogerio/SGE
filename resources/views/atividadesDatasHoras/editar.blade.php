@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Responsável da Atividade')
 @section('content')
     <div class="panel panel-default">
@@ -22,7 +22,7 @@
                 {{Form::text('horarioTermino', $atividadeDataHora->horarioTermino->format('H:i'), array('class' => 'form-control', 'id' => 'horaTerminoAtividade'))}}
             </fieldset>
         </div>
-        {{Form::submit('Editar', array('class' => 'btn btn-primary'))}}
+        {{Form::submit('Editar', array('class' => 'button button-blue'))}}
         {{Form::close()}}
     </div>
     <script>

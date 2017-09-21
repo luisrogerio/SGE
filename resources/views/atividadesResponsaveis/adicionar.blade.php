@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Atividades Responsáveis')
 @section('content')
     <div class="panel panel-default">
@@ -40,7 +40,7 @@
             </div>
         @endfor
         {{Form::hidden('idAtividade', $idAtividade)}}
-        {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+        {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
         {{Form::close()}}
     </div>
 @endsection

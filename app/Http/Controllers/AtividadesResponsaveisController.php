@@ -38,9 +38,10 @@ class AtividadesResponsaveisController extends Controller
                     'experienciaProfissional' => $request->input('experienciaProfissional.'.$key)
                 ];
                 $atividade->atividadesResponsaveis()->create($atividadeResponsavel);
+                \Session::flash('message', 'Responsável adicionado com sucesso');
             }
         }
-        return redirect()->route('atividades::index', ['idEventos' => $atividade->evento->id]);
+        return redirect()->route('atividades::adicionar', ['idEventos' => $atividade->evento->id]);
     }
 
     public function editarResponsavel($id)

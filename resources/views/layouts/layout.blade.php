@@ -8,14 +8,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--CSS para Bootstrap, Select e Ícones-->
-    {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/footer.css') }}
     {{ Html::style('css/select2.css') }}
     {{ Html::style('css/select2-bootstrap.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
-    {{ Html::style('css/beautify.css') }}
-    {{ Html::style('css/styles.css') }}
+    {{ Html::style('css/beautify.min.css') }}
+    {{ Html::style('css/admin.css') }}
     <title>SGE - @yield('title')</title>
 </head>
 <body>

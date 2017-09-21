@@ -1,4 +1,4 @@
-@extends('layouts.eventoPublico')
+@extends('layouts.eventoLayout')
 @section('title', "- Eventos")
 @section('content')
     <div id="wrapper">

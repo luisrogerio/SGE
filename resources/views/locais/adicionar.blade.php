@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Locais')
 @section('content')
     <div class="panel panel-default">
@@ -20,7 +20,7 @@
                 {{Form::hidden('idUnidades', $unidade->id)}}
                 @if ($errors->has('idUnidades')) <p class="help-block">{{ $errors->first('idUnidades') }}</p> @endif
             </fieldset>
-            {{Form::submit('Salvar', array('class' => 'btn btn-primary'))}}
+            {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
             {{Form::close()}}
         </div>
     </div>

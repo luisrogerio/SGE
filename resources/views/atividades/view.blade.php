@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout_admin')
 @section('title', 'Atividade')
 @section('content')
     <div class="panel panel-default">
@@ -25,7 +25,7 @@
                         <h4>Experiência Profissional: </h4>
                         <p>{{$atividadeResponsavel->experienciaProfissional}}</p>
                         <div class="btn-group">
-                            {{link_to_route('atividades::editarResponsavel', 'Editar', ['id' => $atividadeResponsavel->id], ['class' => 'btn btn-default'])}}
+                            {{link_to_route('atividades::editarResponsavel', 'Editar', ['id' => $atividadeResponsavel->id], ['class' => 'btn btn-primary'])}}
                             {{ Form::open(array('method' => 'POST', 'url' => route('atividades::excluirResponsavel', ['id' => $atividadeResponsavel->id]), 'style' => 'display:inline;')) }}
                             <button class='btn btn-danger' type='button' data-toggle="modal"
                                     data-target="#confirmDelete"
@@ -38,7 +38,8 @@
                     </div>
                 @endforeach
             </div>
-            {{ link_to_route('atividades::adicionarResponsavel', 'Adicionar', ['idAtividade' => $atividade->id, 'quantidadeResponsaveis' => '1'], ['class' => 'btn btn-default']) }}
+            <div class="espacos"></div>
+            {{ link_to_route('atividades::adicionarResponsavel', 'Adicionar', ['idAtividade' => $atividade->id, 'quantidadeResponsaveis' => '1'], ['class' => 'btn btn-primary']) }}
             <hr/>
             <h4>Datas e Horários</h4>
             <div class="row">
@@ -51,16 +52,17 @@
                             até {{$atividadeDataHora->horarioTermino->format("H:i")}}h</p>
                         <div class="btn-group">
                             {{--TODO Lembrar de fazer o editar e remover de Datas e Horários--}}
-                            {{link_to_route('atividades::editarDataHora', 'Editar', ['id' => $atividadeDataHora->id], ['class' => 'btn btn-default'])}}
+                            {{link_to_route('atividades::editarDataHora', 'Editar', ['id' => $atividadeDataHora->id], ['class' => 'btn btn-primary'])}}
                             {{ Form::open(array('method' => 'POST', 'url' => route('atividades::excluirDataHora', ['id' => $atividadeDataHora->id]), 'style' => 'display:inline;')) }}
-                            {{Form::button('Remover', ['class' => 'btn btn-default', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete',
+                            {{Form::button('Remover', ['class' => 'btn btn-danger', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete',
                                 'data-title' => 'Remover Data e Horário', 'data-message' => 'Você tem certeza que deseja deletar essa data e horários?'])}}
                             {{Form::close()}}
                         </div>
                     </div>
                 @endforeach
             </div>
-            {{ link_to_route('atividades::adicionarDataHora', 'Adicionar', ['idAtividade' => $atividade->id], ['class' => 'btn btn-default']) }}
+            <div class="espacos"></div>
+            {{ link_to_route('atividades::adicionarDataHora', 'Adicionar', ['idAtividade' => $atividade->id], ['class' => 'btn btn-primary']) }}
             <hr/>
             <h4>Aprovação</h4>
             <h5>Status atual: {{$ultimoStatus->nome}}</h5>
@@ -69,13 +71,13 @@
                 <label for="comentario">Comentário</label>
                 {{ Form::textarea('comentario', null, array('class' => 'form-control')) }}
                 <div class="btn-group">
-                    {{Form::submit('Aprovar', ['class' => 'btn btn-default', 'name' => 'status']) }}
-                    {{Form::submit('Reprovar', ['class' => 'btn btn-default', 'name' => 'status']) }}
+                    {{Form::submit('Aprovar', ['class' => 'button button-blue', 'name' => 'status']) }}
+                    {{Form::submit('Reprovar', ['class' => 'button button-blue', 'name' => 'status']) }}
                 </div>
                 {{ Form::close() }}
             @endif
             <hr/>
-            {{link_to_route('atividades::editar','Editar',['id'=>$atividade->id], ['class' => 'btn btn-primary'])}}
+            {{link_to_route('atividades::editar','Editar',['id'=>$atividade->id], ['class' => 'button button-blue'])}}
         </div>
     </div>
     <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
@@ -89,8 +91,8 @@
                     <p>Are you sure about this ?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirm">Delete</button>
+                    <button type="button" class="button button-blue" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="button button-red" id="confirm">Delete</button>
                 </div>
             </div>
         </div>

@@ -15,15 +15,20 @@ Route::get('/composer', function(){
     Artisan::call('db:seed');
 });
 
-Route::get('/', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
-Route::post('/login', 'Auth\AuthController@postLogin');
-Route::get('/logout', 'Auth\AuthController@logout');
+Route::group(['as' => 'auth::'], function () {
 
-Route::get('/cadastro', 'Auth\AuthController@getCadastro');
-Route::post('/cadastroExterno', 'Auth\AuthController@getCadastroExterno');
-Route::post('/salvarExterno', 'Auth\AuthController@postSalvarExterno');
-Route::get('/cadastroAluno', 'Auth\AuthController@getCadastroAluno');
+    Route::get('/', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
+    Route::post('/login', ['as' => 'logar', 'uses' => 'Auth\AuthController@postLogin']);
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
 
+    Route::get('/cadastro', ['as' => 'cadastro', 'uses' => 'Auth\AuthController@getCadastro']);
+    Route::post('/salvarExterno', ['as' => 'salvar', 'uses' => 'Auth\AuthController@postSalvarExterno']);
+});
+//Route::post('/cadastroExterno', ['as' => 'salvar', 'uses' => 'Auth\AuthController@getCadastroExterno']);
+//Route::get('/cadastroAluno', 'Auth\AuthController@getCadastroAluno');
+
+
+Route::get('/dashboard', 'HomeController@index');
 
 // Password Reset Routes...
 Route::get('reset/{token?}', 'Auth\PasswordController@showResetForm');
@@ -197,9 +202,7 @@ Route::group(['prefix' => 'admin/'], function () {
         });
     });
 });
-//Route::auth();
 
-Route::get('/dashboard', 'HomeController@index');
 
 Route::get('/geralzaum', function () {
     return view('/eventos/eventoGeral');

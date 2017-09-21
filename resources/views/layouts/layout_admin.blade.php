@@ -41,7 +41,8 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#"><i class="fa fa-lock" aria-hidden="true"></i> Admin</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicial</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

@@ -39,14 +39,22 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{!! route("eventosPublico::index") !!}" class=""><i class="fa fa-home"
-                                                                                     aria-hidden="true"></i> Inicial</a>
+                    <li>
+                        <a href="{!! route("eventosPublico::index") !!}" class="">
+                            <i class="fa fa-home" aria-hidden="true"></i> Inicial</a>
                     </li>
-                    {{--<li><a href=""><i class="fa fa-certificate" aria-hidden="true"></i> Certificados</a></li>--}}
-                    <li><a href=""><i class="fa fa-calendar" aria-hidden="true"></i> Atividades</a></li>
                     <li><a href=""><i class="fa fa-picture-o" aria-hidden="true"></i> Galeria</a></li>
-                    <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
-                    <li><a href="{{route('login')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+                    <li><a href=""><i class="fa fa-newspaper-o" aria-hidden="true"></i> Notícias</a></li>
+                    <li><a href="{{ route('eventosPublico::atividadesEvento', ['nomeSlug' => $evento->nomeSlug]) }}"><i
+                                    class="fa fa-th-list" aria-hidden="true"></i> Programação</a></li>
+                    @if(Auth::guest())
+                        <li><a href="{{route('auth::login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                Login</a></li>
+                    @else
+                        <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
+                        <li><a href="{{route('auth::logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                                Sair</a></li>
+                    @endif
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

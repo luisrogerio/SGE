@@ -40,8 +40,17 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
-                    <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+                    <li><a href="{{ route('eventosPublico::index')  }}"><i class="fa fa-home" aria-hidden="true"></i>
+                            Inicial</a></li>
+                    @if(!Auth::guest())
+                        <li><a href="http://vandalvnl.github.io"><i class="fa fa-user" aria-hidden="true"></i>
+                                Perfil</a></li>
+                        <li><a href="{{ route('auth::logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+                        </li>
+                    @else
+                        <li><a href="{{ route('auth::login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                        </li>
+                    @endif
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

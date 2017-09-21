@@ -14,14 +14,11 @@
         <div class="col-xs-12 col-md-6 col-md-offset-3">
             <div class="espacos"></div>
             <h2>Preencha o formulário com seus dados</h2>
-
             <h4>
                 Seus dados são necessários para o cadastro no sistema.
             </h4>
-
             <div class="espacos"></div>
-
-            {{Form::open(array('url' => '/salvarExterno'))}}
+            {{Form::open(array('url' => route('auth::salvar')))}}
             <fieldset class="form-group">
                 {{ Form::label('nome', 'Nome') }}
                 {{ Form::text('nome', null, array('class' => 'form-control')) }}
@@ -31,12 +28,12 @@
                 {{ Form::email('email', null, array('class' => 'form-control')) }}
             </fieldset>
             <fieldset class="form-group">
-                {{ Form::label('dataDeNascimento', 'Data de Nascimento') }}
-                {{ Form::text('dataNascimento', null, array('class' => 'form-control', 'id' => 'dataDeNascimento')) }}
+                {{ Form::label('confirmarEmail', 'Confirmar E-mail') }}
+                {{ Form::email('confirmarEmail', null, array('class' => 'form-control')) }}
             </fieldset>
             <fieldset class="form-group">
-                {{ Form::label('cpf', 'CPF') }}
-                {{ Form::text('cpf', null, array('class' => 'form-control')) }}
+                {{ Form::label('dataDeNascimento', 'Data de Nascimento') }}
+                {{ Form::text('dataNascimento', null, array('class' => 'form-control', 'id' => 'dataDeNascimento', 'maxlength' => '10')) }}
             </fieldset>
             <fieldset class="form-group">
                 {{ Form::label('senha', 'Senha') }}
@@ -52,14 +49,9 @@
             {{Form::close() }}
         </div>
     </div>
-
     <script type="text/javascript">
         $(function () {
-            $('#dataDeNascimento').datetimepicker({
-                locale: 'pt-br',
-                format: 'DD/MM/YYYY',
-                viewMode: 'years'
-            });
+            $('#dataDeNascimento').mask('##/##/####');
         });
     </script>
 @endsection
