@@ -13,9 +13,9 @@
     {{ Html::style('css/select2.css') }}
     {{ Html::style('css/select2-bootstrap.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
-    {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
     {{ Html::style('css/beautify.css') }}
     {{ Html::style('css/admin.css') }}
+    {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
     <title>SGE - @yield('title')</title>
 </head>
 <body>

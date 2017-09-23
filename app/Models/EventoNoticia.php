@@ -37,19 +37,19 @@ class EventoNoticia extends Model
     protected $fillable = [
         'id',
         'idEventos',
-        'preview',
         'titulo',
         'noticia',
         'dataHoraPublicacao',
         'dataHoraInicio',
-        'dataHoraFim',
-        'criadoEm',
-        'modificadoEm',
-        'salvoPor'
+        'dataHoraFim'
+    ];
+
+    protected $dates = [
+        'dataHoraPublicacao'
     ];
 
     public function evento()
     {
-        $this->belongsTo('App\Models\Evento', 'idEventos');
+        return $this->belongsTo('App\Models\Evento', 'idEventos');
     }
 }

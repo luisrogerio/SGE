@@ -201,6 +201,16 @@ Route::group(['prefix' => 'admin/'], function () {
             Route::post('/salvar', ['as' => 'salvarSubevento', 'uses' => 'EventosController@postSalvar']);
         });
     });
+
+
+    Route::group(['prefix' => 'eventosNoticias/', 'as' => 'eventosNoticias::'], function () {
+        Route::get('/{idEvento}', ['as' => 'index', 'uses' => 'EventosNoticiasController@getIndex']);
+        Route::get('/adicionar/{idEvento}', ['as' => 'adicionar', 'uses' => 'EventosNoticiasController@getAdicionar']);
+        Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'EventosNoticiasController@getEditar']);
+        Route::post('/salvar/{idEvento}', ['as' => 'salvar', 'uses' => 'EventosNoticiasController@postSalvar']);
+        Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EventosNoticiasController@postAtualizar']);
+        Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosNoticiasController@postExcluir']);
+    });
 });
 
 
