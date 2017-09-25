@@ -33,6 +33,7 @@
 
             <br/>
             {{Form::submit('Editar', array('class' => 'button button-blue'))}}
+            {{link_to_route('salas::index','Voltar', ['idLocais' => $sala->local->id], ['class' => 'button button-green'])}}
             {{Form::close()}}
         </div>
     </div>

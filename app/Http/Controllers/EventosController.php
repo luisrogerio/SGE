@@ -28,7 +28,11 @@ class EventosController extends Controller
 
     public function getIndex()
     {
-        $eventos = $this->evento->orderBy('nome')->with('eventoCaracteristica')->paginate(5);
+        $eventos = $this->evento
+            ->orderBy('nome')
+            ->where('idPai', '=', null)
+            ->with('eventoCaracteristica')
+            ->paginate(5);
         return view('eventos.index', compact('eventos'));
     }
 
@@ -178,7 +182,11 @@ class EventosController extends Controller
 
     public function getIndexPublico()
     {
-        $eventos = $this->evento->orderBy('nome')->with('eventoCaracteristica')->paginate(5);
+        $eventos = $this->evento
+            ->orderBy('nome')
+            ->where('idPai', '=', null)
+            ->with('eventoCaracteristica')
+            ->paginate(5);
         Carbon::setLocale('pt_BR');
         return view('publico.eventos.index', compact('eventos'));
     }

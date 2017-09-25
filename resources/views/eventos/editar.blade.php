@@ -161,6 +161,7 @@
                         {{Form::close()}}
                     </div>
                 </div>
+                {{link_to_route('eventos::visualizar','Voltar', ['id' => $evento->id], ['class' => 'button button-green'])}}
             </div>
         </div>
     </div>

@@ -73,7 +73,7 @@ Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::',], function () 
 
 Route::group(['prefix' => 'admin/'], function () {
 
-    Route::get('/', ['uses' => 'HomeController@indexAdmin']);
+    Route::get('/', ['as' => 'admin::index', 'uses' => 'HomeController@indexAdmin']);
 
     Route::group(['prefix' => 'salas/', 'as' => 'salas::'], function () {
         Route::get('/{idLocais}', ['as' => 'index', 'uses' => 'SalasController@getIndex']);
@@ -204,10 +204,10 @@ Route::group(['prefix' => 'admin/'], function () {
 
 
     Route::group(['prefix' => 'eventosNoticias/', 'as' => 'eventosNoticias::'], function () {
-        Route::get('/{idEvento}', ['as' => 'index', 'uses' => 'EventosNoticiasController@getIndex']);
-        Route::get('/adicionar/{idEvento}', ['as' => 'adicionar', 'uses' => 'EventosNoticiasController@getAdicionar']);
+        Route::get('/{idEventos}', ['as' => 'index', 'uses' => 'EventosNoticiasController@getIndex']);
+        Route::get('/adicionar/{idEventos}', ['as' => 'adicionar', 'uses' => 'EventosNoticiasController@getAdicionar']);
         Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'EventosNoticiasController@getEditar']);
-        Route::post('/salvar/{idEvento}', ['as' => 'salvar', 'uses' => 'EventosNoticiasController@postSalvar']);
+        Route::post('/salvar/{idEventos}', ['as' => 'salvar', 'uses' => 'EventosNoticiasController@postSalvar']);
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EventosNoticiasController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosNoticiasController@postExcluir']);
     });

@@ -28,6 +28,7 @@
                 </div>
             </div>
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
+            {{link_to_route('eventosNoticias::index','Voltar', ['id' => $eventoNoticia->evento->id], ['class' => 'button button-green'])}}
             {{Form::close()}}
         </div>
     </div>

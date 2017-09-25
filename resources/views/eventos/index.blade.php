@@ -22,6 +22,7 @@
         <div class="row">
             <div class="col-md-12">
                 {{link_to_route('eventos::adicionar','Adicionar Novo', null, ['class' => 'button button-blue'])}}
+                {{link_to_route('admin::index','Voltar', null, ['class' => 'button button-green'])}}
             </div>
         </div>
     </div>

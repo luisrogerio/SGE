@@ -37,12 +37,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><i class="fa fa-graduation-cap" aria-hidden="true"></i> SGE</a>
+                <a class="navbar-brand" href="{{ route('eventosPublico::index') }}"><i class="fa fa-graduation-cap"
+                                                                                       aria-hidden="true"></i> SGE</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicial</a></li>
-                    <li class="active"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
+                    <li class="active"><a href="{{ route('eventosPublico::index') }}"><i class="fa fa-home"
+                                                                                         aria-hidden="true"></i> Inicial</a>
+                    </li>
+                    <li class="active"><a href="{{ route('admin::index') }}"><i class="fa fa-user"
+                                                                                aria-hidden="true"></i> Admin</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

@@ -15,9 +15,11 @@
                 <li role="presentation" class="active">
                     <a href="#evento" aria-controls="evento" role="tab" data-toggle="tab">Evento</a>
                 </li>
-                <li role="presentation">
-                    <a href="#caracteristica" aria-controls="caracteristica" role="tab" data-toggle="tab">Caracteristicas</a>
-                </li>
+                @if ($eventoPai == null)
+                    <li role="presentation">
+                        <a href="#caracteristica" aria-controls="caracteristica" role="tab" data-toggle="tab">Caracteristicas</a>
+                    </li>
+                @endif
             </ul>
             <div class="tab-content">
                 <div role="tabpanel1" class="tab-pane fade in active" id="evento">
@@ -85,13 +87,14 @@
                             @if ($errors->has('eventosContatos.*')) <p
                                     class="help-block">{{ $errors->first('eventosContatos.*') }}</p> @endif
                         </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('usuariosTipos[]', 'Tipo(s) de Usuário(s) permitido(s) nesse evento')}}
-                            {{Form::select('usuariosTipos[]', $tiposDeUsuario, $tiposDeUsuario, array('class' => 'form-control usuariosTipos', 'multiple')) }}
-                            @if ($errors->has('usuariosTipos.*')) <p
-                                    class="help-block">{{ $errors->first('usuariosTipos.*') }}</p> @endif
-                        </fieldset>
-                        {{ Form::button('Próximo', array('class' => 'button button-blue btnProximo')) }}
+                        @if ($eventoPai == null)
+                            <fieldset class="form-group">
+                                {{Form::label('usuariosTipos[]', 'Tipo(s) de Usuário(s) permitido(s) nesse evento')}}
+                                {{Form::select('usuariosTipos[]', $tiposDeUsuario, $tiposDeUsuario, array('class' => 'form-control usuariosTipos', 'multiple')) }}
+                                @if ($errors->has('usuariosTipos.*')) <p
+                                        class="help-block">{{ $errors->first('usuariosTipos.*') }}</p> @endif
+                            </fieldset>
+                            {{ Form::button('Próximo', array('class' => 'button button-blue btnProximo')) }}
                     </div>
                 </div>
                 <div role="tabpanel1" class="tab-pane fade" id="caracteristica">
@@ -160,80 +163,39 @@
                             @if ($errors->has('eventoCaracteristica.ePropostaAtividade')) <p
                                     class="help-block">{{ $errors->first('eventoCaracteristica.ePropostaAtividade') }}</p> @endif
                         </fieldset>
-                        {{----}}
-                        {{--<fieldset class="form-group">--}}
-                            {{--{{Form::label('eventoCaracteristica[idAparencias]', 'Tema')}}--}}
-                            {{--{{Form::select('eventoCaracteristica[idAparencias]', $temas, null, array('class' => 'form-control', $eventoPai? 'readonly':'')) }}--}}
-                            {{--@if ($errors->has('eventoCaracteristica.idAparencias')) <p--}}
-                                    {{--class="help-block">{{ $errors->first('eventoCaracteristica.idAparencias') }}</p> @endif--}}
-                        {{--</fieldset>--}}
-                        @if ($eventoPai != null)
-                            <fieldset class="form-group">
-                                <label for="eEventoPai">
-                                    {{ Form::hidden('eEventoPai', false) }}
-                                    {{ Form::checkbox('eEventoPai', true, true, array('id' => 'eEventoPai')) }}
-                                    Copiar Características de Tema do Evento Pai
+                        <fieldset class="form-group">
+                            <label for="eImagemDeFundo">
+                                {{Form::checkbox('eventoCaracteristica[eImagemDeFundo]', 1, false, array('id' => 'eImagemDeFundo'))}}
+                                Terá um Imagem de Cabeçalho
+                            </label>
+                        </fieldset>
+                        <div class="form-group">
+                            <div id="corDeFundo">
+                                <label for="eventoCaracteristica[backgroundColor]">
+                                    Cor de Fundo
                                 </label>
-                            </fieldset>
-                            <fieldset class="form-group">
-                                <label for="eImagemDeFundo">
-                                    {{Form::checkbox('eventoCaracteristica[eImagemDeFundo]', 1, false, array('id' => 'eImagemDeFundo', 'disabled'))}}
-                                    Terá uma Imagem de Fundo
-                                </label>
-                            </fieldset>
-                            <div class="form-group">
-                                <div id="corDeFundo">
-                                    <label for="eventoCaracteristica[backgroundColor]">
-                                        Cor de Fundo
-                                    </label>
-                                    {{Form::color('eventoCaracteristica[backgroundColor]', null, array('class' => 'form-control', 'disabled'))}}
-                                </div>
-                                <div id="planoDeFundo" style="display: none;">
-                                    <label for="eventoCaracteristica[backgroundImagem]">
-                                        Imagem de Fundo
-                                    </label>
-                                    {{Form::file('eventoCaracteristica[backgroundImagem]', array('disabled'))}}
-                                </div>
+                                {{Form::color('eventoCaracteristica[backgroundColor]', null, array('class' => 'form-control'))}}
                             </div>
-                            <fieldset class="form-group">
-                                {{Form::label('eventoCaracteristica[logoImagem]', 'Logo')}}
-                                {!! Form::file('eventoCaracteristica[logoImagem]', array('disabled')) !!}
-                                @if ($errors->has('eventoCaracteristica.logoImagem')) <p
-                                        class="help-block">{{ $errors->first('eventoCaracteristica.logoImagem') }}</p> @endif
-                            </fieldset>
-                        @else
-                            <fieldset class="form-group">
-                                <label for="eImagemDeFundo">
-                                    {{Form::checkbox('eventoCaracteristica[eImagemDeFundo]', 1, false, array('id' => 'eImagemDeFundo'))}}
-                                    Terá um Imagem de Cabeçalho
+                            <div id="planoDeFundo" style="display: none;">
+                                <label for="eventoCaracteristica[backgroundImagem]">
+                                    Imagem de Cabeçalho
                                 </label>
-                            </fieldset>
-                            <div class="form-group">
-                                <div id="corDeFundo">
-                                    <label for="eventoCaracteristica[backgroundColor]">
-                                        Cor de Fundo
-                                    </label>
-                                    {{Form::color('eventoCaracteristica[backgroundColor]', null, array('class' => 'form-control'))}}
-                                </div>
-                                <div id="planoDeFundo" style="display: none;">
-                                    <label for="eventoCaracteristica[backgroundImagem]">
-                                        Imagem de Cabeçalho
-                                    </label>
-                                    {{Form::file('eventoCaracteristica[backgroundImagem]')}}
-                                </div>
+                                {{Form::file('eventoCaracteristica[backgroundImagem]')}}
                             </div>
-                            <fieldset class="form-group">
-                                {{Form::label('eventoCaracteristica[logoImagem]', 'Logo (Dimensões: 100px até 200px)')}}
-                                {!! Form::file('eventoCaracteristica[logoImagem]') !!}
-                                @if ($errors->has('eventoCaracteristica.logoImagem')) <p
-                                        class="help-block">{{ $errors->first('eventoCaracteristica.logoImagem') }}</p> @endif
-                            </fieldset>
-                        @endif
+                        </div>
+                        <fieldset class="form-group">
+                            {{Form::label('eventoCaracteristica[logoImagem]', 'Logo (Dimensões: 100px até 200px)')}}
+                            {!! Form::file('eventoCaracteristica[logoImagem]') !!}
+                            @if ($errors->has('eventoCaracteristica.logoImagem')) <p
+                                    class="help-block">{{ $errors->first('eventoCaracteristica.logoImagem') }}</p> @endif
+                        </fieldset>
                         {{Form::button('Anterior', array('class' => 'button button-blue btnAnterior')) }}
+                        @endif
                         {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
                         {{Form::close()}}
                     </div>
                 </div>
+                {{link_to_route('eventos::index','Voltar', null, ['class' => 'button button-green'])}}
             </div>
         </div>
     </div>
@@ -252,34 +214,6 @@
             $('.usuariosTipos').select2({
                 theme: 'bootstrap'
             });
-            @if($eventoPai!=null)
-
-            if (!$('#eEventoPai').is(':checked')) {
-                $('#eImagemDeFundo').attr('disabled', null);
-                $('form input[name="eventoCaracteristica[backgroundColor]"]').attr('disabled', null);
-                $('form input[name="eventoCaracteristica[backgroundImagem]"]').attr('disabled', null);
-                $('form input[name="eventoCaracteristica[logoImagem]"]').attr('disabled', null);
-            } else {
-                $('#eImagemDeFundo').attr('disabled', 'disabled');
-                $('form input[name="eventoCaracteristica[backgroundColor]"]').attr('disabled', 'disabled');
-                $('form input[name="eventoCaracteristica[backgroundImagem]"]').attr('disabled', 'disabled');
-                $('form input[name="eventoCaracteristica[logoImagem]"]').attr('disabled', 'disabled');
-            }
-            $('#eEventoPai').on('change', function () {
-                if (!$('#eEventoPai').is(':checked')) {
-                    $('#eImagemDeFundo').attr('disabled', null);
-                    $('form input[name="eventoCaracteristica[backgroundColor]"]').attr('disabled', null);
-                    $('form input[name="eventoCaracteristica[backgroundImagem]"]').attr('disabled', null);
-                    $('form input[name="eventoCaracteristica[logoImagem]"]').attr('disabled', null);
-                } else {
-                    $('#eImagemDeFundo').attr('disabled', 'disabled');
-                    $('form input[name="eventoCaracteristica[backgroundColor]"]').attr('disabled', 'disabled');
-                    $('form input[name="eventoCaracteristica[backgroundImagem]"]').attr('disabled', 'disabled');
-                    $('form input[name="eventoCaracteristica[logoImagem]"]').attr('disabled', 'disabled');
-                }
-            });
-
-            @endif
             $('form input:checkbox[name="eventoCaracteristica[eImagemDeFundo]"]').on('change', function () {
                 if ($(this).is(':checked')) {
                     $('#corDeFundo').fadeOut();

@@ -5,18 +5,18 @@
     <div class="row">
         <div class="conteiner">
             <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
-                <h2>Lista de Atividades do evento {{ $evento->nome }} e subeventos:</h2>
+                <h1>{{ $evento->nome }}</h1>
+                <h2>Lista de Atividades do evento e subeventos:</h2>
                 <form action="#" class="form-group">
-                    <div class="input-group input-group-select form-group">
-                        <input type="text" name="pesquisar" class="form-control" placeholder="Busca...">
-                        <select name="pesquisa" class="form-control">
-                            <option value="subevento">Subevento</option>
-                            <option value="curso">Curso</option>
-                        </select>
+                    <div class="input-group  col-xs-3">
+                        <input type="text" class="form-control">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn button-cyan"><i class="fa fa-search"
+                                                                             aria-hidden="true"></i>
+                                Pesquisar
+                            </button>
+                        </div>
                     </div>
-                    <button type="submit" class="button button-cyan"><i class="fa fa-search" aria-hidden="true"></i>
-                        Pesquisar
-                    </button>
                 </form>
                 <hr/>
                 <h3>Evento: {{$evento->nome}}</h3>

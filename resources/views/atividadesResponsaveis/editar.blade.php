@@ -35,6 +35,7 @@
             </fieldset>
         </div>
         {{Form::submit('Editar', array('class' => 'button button-blue'))}}
+        {{link_to_route('atividades::view','Voltar', ['id' => $atividadeResponsavel->atividade->id], ['class' => 'button button-green'])}}
         {{Form::close()}}
     </div>
 @endsection

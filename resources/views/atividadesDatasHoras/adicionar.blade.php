@@ -22,6 +22,7 @@
         </div>
         {{Form::hidden('idAtividade', $atividade->id)}}
         {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
+        {{link_to_route('atividades::view','Voltar', ['id' => $atividade->id], ['class' => 'button button-green'])}}
         {{Form::close()}}
     </div>
     <script>

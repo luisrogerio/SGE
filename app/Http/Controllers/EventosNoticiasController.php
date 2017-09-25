@@ -16,21 +16,21 @@ class EventosNoticiasController extends Controller
         $this->eventoNoticia = $eventoNoticia;
     }
 
-    public function getIndex($idEvento)
+    public function getIndex($idEventos)
     {
-        $evento = Evento::findOrFail($idEvento);
-        $eventosNoticias = $this->eventoNoticia->whereIdeventos($idEvento)->orderBy('titulo')->paginate(5);
+        $evento = Evento::findOrFail($idEventos);
+        $eventosNoticias = $this->eventoNoticia->whereIdeventos($idEventos)->orderBy('titulo')->paginate(5);
         return view('eventosNoticias.index', compact('eventosNoticias', 'evento'));
     }
 
-    public function getAdicionar($idEvento)
+    public function getAdicionar($idEventos)
     {
-        return view('eventosNoticias.adicionar', compact('idEvento'));
+        return view('eventosNoticias.adicionar', compact('idEventos'));
     }
 
-    public function postSalvar(EventosNoticiasRequest $request, $idEvento)
+    public function postSalvar(EventosNoticiasRequest $request, $idEventos)
     {
-        $evento = Evento::findOrFail($idEvento);
+        $evento = Evento::findOrFail($idEventos);
         $request->merge(array(
             'dataHoraPublicacao' => Carbon::createFromFormat('d/m/Y H:i', $request->dataHoraPublicacao)
         ));
@@ -40,7 +40,7 @@ class EventosNoticiasController extends Controller
         $this->eventoNoticia->preview = rtrim($pedadosDaNoticia[0], ',;!:\'@ ');
         if ($evento->eventosNoticias()->save($this->eventoNoticia)) {
             \Session::flash('message', 'Notícia salva com sucesso');
-            return redirect()->route('eventosNoticias::index', ['idEvento' => $idEvento]);
+            return redirect()->route('eventosNoticias::index', ['idEventos' => $idEventos]);
         }
     }
 
@@ -62,16 +62,16 @@ class EventosNoticiasController extends Controller
         $this->eventoNoticia->preview = rtrim($pedadosDaNoticia[0], ',;!:\'@ ');
         if ($this->eventoNoticia->update()) {
             \Session::flash('message', 'Notícia atualizada com sucesso');
-            return redirect()->route('eventosNoticias::index', ['idEvento' => $this->eventoNoticia->evento->id]);
+            return redirect()->route('eventosNoticias::index', ['idEventos' => $this->eventoNoticia->evento->id]);
         }
     }
 
     public function postExcluir($id)
     {
         $this->eventoNoticia = $this->eventoNoticia->findOrFail($id);
-        $idEvento = $this->eventoNoticia->evento->id;
+        $idEventos = $this->eventoNoticia->evento->id;
         $this->eventoNoticia->delete();
         \Session::flash('message', 'Notícia excluída com sucesso');
-        return redirect()->route('eventosNoticias::index', ['idEvento' => $idEvento]);
+        return redirect()->route('eventosNoticias::index', ['idEventos' => $idEventos]);
     }
 }

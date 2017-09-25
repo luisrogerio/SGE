@@ -9,6 +9,7 @@
             {{Form::open(array('url'=>route('contatos::salvar')))}}
             @include('contatos.campos')
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
+            {{link_to_route('contatos::index','Voltar', null, ['class' => 'button button-green'])}}
             {{Form::close()}}
         </div>
     </div>

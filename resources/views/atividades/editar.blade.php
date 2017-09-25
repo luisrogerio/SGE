@@ -76,6 +76,7 @@
                 {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
                 {{Form::close()}}
             </div>
+            {{link_to_route('atividades::view','Voltar', ['id' => $atividade->id], ['class' => 'button button-green'])}}
         </div>
     </div>
     <script type="application/javascript">
@@ -127,7 +128,7 @@
                         selectLocais.append('<option ' + selected + ' value=' + index + '>' + element + '</option>');
                     });
                     @if(old('atividades.locais') || $locaisSelecionados)
-                        $('#selectLocal').trigger('change');
+                    $('#selectLocal').trigger('change');
                     @endif
                 });
             } else {
@@ -176,7 +177,7 @@
             }
         });
         @if($errors->any() || $unidadesSelecionadas)
-            $('#selectUnidade').trigger('change');
+        $('#selectUnidade').trigger('change');
         @endif
     </script>
 @endsection

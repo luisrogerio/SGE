@@ -25,7 +25,10 @@
             </tr>
         @endforeach
         <tr>
-            <td colspan="4">{{link_to_route('usuariosTipos::adicionar','Adicionar Novo', null, ['class' => 'button button-blue'])}}</td>
+            <td colspan="4">
+                {{link_to_route('usuariosTipos::adicionar','Adicionar Novo', null, ['class' => 'button button-blue'])}}
+                {{link_to_route('admin::index','Voltar', null, ['class' => 'button button-green'])}}
+            </td>
         </tr>
     </table>
     {{$usuariosTipos->links()}}

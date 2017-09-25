@@ -37,6 +37,7 @@
         <tr>
             <td colspan="4">
                 {{ link_to_route('unidades::adicionar','Adicionar Novo', null, ['class' => 'button button-green'])}}
+                {{link_to_route('admin::index','Voltar', null, ['class' => 'button button-green'])}}
             </td>
         </tr>
     </table>

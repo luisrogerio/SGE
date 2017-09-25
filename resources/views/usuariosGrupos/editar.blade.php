@@ -13,6 +13,7 @@
                 @if ($errors->has('nome')) <p class="help-block">{{ $errors->first('nome') }}</p> @endif
             </fieldset>
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
+            {{link_to_route('gruposdeusuario::index','Voltar', null, ['class' => 'button button-green'])}}
             {{Form::close()}}
         </div>
     </div>

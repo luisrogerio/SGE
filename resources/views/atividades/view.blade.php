@@ -77,7 +77,10 @@
                 {{ Form::close() }}
             @endif
             <hr/>
-            {{link_to_route('atividades::editar','Editar',['id'=>$atividade->id], ['class' => 'button button-blue'])}}
+            <div class="btn-group">
+                {{link_to_route('atividades::editar','Editar',['id'=>$atividade->id], ['class' => 'button button-blue'])}}
+                {{link_to_route('atividades::index','Voltar', ['id' => $atividade->evento->id], ['class' => 'button button-green'])}}
+            </div>
         </div>
     </div>
     <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">

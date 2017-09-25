@@ -66,6 +66,7 @@
             {{Form::hidden('numeroDeSalas', $numeroDeSalas)}}
             @if ($errors->has('idLocais')) <p class="help-block">{{ $errors->first('idLocais') }}</p> @endif
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
+            {{link_to_route('salas::index','Voltar', ['idLocais' => $local->id], ['class' => 'button button-green'])}}
             {{Form::close()}}
         </div>
     </div>

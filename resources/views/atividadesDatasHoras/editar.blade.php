@@ -23,6 +23,7 @@
             </fieldset>
         </div>
         {{Form::submit('Editar', array('class' => 'button button-blue'))}}
+        {{link_to_route('atividades::view','Voltar', ['id' => $atividadeDataHora->atividade->id], ['class' => 'button button-green'])}}
         {{Form::close()}}
     </div>
     <script>
@@ -39,8 +40,8 @@
         $('#dataAtividade').datetimepicker({
             format: 'DD/MM/YYYY',
             locale: 'pt-br',
-            minDate: '{{ $atividadeDataHora->atividade->evento->dataInicio->modify('-1 second')->format('m-d-Y H:i') }}',
-            maxDate: '{{ $atividadeDataHora->atividade->evento->dataTermino->modify('+1 day')->format('m-d-Y H:i') }}',
+            minDate: '{{ $atividadeDataHora->atividade->evento->dataInicio->startOfDay()->format('m-d-Y H:i') }}',
+            maxDate: '{{ $atividadeDataHora->atividade->evento->dataTermino->format('m-d-Y H:i') }}',
             useCurrent: false
         });
     </script>

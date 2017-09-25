@@ -207,8 +207,12 @@
                             <hr>
                             <div class="btn-group">
                                 {{ link_to_route('eventos::editar', 'Editar Evento', array('id' => $evento->id), array('class' => 'button button-blue')) }}
-                                {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'button button-blue')) }}
+                                @if ($evento->eventoPai == null)
+                                    {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'button button-blue')) }}
+                                @endif
                                 {{ link_to_route('atividades::index', 'Visualizar Atividades', ['idEventos' => $evento->id], array('class' => 'button button-blue')) }}
+                                {{ link_to_route('eventosNoticias::index', 'Notícias', ['idEventos' => $evento->id], array('class' => 'button button-blue')) }}
+                                {{link_to_route('eventos::index','Voltar', null, ['class' => 'button button-green'])}}
                             </div>
                         </div>
 
@@ -272,6 +276,7 @@
         $('#modalLinkExterno').on('hide.bs.modal', function () {
             $('#modalLinkExterno').removeData();
         })
+
         function getSubeventos(page) {
             $.ajax({
                 url: $(document).attr('URL') + '?page=' + page,
@@ -285,6 +290,7 @@
                 alert('Os subeventos não puderam ser carregados');
             });
         }
+
         $(function () {
             $('#adicionarLinkExterno').on('submit', function (e) {
                 $.ajaxSetup({

@@ -32,7 +32,10 @@
             </tr>
         @endforeach
         <tr>
-            <td colspan="4">{{link_to_route('eventosNoticias::adicionar','Adicionar Nova', ['idEvento' => $evento->id], ['class' => 'button button-green'])}}</td>
+            <td colspan="4">
+                {{link_to_route('eventosNoticias::adicionar','Adicionar Nova', ['idEventos' => $evento->id], ['class' => 'button button-green'])}}
+                {{link_to_route('eventos::index','Voltar', null, ['class' => 'button button-green'])}}
+            </td>
         </tr>
     </table>
     {{$eventosNoticias->links()}}

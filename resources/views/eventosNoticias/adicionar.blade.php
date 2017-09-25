@@ -6,7 +6,7 @@
             <h3>Adicionar Nova</h3>
         </div>
         <div class="panel-body">
-            {{Form::open(array('url'=>route('eventosNoticias::salvar', ['idEvento' => $idEvento])))}}
+            {{Form::open(array('url'=>route('eventosNoticias::salvar', ['idEventos' => $idEventos])))}}
             <fieldset class="form-group">
                 {{Form::label('titulo', 'Título')}}
                 {{Form::text('titulo', null, array('class' => 'form-control'))}}
@@ -28,6 +28,7 @@
                 </div>
             </div>
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
+            {{link_to_route('eventosNoticias::index','Voltar', ['id' => $idEventos], ['class' => 'button button-green'])}}
             {{Form::close()}}
         </div>
     </div>
