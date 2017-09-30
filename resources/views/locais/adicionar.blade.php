@@ -21,7 +21,9 @@
                 @if ($errors->has('idUnidades')) <p class="help-block">{{ $errors->first('idUnidades') }}</p> @endif
             </fieldset>
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
-            {{link_to_route('locais::index','Voltar', ['idUnidades' => $unidade->id], ['class' => 'button button-green'])}}
+            <button class='button button-green'>
+            {{link_to_route('locais::index','Voltar', ['idUnidades' => $unidade->id], ['style' => 'color:#fff'])}}
+            </button>
             {{Form::close()}}
         </div>
     </div>

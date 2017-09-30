@@ -22,7 +22,7 @@
                     <button class='button button-link' type='button' data-toggle="modal" data-target="#confirmDelete"
                             data-title="Deletar Contato"
                             data-message='Você tem certeza que deseja deletar esse contato?'>
-                        <i class="fa fa-trash-o"></i>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                         Deletar
                     </button>
                     {{ Form::close() }}
@@ -32,7 +32,9 @@
         <tr>
             <td colspan="3">
                 {{link_to_route('contatos::adicionar','Adicionar Novo', null, ['class' => 'button button-green'])}}
-                {{link_to_route('admin::index','Voltar', null, ['class' => 'button button-green'])}}
+                <button class="button button-green">
+                    {{link_to_route('admin::index','Voltar', null, ['style' => 'color:#fff;'])}}
+                </button>
             </td>
         </tr>
     </table>

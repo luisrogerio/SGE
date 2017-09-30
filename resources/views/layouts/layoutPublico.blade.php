@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SGE @yield('title')</title>
     <!-- Styles -->
-{{ Html::style('css/font-awesome.min.css') }}
-{{ Html::style('css/beautify.min.css') }}
-{{ Html::style('css/footer.css') }}
-{{ Html::style('css/main.css') }}
-{{ Html::style('css/bootstrap-datetimepicker.min.css') }}
-{{ Html::script('js/jquery.min.js') }}
-{{Html::script('js/jquery.mask.js')}}
+    {{ Html::style('css/font-awesome.min.css') }}
+    {{ Html::style('css/beautify.min.css') }}
+    {{ Html::style('css/footer.css') }}
+    {{ Html::style('css/main.css') }}
+    {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
+    {{ Html::script('js/jquery.min.js') }}
+    {{Html::script('js/jquery.mask.js')}}
 <!-- Scripts -->
     {{ Html::script('js/moment.js') }}
     {{Html::script('js/bootstrap.min.js')}}

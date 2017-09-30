@@ -20,7 +20,7 @@
                     <li><a href="/unidades">Locais</a></li>
                     <li><a href="/gruposdeusuario">Grupos de Usuário</a></li>
                     <li><a href="/statusdeatividade">Status de Atividade</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#contact">Contato</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
