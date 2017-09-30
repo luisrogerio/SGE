@@ -12,6 +12,7 @@
         </div>
         <div class="panel-body">
             {{Form::model($local, array('url'=>route('locais::atualizar', ['id' => $local->id])))}}
+            {{ method_field('PATCH') }}
             <fieldset class="form-group">
                 {{Form::label('nome', 'Nome')}}
                 {{Form::text('nome', null, array('class' => 'form-control'))}}

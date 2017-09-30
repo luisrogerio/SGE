@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin/'], function () {
         Route::get('/adicionar/{idUnidades}', ['as' => 'adicionar', 'uses' => 'LocaisController@getAdicionar']);
         Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'LocaisController@getEditar']);
         Route::post('/salvar', ['as' => 'salvar', 'uses' => 'LocaisController@postSalvar']);
-        Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'LocaisController@postAtualizar']);
+        Route::patch('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'LocaisController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'LocaisController@postExcluir']);
         Route::post('/getLocais/{idUnidades}', ['as' => 'getLocais', 'uses' => 'LocaisController@getLocaisByUnidade']);
     });

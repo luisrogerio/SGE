@@ -56,6 +56,7 @@ class Atividade extends Model
         'quantidadeVagas',
         'funcaoResponsavel',
         'descricao',
+        'comentario',
         'salvoPor'
     ];
 

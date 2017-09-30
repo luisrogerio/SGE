@@ -24,7 +24,9 @@ class CreateSgeEventosTable extends Migration {
 			$table->dateTime('dataInicio');
 			$table->dateTime('dataTermino');
             $table->text('descricao');
-			$table->timestamps();
+            $table->text('comissaoOrganizadora');
+            $table->string('publicoAlvo', 255);
+            $table->timestamps();
 			$table->integer('salvoPor')->nullable()->index('fk_eventos_usuarios1_idx');
 		});
 	}

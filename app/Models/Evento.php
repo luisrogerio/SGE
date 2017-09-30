@@ -63,6 +63,8 @@ class Evento extends Model
         'dataInicio',
         'dataTermino',
         'descricao',
+        'comissaoOrganizdora',
+        'publicoAlvo',
         'criadoEm',
         'modificadoEm',
         'salvoPor'

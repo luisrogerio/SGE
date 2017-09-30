@@ -24,6 +24,7 @@ class CreateSgeAtividadesTable extends Migration {
 			$table->integer('quantidadeVagas')->nullable();
 			$table->text('descricao')->nullable();
 			$table->string('funcaoResponsavel', 45)->nullable();
+            $table->text('comentario');
 			$table->timestamps();
 			$table->integer('salvoPor')->nullable()->index('fk_atividades_usuarios1_idx');
 		});

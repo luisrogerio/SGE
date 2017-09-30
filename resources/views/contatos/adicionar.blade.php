@@ -13,4 +13,10 @@
             {{Form::close()}}
         </div>
     </div>
+    <script>
+        $(function () {
+            $('#telefone').mask('(##) ####-####');
+            $('#celular').mask('(##) ###-###-###');
+        });
+    </script>
 @endsection

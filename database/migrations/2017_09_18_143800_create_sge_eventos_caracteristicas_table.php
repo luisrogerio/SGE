@@ -26,9 +26,7 @@ class CreateSgeEventosCaracteristicasTable extends Migration {
 			$table->string('eExistemNoticias', 45)->nullable();
 			$table->string('favicon', 45)->nullable();
 			$table->string('logo', 45)->nullable();
-			$table->boolean('eAcademico')->nullable();
 			$table->boolean('ePropostaAtividade')->nullable();
-			$table->boolean('eSubmissaoArtigo')->nullable();
 			$table->timestamps();
 			$table->integer('salvoPor')->nullable()->index('fk_eventos_caracteristicas_usuarios1_idx');
 		});

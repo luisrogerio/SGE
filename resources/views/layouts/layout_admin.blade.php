@@ -25,6 +25,7 @@
 {{ Html::script('js/bootstrap.js') }}
 {{ Html::script('js/bootstrap-datetimepicker.min.js') }}
 {{ Html::script('js/select2.js') }}
+{{Html::script('js/jquery.mask.js')}}
 
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">

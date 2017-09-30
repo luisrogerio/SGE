@@ -6,7 +6,7 @@
         @foreach($eventos as $evento)
             <div class="row">
                 <div class="col-md-2">
-                    <img src="{{asset($evento->eventoCaracteristica->logo)}}"
+                    <img src="{{ asset($evento->eventoCaracteristica->logo) }}"
                          class="img-thumbnail img-circle">
                 </div>
                 <div class="col-md-10">

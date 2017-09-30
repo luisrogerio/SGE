@@ -38,26 +38,6 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <fieldset class="form-group">
-                                    {{Form::label('dataInicioInscricao', 'Data de Início da Inscrição')}}
-                                    {{Form::text('dataInicioInscricao', null, array('class' => 'form-control', 'id'=>'dataInicioInscricao')) }}
-                                    @if ($errors->has('dataInicioInscricao')) <p
-                                            class="help-block">{{ $errors->first('dataInicioInscricao') }}</p> @endif
-                                </fieldset>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <fieldset class="form-group">
-                                    {{Form::label('dataFimInscricao', 'Data de Término da Inscrição')}}
-                                    {{Form::text('dataFimInscricao', null, array('class' => 'form-control', 'id' => 'dataFimInscricao')) }}
-                                    @if ($errors->has('dataFimInscricao')) <p
-                                            class="help-block">{{ $errors->first('dataFimInscricao') }}</p> @endif
-                                </fieldset>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <fieldset class="form-group">
                                     {{Form::label('dataInicio', 'Data de Início do Evento')}}
                                     {{Form::text('dataInicio', null, array('class' => 'form-control', 'id'=> 'dataInicio')) }}
                                     @if ($errors->has('dataInicio')) <p
@@ -75,11 +55,43 @@
                                 </fieldset>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <fieldset class="form-group">
+                                    {{Form::label('dataInicioInscricao', 'Data de Início da Inscrição')}}
+                                    {{Form::text('dataInicioInscricao', null, array('class' => 'form-control', 'id'=>'dataInicioInscricao')) }}
+                                    @if ($errors->has('dataInicioInscricao')) <p
+                                            class="help-block">{{ $errors->first('dataInicioInscricao') }}</p> @endif
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <fieldset class="form-group">
+                                    {{Form::label('dataFimInscricao', 'Data de Término da Inscrição')}}
+                                    {{Form::text('dataFimInscricao', null, array('class' => 'form-control', 'id' => 'dataFimInscricao')) }}
+                                    @if ($errors->has('dataFimInscricao')) <p
+                                            class="help-block">{{ $errors->first('dataFimInscricao') }}</p> @endif
+                                </fieldset>
+                            </div>
+                        </div>
                         <fieldset class="form-group">
                             {{Form::label('eventosContatos[]', 'Contato(s)')}}
                             {{Form::select('eventosContatos[]', $eventosContatos, $contatosSelecionados, array('class' => 'form-control eventosContatos', 'multiple')) }}
                             @if ($errors->has('eventosContatos.*')) <p
                                     class="help-block">{{ $errors->first('eventosContatos.*') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('comissaoOrganizadora', 'Comissão Organizadora')}}
+                            {{Form::textarea('comissaoOrganizadora', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('comissaoOrganizadora')) <p
+                                    class="help-block">{{ $errors->first('comissaoOrganizadora') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('publicoAlvo', 'Público-Alvo')}}
+                            {{Form::textarea('publicoAlvo', null, array('class' => 'form-control', 'maxlength' => 255))}}
+                            @if ($errors->has('publicoAlvo')) <p
+                                    class="help-block">{{ $errors->first('publicoAlvo') }}</p> @endif
                         </fieldset>
                         <fieldset class="form-group">
                             {{Form::label('usuariosTipos[]', 'Tipo(s) de Usuário(s) permitido(s) nesse evento')}}

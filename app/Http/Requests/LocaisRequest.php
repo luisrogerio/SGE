@@ -23,9 +23,18 @@ class LocaisRequest extends Request
      */
     public function rules()
     {
-        return [
-            'nome' => 'required|unique:locais',
-            'idUnidades' => 'required'
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'nome' => 'required|unique:locais',
+                    'idUnidades' => 'required'
+                ];
+                break;
+            case 'PATCH':
+                return [
+                    'nome' => 'required|unique:locais,nome,' . $this->route('id')
+                ];
+                break;
+        }
     }
 }
