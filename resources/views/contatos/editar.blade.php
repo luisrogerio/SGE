@@ -9,7 +9,9 @@
             {{Form::model($eventoContato, array('url'=>route('contatos::atualizar', ['id'=>$eventoContato->id])))}}
             @include('contatos.campos')
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
-            {{link_to_route('contatos::index','Voltar', null, ['class' => 'button button-green'])}}
+            <button class="button button-green">
+                {{link_to_route('contatos::index','Voltar', null, ['style' => 'color:#fff;'])}}
+            </button>
             {{Form::close()}}
         </div>
     </div>

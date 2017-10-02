@@ -43,7 +43,9 @@
 
             {{Form::hidden('idAtividade', $idAtividade)}}
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
-            {{link_to_route('atividades::view','Voltar', ['id' => $idAtividade], ['class' => 'button button-green'])}}
+            <button class="button button-green">
+                    {{link_to_route('atividades::view','Voltar', ['id' => $idAtividade], ['style' => 'color:#fff;'])}}
+                </button>
             {{Form::close()}}
         </div>
     </div>

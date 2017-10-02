@@ -207,10 +207,10 @@
                             @endif
                             <tr>
                                 <td>
-                                    <a id="btnAdd" class="button button-blue">
+                                    <a id="btnAdd" class="button button-blue" title="Adicionar">
                                         <span class="glyphicon-plus"></span>
                                     </a>
-                                    <a id="btnMinus" class="button button-blue">
+                                    <a id="btnMinus" class="button button-blue" title="Remover">
                                         <span class="glyphicon-minus"></span>
                                     </a>
                                 </td>

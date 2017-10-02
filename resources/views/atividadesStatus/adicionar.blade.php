@@ -14,6 +14,9 @@
             </fieldset>
             {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
             {{link_to_route('statusdeatividade::index','Voltar', null, ['class' => 'button button-green'])}}
+            <button class='button button-green'>
+                {{link_to_route('statusdeatividade::index','Voltar', null, ['style'=>'color:#fff;'])}}
+            </button>
             {{Form::close()}}
         </div>
     </div>

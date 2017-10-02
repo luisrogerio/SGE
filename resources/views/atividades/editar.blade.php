@@ -77,6 +77,9 @@
                 {{Form::close()}}
             </div>
             {{link_to_route('atividades::view','Voltar', ['id' => $atividade->id], ['class' => 'button button-green'])}}
+            <button class="button button-green">
+                {{link_to_route('atividades::view','Voltar', ['id' => $atividade->id], ['style' => 'color:#fff;'])}}
+            </button>
         </div>
     </div>
     <script type="application/javascript">

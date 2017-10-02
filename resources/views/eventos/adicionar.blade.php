@@ -207,7 +207,9 @@
                         {{Form::close()}}
                     </div>
                 </div>
-                {{link_to_route('eventos::index','Voltar', null, ['class' => 'button button-green'])}}
+                <button class='button button-green'>
+                {{link_to_route('eventos::index','Voltar', null, ['style'=>'color:#fff;'])}}
+            </button>
             </div>
         </div>
     </div>
