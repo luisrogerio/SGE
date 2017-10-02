@@ -37,6 +37,23 @@
         </div>
         <div class="col-xs-12 col-md-4 col-lg-4 col-sm-12 admin-box form-group box grid-item--width2">
             <h3>
+                <a href="{{ route('espacosTipos::index') }}" class="title-box">
+                    <small style="color:#131313"><i class="fa fa-calendar" aria-hidden="true"></i></small>
+                    Tipos de Espaço
+                </a>
+            </h3>
+            <p class="title-desc">
+                Cadastre os novos tipos de espaço no link abaixo
+            </p>
+            <a href="{{ route('espacosTipos::adicionar') }}" style="color: #1a1a1a">
+                <small><i class="fa fa-plus" aria-hidden="true"></i></small>
+                Novo Tipo de Espaço
+            </a>
+        </div>
+    </div>
+    <div class="row row-grid">
+        <div class="col-xs-12 col-md-4 col-lg-4 col-sm-12 admin-box form-group box grid-item--width2">
+            <h3>
                 <a href="{{ route('unidades::index') }}" class="title-box">
                     <small style="color:#131313"><i class="fa fa-calendar" aria-hidden="true"></i></small>
                     Unidades
@@ -50,8 +67,6 @@
                 Nova Unidade
             </a>
         </div>
-    </div>
-    <div class="row row-grid">
         <div class="col-xs-12 col-md-4 col-lg-4 col-sm-12 admin-box form-group box grid-item--width2">
             <h3>
                 <a href="{{ route('cursos::index') }}" class="title-box">

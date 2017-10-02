@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EspacoTipo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,7 +33,8 @@ class SalasController extends Controller
         if ($request->exists('numeroDeSalas')) {
             $numeroDeSalas = $request->numeroDeSalas;
         }
-        return view('salas.adicionar', compact('numeroDeSalas', 'local'));
+        $tiposDeEspaco = EspacoTipo::get()->pluck('nome', 'id');
+        return view('salas.adicionar', compact('numeroDeSalas', 'local', 'tiposDeEspaco'));
     }
 
     public function postSalvar(SalasRequest $request)
@@ -41,8 +43,10 @@ class SalasController extends Controller
         \DB::transaction(function () use ($request, $local) {
             for ($i = 0; $i < $request->numeroDeSalas; $i++) {
                 $this->sala = new Sala;
-                if ($request->sufixo[$i] != "") {
-                    $this->sala->nome = $request->prefixo[$i] . ' ' . $request->sufixo[$i];
+                if ($request->nome[$i] != "") {
+                    $this->sala->nome = $request->nome[$i];
+                    $this->sala->quantidade_ocupacao = $request->quantidade_ocupacao[$i];
+                    $this->sala->idEspacosTipos = $request->tipoDeEspaco[$i];
                     $this->sala->local()->associate($local);
                     $this->sala->save();
                 }
@@ -54,16 +58,15 @@ class SalasController extends Controller
     public function getEditar($id)
     {
         $sala = $this->sala->findOrFail($id);
-        $nomeEmParte = explode(' ', $sala->nome, 2);
-        $sala->prefixo = $nomeEmParte[0];
-        $sala->sufixo = $nomeEmParte[1];
-        return view('salas.editar', compact('sala'));
+        $tiposDeEspaco = EspacoTipo::get()->pluck('nome', 'id');
+        return view('salas.editar', compact('sala', 'tiposDeEspaco'));
     }
 
     public function postAtualizar(SalasRequest $request, $id)
     {
         $this->sala = $this->sala->findOrFail($id);
-        $this->sala->nome = $request->prefixo . ' ' . $request->sufixo;
+        $this->sala->fill($request->all());
+        $this->sala->idEspacosTipos = $request->tipoDeEspaco;
         if ($this->sala->update()) {
             \Session::flash('message', 'Sala atualizada com sucesso');
             return redirect()->route('salas::index', ['idLocais' => $this->sala->local->id]);

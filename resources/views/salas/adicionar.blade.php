@@ -21,44 +21,42 @@
                     @for($i = 0; $i < $numeroDeSalas; $i++)
                         <div class="form-inline col-md-6 col-sm-12">
                             <fieldset class="form-group">
-                                {{Form::label('prefixo[]', 'Espaço ', ['class' => 'hack-espaco'])}}
-                                {{ Form::select('prefixo[]', array(
-                                    'Sala' => 'Sala',
-                                    'Laboratório' => 'Laboratório',
-                                    'Anfiteatro' => 'Anfiteatro',
-                                    'Galpão' => 'Galpão',
-                                    'Quadra' => 'Quadra',
-                                    'Salão' => 'Salão'
-                                    ), null, array('class' => 'form-control hack-espaco')) }}
-                                @if ($errors->has('prefixo[]')) <p
-                                        class="help-block">{{ $errors->first('prefixo[]') }}</p>
+                                {{Form::label('tipoDeEspaco[]', 'Espaço/Vagas de Ocupação', ['class' => 'hack-espaco'])}}
+                                {{ Form::select('tipoDeEspaco[]', $tiposDeEspaco, null, array('class' => 'form-control hack-espaco')) }}
+                                @if ($errors->has('tipoDeEspaco[]')) <p
+                                        class="help-block">{{ $errors->first('tipoDeEspaco[]') }}</p>
                                 @endif
                             </fieldset>
                             <fieldset class="form-group">
-                                {{Form::text('sufixo[]', null, array('class' => 'form-control col-xs-2 hack-espaco'))}}
-                                @if ($errors->has('sufixo[]')) <p
-                                        class="help-block">{{ $errors->first('sufixo[]') }}</p> @endif
+                                {{Form::text('nome[]', null, array('class' => 'form-control hack-espaco', 'placeholder' => 'Sala'))}}
+                                @if ($errors->has('nome[]')) <p
+                                        class="help-block">{{ $errors->first('nome[]') }}</p> @endif
+                            </fieldset>
+                            <fieldset class="form-group">
+                                {{Form::number('quantidade_ocupacao[]', null, array('class' => 'form-control hack-espaco', 'placeholder' => '20'))}}
+                                @if ($errors->has('quantidade_ocupacao[]')) <p
+                                        class="help-block">{{ $errors->first('quantidade_ocupacao[]') }}</p> @endif
                             </fieldset>
                         </div>
                     @endfor
                 </div>
             @else
                 <fieldset class="form-group">
-                    {{Form::label('prefixo[]', 'Prefixo')}}
-                    {{ Form::select('prefixo[]', array(
-                        'Sala' => 'Sala',
-                        'Laboratório' => 'Laboratório',
-                        'Anfiteatro' => 'Anfiteatro',
-                        'Galpão' => 'Galpão',
-                        'Quadra' => 'Quadra',
-                        'Salão' => 'Salão'
-                        ), null, array('class' => 'form-control')) }}
-                    @if ($errors->has('prefixo[]')) <p class="help-block">{{ $errors->first('prefixo[]') }}</p> @endif
+                    {{Form::label('tipoDeEspaco[]', 'Tipo de Espaço')}}
+                    {{ Form::select('tipoDeEspaco[]', $tiposDeEspaco, null, array('class' => 'form-control')) }}
+                    @if ($errors->has('tipoDeEspaco[]')) <p
+                            class="help-block">{{ $errors->first('tipoDeEspaco[]') }}</p> @endif
                 </fieldset>
                 <fieldset class="form-group">
-                    {{Form::label('sufixo[]', 'Nome')}}
-                    {{Form::text('sufixo[]', null, array('class' => 'form-control'))}}
-                    @if ($errors->has('sufixo[]')) <p class="help-block">{{ $errors->first('sufixo[]') }}</p> @endif
+                    {{Form::label('nome[]', 'Nome')}}
+                    {{Form::text('nome[]', null, array('class' => 'form-control'))}}
+                    @if ($errors->has('nome[]')) <p class="help-block">{{ $errors->first('nome[]') }}</p> @endif
+                </fieldset>
+                <fieldset class="form-group">
+                    {{Form::label('quantidade_ocupacao[]', 'Vagas de Ocupação')}}
+                    {{Form::number('quantidade_ocupacao[]', null, array('class' => 'form-control'))}}
+                    @if ($errors->has('nome[]')) <p
+                            class="help-block">{{ $errors->first('quantidade_ocupacao[]') }}</p> @endif
                 </fieldset>
             @endif
             <br/>

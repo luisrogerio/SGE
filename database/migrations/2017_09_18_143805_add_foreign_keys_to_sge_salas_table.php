@@ -14,8 +14,8 @@ class AddForeignKeysToSgeSalasTable extends Migration {
 	{
 		Schema::table('salas', function(Blueprint $table)
 		{
-			$table->foreign('idLocais', 'fk_salas_locais1')->references('id')->on('sge_locais')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('salvoPor', 'fk_sge_salas_sge_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idLocais', 'fk_salas_locais1')->references('id')->on('locais')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_sge_salas_sge_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

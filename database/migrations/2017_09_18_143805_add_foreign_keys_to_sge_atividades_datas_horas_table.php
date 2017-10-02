@@ -14,8 +14,8 @@ class AddForeignKeysToSgeAtividadesDatasHorasTable extends Migration {
 	{
 		Schema::table('atividades_datas_horas', function(Blueprint $table)
 		{
-			$table->foreign('idAtividades', 'fk_atividadeHorario_atividades1')->references('id')->on('sge_atividades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('salvoPor', 'fk_atividades_datas_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idAtividades', 'fk_atividadeHorario_atividades1')->references('id')->on('atividades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_atividades_datas_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

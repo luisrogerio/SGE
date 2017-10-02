@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class SalasRequest extends Request
+class EspacosTiposRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class SalasRequest extends Request
     public function rules()
     {
         return [
-            'tipoDeEspaco.*' => 'required'
+            'nome' => 'required|unique:espacos_tipos'
         ];
     }
 }

@@ -62,6 +62,17 @@ class AtividadesController extends Controller
             $this->atividade->local()->associate($local);
             $this->atividade->sala()->associate($sala);
 
+            $this->atividade->comentario =
+                '<h3>Nome do Proponente: </h3>' . $request->comentarios[5] .
+                '<h3>Telefone do Proponente: </h3>' . $request->comentarios[6] .
+                '<h3>E-mail do Proponente: </h3>' . $request->comentarios[7] .
+                '<h3>Campus de Lotação do Proponente: </h3>' . $request->comentarios[8] .
+                '<h3>Área de Conhecimento: </h3>' . $request->comentarios[0] .
+                '<h3>Justificativa: </h3>>' . $request->comentarios[1] .
+                '<h3>Público-Alvo: </h3>>' . $request->comentarios[2] .
+                '<h3>Recursos/Materiais: </h3>>' . $request->comentarios[3] .
+                '<h3>Metodologia: </h3>>' . $request->comentarios[4];
+
             $this->atividade->save();
 
             $cursos[] = $request->atividades['idCursos'];
@@ -168,4 +179,77 @@ class AtividadesController extends Controller
         $this->atividade->statusDeAtividade()->attach($status->id, ["observacao" => $request->comentario]);
         return redirect()->back();
     }
+
+    public function getAdicionarPublico($nomeEvento)
+    {
+        $evento = Evento::whereNomeslug($nomeEvento)->get()->first();
+        $cursos = Curso::get()->lists('sigla', 'id');
+        $atividadesTipos = AtividadeTipo::get()->lists('nome', 'id');
+        $unidades = Unidade::get()->lists('nome', 'id');
+        return view('publico.atividades.adicionar', compact('evento', 'cursos', 'atividadesTipos', 'unidades'));
+    }
+
+    public function postSalvarPublico(AtividadesRequest $request)
+    {
+        \DB::transaction(function () use ($request) {
+            $this->atividade->fill($request->all());
+
+            $evento = Evento::findOrFail($this->atividade->idEventos);
+            $this->atividade->evento()->associate($evento);
+
+            $unidade = Unidade::find($request->atividades['unidades']);
+            $local = Local::find($request->atividades['locais']);
+            $sala = Sala::find($request->atividades['salas']);
+
+            $this->atividade->unidade()->associate($unidade);
+            $this->atividade->local()->associate($local);
+            $this->atividade->sala()->associate($sala);
+
+            $this->atividade->comentario =
+                '<h3>Nome do Proponente: </h3>' . $request->comentarios[5] .
+                '<h3>Telefone do Proponente: </h3>' . $request->comentarios[6] .
+                '<h3>E-mail do Proponente: </h3>' . $request->comentarios[7] .
+                '<h3>Campus de Lotação do Proponente: </h3>' . $request->comentarios[8] .
+                '<h3>Área de Conhecimento: </h3>' . $request->comentarios[0] .
+                '<h3>Justificativa: </h3>>' . $request->comentarios[1] .
+                '<h3>Público-Alvo: </h3>>' . $request->comentarios[2] .
+                '<h3>Recursos/Materiais: </h3>>' . $request->comentarios[3] .
+                '<h3>Metodologia: </h3>>' . $request->comentarios[4];
+
+            $this->atividade->save();
+
+            $cursos[] = $request->atividades['idCursos'];
+            foreach ($cursos['0'] as $idCursos) {
+                $cursosDatas[$idCursos] =
+                    [
+                        'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
+                        'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
+                    ];
+            }
+
+            $this->atividade->cursos()->sync($cursosDatas);
+
+            if ($evento->eventoCaracteristica->ePropostaAtividade) {
+                $statusDeAtividade = AtividadeStatus::whereNome('Proposta')->first();
+            } else {
+                $statusDeAtividade = AtividadeStatus::whereNome('Aceita')->first();
+            }
+            $this->atividade->statusDeAtividade()->attach($statusDeAtividade->id);
+
+
+            for ($i = 0; $i < count($request->atividades_data); $i++) {
+                $this->atividade->atividadesDatasHoras()->create([
+                    'data' => Carbon::createFromFormat('d/m/Y', $request->atividades_data[$i]),
+                    'horarioInicio' => $request->atividades_horarioInicio[$i],
+                    'horarioTermino' => $request->atividades_horarioTermino[$i]
+                ]);
+            }
+        });
+        \Session::flash('message', 'Atividade salva com sucesso');
+        return redirect()->route('adicionarResponsavelPublico', [
+            'idAtividade' => $this->atividade->id,
+            'quantidadeResponsaveis' => $request->atividades['quantidadeResponsaveis']
+        ]);
+    }
+
 }

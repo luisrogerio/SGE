@@ -14,7 +14,7 @@ class AddForeignKeysToSgeAparenciasTable extends Migration {
 	{
 		Schema::table('aparencias', function(Blueprint $table)
 		{
-			$table->foreign('salvoPor', 'fk_aparencias_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_aparencias_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

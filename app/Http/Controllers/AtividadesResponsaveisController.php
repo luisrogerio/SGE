@@ -71,4 +71,31 @@ class AtividadesResponsaveisController extends Controller
             return redirect()->route('atividades::view', ['id' => $idAtividade]);
         }
     }
+
+    public function getAdicionarPublico($idAtividade, $quantidadeResponsaveis)
+    {
+        return view('publico.atividades.adicionarResponsavel', [
+            'idAtividade' => $idAtividade,
+            'quantidadeResponsaveis' => $quantidadeResponsaveis
+        ]);
+    }
+
+    public function postSalvarResponsavelPublico(AtividadeResponsavelRequest $request)
+    {
+        $atividade = Atividade::findOrFail($request->idAtividade);
+
+        foreach ($request->salvar as $key => $value) {
+            if ($value) {
+                $atividadeResponsavel = [
+                    'nome' => $request->input('nome.' . $key),
+                    'titulacao' => $request->input('titulacao.' . $key),
+                    'instituicaoOrigem' => $request->input('instituicaoOrigem.' . $key),
+                    'experienciaProfissional' => $request->input('experienciaProfissional.' . $key)
+                ];
+                $atividade->atividadesResponsaveis()->create($atividadeResponsavel);
+                \Session::flash('message', 'Responsável adicionado com sucesso');
+            }
+        }
+        return redirect()->route('adicionarAtividadePublico', ['nomeEvento' => $atividade->evento->nomeSlug]);
+    }
 }

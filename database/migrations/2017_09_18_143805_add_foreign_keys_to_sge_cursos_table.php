@@ -14,7 +14,7 @@ class AddForeignKeysToSgeCursosTable extends Migration {
 	{
 		Schema::table('cursos', function(Blueprint $table)
 		{
-			$table->foreign('salvoPor', 'fk_cursos_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_cursos_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

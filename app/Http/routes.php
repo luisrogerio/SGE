@@ -29,6 +29,10 @@ Route::group(['as' => 'auth::'], function () {
 
 
 Route::get('/dashboard', 'HomeController@index');
+Route::get('/propostas/{nomeEvento}', ['as' => 'adicionarAtividadePublico', 'uses' => 'AtividadesController@getAdicionarPublico']);
+Route::post('/salvarProposta', ['as' => 'salvarAtividadePublico', 'uses' => 'AtividadesController@postSalvarPublico']);
+Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@getAdicionarPublico']);
+Route::post('/salvarResponsavel', ['as' => 'salvarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavelPublico']);
 
 // Password Reset Routes...
 Route::get('reset/{token?}', 'Auth\PasswordController@showResetForm');
@@ -71,10 +75,19 @@ Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::',], function () 
 });
 
 
-Route::group(['prefix' => 'admin/'], function () {
+Route::group(['prefix' => 'admin/', 'middleware' => 'auth'], function () {
 
     Route::get('/', ['as' => 'admin::index', 'uses' => 'HomeController@indexAdmin']);
 
+    Route::group(['prefix' => 'espacosTipos/', 'as' => 'espacosTipos::',], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'EspacosTiposController@getIndex',]);
+        Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'EspacosTiposController@getAdicionar']);
+        Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'EspacosTiposController@getEditar']);
+        Route::post('/salvar', ['as' => 'salvar', 'uses' => 'EspacosTiposController@postSalvar']);
+        Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EspacosTiposController@postAtualizar']);
+        Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EspacosTiposController@postExcluir']);
+    });
+    
     Route::group(['prefix' => 'salas/', 'as' => 'salas::'], function () {
         Route::get('/{idLocais}', ['as' => 'index', 'uses' => 'SalasController@getIndex']);
         Route::get('/adicionar/{idLocais}', ['as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
@@ -201,7 +214,6 @@ Route::group(['prefix' => 'admin/'], function () {
             Route::post('/salvar', ['as' => 'salvarSubevento', 'uses' => 'EventosController@postSalvar']);
         });
     });
-
 
     Route::group(['prefix' => 'eventosNoticias/', 'as' => 'eventosNoticias::'], function () {
         Route::get('/{idEventos}', ['as' => 'index', 'uses' => 'EventosNoticiasController@getIndex']);

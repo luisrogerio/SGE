@@ -14,7 +14,7 @@ class AddForeignKeysToSgeAtividadesStatusTable extends Migration {
 	{
 		Schema::table('atividades_status', function(Blueprint $table)
 		{
-			$table->foreign('salvoPor', 'fk_atividades_status_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_atividades_status_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

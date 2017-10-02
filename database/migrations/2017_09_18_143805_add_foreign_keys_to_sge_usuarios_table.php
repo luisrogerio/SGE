@@ -14,8 +14,8 @@ class AddForeignKeysToSgeUsuariosTable extends Migration {
 	{
 		Schema::table('usuarios', function(Blueprint $table)
 		{
-			$table->foreign('idCursos', 'fk_usuarios_curso1')->references('id')->on('sge_cursos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('idUsuariosTipos', 'fk_usuarios_usuarios_tipos1')->references('id')->on('sge_usuarios_tipos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idCursos', 'fk_usuarios_curso1')->references('id')->on('cursos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idUsuariosTipos', 'fk_usuarios_usuarios_tipos1')->references('id')->on('usuarios_tipos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

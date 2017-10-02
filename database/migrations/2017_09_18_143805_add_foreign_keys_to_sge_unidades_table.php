@@ -14,7 +14,7 @@ class AddForeignKeysToSgeUnidadesTable extends Migration {
 	{
 		Schema::table('unidades', function(Blueprint $table)
 		{
-			$table->foreign('salvoPor', 'fk_sge_unidades_sge_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_sge_unidades_sge_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

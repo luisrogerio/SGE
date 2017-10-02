@@ -64,6 +64,8 @@
             <div class="espacos"></div>
             {{ link_to_route('atividades::adicionarDataHora', 'Adicionar', ['idAtividade' => $atividade->id], ['class' => 'btn btn-primary']) }}
             <hr/>
+            <h4>Comentários</h4>
+            <p class="text-capitalize">{!! $atividade->comentario !!} </p>
             <h4>Aprovação</h4>
             <h5>Status atual: {{$ultimoStatus->nome}}</h5>
             @if($atividade->evento->eventoCaracteristica->ePropostaAtividade && $ultimoStatus->nome == 'Proposta')

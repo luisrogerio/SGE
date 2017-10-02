@@ -14,8 +14,8 @@ class AddForeignKeysToSgeAtividadesResponsaveisTable extends Migration {
 	{
 		Schema::table('atividades_responsaveis', function(Blueprint $table)
 		{
-			$table->foreign('idAtividades', 'fk_atividades_responsaveis_atividades1')->references('id')->on('sge_atividades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('salvoPor', 'fk_atividades_responsaveis_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idAtividades', 'fk_atividades_responsaveis_atividades1')->references('id')->on('atividades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_atividades_responsaveis_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

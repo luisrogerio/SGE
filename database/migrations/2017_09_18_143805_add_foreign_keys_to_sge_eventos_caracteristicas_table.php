@@ -14,8 +14,8 @@ class AddForeignKeysToSgeEventosCaracteristicasTable extends Migration {
 	{
 		Schema::table('eventos_caracteristicas', function(Blueprint $table)
 		{
-			$table->foreign('idEventos', 'fk_eventos_caracteristicas_eventos1')->references('id')->on('sge_eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('salvoPor', 'fk_eventos_caracteristicas_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idEventos', 'fk_eventos_caracteristicas_eventos1')->references('id')->on('eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_eventos_caracteristicas_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

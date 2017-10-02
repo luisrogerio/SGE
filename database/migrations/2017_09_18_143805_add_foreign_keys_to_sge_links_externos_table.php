@@ -14,8 +14,8 @@ class AddForeignKeysToSgeLinksExternosTable extends Migration {
 	{
 		Schema::table('links_externos', function(Blueprint $table)
 		{
-			$table->foreign('idEventos', 'fk_links_externos_eventos1')->references('id')->on('sge_eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('salvoPor', 'fk_sge_links_externos_sge_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idEventos', 'fk_links_externos_eventos1')->references('id')->on('eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_sge_links_externos_sge_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

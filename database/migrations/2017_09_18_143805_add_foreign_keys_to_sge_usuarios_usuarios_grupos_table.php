@@ -14,8 +14,8 @@ class AddForeignKeysToSgeUsuariosUsuariosGruposTable extends Migration {
 	{
 		Schema::table('usuarios_usuarios_grupos', function(Blueprint $table)
 		{
-			$table->foreign('idUsuarios', 'fk_usuarios_grupos_has_usuarios_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('idUsuariosGrupos', 'fk_usuarios_grupos_has_usuarios_usuarios_grupos1')->references('id')->on('sge_usuarios_grupos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idUsuarios', 'fk_usuarios_grupos_has_usuarios_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idUsuariosGrupos', 'fk_usuarios_grupos_has_usuarios_usuarios_grupos1')->references('id')->on('usuarios_grupos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

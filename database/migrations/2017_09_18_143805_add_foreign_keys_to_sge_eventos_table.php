@@ -14,9 +14,9 @@ class AddForeignKeysToSgeEventosTable extends Migration {
 	{
 		Schema::table('eventos', function(Blueprint $table)
 		{
-			$table->foreign('idPai', 'fk_eventos_eventos1')->references('id')->on('sge_eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('idEdicaoAnterior', 'fk_eventos_eventos2')->references('id')->on('sge_eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('salvoPor', 'fk_eventos_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idPai', 'fk_eventos_eventos1')->references('id')->on('eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idEdicaoAnterior', 'fk_eventos_eventos2')->references('id')->on('eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_eventos_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

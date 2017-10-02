@@ -14,8 +14,8 @@ class AddForeignKeysToSgeLocaisTable extends Migration {
 	{
 		Schema::table('locais', function(Blueprint $table)
 		{
-			$table->foreign('salvoPor', 'fk_locais_usuarios1')->references('id')->on('sge_usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('idUnidades', 'fk_sge_locais_sge_unidades1')->references('id')->on('sge_unidades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('salvoPor', 'fk_locais_usuarios1')->references('id')->on('usuarios')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('idUnidades', 'fk_sge_locais_sge_unidades1')->references('id')->on('unidades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 

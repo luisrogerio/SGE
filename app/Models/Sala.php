@@ -25,7 +25,8 @@ use Illuminate\Database\Eloquent\Model;
 class Sala extends Model
 {
     protected $fillable = [
-        'nome'
+        'nome',
+        'quantidade_ocupacao'
     ];
 
     protected $table = 'salas';
@@ -33,5 +34,10 @@ class Sala extends Model
     public function local()
     {
         return $this->belongsTo('App\Models\Local', 'idLocais');
+    }
+
+    public function tipoDeEspaco()
+    {
+        return $this->belongsTo('App\Models\EspacoTipo', 'idEspacosTipos');
     }
 }

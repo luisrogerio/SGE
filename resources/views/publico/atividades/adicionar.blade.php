@@ -6,7 +6,7 @@
             <h3>Adicionar Nova</h3>
         </div>
         <div class="panel-body">
-            {{Form::open(array('url'=>route('atividades::salvar')))}}
+            {{Form::open(array('url'=>route('salvarAtividadePublico')))}}
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li role="presentation" class="active">
                     <a href="#atividade" aria-controls="atividade" role="tab" data-toggle="tab">Atividade</a>
@@ -232,8 +232,8 @@
         });
         $('#telefoneProponente').mask("(##) ###-###-###");
         @if(old('atividades_data'))
-            @foreach(old('atividades_data') as $key => $value)
-                $('#horaInicioAtividade{{ ($key+1) }}').datetimepicker({
+        @foreach(old('atividades_data') as $key => $value)
+        $('#horaInicioAtividade{{ ($key+1) }}').datetimepicker({
             format: 'HH:mm',
             locale: 'pt-br',
             stepping: 5
@@ -324,20 +324,20 @@
                         selectLocais.append('<option ' + selected + ' value=' + index + '>' + element + '</option>');
                     });
                     @if(old('atividades.locais'))
-                        $('#selectLocal').trigger('change');
+                    $('#selectLocal').trigger('change');
                     @endif
                 });
             } else {
                 $("#selectLocal")
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append('<option value>Selecione um Local</option>');
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append('<option value>Selecione um Local</option>');
                 $("#selectSala")
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append('<option value>Selecione uma Sala</option>');
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append('<option value>Selecione uma Sala</option>');
             }
         });
         $('#selectLocal').on('change', function () {
@@ -366,14 +366,14 @@
                 });
             } else {
                 $("#selectSala")
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append('<option value>Selecione uma Sala</option>');
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append('<option value>Selecione uma Sala</option>');
             }
         });
         @if($errors->any())
-            $('#selectUnidade').trigger('change');
+        $('#selectUnidade').trigger('change');
                 @endif
         var linha = 1;
         $('#btnAdd').click(function () {
@@ -382,24 +382,24 @@
             }
             linha++;
             var linhaCopiada =
-                    "<tr> <td> " +
-                    "<input class=\"form-control\" id=\"dataAtividade1\" name=\"atividades.data[]\" type=\"text\" value=\"\"> " +
-                    "<\/td> <td class=\"horarios\"> <div class=\"row\"> <div class=\"col-md-6 col-xs-12\"> " +
-                    "<input class=\"form-control\" id=\"horaInicioAtividade1\" name=\"atividades.horarioInicio[]\" " +
-                    "type=\"text\" value=\"12:00\"> <\/div> <div class=\"col-md-6 col-xs-12\"> " +
-                    "<input class=\"form-control\" id=\"horaTerminoAtividade1\" name=\"atividades.horarioTermino[]\" " +
-                    "type=\"text\" value=\"13:00\"> " +
-                    "<\/div> <\/div> " +
-                    "<\/td> " +
-                    "<\/tr>";
+                "<tr> <td> " +
+                "<input class=\"form-control\" id=\"dataAtividade1\" name=\"atividades.data[]\" type=\"text\" value=\"\"> " +
+                "<\/td> <td class=\"horarios\"> <div class=\"row\"> <div class=\"col-md-6 col-xs-12\"> " +
+                "<input class=\"form-control\" id=\"horaInicioAtividade1\" name=\"atividades.horarioInicio[]\" " +
+                "type=\"text\" value=\"12:00\"> <\/div> <div class=\"col-md-6 col-xs-12\"> " +
+                "<input class=\"form-control\" id=\"horaTerminoAtividade1\" name=\"atividades.horarioTermino[]\" " +
+                "type=\"text\" value=\"13:00\"> " +
+                "<\/div> <\/div> " +
+                "<\/td> " +
+                "<\/tr>";
 
             var parentTr = $(this).parents('tr:first');
             novaLinha = $(linhaCopiada).insertBefore(parentTr);
             console.log(novaLinha);
             novoInputData =
-                    novaLinha.find('td')
-                            .eq(0)
-                            .find('input:first');
+                novaLinha.find('td')
+                    .eq(0)
+                    .find('input:first');
             novoInputData.attr('id', 'dataAtividade' + linha);
             novoInputData.datetimepicker({
                 format: 'DD/MM/YYYY',
@@ -412,9 +412,9 @@
             });
 
             novoInputHoraInicio =
-                    novaLinha.find('td')
-                            .eq(1)
-                            .find('input:first');
+                novaLinha.find('td')
+                    .eq(1)
+                    .find('input:first');
             novoInputHoraInicio.attr('id', 'horaInicioAtividade' + linha);
             novoInputHoraInicio.datetimepicker({
                 format: 'HH:mm',
@@ -423,9 +423,9 @@
             });
 
             novoInputHoraTermino =
-                    novaLinha.find('td')
-                            .eq(1)
-                            .find('input:last');
+                novaLinha.find('td')
+                    .eq(1)
+                    .find('input:last');
             novoInputHoraTermino.attr('id', 'horaTerminoAtividade' + linha);
             novoInputHoraTermino.datetimepicker({
                 format: 'HH:mm',
