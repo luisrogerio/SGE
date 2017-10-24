@@ -27,6 +27,7 @@ class EventosRequest extends Request
             case 'POST':
                 if ($this->route('idPai') == 0) {
                     return [
+                        'titulo' => 'required',
                         'nome' => 'required|unique:eventos',
                         'descricao' => 'required',
                         'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
@@ -47,6 +48,7 @@ class EventosRequest extends Request
                     ];
                 } else {
                     return [
+                        'titulo' => 'required',
                         'nome' => 'required|unique:eventos',
                         'descricao' => 'required',
                         'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
@@ -59,6 +61,7 @@ class EventosRequest extends Request
                 break;
             case 'PATCH':
                 return [
+                    'titulo' => 'required',
                     'nome' => 'required|unique:eventos,nome,'.$this->route('id'),
                     'descricao' => 'required',
                     'dataInicioInscricao' => 'required|date_format:"d/m/Y H:i"|after:today',
@@ -70,8 +73,7 @@ class EventosRequest extends Request
                     'eventoCaracteristica.dataLiberacaoCertificado' => 'required_if:eventosCaracteristicas.eEmiteCertificado, true|date_format:"d/m/Y"|after:today',
                     'eventoCaracteristica.eExistemImagens' => 'boolean',
                     'eventoCaracteristica.eExistemNoticias' => 'boolean',
-                    'eventoCaracteristica.ePropostaAtividade' => 'boolean',
-                    'eventoCaracteristica.idAparencias' => 'required',
+                    'eventoCaracteristica.ePropostaAtividade' => 'boolean'
                 ];
         }
 
@@ -80,7 +82,7 @@ class EventosRequest extends Request
     public function messages()
     {
         return [
-            'eventoCaracteristica.logoImagem.dimensions' => 'Dimensões permitidas 140px/140px até 200px/200px'
+            'eventoCaracteristica.logoImagem.dimensions' => 'Dimensões permitidas 100px/100px até 200px/200px'
         ];
     }
 

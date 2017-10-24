@@ -13,16 +13,10 @@ class AtividadeTipoSeeder extends Seeder
     {
         DB::table('atividades_tipos')->insert([
             [
-                'nome' => 'Palestra'
-            ],
-            [
                 'nome' => 'Oficina'
             ],
             [
                 'nome' => 'Mini-Curso'
-            ],
-            [
-                'nome' => 'Mesa Redonda'
             ]
         ]);
     }

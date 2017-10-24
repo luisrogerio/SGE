@@ -10,7 +10,7 @@
             {{ method_field('PATCH') }}
             <div class="well">
                 <fieldset class="form-group">
-                    {{Form::label('nome', 'Nome')}}
+                    {{Form::label('nome', 'Título de Atividade')}}
                     {{Form::text('nome', null, array('class' => 'form-control'))}}
                     @if ($errors->has('nome')) <p
                             class="help-block">{{ $errors->first('nome') }}</p> @endif
@@ -34,35 +34,35 @@
                             class="help-block">{{ $errors->first('descricao') }}</p> @endif
                 </fieldset>
                 <fieldset class="form-group">
-                    {{Form::label('funcaoResponsavel', 'Nome da Função do Responsável da Atividade')}}
-                    {{Form::text('funcaoResponsavel', null, array('class' => 'form-control', 'placeholder' => 'Ex.: Palestrante ou Diretor da Mesa Redonda'))}}
-                    @if ($errors->has('funcaoResponsavel')) <p
-                            class="help-block">{{ $errors->first('funcaoResponsavel') }}</p> @endif
+                    {{Form::label('comentario', 'Informações Extras')}}
+                    {{Form::textarea('comentario', null, array('class' => 'form-control'))}}
+                    @if ($errors->has('comentario')) <p
+                            class="help-block">{{ $errors->first('comentario') }}</p> @endif
                 </fieldset>
-                <fieldset class="form-group">
-                    {{Form::label('atividades[idCursos][]', 'Cursos')}}
-                    {{Form::select('atividades[idCursos][]', $cursos, $cursosSelecionados,  array('class' => 'form-control idCursos', 'multiple'))}}
+                {{--<fieldset class="form-group">--}}
+                    {{--{{Form::label('atividades[idCursos][]', 'Cursos')}}--}}
+                    {{--{{Form::select('atividades[idCursos][]', $cursos, $cursosSelecionados,  array('class' => 'form-control idCursos', 'multiple'))}}--}}
 
-                    @if ($errors->has('atividades.idCursos[]')) <p
-                            class="help-block">{{$errors->first('atividades.idCursos[]')}}</p> @endif
-                </fieldset>
+                    {{--@if ($errors->has('atividades.idCursos[]')) <p--}}
+                            {{--class="help-block">{{$errors->first('atividades.idCursos[]')}}</p> @endif--}}
+                {{--</fieldset>--}}
+                {{--<fieldset class="form-group">--}}
+                    {{--{{Form::label('atividadesCursosDatas', 'Datas de Inscrição para os Cursos')}}--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-md-6 col-xs-12">--}}
+                            {{--{{Form::text('atividadesCursos.dataInicio', $atividade->cursos->first()->pivot->dataInicio->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataInicioInscricao'))}}--}}
+                        {{--</div>--}}
+                        {{--<div class="col-md-6 col-xs-12">--}}
+                            {{--{{Form::text('atividadesCursos.dataFim', $atividade->cursos->first()->pivot->dataFim->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataFimInscricao'))}}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</fieldset>--}}
                 <fieldset class="form-group">
-                    {{Form::label('atividadesCursosDatas', 'Datas de Inscrição para os Cursos')}}
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12">
-                            {{Form::text('atividadesCursos.dataInicio', $atividade->cursos->first()->pivot->dataInicio->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataInicioInscricao'))}}
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            {{Form::text('atividadesCursos.dataFim', $atividade->cursos->first()->pivot->dataFim->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataFimInscricao'))}}
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset class="form-group">
-                    {{ Form::label('unidadeLocalSala', 'Unidade/Local/Sala') }}
+                    {{ Form::label('unidadeLocalSala', 'Unidade / Ambiente / Sala') }}
                     {{Form::select('atividades[unidades]', $unidades, $unidadesSelecionadas,
                         array('class' => 'form-control', 'placeholder' => 'Selecione uma Unidade', 'id' => 'selectUnidade'))}}
                     {{Form::select('atividades[locais]', array(), null,
-                        array('class' => 'form-control', 'placeholder' => 'Selecione um Local', 'id' => 'selectLocal'))}}
+                        array('class' => 'form-control', 'placeholder' => 'Selecione um Ambiente', 'id' => 'selectLocal'))}}
                     {{Form::select('atividades[salas]', array(), null,
                         array('class' => 'form-control', 'placeholder' => 'Selecione uma Sala', 'id' => 'selectSala'))}}
 
@@ -76,10 +76,11 @@
                 {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
                 {{Form::close()}}
             </div>
-            {{link_to_route('atividades::view','Voltar', ['id' => $atividade->id], ['class' => 'button button-green'])}}
-            <button class="button button-green">
-                {{link_to_route('atividades::view','Voltar', ['id' => $atividade->id], ['style' => 'color:#fff;'])}}
-            </button>
+            <a href="{{ route('atividades::view', ['id' => $atividade->id], ['style' => 'color:#fff;']) }}">
+                <button class="button button-green">
+                    Voltar
+                </button>
+            </a>
         </div>
     </div>
     <script type="application/javascript">

@@ -8,25 +8,37 @@
         <div class="panel-body">
             <h3>Descrição</h3>
             <p class="text-capitalize">{{ $atividade->descricao }}</p>
-            <h4>Vagas: </h4>
-            <p class="text-capitalize">{{ $atividade->quantidadeVagas }}</p>
-            <h4>Cursos: </h4>
-            <p>{{ $atividade->cursos->lists('nome')->implode(', ') }}</p>
-            <h4>{{$atividade->funcaoResponsavel}}(s):</h4>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3">
+                    <h4>Vagas </h4>
+                    <p class="text-capitalize">{{ $atividade->quantidadeVagas }}</p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3">
+                    <h4>Local da Atividade</h4>
+                    @if ($atividade->sala)
+                        {{ $atividade->unidade->nome}}
+                        {{ $atividade->local->nome }}
+                        {{ $atividade->sala->nome}}
+                    @else
+                        Não alocado
+                    @endif
+
+                </div>
+            </div>
             <div class="row">
                 @foreach($atividade->atividadesResponsaveis as $atividadeResponsavel)
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <h4>Nome: </h4>
-                        <p>{{$atividadeResponsavel->nome}}</p>
-                        <h4>Titulação: </h4>
+                    <div class="col-lg-4 col-md-6 col-xs-12">
+                        <h4>Nome </h4>
+                        <p>{{ $atividadeResponsavel->nome }}</p>
+                        <h4>Titulação </h4>
                         <p>{{$atividadeResponsavel->titulacao}}</p>
-                        <h4>Instituição de Origem: </h4>
+                        <h4>Instituição de Origem </h4>
                         <p>{{$atividadeResponsavel->instituicaoOrigem}}</p>
-                        <h4>Experiência Profissional: </h4>
+                        <h4>Experiência Profissional </h4>
                         <p>{{$atividadeResponsavel->experienciaProfissional}}</p>
                         <div class="btn-group">
                             {{link_to_route('atividades::editarResponsavel', 'Editar', ['id' => $atividadeResponsavel->id], ['class' => 'btn btn-primary'])}}
-                            {{ Form::open(array('method' => 'POST', 'url' => route('atividades::excluirResponsavel', ['id' => $atividadeResponsavel->id]), 'style' => 'display:inline;')) }}
+                            {{ Form::open(array('method' => 'POST', 'url' => route('atividades::excluirResponsavel', ['id' => $atividadeResponsavel->id]))) }}
                             <button class='btn btn-danger' type='button' data-toggle="modal"
                                     data-target="#confirmDelete"
                                     data-title="Remover Responsável"
@@ -44,14 +56,13 @@
             <h4>Datas e Horários</h4>
             <div class="row">
                 @foreach($atividade->atividadesDatasHoras->sortBy("data") as $atividadeDataHora)
-                    <div class="col-lg-2 col-md-2 col-xs-4">
-                        <h4>Data: </h4>
+                    <div class="col-lg-3 col-md-6 col-xs-6">
+                        <h4>Data </h4>
                         <p>{{$atividadeDataHora->data->format("d/m/Y")}}</p>
-                        <h4>Horário: </h4>
+                        <h4>Horário </h4>
                         <p>{{$atividadeDataHora->horarioInicio->format("H:i")}}h
                             até {{$atividadeDataHora->horarioTermino->format("H:i")}}h</p>
                         <div class="btn-group">
-                            {{--TODO Lembrar de fazer o editar e remover de Datas e Horários--}}
                             {{link_to_route('atividades::editarDataHora', 'Editar', ['id' => $atividadeDataHora->id], ['class' => 'btn btn-primary'])}}
                             {{ Form::open(array('method' => 'POST', 'url' => route('atividades::excluirDataHora', ['id' => $atividadeDataHora->id]), 'style' => 'display:inline;')) }}
                             {{Form::button('Remover', ['class' => 'btn btn-danger', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete',
@@ -64,10 +75,11 @@
             <div class="espacos"></div>
             {{ link_to_route('atividades::adicionarDataHora', 'Adicionar', ['idAtividade' => $atividade->id], ['class' => 'btn btn-primary']) }}
             <hr/>
-            <h4>Comentários</h4>
-            <p class="text-capitalize">{!! $atividade->comentario !!} </p>
+            {!!  $atividade->comentario  !!}
             <h4>Aprovação</h4>
-            <h5>Status atual: {{$ultimoStatus->nome}}</h5>
+            <h5>Status atual {{$ultimoStatus->nome}}</h5>
+            <div class="espacos"></div>
+            <div class="espacos"></div>
             @if($atividade->evento->eventoCaracteristica->ePropostaAtividade && $ultimoStatus->nome == 'Proposta')
                 {{ Form::open(array('url' => route('atividades::analisar', ['id' => $atividade->id]))) }}
                 <label for="comentario">Comentário</label>
@@ -113,8 +125,6 @@
             var form = $(e.relatedTarget).closest('form');
             $(this).find('.modal-footer #confirm').data('form', form);
         });
-
-        <!-- Form confirm (yes/ok) handler, submits form -->
         $('#confirmDelete').find('.modal-footer #confirm').on('click', function () {
             $(this).data('form').submit();
         });

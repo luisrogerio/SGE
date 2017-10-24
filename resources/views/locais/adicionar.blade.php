@@ -6,7 +6,7 @@
             <h3>
                 <ol class="breadcrumb">
                     <li>{{ link_to_route("unidades::index", "Unidade ".$unidade->nome) }}</li>
-                    <li>Adicionar Local</li>
+                    <li>Adicionar Ambiente</li>
                 </ol>
             </h3>
         </div>

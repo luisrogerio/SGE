@@ -20,7 +20,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -52,7 +52,7 @@
         </div><!-- /.container-fluid -->
     </nav>
 </header>
-<div class="conteiner">
+<div class="container">
     @yield('content')
     <div class="espacos"></div>
     <div class="espacos"></div>

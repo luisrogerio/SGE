@@ -30,7 +30,7 @@
                 </td>
                 <td class="text-center">
                     <div class="espacos"></div>
-                    {{ link_to_route('locais::index','Locais', ['unidadeId' => $unidade->id], ['class' => 'button button-orange']) }}
+                    {{ link_to_route('locais::index','Ambientes', ['unidadeId' => $unidade->id], ['class' => 'button button-orange']) }}
                 </td>
             </tr>
         @endforeach

@@ -30,15 +30,15 @@ class AtividadesRequest extends Request
                     'quantidadeVagas' => 'required|numeric',
                     'idAtividadesTipos' => 'required',
                     'descricao' => 'required',
-                    'funcaoResponsavel' => 'required',
+//                    'funcaoResponsavel' => 'required',
                     'atividades.quantidadeResponsaveis' => 'required|numeric',
-                    'atividades.idCursos' => 'required',
+//                    'atividades.idCursos' => 'required',
 
                     'comentarios.*' => 'required',
 
-                    'atividades.unidades' => 'required',
-                    'atividades.locais' => 'required',
-                    'atividades.salas' => 'required',
+//                    'atividades.unidades' => 'required',
+//                    'atividades.locais' => 'required',
+//                    'atividades.salas' => 'required',
 
                     'atividades.data.*' => 'required|date_format:"d/m/Y"',
                     'atividades.horarioInicio.*' => 'required|date_format:"H:i"',
@@ -51,8 +51,7 @@ class AtividadesRequest extends Request
                     'quantidadeVagas' => 'required|numeric',
                     'idAtividadesTipos' => 'required',
                     'descricao' => 'required',
-                    'funcaoResponsavel' => 'required',
-                    'atividades.idCursos.*' => 'required',
+                    //'atividades.idCursos.*' => 'required',
 
                     'atividades.unidades' => 'required',
                     'atividades.locais' => 'required',

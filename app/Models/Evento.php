@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Atividade;
+use App\Models\Usuario;
 
 /**
  * App\Models\Evento
@@ -56,6 +56,7 @@ class Evento extends Model
         'idEdicaoAnterior',
         'idEventosCaracteristicas',
         'idPai',
+        'titulo',
         'nome',
         'nomeSlug',
         'dataInicioInscricao',
@@ -63,7 +64,7 @@ class Evento extends Model
         'dataInicio',
         'dataTermino',
         'descricao',
-        'comissaoOrganizdora',
+        'comissaoOrganizadora',
         'publicoAlvo',
         'criadoEm',
         'modificadoEm',
@@ -141,6 +142,17 @@ class Evento extends Model
     public function setIdedicaoanteriorAttribute($value)
     {
         $this->attributes['idEdicaoAnterior'] = trim($value) == '' ? null : trim($value);
+    }
+
+    public function participantes()
+    {
+        return $this->belongsToMany('App\Models\Usuario', 'eventos_participantes', 'idEventos', 'idUsuarios');
+    }
+
+    public function isParticipante($id)
+    {
+        $participante = Usuario::findOrFail($id);
+        return (bool) $this->participantes()->get()->contains($participante);
     }
 
     public function getEventosPai()

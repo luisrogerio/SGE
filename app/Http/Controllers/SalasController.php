@@ -22,7 +22,7 @@ class SalasController extends Controller
     public function getIndex($idLocais)
     {
         $local = Local::findOrFail($idLocais);
-        $salas = Sala::orderBy('nome')->paginate(5);
+        $salas = $this->sala->where('idLocais', '=', $idLocais)->orderBy('nome')->paginate(5);
         return view('salas.index', compact('local', 'salas'));
     }
 

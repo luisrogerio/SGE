@@ -31,4 +31,9 @@ class Local extends Model
     {
         return $this->belongsTo('App\Models\Unidade', 'idUnidades');
     }
+
+    public function salas()
+    {
+        return $this->hasMany('App\Models\Sala', 'idLocais');
+    }
 }

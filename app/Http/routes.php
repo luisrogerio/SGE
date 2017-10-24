@@ -12,7 +12,8 @@
 */
 
 Route::get('/composer', function(){
-    Artisan::call('db:seed');
+    Artisan::call('migrate', ['--force' => true]);
+    dd(Artisan::output());
 });
 
 Route::group(['as' => 'auth::'], function () {
@@ -23,21 +24,23 @@ Route::group(['as' => 'auth::'], function () {
 
     Route::get('/cadastro', ['as' => 'cadastro', 'uses' => 'Auth\AuthController@getCadastro']);
     Route::post('/salvarExterno', ['as' => 'salvar', 'uses' => 'Auth\AuthController@postSalvarExterno']);
+    Route::post('/password/reset', ['as' => 'reset', 'uses' => 'Auth\PasswordController@reset']);
+    Route::post('/email', ['as' => 'email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
 });
+
+// Password Reset Routes...
+Route::get('/password/reset/{token?}',  ['as' => 'resetToken', 'uses' => 'Auth\PasswordController@showResetForm']);
+
 //Route::post('/cadastroExterno', ['as' => 'salvar', 'uses' => 'Auth\AuthController@getCadastroExterno']);
 //Route::get('/cadastroAluno', 'Auth\AuthController@getCadastroAluno');
 
 
-Route::get('/dashboard', 'HomeController@index');
-Route::get('/propostas/{nomeEvento}', ['as' => 'adicionarAtividadePublico', 'uses' => 'AtividadesController@getAdicionarPublico']);
-Route::post('/salvarProposta', ['as' => 'salvarAtividadePublico', 'uses' => 'AtividadesController@postSalvarPublico']);
-Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@getAdicionarPublico']);
-Route::post('/salvarResponsavel', ['as' => 'salvarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavelPublico']);
+Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
+//Route::get('/propostas/{nomeEvento}', ['as' => 'adicionarAtividadePublico', 'uses' => 'AtividadesController@getAdicionarPublico']);
+//Route::post('/salvarProposta', ['as' => 'salvarAtividadePublico', 'uses' => 'AtividadesController@postSalvarPublico']);
+//Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@getAdicionarPublico']);
+//Route::post('/salvarResponsavel', ['as' => 'salvarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavelPublico']);
 
-// Password Reset Routes...
-Route::get('reset/{token?}', 'Auth\PasswordController@showResetForm');
-Route::post('email', 'Auth\PasswordController@sendResetLinkEmail');
-Route::post('reset', 'Auth\PasswordController@reset');
 
 //Route::controller('/locais','LocaisController');
 
@@ -60,18 +63,8 @@ Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::',], function () 
     Route::get('/', ['as' => 'index', 'uses' => 'EventosController@getIndexPublico',]);
     Route::get('/atividades/{nomeSlug}', ['as' => 'atividadesEvento', 'uses' => 'EventosController@getAtividadesPublico',]);
     Route::get('/{nomeSlug}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
-//    Route::get('/adicionar', ['as' => 'adicionar', 'uses' => 'EventosController@getAdicionar']);
-//    Route::get('/editar/{id}', ['as' => 'editar', 'uses' => 'EventosController@getEditar']);
-//    Route::post('/salvar', ['as' => 'salvar', 'uses' => 'EventosController@postSalvar']);
-//    Route::patch('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EventosController@patchAtualizar']);
-//    Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosController@postExcluir']);
-//    Route::get('/subeventos', ['as' => 'paginacaoSubeventos', 'uses' => 'EventosController@getSubeventos']);
-//    Route::post('/salvarLinkExterno', ['as' => 'salvarLinkExterno', 'uses' => 'EventosController@salvarLinkExterno']);
-//
-//    Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
-//        Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);
-//        Route::post('/salvar', ['as' => 'salvarSubevento', 'uses' => 'EventosController@postSalvar']);
-//    });
+    Route::post('/participar/{nomeSlug}', ['as' => 'participar', 'uses' => 'EventosController@getParticiparEvento']);
+
 });
 
 

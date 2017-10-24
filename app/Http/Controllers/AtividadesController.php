@@ -68,10 +68,11 @@ class AtividadesController extends Controller
                 '<h3>E-mail do Proponente: </h3>' . $request->comentarios[7] .
                 '<h3>Campus de Lotação do Proponente: </h3>' . $request->comentarios[8] .
                 '<h3>Área de Conhecimento: </h3>' . $request->comentarios[0] .
-                '<h3>Justificativa: </h3>>' . $request->comentarios[1] .
-                '<h3>Público-Alvo: </h3>>' . $request->comentarios[2] .
-                '<h3>Recursos/Materiais: </h3>>' . $request->comentarios[3] .
-                '<h3>Metodologia: </h3>>' . $request->comentarios[4];
+                '<h3>Objetivo: </h3>' . $request->comentarios[9] .
+                '<h3>Justificativa: </h3>' . $request->comentarios[1] .
+                '<h3>Público-Alvo: </h3>' . $request->comentarios[2] .
+                '<h3>Recursos/Materiais: </h3>' . $request->comentarios[3] .
+                '<h3>Metodologia: </h3>' . $request->comentarios[4];
 
             $this->atividade->save();
 
@@ -144,16 +145,16 @@ class AtividadesController extends Controller
             $this->atividade->sala()->associate($sala);
 
             if ($this->atividade->update()) {
-                $cursos = $request->atividades['idCursos'];
-                $cursosDatas = array();
-                foreach ($cursos as $idCursos) {
-                    $cursosDatas[$idCursos] =
-                        [
-                            'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
-                            'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
-                        ];
-                }
-                $this->atividade->cursos()->sync($cursosDatas);
+//                $cursos = $request->atividades['idCursos'];
+//                $cursosDatas = array();
+//                foreach ($cursos as $idCursos) {
+//                    $cursosDatas[$idCursos] =
+//                        [
+//                            'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
+//                            'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
+//                        ];
+//                }
+//                $this->atividade->cursos()->sync($cursosDatas);
             }
         });
         \Session::flash('message', 'Atividade atualizado com sucesso');
@@ -197,13 +198,13 @@ class AtividadesController extends Controller
             $evento = Evento::findOrFail($this->atividade->idEventos);
             $this->atividade->evento()->associate($evento);
 
-            $unidade = Unidade::find($request->atividades['unidades']);
-            $local = Local::find($request->atividades['locais']);
-            $sala = Sala::find($request->atividades['salas']);
-
-            $this->atividade->unidade()->associate($unidade);
-            $this->atividade->local()->associate($local);
-            $this->atividade->sala()->associate($sala);
+//            $unidade = Unidade::find($request->atividades['unidades']);
+//            $local = Local::find($request->atividades['locais']);
+//            $sala = Sala::find($request->atividades['salas']);
+//
+//            $this->atividade->unidade()->associate($unidade);
+//            $this->atividade->local()->associate($local);
+//            $this->atividade->sala()->associate($sala);
 
             $this->atividade->comentario =
                 '<h3>Nome do Proponente: </h3>' . $request->comentarios[5] .
@@ -211,23 +212,24 @@ class AtividadesController extends Controller
                 '<h3>E-mail do Proponente: </h3>' . $request->comentarios[7] .
                 '<h3>Campus de Lotação do Proponente: </h3>' . $request->comentarios[8] .
                 '<h3>Área de Conhecimento: </h3>' . $request->comentarios[0] .
-                '<h3>Justificativa: </h3>>' . $request->comentarios[1] .
-                '<h3>Público-Alvo: </h3>>' . $request->comentarios[2] .
-                '<h3>Recursos/Materiais: </h3>>' . $request->comentarios[3] .
-                '<h3>Metodologia: </h3>>' . $request->comentarios[4];
+                '<h3>Objetivo: </h3>' . $request->comentarios[9] .
+                '<h3>Justificativa: </h3>' . $request->comentarios[1] .
+                '<h3>Público-Alvo: </h3>' . $request->comentarios[2] .
+                '<h3>Recursos/Materiais: </h3>' . $request->comentarios[3] .
+                '<h3>Metodologia: </h3>' . $request->comentarios[4];
 
             $this->atividade->save();
 
-            $cursos[] = $request->atividades['idCursos'];
-            foreach ($cursos['0'] as $idCursos) {
-                $cursosDatas[$idCursos] =
-                    [
-                        'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
-                        'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
-                    ];
-            }
+//            $cursos[] = $request->atividades['idCursos'];
+//            foreach ($cursos['0'] as $idCursos) {
+//                $cursosDatas[$idCursos] =
+//                    [
+//                        'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
+//                        'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
+//                    ];
+//            }
 
-            $this->atividade->cursos()->sync($cursosDatas);
+//            $this->atividade->cursos()->sync($cursosDatas);
 
             if ($evento->eventoCaracteristica->ePropostaAtividade) {
                 $statusDeAtividade = AtividadeStatus::whereNome('Proposta')->first();
@@ -245,7 +247,7 @@ class AtividadesController extends Controller
                 ]);
             }
         });
-        \Session::flash('message', 'Atividade salva com sucesso');
+        \Session::flash('message', 'Atividade Proposta com sucesso. Adicione os Ministrantes da mesma');
         return redirect()->route('adicionarResponsavelPublico', [
             'idAtividade' => $this->atividade->id,
             'quantidadeResponsaveis' => $request->atividades['quantidadeResponsaveis']

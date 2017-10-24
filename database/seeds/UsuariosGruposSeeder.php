@@ -25,8 +25,8 @@ class UsuariosGruposSeeder extends Seeder
                 'nome' => 'Proponente de Atividade'
             ],
             [
-                'nome' => 'Usuário'
-            ],
+                'nome' => 'Usuário Comum'
+            ]
         ]);
     }
 }

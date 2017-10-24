@@ -65,6 +65,11 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
             'idUsuarios', 'idUsuariosGrupos');
     }
 
+    public function eventos()
+    {
+        return $this->belongsToMany('App\Models\Evento', 'eventos_participantes', 'idUsuarios', 'idEventos');
+    }
+
     public function getAuthPassword()
     {
         return $this->senha;

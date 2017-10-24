@@ -5,7 +5,7 @@
     <h2>
         <ol class="breadcrumb">
             <li>{{ link_to_route("unidades::index", "Unidade ".$unidade->nome) }}</li>
-            <li>Locais</li>
+            <li>Ambientes</li>
         </ol>
     </h2>
     <table class="table table-striped table-bordered">

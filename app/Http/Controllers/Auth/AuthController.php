@@ -37,7 +37,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/eventos';
     protected $loginView = 'publico.login';
     protected $username = 'login';
     protected $maxLoginAttempts = 5;
@@ -114,17 +114,17 @@ class AuthController extends Controller
         return redirect()->back();
     }
 
-    public function getCadastroExterno(Request $request)
-    {
-        $this->validate($request, [
-            'cpfExterno' => 'required|cpf',
-            'nome' => 'required'
-        ], [
-            'cpfExterno.required' => 'O CPF é obrigatório',
-            'cpfExterno.cpf' => 'O CPF fornecido não é válido'
-        ]);
-        return view('publico.cadastroExterno')->with(array('nome' => $request->nome, 'cpf' => $request->cpfExterno));
-    }
+//    public function getCadastroExterno(Request $request)
+//    {
+//        $this->validate($request, [
+//            'cpfExterno' => 'required|cpf',
+//            'nome' => 'required'
+//        ], [
+//            'cpfExterno.required' => 'O CPF é obrigatório',
+//            'cpfExterno.cpf' => 'O CPF fornecido não é válido'
+//        ]);
+//        return view('publico.cadastroExterno')->with(array('nome' => $request->nome, 'cpf' => $request->cpfExterno));
+//    }
 
     public function postSalvarExterno(Request $request)
     {

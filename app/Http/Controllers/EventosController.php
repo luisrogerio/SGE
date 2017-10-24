@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\Event;
+use App\Models\Atividade;
 use App\Models\EventoCaracteristica;
 use App\Models\LinkExterno;
 use App\Models\UsuarioTipo;
@@ -63,41 +64,42 @@ class EventosController extends Controller
                 $request->merge(array(
                     'idPai' => $idPai
                 ));
+                $eventoPai = $this->evento->findOrFail($idPai);
             }
             $request->merge([
                 'nomeSlug' => str_slug($request->nome)
             ]);
             $this->evento = $this->evento->create($request->all());
             $this->evento->eventosContatos()->sync($request->get('eventosContatos'));
-            $this->evento->tiposDeUsuario()->sync($request->get('usuariosTipos'));
-            $eventoCaracteristica = $request->eventoCaracteristica;
-            if ($eventoCaracteristica['eEmiteCertificado']) {
-                $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
-            }
-            if ($idPai == 0 || !$request->get('eEventoPai')) {
+
+            if ($idPai != 0) {
+                $this->evento->tiposDeUsuario()->sync($eventoPai->tiposDeUsuario->pluck('id')->all());
+
+                $eventoCaracteristica = $this->evento->eventoPai->eventoCaracteristica->get()->except('id')->toArray();
+            } else {
+                $this->evento->tiposDeUsuario()->sync($request->get('usuariosTipos'));
+
+                $eventoCaracteristica = $request->eventoCaracteristica;
+
                 if ($request->has('eventoCaracteristica.eImagemDeFundo')) {
                     if ($request->hasFile('eventoCaracteristica.backgroundImagem') && $request->file('eventoCaracteristica.backgroundImagem')->isValid()) {
-                        $destino = \App::publicPath() . '/uploads/eventos/' . $this->evento->id;
+                        $destino = \App::basePath() .DIRECTORY_SEPARATOR. 'public_html'.DIRECTORY_SEPARATOR. 'uploads'.DIRECTORY_SEPARATOR. 'eventos'.DIRECTORY_SEPARATOR . $this->evento->id;
                         $extensao = $request->file('eventoCaracteristica.backgroundImagem')->getClientOriginalExtension();
-                        $arquivoNome = 'background.' . $extensao;
-                        $eventoCaracteristica['background'] = '/uploads/eventos/' . $this->evento->id . '/' . $arquivoNome;
+                        $arquivoNome = strtolower('background.' . $extensao);
+                        $eventoCaracteristica['background'] = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'eventos'.DIRECTORY_SEPARATOR . $this->evento->id . DIRECTORY_SEPARATOR . $arquivoNome;
                         $request->file('eventoCaracteristica.backgroundImagem')->move($destino, $arquivoNome);
                     }
                 }
                 if ($request->hasFile('eventoCaracteristica.logoImagem') && $request->file('eventoCaracteristica.logoImagem')->isValid()) {
-                    $destino = \App::publicPath() . '/uploads/eventos/' . $this->evento->id;
+                    $destino = \App::basePath() .DIRECTORY_SEPARATOR. 'public_html'.DIRECTORY_SEPARATOR. 'uploads'.DIRECTORY_SEPARATOR. 'eventos'.DIRECTORY_SEPARATOR . $this->evento->id;
                     $extensao = $request->file('eventoCaracteristica.logoImagem')->getClientOriginalExtension();
-                    $arquivoNome = 'logo.' . $extensao;
-                    $eventoCaracteristica['logo'] = '/uploads/eventos/' . $this->evento->id . '/' . $arquivoNome;
+                    $arquivoNome = strtolower('logo.' . $extensao);
+                    $eventoCaracteristica['logo'] = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'eventos'.DIRECTORY_SEPARATOR . $this->evento->id . DIRECTORY_SEPARATOR . $arquivoNome;
                     $request->file('eventoCaracteristica.logoImagem')->move($destino, $arquivoNome);
                 }
-            }
-            if ($request->get('eEventoPai')) {
-                $eventoCaracteristica['logo'] = $this->evento->eventoPai->eventoCaracteristica->logo;
-                $eventoCaracteristica['eImagemDeFundo'] = $this->evento->eventoPai->eventoCaracteristica->eImagemDeFundo;
-                $eventoCaracteristica['background'] = $this->evento->eventoPai->eventoCaracteristica->background;
-                //$eventoCaracteristica['idAparencias'] = $this->evento->eventoPai->eventoCaracteristica->idAparencias;
-                $eventoCaracteristica['backgroundColor'] = $this->evento->eventoPai->eventoCaracteristica->backgroundColor;
+                if ($eventoCaracteristica['eEmiteCertificado']) {
+                    $eventoCaracteristica['dataLiberacaoCertificado'] = Carbon::createFromFormat('d/m/Y', $eventoCaracteristica['dataLiberacaoCertificado']);
+                }
             }
             $this->evento->eventoCaracteristica()->create($eventoCaracteristica);
         });
@@ -193,12 +195,13 @@ class EventosController extends Controller
 
     public function getAtividadesPublico($nomeSlug)
     {
+        Carbon::setLocale('pt_BR');
         $evento = $this->evento
             ->whereNomeslug($nomeSlug)
             ->orderBy('nome')
             ->first();
-        Carbon::setLocale('pt_BR');
-        return view('publico.eventos.atividades', compact('evento'));
+        $atividades = Atividade::where('idEventos', '=', $evento->id)->aceitas()->paginate(9);
+        return view('publico.eventos.atividades', compact('evento', 'atividades'));
     }
 
     public function getVisualizarPublico($nomeSlug)
@@ -206,5 +209,12 @@ class EventosController extends Controller
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         $subeventos = $evento->eventosFilhos();
         return view('publico.eventos.view', compact('evento', 'subeventos', 'eventosPai'));
+    }
+
+    public function getParticiparEvento($nomeSlug)
+    {
+        $evento = $this->evento->whereNomeslug($nomeSlug)->first();
+        $evento->participantes()->save(\Auth::user());
+        return redirect(route('eventosPublico::visualizar', ['nomeSlug' => $nomeSlug]));
     }
 }

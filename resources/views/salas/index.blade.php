@@ -5,18 +5,20 @@
     <h2>
         <ol class="breadcrumb">
             <li>{{ link_to_route("unidades::index", "Unidade ".$local->unidade->nome) }}</li>
-            <li>{{ link_to_route("locais::index", "Local ".$local->nome, ['id' => $local->unidade->id]) }}</li>
+            <li>{{ link_to_route("locais::index", "Ambiente ".$local->nome, ['id' => $local->unidade->id]) }}</li>
             <li>Salas</li>
         </ol>
     </h2>
     <table class="table table-striped table-bordered">
         <tr>
             <th>Nome</th>
+            <th>Quantidade de Vagas</th>
             <th colspan="2" class="text-center">Opções</th>
         </tr>
         @foreach($salas as $sala)
             <tr>
-                <td>{{$sala->nome}}</td>
+                <td>{{$sala->tipoDeEspaco->nome.' '.$sala->nome}}</td>
+                <td>{{$sala->quantidade_ocupacao}} vagas</td>
                 <td class="text-center">{{link_to_route('salas::editar','Editar',['id'=>$sala->id], ['class' => 'button button-blue'])}}</td>
                 <td class="text-center">
                     {{ Form::open(array('method' => 'POST', 'url' => route('salas::excluir', ['id' => $sala->id]), 'style' => 'display:inline;')) }}

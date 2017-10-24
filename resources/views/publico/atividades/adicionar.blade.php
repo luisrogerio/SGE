@@ -1,135 +1,32 @@
-@extends('layouts.layout_admin')
+@extends('layouts.layoutPublicoAtividade')
 @section('title', 'Atividades')
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>Adicionar Nova</h3>
+            <h3>Adicionar Nova Atividade - {{ $evento->titulo }}</h3>
         </div>
         <div class="panel-body">
             {{Form::open(array('url'=>route('salvarAtividadePublico')))}}
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="presentation" class="active">
-                    <a href="#atividade" aria-controls="atividade" role="tab" data-toggle="tab">Atividade</a>
-                </li>
                 @if ($evento->eventoCaracteristica->ePropostaAtividade)
-                    <li role="presentation">
+                    <li role="presentation" class="active">
                         <a href="#proponente" aria-controls="proponente" role="tab" data-toggle="tab">Proponente</a>
                     </li>
                 @endif
+                <li role="presentation"
+                    @if (!$evento->eventoCaracteristica->ePropostaAtividade)
+                    class="active"
+                        @endif
+                >
+                    <a href="#atividade" aria-controls="atividade" role="tab" data-toggle="tab">Atividade</a>
+                </li>
                 <li role="presentation">
                     <a href="#horario" aria-controls="horario" role="tab" data-toggle="tab">Datas e Horários</a>
                 </li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel1" class="tab-pane fade in active" id="atividade">
-                    <div class="well">
-                        <fieldset class="form-group">
-                            {{Form::label('nome', 'Nome')}}
-                            {{Form::text('nome', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('nome')) <p
-                                    class="help-block">{{ $errors->first('nome') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('quantidadeVagas', 'Quantidade de Vagas')}}
-                            {{Form::number('quantidadeVagas', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('quantidadeVagas')) <p
-                                    class="help-block">{{ $errors->first('quantidadeVagas') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('idAtividadesTipos', 'Tipo de Atividade')}}
-                            {{Form::select('idAtividadesTipos', $atividadesTipos, null, array('class' => 'form-control'))}}
-                            @if ($errors->has('idAtividadesTipos')) <p
-                                    class="help-block">{{ $errors->first('idAtividadesTipos') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="comentarios[0]">Área de Conhecimento(<a
-                                        href="http://lattes.cnpq.br/documents/11871/24930/TabeladeAreasdoConhecimento.pdf/d192ff6b-3e0a-4074-a74d-c280521bd5f7">Tabela
-                                    da CNPQ</a>)</label>
-                            {{Form::text('comentarios[0]', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('comentarios[0]')) <p
-                                    class="help-block">{{ $errors->first('comentarios[0]') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('descricao', 'Descrição/Objetivo')}}
-                            {{Form::textarea('descricao', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('descricao')) <p
-                                    class="help-block">{{ $errors->first('descricao') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('comentarios[1]', 'Justificativa')}}
-                            {{Form::textarea('comentarios[1]', null, array('class' => 'form-control', 'maxlength' => 500))}}
-                            @if ($errors->has('comentarios[1]')) <p
-                                    class="help-block">{{ $errors->first('comentarios[1]') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('comentarios[2]', 'Público-Alvo')}}
-                            {{Form::textarea('comentarios[2]', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('comentarios[2]')) <p
-                                    class="help-block">{{ $errors->first('comentarios[2]') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('comentarios[3]', 'Recursos/Materiais')}}
-                            {{Form::textarea('comentarios[3]', null, array('class' => 'form-control'))}}
-                            @if ($errors->has('comentarios[3]')) <p
-                                    class="help-block">{{ $errors->first('comentarios[3]') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('comentarios[4]', 'Metodologia')}}
-                            {{Form::textarea('comentarios[4]', null, array('class' => 'form-control', 'maxlength' => 500))}}
-                            @if ($errors->has('comentarios[4]')) <p
-                                    class="help-block">{{ $errors->first('comentarios[4]') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('funcaoResponsavel', 'Nome da Função do Responsável da Atividade')}}
-                            {{Form::text('funcaoResponsavel', null, array('class' => 'form-control', 'placeholder' => 'Ex.: Palestrante ou Diretor da Mesa Redonda'))}}
-                            @if ($errors->has('funcaoResponsavel')) <p
-                                    class="help-block">{{ $errors->first('funcaoResponsavel') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('atividades[quantidadeResponsaveis]', 'Número de Responsáveis pela Atividade')}}
-                            {{Form::number('atividades[quantidadeResponsaveis]', "1", array('class' => 'form-control'))}}
-                            @if ($errors->has('atividades.quantidadeResponsaveis')) <p
-                                    class="help-block">{{ $errors->first('quantidadeResponsaveis') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('atividades[idCursos][]', 'Cursos')}}
-                            {{Form::select('atividades[idCursos][]', $cursos, $cursos->keys()->toArray(), array('class' => 'form-control idCursos', 'multiple'))}}
-
-                            @if ($errors->has('atividades.idCursos')) <p
-                                    class="help-block">{{$errors->first('atividades.idCursos')}}</p> @endif
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{Form::label('atividadesCursosDatas', 'Datas de Inscrição para os Cursos')}}
-                            <div class="row">
-                                <div class="col-md-6 col-xs-12">
-                                    {{Form::text('atividadesCursos.dataInicio', $evento->dataInicioInscricao->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataInicioInscricao'))}}
-                                </div>
-                                <div class="col-md-6 col-xs-12">
-                                    {{Form::text('atividadesCursos.dataFim', $evento->dataFimInscricao->format('d/m/Y'), array('class' => 'form-control', 'id' => 'dataFimInscricao'))}}
-                                </div>
-                            </div>
-                        </fieldset>
-                        <fieldset class="form-group">
-                            {{ Form::label('unidadeLocalSala', 'Unidade/Local/Sala') }}
-                            {{Form::select('atividades[unidades]', $unidades, null,
-                                array('class' => 'form-control', 'placeholder' => 'Selecione uma Unidade', 'id' => 'selectUnidade'))}}
-                            {{Form::select('atividades[locais]', array(), null,
-                                array('class' => 'form-control', 'placeholder' => 'Selecione um Local', 'id' => 'selectLocal'))}}
-                            {{Form::select('atividades[salas]', array(), null,
-                                array('class' => 'form-control', 'placeholder' => 'Selecione uma Sala', 'id' => 'selectSala'))}}
-
-                            @if ($errors->has('atividades.unidades')) <p
-                                    class="help-block">{{$errors->first('atividades.unidades')}}</p> @endif
-                            @if ($errors->has('atividades.locais')) <p
-                                    class="help-block">{{$errors->first('atividades.locais')}}</p> @endif
-                            @if ($errors->has('atividades.salas')) <p
-                                    class="help-block">{{$errors->first('atividades.salas')}}</p> @endif
-                        </fieldset>
-                        {{ Form::button('Próximo', array('class' => 'button button-blue btnProximo')) }}
-                    </div>
-                </div>
                 @if ($evento->eventoCaracteristica->ePropostaAtividade)
-                    <div role="tabpanel1" class="tab-pane fade" id="proponente">
+                    <div role="tabpanel1" class="tab-pane fade in active" id="proponente">
                         <div class="well">
                             <fieldset class="form-group">
                                 {{Form::label('comentarios[5]', 'Nome do Proponente')}}
@@ -155,11 +52,89 @@
                                 @if ($errors->has('comentarios[8]')) <p
                                         class="help-block">{{ $errors->first('comentarios[8]') }}</p> @endif
                             </fieldset>
-                            {{Form::button('Anterior', array('class' => 'button button-blue btnAnterior')) }}
+                            <fieldset class="form-group">
+                                {{Form::label('atividades[quantidadeResponsaveis]', 'Número de Ministrantes da Atividade')}}
+                                {{Form::number('atividades[quantidadeResponsaveis]', "1", array('class' => 'form-control'))}}
+                                @if ($errors->has('atividades.quantidadeResponsaveis')) <p
+                                        class="help-block">{{ $errors->first('quantidadeResponsaveis') }}</p> @endif
+                            </fieldset>
+                            <p class="paragrafo"><strong>Os ministrantes da atividade serão adicionados após propor a Atividade</strong></p>
                             {{ Form::button('Próximo', array('class' => 'button button-blue btnProximo')) }}
                         </div>
                     </div>
                 @endif
+                <div role="tabpanel1" class="tab-pane fade
+                    @if (!$evento->eventoCaracteristica->ePropostaAtividade)
+                        in active
+                    @endif
+                        " id="atividade">
+                    <div class="well">
+                        <fieldset class="form-group">
+                            {{Form::label('nome', 'Título da Atividade')}}
+                            {{Form::text('nome', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('nome')) <p
+                                    class="help-block">{{ $errors->first('nome') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('quantidadeVagas', 'Quantidade de Vagas')}}
+                            {{Form::number('quantidadeVagas', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('quantidadeVagas')) <p
+                                    class="help-block">{{ $errors->first('quantidadeVagas') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('idAtividadesTipos', 'Tipo de Atividade')}}
+                            {{Form::select('idAtividadesTipos', $atividadesTipos, null, array('class' => 'form-control'))}}
+                            @if ($errors->has('idAtividadesTipos')) <p
+                                    class="help-block">{{ $errors->first('idAtividadesTipos') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="comentarios[0]">Nome da Área de Conhecimento(<a target="_blank"
+                                                                                        href="http://lattes.cnpq.br/documents/11871/24930/TabeladeAreasdoConhecimento.pdf/d192ff6b-3e0a-4074-a74d-c280521bd5f7">Tabela
+                                    da CNPQ</a>)</label>
+                            {{Form::text('comentarios[0]', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('comentarios[0]')) <p
+                                    class="help-block">{{ $errors->first('comentarios[0]') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('descricao', 'Descrição')}}
+                            {{Form::textarea('descricao', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('descricao')) <p
+                                    class="help-block">{{ $errors->first('descricao') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('comentarios[9]', 'Objetivo')}}
+                            {{Form::textarea('comentarios[9]', null, array('class' => 'form-control', 'maxlength' => 300))}}
+                            @if ($errors->has('comentarios[9]')) <p
+                                    class="help-block">{{ $errors->first('comentarios[9]') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('comentarios[1]', 'Justificativa')}}
+                            {{Form::textarea('comentarios[1]', null, array('class' => 'form-control', 'maxlength' => 500))}}
+                            @if ($errors->has('comentarios[1]')) <p
+                                    class="help-block">{{ $errors->first('comentarios[1]') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('comentarios[2]', 'Público-Alvo')}}
+                            {{Form::textarea('comentarios[2]', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('comentarios[2]')) <p
+                                    class="help-block">{{ $errors->first('comentarios[2]') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('comentarios[3]', 'Recursos/Materiais')}}
+                            {{Form::textarea('comentarios[3]', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('comentarios[3]')) <p
+                                    class="help-block">{{ $errors->first('comentarios[3]') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('comentarios[4]', 'Metodologia')}}
+                            {{Form::textarea('comentarios[4]', null, array('class' => 'form-control', 'maxlength' => 500))}}
+                            @if ($errors->has('comentarios[4]')) <p
+                                    class="help-block">{{ $errors->first('comentarios[4]') }}</p> @endif
+                        </fieldset>
+                        {{Form::button('Anterior', array('class' => 'button button-blue btnAnterior')) }}
+                        {{ Form::button('Próximo', array('class' => 'button button-blue btnProximo')) }}
+                    </div>
+                </div>
                 <div role="tabpanel1" class="tab-pane fade" id="horario">
                     <div class="well">
                         @if ($errors->has('atividades.data.*')) <p
@@ -169,6 +144,12 @@
                         @if ($errors->has('atividades.horarioTermino.*')) <p
                                 class="help-block">{{$errors->first('atividades.data.*')}}</p> @endif
                         <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Horário Início/Horário Término</th>
+                                </tr>
+                            </thead>
                             <tbody id="tabelaTempo">
                             @if(old('atividades_data'))
                                 @foreach(old('atividades_data') as $key => $value)
@@ -219,7 +200,7 @@
                         </table>
                         {{Form::hidden('idEventos', $evento->id) }}
                         {{Form::button('Anterior', array('class' => 'button button-blue btnAnterior')) }}
-                        {{Form::submit('Salvar', array('class' => 'button button-blue'))}}
+                        {{Form::submit('Propor', array('class' => 'button button-blue'))}}
                         {{Form::close()}}
                     </div>
                 </div>
@@ -227,9 +208,6 @@
         </div>
     </div>
     <script type="application/javascript">
-        $('.idCursos').select2({
-            theme: 'bootstrap'
-        });
         $('#telefoneProponente').mask("(##) ###-###-###");
         @if(old('atividades_data'))
         @foreach(old('atividades_data') as $key => $value)
@@ -300,81 +278,6 @@
         $('.btnAnterior').click(function () {
             $('.nav-tabs > .active').prev('li').find('a').trigger('click');
         });
-        $('#selectUnidade').on('change', function () {
-            var idUnidade = $(this).val();
-            if (idUnidade != "") {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    method: "POST",
-                    url: '{{ route('locais::getLocais', null) }}/' + idUnidade
-                }).done(function (locais) {
-                    var selectLocais = $("#selectLocal");
-                    selectLocais.empty();
-                    locais = JSON.parse(locais);
-                    selectLocais.append('<option value>Selecione um Local do ' + $('#selectUnidade option:selected').text() + '</option>');
-                    $.each(locais, function (index, element) {
-                        selected = "";
-                        @if(old('atividades.locais'))
-                        if (index == {{ old('atividades.locais') }}) {
-                            selected = "selected";
-                        }
-                        @endif
-                        selectLocais.append('<option ' + selected + ' value=' + index + '>' + element + '</option>');
-                    });
-                    @if(old('atividades.locais'))
-                    $('#selectLocal').trigger('change');
-                    @endif
-                });
-            } else {
-                $("#selectLocal")
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append('<option value>Selecione um Local</option>');
-                $("#selectSala")
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append('<option value>Selecione uma Sala</option>');
-            }
-        });
-        $('#selectLocal').on('change', function () {
-            var idLocal = $(this).val();
-            if (idLocal != "") {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    method: "POST",
-                    url: '{{ route('salas::getSalas', null) }}/' + idLocal
-                }).done(function (salas) {
-                    var selectSalas = $("#selectSala");
-                    selectSalas.empty();
-                    salas = JSON.parse(salas);
-                    selectSalas.append('<option value>Selecione uma Sala do ' + $('#selectLocal option:selected').text() + '</option>');
-                    $.each(salas, function (index, element) {
-                        selected = "";
-                        @if(old('atividades.salas'))
-                        if (index == {{ old('atividades.salas') }}) {
-                            selected = "selected";
-                        }
-                        @endif
-                        selectSalas.append('<option ' + selected + ' value=' + index + '>' + element + '</option>');
-                    });
-                });
-            } else {
-                $("#selectSala")
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append('<option value>Selecione uma Sala</option>');
-            }
-        });
-        @if($errors->any())
-        $('#selectUnidade').trigger('change');
-                @endif
         var linha = 1;
         $('#btnAdd').click(function () {
             if (linha == 0) {

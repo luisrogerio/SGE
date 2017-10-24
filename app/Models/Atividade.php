@@ -54,7 +54,6 @@ class Atividade extends Model
         'idAtividadesTipos',
         'nome',
         'quantidadeVagas',
-        'funcaoResponsavel',
         'descricao',
         'comentario',
         'salvoPor'
@@ -119,8 +118,7 @@ class Atividade extends Model
         return $query
             ->join('atividades_atividades_status', 'atividades.id', '=', 'atividades_atividades_status.idAtividades')
             ->join('atividades_status', 'atividades_status.id', '=', 'atividades_atividades_status.idAtividadesStatus')
-            ->where('atividades_status.nome', '=', 'Aceita')
-            ->get();
+            ->where('atividades_status.nome', '=', 'Aceita');
     }
 
 }

@@ -20,7 +20,7 @@ class LocaisController extends Controller
     public function getIndex($idUnidades)
     {
         $unidade = Unidade::findOrFail($idUnidades);
-        $locais = Local::orderBy('nome')->paginate(5);
+        $locais = Local::where('idUnidades', '=', $idUnidades)->orderBy('nome')->paginate(5);
         return view('locais.index', compact('unidade', 'locais'));
     }
 

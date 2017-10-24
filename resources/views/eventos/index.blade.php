@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-md-10">
                     <a href="{{ route('eventos::visualizar', array('id' => $evento->id)) }}" class="h3">
-                        <small><i class="glyphicon glyphicon-log-in"></i></small> {{$evento->nome }}</a>
+                        <small><i class="glyphicon glyphicon-log-in"></i></small> {{$evento->titulo }}</a>
                     <blockquote>
                         <p>{!! $evento->descricao !!}</p>
                     </blockquote>
@@ -21,10 +21,16 @@
         @endforeach
         <div class="row">
             <div class="col-md-12">
-                {{link_to_route('eventos::adicionar','Adicionar Novo', null, ['class' => 'button button-blue'])}}
-                <button class="button button-green">
-                    {{link_to_route('admin::index','Voltar', null, ['style' => 'color:#fff'])}}
-                </button>
+                <a href="{{ route('eventos::adicionar') }}">
+                    <button class="button button-blue">
+                        Adicionar Novo
+                    </button>
+                </a>
+                <a href="{{ route('admin::index') }}">
+                    <button class="button button-green">
+                        Voltar
+                    </button>
+                </a>
             </div>
         </div>
     </div>

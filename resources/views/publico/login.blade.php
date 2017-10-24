@@ -49,7 +49,7 @@
                     </li>
                     <li><a href="{{ route('auth::cadastro') }}" class=""><i class="fa fa-plus" aria-hidden="true"></i>
                             Cadastro</a></li>
-                    <li><a href="{{ url('/reset') }}" class=""><i class="fa fa-question" aria-hidden="true"></i> Esqueci minha Senha</a>
+                    <li><a href="{{ route('auth::reset') }}" class=""><i class="fa fa-question" aria-hidden="true"></i> Esqueci minha Senha</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -95,7 +95,7 @@
             </div>
 
             <div class="footer">
-                <a href="{{ url('/reset') }}">Esqueceu sua senha <i class="fa fa-question" aria-hidden="true"></i></a>
+                <a href="{{ route('auth::reset') }}">Esqueceu sua senha <i class="fa fa-question" aria-hidden="true"></i></a>
             </div>
         {{ Form::close() }}
     </div>

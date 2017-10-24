@@ -88,13 +88,6 @@
                                     }}
                                 </li>
                                 <li class="list-group-item {{
-                            ($evento->eventoCaracteristica->eSubmissaoArtigo)?
-                            'list-group-item-success':
-                            'list-group-item-danger'
-                            }}">
-                                    Submissão de Artigos
-                                </li>
-                                <li class="list-group-item {{
                             ($evento->eventoCaracteristica->eExistemImagens)?
                             'list-group-item-success':
                             'list-group-item-danger'
@@ -107,13 +100,6 @@
                             'list-group-item-danger'
                             }}">
                                     Notícias
-                                </li>
-                                <li class="list-group-item {{
-                            ($evento->eventoCaracteristica->eAcademico)?
-                            'list-group-item-success':
-                            'list-group-item-danger'
-                            }}">
-                                    Evento Acadêmico
                                 </li>
                                 <li class="list-group-item {{
                             ($evento->eventoCaracteristica->ePropostaAtividade)?
@@ -133,17 +119,20 @@
                                                              ;"
                                             @endif" aria-hidden="true"></i></h3>
                                     @else
-                                        <div class="img-thumbnail" width="256px">
-                                            {{ Html::image('/uploads/eventos/'.$evento->id.'/'.$evento->eventoCaracteristica->background, null, array('class' => 'img-responsive')) }}
+                                        <div class="img-thumbnail col-md-9 col-xs-3">
+                                            {{ Html::image($evento->eventoCaracteristica->background, null, array('class' => 'img-responsive')) }}
                                         </div>
                                     @endif
 
                                 </div>
                             </div>
-
                             @if( $evento->eventoEdicaoAnterior != null)
                                 <h4>Edição Anterior</h4>
-                                {{ link_to_route('eventos::visualizar', $evento->eventoEdicaoAnterior->nome , array('id' => $evento->eventoEdicaoAnterior->id)) }}
+                                <a href="{{ route('eventos::visualizar' , array('id' => $evento->eventoEdicaoAnterior->id)) }}">
+                                    <button type="button" class="button button-blue">
+                                        {{ $evento->eventoEdicaoAnterior->nome }}
+                                    </button>
+                                </a>
                             @endif
                             <div class="container">
                                 <div class="row">
@@ -211,7 +200,7 @@
                                     {{ link_to_route('eventos::adicionarSubevento', 'Adicionar Subevento', array('idPai' => $evento->id), array('class' => 'button button-blue')) }}
                                 @endif
                                 {{ link_to_route('atividades::index', 'Visualizar Atividades', ['idEventos' => $evento->id], array('class' => 'button button-blue')) }}
-                                {{ link_to_route('eventosNoticias::index', 'Notícias', ['idEventos' => $evento->id], array('class' => 'button button-blue')) }}
+                                {{ link_to_route('eventosNoticias::index', 'Avisos', ['idEventos' => $evento->id], array('class' => 'button button-blue')) }}
                                 {{link_to_route('eventos::index','Voltar', null, ['class' => 'button button-green'])}}
                             </div>
                         </div>

@@ -29,12 +29,16 @@
     <tr>
         <td colspan="3">
             <div class="btn-group">
-                {{link_to_route('atividades::adicionar','Adicionar Novo', ['id' => $evento->id], ['class' => 'button button-green'])}} {{
-                link_to_route('eventos::visualizar', "Voltar" ,['id' => $evento->id], ['class' => 'button button-blue'])
-                }}
-                <button class="button button-green">
-                    {{link_to_route('eventos::visualizar', "Voltar" ,['id' => $evento->id], ['style' => 'color:#fff;'])}}
-                </button>
+                <a href="{{ route('atividades::adicionar', ['id' => $evento->id]) }}">
+                    <button class="button button-blue">
+                        Adicionar Novo
+                    </button>
+                </a>
+                <a href="{{ route('eventos::visualizar',['id' => $evento->id], ['style' => 'color:#fff;']) }}">
+                    <button class="button button-green">
+                        Voltar
+                    </button>
+                </a>
             </div>
         </td>
     </tr>

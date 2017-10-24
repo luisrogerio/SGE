@@ -19,7 +19,12 @@
                 <div role="tabpanel1" class="tab-pane fade in active" id="evento">
                     <div class="well">
                         <fieldset class="form-group">
-                            {{Form::label('nome', 'Nome')}}
+                            {{Form::label('titulo', 'Título')}}
+                            {{Form::text('titulo', null, array('class' => 'form-control'))}}
+                            @if ($errors->has('titulo')) <p class="help-block">{{ $errors->first('titulo') }}</p> @endif
+                        </fieldset>
+                        <fieldset class="form-group">
+                            {{Form::label('nome', 'Sigla/Abreviação')}}
                             {{Form::text('nome', null, array('class' => 'form-control'))}}
                             @if ($errors->has('nome')) <p class="help-block">{{ $errors->first('nome') }}</p> @endif
                         </fieldset>
@@ -124,15 +129,6 @@
                             </div>
                         </div>
                         <fieldset class="checkbox">
-                            <label for="eventoCaracteristica[eSubmissaoArtigo]">
-                                {{ Form::hidden('eventoCaracteristica[eSubmissaoArtigo]', false) }}
-                                {{Form::checkbox('eventoCaracteristica[eSubmissaoArtigo]', true, null,  array('id' => 'eventoCaracteristica[eSubmissaoArtigo]')) }}
-                                Haverá submissão de Artigos para o Evento?
-                            </label>
-                            @if ($errors->has('eventoCaracteristica.eExistemImagens')) <p
-                                    class="help-block">{{ $errors->first('eventoCaracteristica.eSubmissaoArtigo') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="checkbox">
                             <label for="eventoCaracteristica[eExistemImagens]">
                                 {{ Form::hidden('eventoCaracteristica[eExistemImagens]', false) }}
                                 {{Form::checkbox('eventoCaracteristica[eExistemImagens]', true, null,  array('id' => 'eventoCaracteristica[eExistemImagens]')) }}
@@ -149,15 +145,6 @@
                             </label>
                             @if ($errors->has('eventoCaracteristica.eExistemNoticias')) <p
                                     class="help-block">{{ $errors->first('eventoCaracteristica.eExistemNoticias') }}</p> @endif
-                        </fieldset>
-                        <fieldset class="checkbox">
-                            <label for="eventoCaracteristica[eAcademico]">
-                                {{ Form::hidden('eventoCaracteristica[eAcademico]', false) }}
-                                {{Form::checkbox('eventoCaracteristica[eAcademico]', true, null,  array('id' => 'eventoCaracteristica[eAcademico]')) }}
-                                É um evento acadêmico?
-                            </label>
-                            @if ($errors->has('eventoCaracteristica.eAcademico.')) <p
-                                    class="help-block">{{ $errors->first('eventoCaracteristica.eAcademico') }}</p> @endif
                         </fieldset>
                         <fieldset class="checkbox">
                             <label for="eventoCaracteristica[ePropostaAtividade]">
