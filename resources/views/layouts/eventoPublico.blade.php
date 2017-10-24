@@ -34,9 +34,6 @@
                         <i class="fa fa-calendar"></i>
                         SGE
                     </a>
-                    @if (!Auth::guest())
-                        <p class="navbar-brand"> Bem-Vindo {{ Auth::user()->nome }}</p>
-                    @endif
                 </div>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -44,10 +41,29 @@
                     <li><a href="{{ route('eventosPublico::index')  }}"><i class="fa fa-home" aria-hidden="true"></i>
                             Inicial</a></li>
                     @if(!Auth::guest())
-                        <li><a href="http://vandalvnl.github.io"><i class="fa fa-user" aria-hidden="true"></i>
-                                Perfil</a></li>
-                        <li><a href="{{ route('auth::logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
-                        </li>
+                      <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user" aria-hidden="true"></i> Conta <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <span>
+                              <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->nome }}
+                            </span>
+                          </li>
+                          <li></li>
+                          <div class="btn-group text-right">
+                              <a class="btn button button-blue" href="">
+                                <i class="fa fa-user" aria-hidden="true"></i> Perfil
+                              </a>
+                              <a class="btn button button-green" href="">
+                                <i class="fa fa-certificate" aria-hidden="true"></i> Certificados
+                              </a>
+                              <a class="btn button button-orange" href="">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
+                              </a>
+                          </div>
+                        </ul>
+                    </li>
                     @else
                         <li><a href="{{ route('auth::login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
                         </li>
