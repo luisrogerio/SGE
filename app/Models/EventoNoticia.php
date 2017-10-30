@@ -52,4 +52,9 @@ class EventoNoticia extends Model
     {
         return $this->belongsTo('App\Models\Evento', 'idEventos');
     }
+
+    public function editor()
+    {
+        return $this->belongsTo('App\Models\Usuario', 'salvoPor');
+    }
 }

@@ -40,32 +40,33 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ route('eventosPublico::index')  }}"><i class="fa fa-home" aria-hidden="true"></i>
                             Inicial</a></li>
-                    @if(!Auth::guest())
-                      <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user" aria-hidden="true"></i> Conta <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <span>
-                              <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->nome }}
-                            </span>
-                          </li>
-                          <li></li>
-                          <div class="btn-group text-right">
-                              <a class="btn button button-blue" href="">
-                                <i class="fa fa-user" aria-hidden="true"></i> Perfil
-                              </a>
-                              <a class="btn button button-green" href="">
-                                <i class="fa fa-certificate" aria-hidden="true"></i> Certificados
-                              </a>
-                              <a class="btn button button-orange" href="">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
-                              </a>
-                          </div>
-                        </ul>
-                    </li>
+                    @if(Auth::guest())
+                        <li><a href="{{route('auth::login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                Login</a></li>
                     @else
-                        <li><a href="{{ route('auth::login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i> Conta <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                              <span>
+                                <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->nome }}
+                              </span>
+                                </li>
+                                <li></li>
+                                <div class="btn-group text-right">
+                                    <a class="btn button button-blue" href="{{ route('perfil') }}">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Perfil
+                                    </a>
+                                    <a class="btn button button-green" href="">
+                                        <i class="fa fa-certificate" aria-hidden="true"></i> Certificados
+                                    </a>
+                                    <a class="btn button button-orange" href="{{ route('auth::logout') }}">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
+                                    </a>
+                                </div>
+                            </ul>
                         </li>
                     @endif
                 </ul>

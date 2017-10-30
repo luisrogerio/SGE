@@ -1,4 +1,4 @@
-@extends('layouts.layout_admin'))
+@extends('layouts.layout_admin')
 @section('title', 'Notícias do Evento')
 @section('content')
     <h1>Notícias</h1>

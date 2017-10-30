@@ -1,5 +1,5 @@
 @extends('layouts.eventoPublico')
-
+@section('title', 'Página Inicial')
 @section('content')
     <div class="espacos"></div>
     <div class="row">

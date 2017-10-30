@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\Event;
 use App\Models\Atividade;
 use App\Models\EventoCaracteristica;
+use App\Models\EventoNoticia;
 use App\Models\LinkExterno;
 use App\Models\UsuarioTipo;
 use Carbon\Carbon;
@@ -83,18 +84,18 @@ class EventosController extends Controller
 
                 if ($request->has('eventoCaracteristica.eImagemDeFundo')) {
                     if ($request->hasFile('eventoCaracteristica.backgroundImagem') && $request->file('eventoCaracteristica.backgroundImagem')->isValid()) {
-                        $destino = \App::basePath() .DIRECTORY_SEPARATOR. 'public_html'.DIRECTORY_SEPARATOR. 'uploads'.DIRECTORY_SEPARATOR. 'eventos'.DIRECTORY_SEPARATOR . $this->evento->id;
+                        $destino = \App::basePath() . DIRECTORY_SEPARATOR . 'public_html' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'eventos' . DIRECTORY_SEPARATOR . $this->evento->id;
                         $extensao = $request->file('eventoCaracteristica.backgroundImagem')->getClientOriginalExtension();
                         $arquivoNome = strtolower('background.' . $extensao);
-                        $eventoCaracteristica['background'] = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'eventos'.DIRECTORY_SEPARATOR . $this->evento->id . DIRECTORY_SEPARATOR . $arquivoNome;
+                        $eventoCaracteristica['background'] = DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'eventos' . DIRECTORY_SEPARATOR . $this->evento->id . DIRECTORY_SEPARATOR . $arquivoNome;
                         $request->file('eventoCaracteristica.backgroundImagem')->move($destino, $arquivoNome);
                     }
                 }
                 if ($request->hasFile('eventoCaracteristica.logoImagem') && $request->file('eventoCaracteristica.logoImagem')->isValid()) {
-                    $destino = \App::basePath() .DIRECTORY_SEPARATOR. 'public_html'.DIRECTORY_SEPARATOR. 'uploads'.DIRECTORY_SEPARATOR. 'eventos'.DIRECTORY_SEPARATOR . $this->evento->id;
+                    $destino = \App::basePath() . DIRECTORY_SEPARATOR . 'public_html' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'eventos' . DIRECTORY_SEPARATOR . $this->evento->id;
                     $extensao = $request->file('eventoCaracteristica.logoImagem')->getClientOriginalExtension();
                     $arquivoNome = strtolower('logo.' . $extensao);
-                    $eventoCaracteristica['logo'] = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'eventos'.DIRECTORY_SEPARATOR . $this->evento->id . DIRECTORY_SEPARATOR . $arquivoNome;
+                    $eventoCaracteristica['logo'] = DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'eventos' . DIRECTORY_SEPARATOR . $this->evento->id . DIRECTORY_SEPARATOR . $arquivoNome;
                     $request->file('eventoCaracteristica.logoImagem')->move($destino, $arquivoNome);
                 }
                 if ($eventoCaracteristica['eEmiteCertificado']) {
@@ -182,7 +183,32 @@ class EventosController extends Controller
         return response()->json(['msg' => 'Link Salvo com Sucesso'], 200);
     }
 
-    public function getIndexPublico()
+    public function getIndexPublico($query = null)
+    {
+        $eventos = $this->evento
+            ->orderBy('nome')
+            ->where('idPai', '=', null);
+        if ($query == 'inscricao') {
+            $eventos = $eventos
+                ->where('dataInicioInscricao', '>=', Carbon::today()->format('Y-m-d'))
+                ->where('dataFimInscricao', '<=', Carbon::today()->format('Y-m-d'));
+        } elseif ($query == 'semInscricao') {
+            $eventos = $eventos
+                ->where('dataInicioInscricao', '<=', Carbon::today()->format('Y-m-d'))
+                ->where('dataFimInscricao', '>=', Carbon::today()->format('Y-m-d'))
+                ->where('dataTermino', '>=', Carbon::today()->format('Y-m-d'));
+        } elseif ($query == 'finalizados') {
+            $eventos = $eventos
+                ->where('dataTermino', '<=', Carbon::today()->format('Y-m-d'));
+        }
+        $eventos = $eventos
+            ->with('eventoCaracteristica')
+            ->paginate(5);
+        Carbon::setLocale('pt_BR');
+        return view('publico.eventos.index', compact('eventos', 'query'));
+    }
+
+    public function getIndexPublicoInscricao()
     {
         $eventos = $this->evento
             ->orderBy('nome')
@@ -209,6 +235,22 @@ class EventosController extends Controller
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         $subeventos = $evento->eventosFilhos();
         return view('publico.eventos.view', compact('evento', 'subeventos', 'eventosPai'));
+    }
+
+    public function getVisualizarAvisos($nomeSlug)
+    {
+        $evento = $this->evento->whereNomeslug($nomeSlug)->first();
+        $noticias = EventoNoticia::whereIdeventos($evento->id)
+            ->orderBy('dataHoraPublicacao')
+            ->with('editor')
+            ->paginate(5);
+        return view('publico.eventos.avisos', compact('evento', 'noticias'));
+    }
+
+    public function getVisualizarGaleria($nomeSlug)
+    {
+        $evento = $this->evento->whereNomeslug($nomeSlug)->first();
+        return view('publico.eventos.galeria', compact('evento'));
     }
 
     public function getParticiparEvento($nomeSlug)

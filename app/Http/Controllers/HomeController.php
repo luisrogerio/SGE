@@ -27,6 +27,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function perfil()
+    {
+        return view('publico.perfil');
+    }
+
     public function indexAdmin()
     {
         return view('admin.index');

@@ -1,5 +1,5 @@
 @extends('layouts.eventoLayout')
-@section('title', "- Eventos")
+@section('title', "- ".$evento->nome)
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -16,7 +16,7 @@
             @endif
             <h2>Apresentação</h2>
             <p class="paragrafo">
-                {{ $evento->descricao }}
+                {!! nl2br($evento->descricao, true) !!}
             </p>
             <h2>Comissão Organizadora</h2>
             <p class="paragrafo">

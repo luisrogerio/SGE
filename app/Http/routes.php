@@ -11,60 +11,44 @@
 |
 */
 
-Route::get('/composer', function(){
+Route::get('/composer', function () {
     Artisan::call('migrate', ['--force' => true]);
     dd(Artisan::output());
 });
 
 Route::group(['as' => 'auth::'], function () {
-
     Route::get('/', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
     Route::post('/login', ['as' => 'logar', 'uses' => 'Auth\AuthController@postLogin']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
-
     Route::get('/cadastro', ['as' => 'cadastro', 'uses' => 'Auth\AuthController@getCadastro']);
     Route::post('/salvarExterno', ['as' => 'salvar', 'uses' => 'Auth\AuthController@postSalvarExterno']);
     Route::post('/password/reset', ['as' => 'reset', 'uses' => 'Auth\PasswordController@reset']);
-    Route::post('/email', ['as' => 'email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
+    Route::post('/email', ['as' => 'email', 'uses' => 'Auth\PasswordController@postEmail']);
+    Route::post('/alterarSenha', ['as' => 'passwordChange', 'uses' => 'Auth\AuthController@alterarSenha']);
 });
 
-// Password Reset Routes...
-Route::get('/password/reset/{token?}',  ['as' => 'resetToken', 'uses' => 'Auth\PasswordController@showResetForm']);
+Route::get('/password/reset/{token?}', ['as' => 'resetToken', 'uses' => 'Auth\PasswordController@showResetForm']);
 
-//Route::post('/cadastroExterno', ['as' => 'salvar', 'uses' => 'Auth\AuthController@getCadastroExterno']);
-//Route::get('/cadastroAluno', 'Auth\AuthController@getCadastroAluno');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
+    Route::get('/perfil', ['as' => 'perfil', 'uses' => 'HomeController@perfil']);
+});
 
-
-Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
 //Route::get('/propostas/{nomeEvento}', ['as' => 'adicionarAtividadePublico', 'uses' => 'AtividadesController@getAdicionarPublico']);
 //Route::post('/salvarProposta', ['as' => 'salvarAtividadePublico', 'uses' => 'AtividadesController@postSalvarPublico']);
 //Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@getAdicionarPublico']);
 //Route::post('/salvarResponsavel', ['as' => 'salvarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavelPublico']);
 
+Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::'], function () {
+    Route::get('/{query?}', ['as' => 'index', 'uses' => 'EventosController@getIndexPublico',]);
+});
 
-//Route::controller('/locais','LocaisController');
-
-//Route::controller('/atividadesTipos','AtividadesTiposController');
-
-//Route::controller('/cursos', 'CursosController');
-
-//Route::controller('/statusdeatividade', 'AtividadesStatusConroller');
-
-//Route::controller('/gruposdeusuario', 'UsuariosGruposController');
-
-//Route::controller('/atividades', 'AtividadesController');
-
-//Route::controller('/eventos', 'EventosController');
-
-//Route::controller('/contatos', 'EventosContatosController');
-
-Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::',], function () {
-
-    Route::get('/', ['as' => 'index', 'uses' => 'EventosController@getIndexPublico',]);
+Route::group(['prefix' => 'evento/', 'as' => 'eventosPublico::'], function () {
     Route::get('/atividades/{nomeSlug}', ['as' => 'atividadesEvento', 'uses' => 'EventosController@getAtividadesPublico',]);
     Route::get('/{nomeSlug}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
+    Route::get('/galeria/{nomeSlug}', ['as' => 'galeria', 'uses' => 'EventosController@getVisualizarGaleria']);
+    Route::get('/avisos/{nomeSlug}', ['as' => 'avisos', 'uses' => 'EventosController@getVisualizarAvisos']);
     Route::post('/participar/{nomeSlug}', ['as' => 'participar', 'uses' => 'EventosController@getParticiparEvento']);
-
 });
 
 
@@ -80,7 +64,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => 'auth'], function () {
         Route::post('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EspacosTiposController@postAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EspacosTiposController@postExcluir']);
     });
-    
+
     Route::group(['prefix' => 'salas/', 'as' => 'salas::'], function () {
         Route::get('/{idLocais}', ['as' => 'index', 'uses' => 'SalasController@getIndex']);
         Route::get('/adicionar/{idLocais}', ['as' => 'adicionar', 'uses' => 'SalasController@getAdicionar']);
@@ -217,28 +201,3 @@ Route::group(['prefix' => 'admin/', 'middleware' => 'auth'], function () {
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosNoticiasController@postExcluir']);
     });
 });
-
-
-Route::get('/geralzaum', function () {
-    return view('/eventos/eventoGeral');
-});
-
-Route::get('/geralzaum2', function () {
-    return view('/eventos/eventoGeral');
-});
-//
-//Route::get('/novoEvento', function () {
-//    return view('eventos.eventoMaster');
-//});
-//
-//Route::get('/novoEvento2', function () {
-//    return view('eventos.eventos');
-//});
-//
-//Route::get('/novoEvento3', function () {
-//    return view('eventos.eventosFinalizados');
-//});
-//
-//Route::get('/novoCadastro', function () {
-//    return view('cadastro');
-//});

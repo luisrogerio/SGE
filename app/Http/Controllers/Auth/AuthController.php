@@ -12,6 +12,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -65,7 +67,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout', 'alterarSenha']]);
     }
 
     public function getCadastro()
@@ -155,6 +157,60 @@ class AuthController extends Controller
         }
         \Session::flash('message', 'Houve algum erro ao tentar cadastrar este usuário');
         return redirect()->back();
+    }
+
+    /**
+     * Send a reset link to the given user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function alterarSenha(Request $request)
+    {
+        $this->validateSenha($request);
+
+        $senhaAtual = $request->password;
+
+        if(Hash::check($senhaAtual, Auth::user()->senha)){
+            $usuario = Auth::user();
+            $usuario->senha = Hash::make($request->newPassword);
+            $usuario->save();
+            return redirect()->back()->with('status', 200);
+        } else {
+            return redirect()->back()->with('status', 400);
+        }
+    }
+
+    /**
+     * Validate the request of sending reset link.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function validateSenha(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+            'newPassword' => 'required|alpha_dash|between:8,20|confirmed',
+        ], [
+            'password.required' => 'A Senha Atual é obrigatória',
+            'newPassword.required' => 'A Nova Senha é obrigatória',
+            'newPassword.alpha_dash' => 'A Nova Senha deverá ser alfanumérica',
+            'newPassword.between' => 'A Nova Senha deverá ter de 8 a 20 caracteres',
+            'newPassword.confirmed' => 'Por favor, verifique se as novas senhas digitadas são iguais',
+        ]);
+    }
+
+    /**
+     * Get the needed credentials for sending the reset link.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function getAlterarSenhaCredentials(Request $request)
+    {
+        return $request->only('email');
     }
 
 }

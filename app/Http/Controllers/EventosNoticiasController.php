@@ -38,6 +38,7 @@ class EventosNoticiasController extends Controller
         $noticiaWrapped = wordwrap($this->eventoNoticia->noticia, 255, "<br> \n");
         $pedadosDaNoticia = explode("<br> \n", $noticiaWrapped);
         $this->eventoNoticia->preview = rtrim($pedadosDaNoticia[0], ',;!:\'@ ');
+        $this->eventoNoticia->salvoPor = \Auth::user()->id;
         if ($evento->eventosNoticias()->save($this->eventoNoticia)) {
             \Session::flash('message', 'Notícia salva com sucesso');
             return redirect()->route('eventosNoticias::index', ['idEventos' => $idEventos]);

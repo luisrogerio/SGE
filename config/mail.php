@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => "sgecontato.jf@ifsudestemg.edu.br", 'name' => "Sistema de Gestão de Eventos"],
 
     /*
     |--------------------------------------------------------------------------

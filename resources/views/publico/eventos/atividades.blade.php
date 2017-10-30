@@ -1,5 +1,5 @@
 @extends('layouts.eventoLayout')
-@section('title', "- Eventos")
+@section('title', "- ".$evento->nome)
 @section('content')
     <h1>{{ $evento->nome }}</h1>
     <h2>Lista de Atividades do evento e subeventos:</h2>
