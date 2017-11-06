@@ -3,9 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h1>{{ $evento->nome }}</h1>
+
             @if (!Auth::guest())
                 @if(!$evento->isParticipante(Auth::user()->id))
+                    <h1>{{ $evento->nome }}</h1>
                     {{ Form::open(['url' => route('eventosPublico::participar', ['nomeSlug' => $evento->nomeSlug]),
                         'method' => 'POST', 'class' => 'pull-right']) }}
                     <button class="button button-green" type="submit" role="button">
@@ -20,7 +21,7 @@
             </p>
             <h2>Comissão Organizadora</h2>
             <p class="paragrafo">
-                <pre>{{ $evento->comissaoOrganizadora }}</pre>
+            <pre>{{ $evento->comissaoOrganizadora }}</pre>
             </p>
             <h2>Público-Alvo</h2>
             <p class="paragrafo">
@@ -44,6 +45,16 @@
                     @endforeach
                 </ul>
             @endif
+            @if(!$evento->linksExternos->isEmpty())
+                @foreach($evento->linksExternos as $linkExterno)
+                    <h2>
+                        {{ $linkExterno->titulo }}
+                    </h2>
+                    <h3 class="paragrafo">
+                        {{ link_to($linkExterno->url, $linkExterno->descricao, ['target' => 'blank'])}}
+                    </h3>
+                @endforeach
+            @endif
             <h2>Contatos</h2>
             <div class="container">
                 <div class="row">
@@ -57,7 +68,7 @@
                                         @if($eventoContato->telefone)
                                             Telefone: {{$eventoContato->telefone}}<br>
                                         @endif
-                                        @if($eventoContato->telefone)
+                                        @if($eventoContato->celular)
                                             Celular: {{$eventoContato->celular}}<br>
                                         @endif
                                         Email: {{ $eventoContato->email }}<br>
@@ -77,6 +88,17 @@
                     </div>
                 </div>
             </div>
+            @if (!Auth::guest())
+                @if($evento->isParticipante(Auth::user()->id))
+                    <div class="text-center">
+                        <a href="{{ route('eventosPublico::atividadesEvento', ['nomeSlug' => $evento->nomeSlug]) }}">
+                            <button type="button" class="button btn-lg btn-block button-blue">Inscreva-se nas
+                                Atividades
+                            </button>
+                        </a>
+                    </div>
+                @endif
+            @endif
         </div>
     </div>
 @endsection

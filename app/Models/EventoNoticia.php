@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\EventoNoticia whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\EventoNoticia whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Usuario|null $editor
+ * @property-read \App\Models\Evento $evento
  */
 class EventoNoticia extends Model
 {

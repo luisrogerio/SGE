@@ -16,8 +16,9 @@ class CreateSgeLinksExternosTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('idEventos')->index('fk_links_externos_eventos1_idx');
-			$table->string('descricao', 45)->nullable();
-			$table->string('url', 60)->nullable();
+			$table->string('titulo', 255)->nullable();
+			$table->string('descricao', 256)->nullable();
+			$table->string('url', 256)->nullable();
 			$table->timestamps();
 			$table->integer('salvoPor')->nullable()->index('fk_sge_links_externos_sge_usuarios1_idx');
 		});

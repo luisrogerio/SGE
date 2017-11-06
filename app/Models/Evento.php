@@ -48,6 +48,13 @@ use App\Models\Usuario;
  * @property string $nomeSlug
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Atividade[] $atividades
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Evento whereNomeSlug($value)
+ * @property string $comissaoOrganizadora
+ * @property string $publicoAlvo
+ * @property string $titulo
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Usuario[] $participantes
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Evento whereComissaoOrganizadora($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Evento wherePublicoAlvo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Evento whereTitulo($value)
  */
 class Evento extends Model
 {

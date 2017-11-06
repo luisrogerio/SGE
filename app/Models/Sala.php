@@ -21,6 +21,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Sala whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Sala whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property int $idEspacosTipos
+ * @property int $quantidade_ocupacao
+ * @property-read \App\Models\EspacoTipo $tipoDeEspaco
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sala whereIdEspacosTipos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sala whereQuantidadeOcupacao($value)
  */
 class Sala extends Model
 {

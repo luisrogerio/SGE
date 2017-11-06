@@ -13,6 +13,8 @@ use App\Models\Local;
 use App\Models\Sala;
 use App\Models\Unidade;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AtividadesController extends Controller
 {
@@ -62,36 +64,24 @@ class AtividadesController extends Controller
             $this->atividade->local()->associate($local);
             $this->atividade->sala()->associate($sala);
 
-            $this->atividade->comentario =
-                '<h3>Nome do Proponente: </h3>' . $request->comentarios[5] .
-                '<h3>Telefone do Proponente: </h3>' . $request->comentarios[6] .
-                '<h3>E-mail do Proponente: </h3>' . $request->comentarios[7] .
-                '<h3>Campus de Lotação do Proponente: </h3>' . $request->comentarios[8] .
-                '<h3>Área de Conhecimento: </h3>' . $request->comentarios[0] .
-                '<h3>Objetivo: </h3>' . $request->comentarios[9] .
-                '<h3>Justificativa: </h3>' . $request->comentarios[1] .
-                '<h3>Público-Alvo: </h3>' . $request->comentarios[2] .
-                '<h3>Recursos/Materiais: </h3>' . $request->comentarios[3] .
-                '<h3>Metodologia: </h3>' . $request->comentarios[4];
-
             $this->atividade->save();
 
-            $cursos[] = $request->atividades['idCursos'];
-            foreach ($cursos['0'] as $idCursos) {
-                $cursosDatas[$idCursos] =
-                    [
-                        'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
-                        'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
-                    ];
-            }
+//            $cursos[] = $request->atividades['idCursos'];
+//            foreach ($cursos['0'] as $idCursos) {
+//                $cursosDatas[$idCursos] =
+//                    [
+//                        'dataInicio' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataInicio),
+//                        'dataFim' => Carbon::createFromFormat("d/m/Y", $request->atividadesCursos_dataFim)
+//                    ];
+//            }
 
-            $this->atividade->cursos()->sync($cursosDatas);
+//            $this->atividade->cursos()->sync($cursosDatas);
 
-            if ($evento->eventoCaracteristica->ePropostaAtividade) {
-                $statusDeAtividade = AtividadeStatus::whereNome('Proposta')->first();
-            } else {
+//            if ($evento->eventoCaracteristica->ePropostaAtividade) {
+//                $statusDeAtividade = AtividadeStatus::whereNome('Proposta')->first();
+//            } else {
                 $statusDeAtividade = AtividadeStatus::whereNome('Aceita')->first();
-            }
+//            }
             $this->atividade->statusDeAtividade()->attach($statusDeAtividade->id);
 
 
@@ -252,6 +242,52 @@ class AtividadesController extends Controller
             'idAtividade' => $this->atividade->id,
             'quantidadeResponsaveis' => $request->atividades['quantidadeResponsaveis']
         ]);
+    }
+
+    public function getAtividade($id)
+    {
+        $atividade = $this->atividade->withCount('participantes')->findOrFail($id);
+        return response()->json(view('publico.eventos.atividadeModal', compact('atividade'))->render());
+    }
+
+    public function participarAtividade($id)
+    {
+        $atividade = $this->atividade->withCount('participantes')->findOrFail($id);
+        if (($atividade->participantes_count + 1) >= $atividade->quantidadeVagas) {
+            Session::flash('Número de Vagas esgotados');
+        } else {
+            $atividadesDoUsuario = Atividade::with('atividadesDatasHoras')
+                ->select(['atividades.*'])
+                ->join('atividades_participantes', 'atividades_participantes.idAtividades', '=', 'atividades.id')
+                ->join('usuarios', 'atividades_participantes.idUsuarios', '=', 'usuarios.id')
+                ->where('usuarios.id', '=', Auth::user()->id)
+                ->where('idEventos', '=', $atividade->evento->id)
+                ->get();
+            foreach ($atividadesDoUsuario as $atividadeDoUsuario) {
+                foreach ($atividadeDoUsuario->atividadesDatasHoras as $atividadeDataHora) {
+                    foreach ($atividade->atividadesDatasHoras as $atividadeDataHoraCorrente) {
+                        if ($atividadeDataHoraCorrente->data->eq($atividadeDataHora->data)) {
+                            if ($atividadeDataHoraCorrente->horarioInicio->between($atividadeDataHora->horarioInicio, $atividadeDataHora->horarioTermino)
+                                or $atividadeDataHoraCorrente->horarioTermino->between($atividadeDataHora->horarioInicio, $atividadeDataHora->horarioTermino)) {
+                                Session::flash('error', 'Conflito de horários com a Atividade ' . $atividadeDoUsuario->nome . '.');
+                                return redirect()->back();
+                            }
+                        }
+                    }
+                }
+            }
+            $atividade->participantes()->save(\Auth::user());
+            Session::flash('message', 'Você está agora inscrito na atividade ' . $atividade->nome . '.');
+        }
+        return redirect()->back();
+    }
+
+    public function revovarParticipacaoAtividade($id)
+    {
+        $atividade = $this->atividade->findOrFail($id);
+        $atividade->participantes()->detach(\Auth::user()->id);
+        Session::flash('message', 'Você não está mais inscrito na atividade ' . $atividade->nome . '.');
+        return redirect()->back();
     }
 
 }

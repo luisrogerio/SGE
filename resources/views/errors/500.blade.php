@@ -5,9 +5,9 @@
         <div class="col-xs-12 text-center">
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <div class="logo">
-                    <h1>Erro 503 - Erro na Requisição</h1>
+                    <h1>Erro 500 - Erro Interno</h1>
                 </div>
-                <p class="lead text-muted">Houve um erro interno ao fazer a requisição</p>
+                <p class="lead text-muted">Houve um erro interno no servidor, desculpe o incômodo</p>
                 <div class="clearfix"></div>
                 <div class="sr-only">
                     &nbsp;

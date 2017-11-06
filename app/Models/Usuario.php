@@ -36,12 +36,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Usuario whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Usuario whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Atividade[] $atividades
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Evento[] $eventos
  */
 class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatable, \Illuminate\Contracts\Auth\CanResetPassword
 {
     use Authenticatable, CanResetPassword;
     protected $table = 'usuarios';
     protected $fillable = [
+        'id',
         'nome',
         'email',
         'dataNascimento',
@@ -59,6 +62,12 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
         return $this->belongsTo('App\Models\UsuarioTipo', 'idUsuariosTipos');
     }
 
+    public function atividades()
+    {
+        return $this->belongsToMany('App\Models\Atividade', 'atividades_participantes',
+            'idUsuarios', 'idAtividades');
+    }
+
     public function usuariosGrupos()
     {
         return $this->belongsToMany('App\Models\UsuarioGrupo', 'usuarios_usuarios_grupos',
@@ -73,5 +82,16 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
     public function getAuthPassword()
     {
         return $this->senha;
+    }
+
+    public function temPapel($papel){
+        $grupos = $this->usuariosGrupos;
+        if($papel == 'root'){
+            $papel = 'Root';
+        }
+        if($papel == 'admin'){
+            $papel = 'Administrador';
+        }
+        return $grupos->contains('nome', $papel);
     }
 }

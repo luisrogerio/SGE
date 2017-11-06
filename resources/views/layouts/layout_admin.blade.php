@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--CSS para Bootstrap, Select e Ícones-->
+    {{ Html::favicon('http://www.jf.ifsudestemg.edu.br/imagens/ifet.ico') }}
     {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/select2.css') }}
     {{ Html::style('css/select2-bootstrap.css') }}
@@ -46,36 +47,36 @@
                     </li>
                     <li class="active"><a href="{{ route('admin::index') }}"><i class="fa fa-user"
                                                                                 aria-hidden="true"></i> Admin</a></li>
-                </ul>
-            </div>
-            @if(Auth::guest())
-                <li><a href="{{route('auth::login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
-                        Login</a></li>
-            @else
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user" aria-hidden="true"></i> Conta <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
+                    @if(Auth::guest())
+                        <li><a href="{{route('auth::login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                Login</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i> Conta <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
                               <span>
                                 <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->nome }}
                               </span>
+                                </li>
+                                <li></li>
+                                <div class="btn-group text-right">
+                                    <a class="btn button button-blue" href="{{ route('perfil') }}">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Perfil
+                                    </a>
+                                    {{--<a class="btn button button-green" href="">--}}
+                                    {{--<i class="fa fa-certificate" aria-hidden="true"></i> Certificados--}}
+                                    {{--</a>--}}
+                                    <a class="btn button button-orange" href="{{ route('auth::logout') }}">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
+                                    </a>
+                                </div>
+                            </ul>
                         </li>
-                        <li></li>
-                        <div class="btn-group text-right">
-                            <a class="btn button button-blue" href="{{ route('perfil') }}">
-                                <i class="fa fa-user" aria-hidden="true"></i> Perfil
-                            </a>
-                            <a class="btn button button-green" href="">
-                                <i class="fa fa-certificate" aria-hidden="true"></i> Certificados
-                            </a>
-                            <a class="btn button button-orange" href="{{ route('auth::logout') }}">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
-                            </a>
-                        </div>
-                    </ul>
-                </li>
-            @endif
+                    @endif
+                </ul>
+            </div>
         </div>
     </nav>
 </header>

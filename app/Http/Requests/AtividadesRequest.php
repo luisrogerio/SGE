@@ -34,7 +34,7 @@ class AtividadesRequest extends Request
                     'atividades.quantidadeResponsaveis' => 'required|numeric',
 //                    'atividades.idCursos' => 'required',
 
-                    'comentarios.*' => 'required',
+//                    'comentarios.*' => 'required',
 
 //                    'atividades.unidades' => 'required',
 //                    'atividades.locais' => 'required',

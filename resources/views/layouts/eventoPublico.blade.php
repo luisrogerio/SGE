@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SGE @yield('title')</title>
+{{ Html::favicon('http://www.jf.ifsudestemg.edu.br/imagens/ifet.ico') }}
     <!-- Styles -->
     {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
@@ -59,9 +60,9 @@
                                     <a class="btn button button-blue" href="{{ route('perfil') }}">
                                         <i class="fa fa-user" aria-hidden="true"></i> Perfil
                                     </a>
-                                    <a class="btn button button-green" href="">
-                                        <i class="fa fa-certificate" aria-hidden="true"></i> Certificados
-                                    </a>
+                                    {{--<a class="btn button button-green" href="">--}}
+                                        {{--<i class="fa fa-certificate" aria-hidden="true"></i> Certificados--}}
+                                    {{--</a>--}}
                                     <a class="btn button button-orange" href="{{ route('auth::logout') }}">
                                         <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
                                     </a>
@@ -75,6 +76,14 @@
     </nav>
 </header>
 <div class="container">
+    @if(Session::has('message'))
+        <div class="alert alert-info fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{Session::get('message')}}
+        </div>
+    @endif
     @yield('content')
 </div>
 @include('layouts.footerPublico')

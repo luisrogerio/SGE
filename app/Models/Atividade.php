@@ -44,6 +44,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade whereIdLocais($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade whereIdSalas($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade whereIdUnidades($value)
+ * @property string $comentario
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Usuario[] $participantes
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Atividade whereComentario($value)
  */
 class Atividade extends Model
 {
@@ -113,12 +116,24 @@ class Atividade extends Model
         return $this->belongsTo('App\Models\Sala', 'idSalas');
     }
 
+    public function participantes()
+    {
+        return $this->belongsToMany('App\Models\Usuario', 'atividades_participantes', 'idAtividades', 'idUsuarios');
+    }
+
+    public function isParticipante($id)
+    {
+        $participante = Usuario::findOrFail($id);
+        return (bool) $this->participantes()->get()->contains($participante);
+    }
+
     public function scopeAceitas($query)
     {
         return $query
+            ->select('atividades.*')
             ->join('atividades_atividades_status', 'atividades.id', '=', 'atividades_atividades_status.idAtividades')
             ->join('atividades_status', 'atividades_status.id', '=', 'atividades_atividades_status.idAtividadesStatus')
-            ->where('atividades_status.nome', '=', 'Aceita');
+            ->where('atividades_status.id', '=', 3);
     }
 
 }

@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/composer', function () {
-    Artisan::call('migrate', ['--force' => true]);
-    dd(Artisan::output());
-});
+//Route::get('/composer', function () {
+//    Artisan::call('migrate', ['--force' => true]);
+//    dd(Artisan::output());
+//});
 
 Route::group(['as' => 'auth::'], function () {
     Route::get('/', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
@@ -34,6 +34,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/perfil', ['as' => 'perfil', 'uses' => 'HomeController@perfil']);
 });
 
+Route::get('/propostas/iv-simepe', function () {
+    return view('publico.atividades.propostasFinalizadas');
+});
+
 //Route::get('/propostas/{nomeEvento}', ['as' => 'adicionarAtividadePublico', 'uses' => 'AtividadesController@getAdicionarPublico']);
 //Route::post('/salvarProposta', ['as' => 'salvarAtividadePublico', 'uses' => 'AtividadesController@postSalvarPublico']);
 //Route::get('/adicionarResponsavel/{idAtividade}/{quantidadeResponsaveis}', ['as' => 'adicionarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@getAdicionarPublico']);
@@ -44,15 +48,18 @@ Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::'], function () {
 });
 
 Route::group(['prefix' => 'evento/', 'as' => 'eventosPublico::'], function () {
-    Route::get('/atividades/{nomeSlug}', ['as' => 'atividadesEvento', 'uses' => 'EventosController@getAtividadesPublico',]);
+    Route::get('/atividades/{nomeSlug}', ['as' => 'atividadesEvento', 'uses' => 'EventosController@getAtividadesPublico']);
+    Route::post('/atividade/{id}', ['as' => 'atividade', 'uses' => 'AtividadesController@getAtividade']);
     Route::get('/{nomeSlug}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
     Route::get('/galeria/{nomeSlug}', ['as' => 'galeria', 'uses' => 'EventosController@getVisualizarGaleria']);
     Route::get('/avisos/{nomeSlug}', ['as' => 'avisos', 'uses' => 'EventosController@getVisualizarAvisos']);
-    Route::post('/participar/{nomeSlug}', ['as' => 'participar', 'uses' => 'EventosController@getParticiparEvento']);
+    Route::post('/participar/{nomeSlug}', ['as' => 'participar', 'uses' => 'EventosController@getParticiparEvento', 'middleware' => 'auth']);
+    Route::get('/participarAtividade/{id}', ['as' => 'participarAtividade', 'uses' => 'AtividadesController@participarAtividade', 'middleware' => 'auth']);
+    Route::get('/revogarParticipacaoAtividade/{id}', ['as' => 'revogarParticipacaoAtividade', 'uses' => 'AtividadesController@revovarParticipacaoAtividade', 'middleware' => 'auth']);
 });
 
 
-Route::group(['prefix' => 'admin/', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], function () {
 
     Route::get('/', ['as' => 'admin::index', 'uses' => 'HomeController@indexAdmin']);
 
@@ -185,6 +192,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => 'auth'], function () {
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosController@postExcluir']);
         Route::get('/subeventos', ['as' => 'paginacaoSubeventos', 'uses' => 'EventosController@getSubeventos']);
         Route::post('/salvarLinkExterno', ['as' => 'salvarLinkExterno', 'uses' => 'EventosController@salvarLinkExterno']);
+        Route::post('/removerLinkExterno/{idLink}', ['as' => 'removerLinkExterno', 'uses' => 'EventosController@removerLinkExterno']);
 
         Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
             Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);

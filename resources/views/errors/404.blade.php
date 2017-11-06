@@ -5,10 +5,11 @@
         <div class="col-xs-12 text-center">
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <div class="logo">
-                    <h1>Erro 503 - Erro na Requisição</h1>
+                    <h1>Erro 404 - Não Encontrado</h1>
                 </div>
-                <p class="lead text-muted">Houve um erro interno ao fazer a requisição</p>
+                <img src="{{ asset('imagens/404.jpg') }}" class="image-responsive">
                 <div class="clearfix"></div>
+                <p class="lead text-muted">A página que você procurava não existe</p>
                 <div class="sr-only">
                     &nbsp;
                 </div>

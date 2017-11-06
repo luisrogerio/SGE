@@ -57,7 +57,7 @@
                                                 <a href="{{ route('eventosPublico::visualizar', ['nomeSlug' => $evento->nomeSlug]) }}"
                                                    class="button button-blue" role="button">Evento</a>
                                                 @if (!Auth::guest())
-                                                    @if(!$evento->isParticipante(Auth::user()->id))
+                                                    @if(!$evento->isParticipante(Auth::user()->id) && \Carbon\Carbon::now()->between($evento->dataInicioInscricao, $evento->dataFimInscricao))
                                                         {{ Form::open(['url' => route('eventosPublico::participar', ['nomeSlug' => $evento->nomeSlug]), 'method' => 'POST']) }}
                                                         <button class="button button-green" type="submit">
                                                             <i class="fa fa-plus" aria-hidden=""></i> Participar

@@ -178,9 +178,21 @@
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">{{$linkExterno->descricao}}</h3>
                                                 </div>
-                                                <div class="panel-body">
-                                                    {{ Html::link($linkExterno->url) }}
+                                                <div class="panel-body" style="word-wrap: break-word;">
+                                                    <p>
+                                                    {{ Html::link($linkExterno->url) }}</p>
+                                                    <div class="text-center">
+                                                        {{ Form::open(array('method' => 'POST', 'url' => route('eventos::removerLinkExterno', ['idLink' => $linkExterno->id]), 'style' => 'display:inline;')) }}
+                                                        <button class='button button-cyan' type='button'
+                                                                data-toggle="modal" data-target="#confirmDelete"
+                                                                data-title="Remover Link Externo"
+                                                                data-message='Você tem certeza que deseja remover esse link?'>
+                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                            Remover
+                                                        </button>
+                                                    </div>
                                                 </div>
+                                                {{ Form::close() }}
                                             </div>
                                         </div>
                                     @endforeach
@@ -232,6 +244,11 @@
                 </div>
                 {{Form::open(array('url' => route('eventos::salvarLinkExterno'), 'id' => 'adicionarLinkExterno'))}}
                 <div class="modal-body">
+                    <fieldset class="form-group" id="titulo">
+                        {{Form::label('titulo', 'Título')}}
+                        {{Form::text('titulo', null, array('class' => 'form-control', 'id' => 'tituloInput'))}}
+                        <p class="help-block"></p>
+                    </fieldset>
                     <fieldset class="form-group" id="descricao">
                         {{Form::label('descricao', 'Descrição')}}
                         {{Form::text('descricao', null, array('class' => 'form-control', 'id' => 'descricaoInput'))}}
@@ -255,6 +272,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    @include('layouts.confirmarDelecao')
     <script>
         $(document).ready(function () {
             $(document).on('click', '.pagination a', function (e) {
@@ -295,23 +313,29 @@
                     dataType: 'json',
                     success: function () {
                         $("#linksExternos").append(
-                            '<p><strong>' + $("#descricaoInput").val() + '</strong></p>' +
-                            '<p><a href="' + $("#urlInput").val() + '">' + $("#urlInput").val() + '</a></p>');
+                            '<p><strong>' + $("#tituloInput").val() + '</strong></p>' +
+                            '<p><a href="' + $("#urlInput").val() + '">' + $("#descricaoInput").val() + '</a></p>');
+                        $("#tituloInput").val('');
                         $("#descricaoInput").val('');
                         $("#urlInput").val('');
+                        $('#titulo p').text("");
                         $('#descricao p').text("");
                         $('#url p').text("");
                         $("#modalLinkExterno").modal('toggle');
                     },
                     error: function (data) {
                         var erro = data.responseJSON;
-                        var descricao = "", url = "";
+                        var descricao = "", url = "", titulo = "";
+                        if (erro.titulo !== undefined) {
+                            descricao = erro.titulo;
+                        }
                         if (erro.descricao !== undefined) {
                             descricao = erro.descricao;
                         }
                         if (erro.url !== undefined) {
                             url = erro.url;
                         }
+                        $("#titulo p").text(descricao);
                         $("#descricao p").text(descricao);
                         $("#url p").text(url);
                     }

@@ -16,9 +16,9 @@ class CreateSgeAtividadesResponsaveisTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('idAtividades')->index('fk_atividades_responsaveis_atividades1_idx');
-			$table->string('nome', 45);
-			$table->string('titulacao', 45)->nullable();
-			$table->string('instituicaoOrigem', 45)->nullable();
+			$table->string('nome', 255);
+			$table->string('titulacao', 255)->nullable();
+			$table->string('instituicaoOrigem', 255)->nullable();
 			$table->text('experienciaProfissional', 65535)->nullable();
 			$table->timestamps();
 			$table->integer('salvoPor')->nullable()->index('fk_atividades_responsaveis_usuarios1_idx');

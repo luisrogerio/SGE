@@ -22,11 +22,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\LinkExterno whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\LinkExterno whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property string|null $titulo
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LinkExterno whereTitulo($value)
  */
 class LinkExterno extends Model
 {
     protected $fillable =
         [
+            'titulo',
             'descricao',
             'url',
         ];

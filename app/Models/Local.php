@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Local whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Local whereSalvoPor($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sala[] $salas
  */
 class Local extends Model
 {

@@ -17,6 +17,7 @@ use App\Http\Requests\EventosRequest;
 
 use App\Http\Requests;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
 
 class EventosController extends Controller
@@ -171,6 +172,7 @@ class EventosController extends Controller
     public function salvarLinkExterno(Request $request)
     {
         $this->validate($request, [
+            'titulo' => 'required',
             'descricao' => 'required',
             'url' => 'required|url',
         ]);
@@ -183,6 +185,17 @@ class EventosController extends Controller
         return response()->json(['msg' => 'Link Salvo com Sucesso'], 200);
     }
 
+    public function removerLinkExterno($idLink)
+    {
+        $linkExterno = LinkExterno::findOrFail($idLink);
+        if($linkExterno->delete()){
+            Session::flash('message', 'Link removido com sucesso');
+        } else {
+            Session::flash('message', 'Houve um erro ao tentar remover o link');
+        }
+        return redirect()->back();
+    }
+
     public function getIndexPublico($query = null)
     {
         $eventos = $this->evento
@@ -190,13 +203,14 @@ class EventosController extends Controller
             ->where('idPai', '=', null);
         if ($query == 'inscricao') {
             $eventos = $eventos
-                ->where('dataInicioInscricao', '>=', Carbon::today()->format('Y-m-d'))
-                ->where('dataFimInscricao', '<=', Carbon::today()->format('Y-m-d'));
+                ->where('dataInicioInscricao', '<=', Carbon::now()->format('Y-m-d H:i:s'))
+                ->where('dataFimInscricao', '>=', Carbon::now()->format('Y-m-d H:i:s'));
         } elseif ($query == 'semInscricao') {
             $eventos = $eventos
-                ->where('dataInicioInscricao', '<=', Carbon::today()->format('Y-m-d'))
-                ->where('dataFimInscricao', '>=', Carbon::today()->format('Y-m-d'))
-                ->where('dataTermino', '>=', Carbon::today()->format('Y-m-d'));
+                ->where('dataInicioInscricao', '>=', Carbon::now()->format('Y-m-d H:i:s'))
+                ->orWhere('dataFimInscricao', '<=', Carbon::now()->format('Y-m-d H:i:s'))
+                ->where('dataTermino', '>=', Carbon::today()->format('Y-m-d'))
+                ->orWhere('dataInicio', '<=', Carbon::today()->format('Y-m-d'));
         } elseif ($query == 'finalizados') {
             $eventos = $eventos
                 ->where('dataTermino', '<=', Carbon::today()->format('Y-m-d'));
@@ -226,7 +240,7 @@ class EventosController extends Controller
             ->whereNomeslug($nomeSlug)
             ->orderBy('nome')
             ->first();
-        $atividades = Atividade::where('idEventos', '=', $evento->id)->aceitas()->paginate(9);
+        $atividades = Atividade::aceitas()->where('idEventos', '=', $evento->id)->orderBy('nome')->withCount('participantes')->paginate(9);
         return view('publico.eventos.atividades', compact('evento', 'atividades'));
     }
 
@@ -241,7 +255,8 @@ class EventosController extends Controller
     {
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         $noticias = EventoNoticia::whereIdeventos($evento->id)
-            ->orderBy('dataHoraPublicacao')
+            ->where('dataHoraPublicacao', '<=', date("Y-m-d H:i:s"))
+            ->orderBy('dataHoraPublicacao', 'desc')
             ->with('editor')
             ->paginate(5);
         return view('publico.eventos.avisos', compact('evento', 'noticias'));
@@ -257,6 +272,7 @@ class EventosController extends Controller
     {
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         $evento->participantes()->save(\Auth::user());
+        Session::flash('message', 'Você está agora inscrito no evento '.$evento->nome.'.');
         return redirect(route('eventosPublico::visualizar', ['nomeSlug' => $nomeSlug]));
     }
 }
