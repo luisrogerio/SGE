@@ -6,17 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SGE @yield('title')</title>
-{{ Html::favicon('http://www.jf.ifsudestemg.edu.br/imagens/ifet.ico') }}
-    <!-- Styles -->
+    {{ Html::favicon('http://www.jf.ifsudestemg.edu.br/imagens/ifet.ico') }}
+<!-- Styles -->
     {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/footer.css') }}
-    {{ Html::script('js/jquery.min.js') }}
-    {{Html::script('js/jquery.mask.js')}}
-<!-- Scripts -->
-    {{Html::script('js/bootstrap.min.js')}}
     {{ Html::style('css/beautify.css') }}
     {{ Html::style('css/main.css') }}
+    {{ Html::style('css/bootstrap-datetimepicker.min.css') }}
+<!-- Scripts -->
+    {{--<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="--}}
+            {{--crossorigin="anonymous"></script>--}}
+    {{--{{ Html::script('js/jquery.mask.js')}}--}}
+    {{--{{ Html::script('js/moment.js') }}--}}
+    {{--{{ Html::script('js/bootstrap.min.js')}}--}}
+    {{--{{ Html::script('js/bootstrap-datetimepicker.min.js') }}--}}
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+    {{ Html::script('js/moment.js') }}
+    {{ Html::script('js/bootstrap.js') }}
+    {{ Html::script('js/bootstrap-datetimepicker.min.js') }}
+    {{ Html::script('js/select2.js') }}
+    {{Html::script('js/jquery.mask.js')}}
 </head>
 <body>
 <header>
@@ -61,7 +72,7 @@
                                         <i class="fa fa-user" aria-hidden="true"></i> Perfil
                                     </a>
                                     {{--<a class="btn button button-green" href="">--}}
-                                        {{--<i class="fa fa-certificate" aria-hidden="true"></i> Certificados--}}
+                                    {{--<i class="fa fa-certificate" aria-hidden="true"></i> Certificados--}}
                                     {{--</a>--}}
                                     <a class="btn button button-orange" href="{{ route('auth::logout') }}">
                                         <i class="fa fa-sign-out" aria-hidden="true"></i> Sair

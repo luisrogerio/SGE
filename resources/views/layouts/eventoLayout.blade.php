@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SGE @yield('title')</title>
-    {{ Html::favicon('http://www.jf.ifsudestemg.edu.br/imagens/ifet.ico') }}
-    <!-- Styles -->
+{{ Html::favicon('http://www.jf.ifsudestemg.edu.br/imagens/ifet.ico') }}
+<!-- Styles -->
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/beautify.min.css') }}
     {{ Html::style('css/footer.css') }}
@@ -78,7 +78,7 @@
                                         <i class="fa fa-user" aria-hidden="true"></i> Perfil
                                     </a>
                                     {{--<a class="btn button button-green" href="">--}}
-                                        {{--<i class="fa fa-certificate" aria-hidden="true"></i> Certificados--}}
+                                    {{--<i class="fa fa-certificate" aria-hidden="true"></i> Certificados--}}
                                     {{--</a>--}}
                                     <a class="btn button button-orange" href="{{ route('auth::logout') }}">
                                         <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
@@ -92,39 +92,16 @@
         </div><!-- /.container-fluid -->
     </nav>
 </header>
-<div id="carousel-example-generic" class="carousel slide">
-    <!-- Indicators -->
-    {{--<ol class="carousel-indicators">--}}
-        {{--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>--}}
-    {{--</ol>--}}
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        <!-- First slide -->
-        <div class="item active deepskyblue"
-             style="background-image:url({{ asset($evento->eventoCaracteristica->background) }});">
-            <div class="carousel-caption">
-            </div>
-        </div> <!-- /.item -->
-    </div><!-- /.carousel-inner -->
-    <!-- Controls -->
-    {{--<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">--}}
-        {{--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>--}}
-        {{--<span class="sr-only">Previous</span>--}}
-    {{--</a>--}}
-    {{--<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">--}}
-        {{--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>--}}
-        {{--<span class="sr-only">Next</span>--}}
-    {{--</a>--}}
-</div><!-- /.carousel -->
-</div><!-- /.container -->
-{{--@if($evento->eventoCaracteristica->eImagemDeFundo)--}}
-{{--<div class="jumbotron">--}}
-{{--<div class="container">--}}
-{{--<img src="{{ asset($evento->eventoCaracteristica->background) }}" />--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--@endif--}}
 <div class="container">
+    @if($evento->eventoCaracteristica->eImagemDeFundo)
+        <div id="carousel-example-generic" class="carousel slide">
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active text-center">
+                    <img width="100%" src="{{asset($evento->eventoCaracteristica->background) }}">
+                </div>
+            </div>
+        </div>
+    @endif
     @if(Session::has('message'))
         <div class="alert alert-info fade in">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -133,14 +110,14 @@
             {{Session::get('message')}}
         </div>
     @endif
-        @if(Session::has('error'))
-            <div class="alert alert-danger fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                {{Session::get('error')}}
-            </div>
-        @endif
+    @if(Session::has('error'))
+        <div class="alert alert-danger fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{Session::get('error')}}
+        </div>
+    @endif
     @yield('content')
 </div>
 @include('layouts.footerPublico')

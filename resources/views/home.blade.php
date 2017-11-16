@@ -9,13 +9,21 @@
                 </div>
                 <div class="panel-body">
                     <p class="text-justify">
-                        Olá {{ Auth::user()->nome }}, para navegação utilize a barra no menu acima. Seja Bem-Vindo ao
-                        Sistema de Gestão de Eventos do Instituto Federal de Educação, Ciência e Tecnologia do Sudeste de Minas Gerais.
+                        Olá {{ Auth::user()->nome }}, Seja Bem-Vindo ao
+                        Sistema de Gestão de Eventos (SGE) do Instituto Federal de Educação, Ciência e Tecnologia do
+                        Sudeste de Minas Gerais.
                     </p>
-                    <p class="text-justify">
-                        Esse Sistema é de autoria de um Projeto de Extensão do Campus Juiz de Fora em parceria com a Reitoria dos Campi.
-                        Caso tenha qualquer dúvida sobre o sistema e seu uso, contate a Diretoria de Extensão e Relações Comunitárias para mais informações.
-                    </p>
+                    <p class="text-justify">O SGE está sendo desenvolvido dentro de um projeto de Treinamento
+                        Profissional II, do Campus Juiz de Fora, em parceria com a Reitoria.
+                        Caso tenha qualquer dúvida sobre o sistema e seu uso, contate a Diretoria de Extensão e Relações
+                        Comunitárias (DERC-JF).</p>
+                    <p class="text-justify">A Equipe de Desenvolvimento do projeto é composta por Luís Rogério, Raissa
+                        Fonseca, Allan Garcez e José Honório Glanzmann.</p>
+                    <p class="text-justify">Agradecimentos especiais às equipes de TI do Campus Juiz de Fora e da
+                        Reitoria.</p>
+                    <p class="text-justify">Para navegação utilize a barra no menu acima.</p>
+                    <p class="text-justify">Atenciosamente,</p>
+                    <p class="text-justify">Equipe Desenvolvedora do SGE</p>
                 </div>
             </div>
         </div>

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Events\Event;
 use App\Models\Atividade;
+use App\Models\AtividadeDataHora;
 use App\Models\EventoCaracteristica;
 use App\Models\EventoNoticia;
 use App\Models\LinkExterno;
+use App\Models\Usuario;
 use App\Models\UsuarioTipo;
 use Carbon\Carbon;
 use App\Models\Aparencia;
@@ -196,6 +198,15 @@ class EventosController extends Controller
         return redirect()->back();
     }
 
+    public function getCredenciamento($nomeSlug)
+    {
+        $evento = $this->evento->with('participantes')->whereNomeslug($nomeSlug)->first();
+        $participantesPorLetra = $evento->participantes->map(function($item, $key){
+            return mb_strtoupper($item->nome, 'UTF-8');
+        })->sort()->groupBy(function ($item, $key) { return mb_strtoupper($item[0], 'UTF-8');});
+        return view('admin.eventos.listaCredenciamento', compact('evento', 'participantesPorLetra'));
+    }
+
     public function getIndexPublico($query = null)
     {
         $eventos = $this->evento
@@ -266,6 +277,38 @@ class EventosController extends Controller
     {
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         return view('publico.eventos.galeria', compact('evento'));
+    }
+
+    public function getMinhaAgenda($nomeSlug)
+    {
+        $evento = $this->evento->whereNomeslug($nomeSlug)->first();
+        $atividadesDatasHoras = AtividadeDataHora::
+            select('atividades_datas_horas.*')
+            ->join('atividades as at', 'atividades_datas_horas.idAtividades', '=', 'at.id')
+            ->join('eventos as e', 'at.idEventos', '=', 'e.id')
+            ->join('atividades_participantes as ap', 'at.id', '=', 'ap.idAtividades')
+            ->join('usuarios as u', 'ap.idUsuarios', '=', 'u.id')
+            ->where('e.id', '=', $evento->id)
+            ->where('u.id', '=', auth()->user()->id)
+            ->orderBy('data', 'asc')
+            ->orderBy('horarioInicio', 'asc')
+            ->get();
+//        dd($atividadesDatasHoras);
+        $start = $evento->dataInicio;
+        $end = $evento->dataTermino;
+
+        $diasDoEvento = [];
+
+        $date = $start;
+        while ($date <= $end) {
+
+            if (! $date->isWeekend()) {
+                $diasDoEvento[] = $date->copy();
+            }
+            $date->addDays(1);
+        }
+        $diasDoEvento = collect($diasDoEvento);
+        return view('publico.eventos.agenda', compact('evento', 'atividadesDatasHoras', 'diasDoEvento'));
     }
 
     public function getParticiparEvento($nomeSlug)

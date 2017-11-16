@@ -134,9 +134,12 @@ class AuthController extends Controller
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios|same:confirmarEmail',
             'dataNascimento' => 'required|date_format:d/m/Y',
-            'senha' => 'required|alpha_dash|between:8,20|same:confirmarSenha'
+            'senha' => 'required|alpha_dash|between:8,20|same:confirmarSenha',
+            'eNecessidadesEspeciais' => 'boolean',
+            'necessidadeEspecial' => 'required_if:eNecessidadesEspeciais,true'
         ], [
-            'dataNascimento.required' => 'O campo Data de Nascimento é obrigatório'
+            'dataNascimento.required' => 'O campo Data de Nascimento é obrigatório',
+            'necessidadeEspecial.required_if' => 'O campo Necessidade Específica é necessário'
         ])
         ) {
             return view('publico.cadastro')->withErrors($validator)->withInput();
@@ -160,9 +163,9 @@ class AuthController extends Controller
     }
 
     /**
-     * Send a reset link to the given user.
+     * Change the requested user's password.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function alterarSenha(Request $request)
@@ -171,7 +174,7 @@ class AuthController extends Controller
 
         $senhaAtual = $request->password;
 
-        if(Hash::check($senhaAtual, Auth::user()->senha)){
+        if (Hash::check($senhaAtual, Auth::user()->senha)) {
             $usuario = Auth::user();
             $usuario->senha = Hash::make($request->newPassword);
             $usuario->save();
@@ -182,9 +185,9 @@ class AuthController extends Controller
     }
 
     /**
-     * Validate the request of sending reset link.
+     * Validate the request of changing password.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return void
      */
     protected function validateSenha(Request $request)
@@ -205,7 +208,7 @@ class AuthController extends Controller
     /**
      * Get the needed credentials for sending the reset link.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     protected function getAlterarSenhaCredentials(Request $request)

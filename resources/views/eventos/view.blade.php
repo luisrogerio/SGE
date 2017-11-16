@@ -204,7 +204,12 @@
                                             class="fa fa-plus" aria-hidden="true"></i> Adicionar Link Externo
                                 </button>
                             </div>
-
+                            <div class="h3">
+                                Relatórios
+                            </div>
+                            <div class="btn-group">
+                                {{ link_to_route('eventos::credenciamento', 'Lista de Credenciamento', array('nomeSlug' => $evento->nomeSlug), array('class' => 'button button-blue', 'target' => 'blank')) }}
+                            </div>
                             <hr>
                             <div class="btn-group">
                                 {{ link_to_route('eventos::editar', 'Editar Evento', array('id' => $evento->id), array('class' => 'button button-blue')) }}

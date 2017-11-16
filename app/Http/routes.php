@@ -32,6 +32,8 @@ Route::get('/password/reset/{token?}', ['as' => 'resetToken', 'uses' => 'Auth\Pa
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
     Route::get('/perfil', ['as' => 'perfil', 'uses' => 'HomeController@perfil']);
+    Route::get('/editarPerfil', ['as' => 'editarPerfil', 'uses' => 'HomeController@getEditarPerfil']);
+    Route::patch('/atualizarPerfil', ['as' => 'atualizarPerfil', 'uses' => 'HomeController@patchAtualizarPerfil']);
 });
 
 Route::get('/propostas/iv-simepe', function () {
@@ -51,6 +53,7 @@ Route::group(['prefix' => 'evento/', 'as' => 'eventosPublico::'], function () {
     Route::get('/atividades/{nomeSlug}', ['as' => 'atividadesEvento', 'uses' => 'EventosController@getAtividadesPublico']);
     Route::post('/atividade/{id}', ['as' => 'atividade', 'uses' => 'AtividadesController@getAtividade']);
     Route::get('/{nomeSlug}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
+    Route::get('/minhaAgenda/{nomeSlug}', ['as' => 'galeria', 'uses' => 'EventosController@getMinhaAgenda', 'middleware' => 'auth']);
     Route::get('/galeria/{nomeSlug}', ['as' => 'galeria', 'uses' => 'EventosController@getVisualizarGaleria']);
     Route::get('/avisos/{nomeSlug}', ['as' => 'avisos', 'uses' => 'EventosController@getVisualizarAvisos']);
     Route::post('/participar/{nomeSlug}', ['as' => 'participar', 'uses' => 'EventosController@getParticiparEvento', 'middleware' => 'auth']);
@@ -191,8 +194,12 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], fu
         Route::patch('/atualizar/{id}', ['as' => 'atualizar', 'uses' => 'EventosController@patchAtualizar']);
         Route::post('/excluir/{id}', ['as' => 'excluir', 'uses' => 'EventosController@postExcluir']);
         Route::get('/subeventos', ['as' => 'paginacaoSubeventos', 'uses' => 'EventosController@getSubeventos']);
+        /* Links Externos */
         Route::post('/salvarLinkExterno', ['as' => 'salvarLinkExterno', 'uses' => 'EventosController@salvarLinkExterno']);
         Route::post('/removerLinkExterno/{idLink}', ['as' => 'removerLinkExterno', 'uses' => 'EventosController@removerLinkExterno']);
+
+        /* Fins de Evento */
+        Route::get('/credenciamento/{nomeSlug}', ['as' => 'credenciamento', 'uses' => 'EventosController@getCredenciamento']);
 
         Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
             Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);

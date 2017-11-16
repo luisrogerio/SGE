@@ -40,12 +40,42 @@
                     <p class="text-justify">
                         Bem-vindo {{ Auth::user()->nome }}. Confira suas informações abaixo e clique para alterá-las
                     </p>
-                    <ul class="list-group">
-                        <li class="list-group-item">Nome: {{ Auth::user()->nome }}</li>
-                        <li class="list-group-item">E-mail de contato: {{ Auth::user()->email }}</li>
-                        <li class="list-group-item">Data de
-                            Nascimento: {{ Auth::user()->dataNascimento->formatLocalized('%d de %B de %G') }}</li>
-                    </ul>
+                    <div class="list-group">
+                        <button class="list-group-item disabled">Nome: {{ Auth::user()->nome }}</button>
+                        <button class="list-group-item disabled">E-mail de contato: {{ Auth::user()->email }}</button>
+                        <a href="{{route('editarPerfil')}}" style="color: #fff">
+                            <button class="list-group-item"><i class="fa fa-edit"></i> Data de
+                                Nascimento:
+                                @if(Auth::user()->dataNascimento)
+                                    {{ Auth::user()->dataNascimento->formatLocalized('%d de %B de %G') }}
+                                @endif
+                            </button>
+                        </a>
+                        <a href="{{route('editarPerfil')}}" style="color: #fff">
+                            <button class="list-group-item"><i class="fa fa-edit"></i> É portador de necessidades
+                                específicas:
+                                @if(Auth::user()->eNecessidadesEspeciais)
+                                    Sim
+                                @else
+                                    Não
+                                @endif
+                            </button>
+                        </a>
+                        <a href="{{route('editarPerfil')}}" style="color: #fff">
+                            <button class="list-group-item"><i class="fa fa-edit"></i> Necessidade Específica:
+                                @if(Auth::user()->eNecessidadesEspeciais)
+                                    {{ Auth::user()->necessidadeEspecial }}
+                                @endif
+                            </button>
+                        </a>
+                        <a href="{{route('editarPerfil')}}" style="color: #fff">
+                            <button class="list-group-item"><i class="fa fa-edit"></i> Solicita algum atendimento especializado:
+                                @if(Auth::user()->eNecessidadesEspeciais)
+                                    {{ Auth::user()->atendimentoEspecializado }}
+                                @endif
+                            </button>
+                        </a>
+                    </div>
                     {{ Form::open(['url' => route('auth::passwordChange')])}}
                     <div class="form-group">
                         {{ Form::label('password', 'Senha Atual') }}

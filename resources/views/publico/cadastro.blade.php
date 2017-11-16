@@ -44,6 +44,20 @@
                 {{ Form::password('confirmarSenha', array('class' => 'form-control')) }}
             </fieldset>
             <fieldset class="form-group">
+                <label for="eNecessidadesEspeciais">
+                    {{ Form::checkbox('eNecessidadesEspeciais') }}
+                    Possui alguma necessidade específica?
+                </label>
+            </fieldset>
+            <fieldset class="form-group">
+                {{ Form::label('necessidadeEspecial', 'Se possui, qual a sua necessidade específica?') }}
+                {{ Form::text('necessidadeEspecial', null, array('class' => 'form-control')) }}
+            </fieldset>
+            <fieldset class="form-group">
+                {{ Form::label('atendimentoEspecializado', 'Solicita algum atendimento especializado?') }}
+                {{ Form::textarea('atendimentoEspecializado', null, array('class' => 'form-control')) }}
+            </fieldset>
+            <fieldset class="form-group">
                 <button type="submit" class="button button-blue center-block pull-right">Cadastrar</button>
             </fieldset>
             {{Form::close() }}
