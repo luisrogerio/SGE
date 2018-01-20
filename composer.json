@@ -12,7 +12,10 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "barryvdh/laravel-ide-helper": "^2.2",
         "cossou/jasperphp": "^2.1",
-        "jailtonsc/validador-cpf-laravel": "^2.0"
+        "jailtonsc/validador-cpf-laravel": "^2.0",
+        "barryvdh/laravel-snappy": "^0.4.0",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Event;
 use App\Models\Atividade;
 use App\Models\AtividadeDataHora;
-use App\Models\EventoCaracteristica;
 use App\Models\EventoNoticia;
 use App\Models\LinkExterno;
-use App\Models\Usuario;
 use App\Models\UsuarioTipo;
 use Carbon\Carbon;
 use App\Models\Aparencia;
@@ -17,10 +14,9 @@ use App\Models\EventoContato;
 use Illuminate\Http\Request;
 use App\Http\Requests\EventosRequest;
 
-use App\Http\Requests;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
-use Mockery\CountValidator\Exception;
+use Knp\Snappy\Pdf;
 
 class EventosController extends Controller
 {
@@ -190,7 +186,7 @@ class EventosController extends Controller
     public function removerLinkExterno($idLink)
     {
         $linkExterno = LinkExterno::findOrFail($idLink);
-        if($linkExterno->delete()){
+        if ($linkExterno->delete()) {
             Session::flash('message', 'Link removido com sucesso');
         } else {
             Session::flash('message', 'Houve um erro ao tentar remover o link');
@@ -201,10 +197,80 @@ class EventosController extends Controller
     public function getCredenciamento($nomeSlug)
     {
         $evento = $this->evento->with('participantes')->whereNomeslug($nomeSlug)->first();
-        $participantesPorLetra = $evento->participantes->map(function($item, $key){
+        $participantesPorLetra = $evento->participantes->map(function ($item, $key) {
             return mb_strtoupper($item->nome, 'UTF-8');
-        })->sort()->groupBy(function ($item, $key) { return mb_strtoupper($item[0], 'UTF-8');});
-        return view('admin.eventos.listaCredenciamento', compact('evento', 'participantesPorLetra'));
+        })->sort()->groupBy(function ($item, $key) {
+            return mb_strtoupper($item[0], 'UTF-8');
+        });
+        return \PDF::loadHtml(view('admin.eventos.listaCredenciamento', compact('evento', 'participantesPorLetra'))->render())->inline();
+    }
+
+    public function getRelatorioAtividades($nomeSlug)
+    {
+        $evento = $this->evento->with('participantes')->whereNomeslug($nomeSlug)->first();
+        $atividades = Atividade::aceitas()->where('idEventos', '=', $evento->id)->orderBy('nome')->withCount('participantes')->paginate(10);
+        return view('admin.eventos.relatoriosPresenca', compact('evento', 'atividades'));
+    }
+
+    public function getListasDePresencas($nomeSlug)
+    {
+        $evento = $this->evento->with('participantes')->whereNomeslug($nomeSlug)->first();
+        $atividades = Atividade::aceitas()->where('idEventos', '=', $evento->id)->orderBy('nome')->withCount('participantes')->get();
+        $views = "<html>";
+        foreach ($atividades as $atividade){
+            if ($atividade->participantes_count >= 200) {
+                $participantesPorLetra = $atividade->participantes->map(function ($item, $key) {
+                    return mb_strtoupper($item->nome, 'UTF-8');
+                })->sort()->groupBy(function ($item, $key) {
+                    return mb_strtoupper($item[0], 'UTF-8');
+                });
+                $view = view('admin.eventos.listaPresencaPorLetra', compact('atividade', 'participantesPorLetra'))->render();
+            } else {
+                $view = view('admin.eventos.listaPresenca', compact('atividade'))->render();
+            }
+            $views = $views.$view;
+        }
+        $views = $views."</html>";
+        $pdf = \PDF::loadHtml($views);
+        return $pdf->inline();
+    }
+
+    public function getListaDePresenca($id)
+    {
+        $atividade = Atividade::with('participantes')->findOrFail($id);
+        if ($atividade->participantes_count >= 200) {
+            $participantesPorLetra = $atividade->participantes->map(function ($item, $key) {
+                return mb_strtoupper($item->nome, 'UTF-8');
+            })->sort()->groupBy(function ($item, $key) {
+                return mb_strtoupper($item[0], 'UTF-8');
+            });
+            $view = view('admin.eventos.listaPresencaPorLetra', compact('atividade', 'participantesPorLetra'))->render();
+        } else {
+            $view = view('admin.eventos.listaPresenca', compact('atividade'))->render();
+        }
+        $pdf = \PDF::loadHtml($view);
+        return $pdf->inline();
+    }
+
+    public function getLancamentoDePresenca($id)
+    {
+        $atividade = Atividade::with('participantes')->findOrFail($id);
+        return view('admin.eventos.lancamentoDePresenca', compact('atividade'));
+    }
+
+    public function getLancarPresenca(Request $request, $id)
+    {
+        $atividade = Atividade::with('participantes')->findOrFail($id);
+        $listaDePresentes = collect($request->presenca);
+        foreach ($atividade->participantes as $participante){
+            if($listaDePresentes->contains($participante->id)){
+                $participante->pivot->presenca = true;
+            } else{
+                $participante->pivot->presenca = false;
+            }
+            $participante->pivot->save();
+        }
+        return redirect()->route('eventos::lancamentoDePresenca', ['id' => $id]);
     }
 
     public function getIndexPublico($query = null)
@@ -283,7 +349,7 @@ class EventosController extends Controller
     {
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         $atividadesDatasHoras = AtividadeDataHora::
-            select('atividades_datas_horas.*')
+        select('atividades_datas_horas.*')
             ->join('atividades as at', 'atividades_datas_horas.idAtividades', '=', 'at.id')
             ->join('eventos as e', 'at.idEventos', '=', 'e.id')
             ->join('atividades_participantes as ap', 'at.id', '=', 'ap.idAtividades')
@@ -293,7 +359,6 @@ class EventosController extends Controller
             ->orderBy('data', 'asc')
             ->orderBy('horarioInicio', 'asc')
             ->get();
-//        dd($atividadesDatasHoras);
         $start = $evento->dataInicio;
         $end = $evento->dataTermino;
 
@@ -302,7 +367,7 @@ class EventosController extends Controller
         $date = $start;
         while ($date <= $end) {
 
-            if (! $date->isWeekend()) {
+            if (!$date->isWeekend()) {
                 $diasDoEvento[] = $date->copy();
             }
             $date->addDays(1);
@@ -315,7 +380,7 @@ class EventosController extends Controller
     {
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
         $evento->participantes()->save(\Auth::user());
-        Session::flash('message', 'Você está agora inscrito no evento '.$evento->nome.'.');
+        Session::flash('message', 'Você está agora inscrito no evento ' . $evento->nome . '.');
         return redirect(route('eventosPublico::visualizar', ['nomeSlug' => $nomeSlug]));
     }
 }

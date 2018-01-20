@@ -9,8 +9,10 @@
         <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
             <h4>Total de Vagas</h4>
             <p class="text-capitalize">{{ $atividade->quantidadeVagas }}</p>
-            <h4>Vagas Restantes</h4>
-            <p class="text-capitalize">{{ $atividade->quantidadeVagas - $atividade->participantes_count}}</p>
+            @if(\Carbon\Carbon::now()->between($atividade->evento->dataInicioInscricao, $atividade->evento->dataFimInscricao))
+                <h4>Vagas Restantes</h4>
+                <p class="text-capitalize">{{ $atividade->quantidadeVagas - $atividade->participantes_count}}</p>
+            @endif
         </div>
         <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
             <h4>Local da Atividade</h4>
@@ -52,17 +54,22 @@
 <div class="modal-footer">
     <button type="button" class="button button-blue" data-dismiss="modal">Cancelar</button>
     @if(Auth::check())
-        @if($atividade->evento->isParticipante(Auth::user()->id) and \Carbon\Carbon::now()->between($atividade->evento->dataInicioInscricao, $atividade->evento->dataFimInscricao))
-            @if(!$atividade->isParticipante(Auth::user()->id))
-                <button type="button" class="button button-green">
-                    <a href="{{ route('eventosPublico::participarAtividade', $atividade->id) }}" style="color: #fff"><i
-                                class="fa fa-plus"></i>
-                        Participar</a>
-                </button>
-            @else
-                <a href="{{ route('eventosPublico::revogarParticipacaoAtividade', $atividade->id) }}"
-                   class="button button-orange"><i class="fa fa-minus"></i>
-                    Abandonar</a>
+        @if(!$atividade->atividadesDatasHoras->search(function ($atividadeDataHora, $key) {
+                return \Carbon\Carbon::tomorrow()->gte($atividadeDataHora->data);
+            }))
+            @if($atividade->evento->isParticipante(Auth::user()->id) and \Carbon\Carbon::now()->between($atividade->evento->dataInicioInscricao, $atividade->evento->dataFimInscricao))
+                @if(!$atividade->isParticipante(Auth::user()->id))
+                    <button type="button" class="button button-green">
+                        <a href="{{ route('eventosPublico::participarAtividade', $atividade->id) }}"
+                           style="color: #fff"><i
+                                    class="fa fa-plus"></i>
+                            Participar</a>
+                    </button>
+                @else
+                    <a href="{{ route('eventosPublico::revogarParticipacaoAtividade', $atividade->id) }}"
+                       class="button button-orange"><i class="fa fa-minus"></i>
+                        Abandonar</a>
+                @endif
             @endif
         @endif
     @endif

@@ -16,6 +16,11 @@
 //    dd(Artisan::output());
 //});
 
+Route::get('/composer', function () {
+    Artisan::call('cache:clear');
+    dd(Artisan::output());
+});
+
 Route::group(['as' => 'auth::'], function () {
     Route::get('/', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
     Route::post('/login', ['as' => 'logar', 'uses' => 'Auth\AuthController@postLogin']);
@@ -53,7 +58,7 @@ Route::group(['prefix' => 'evento/', 'as' => 'eventosPublico::'], function () {
     Route::get('/atividades/{nomeSlug}', ['as' => 'atividadesEvento', 'uses' => 'EventosController@getAtividadesPublico']);
     Route::post('/atividade/{id}', ['as' => 'atividade', 'uses' => 'AtividadesController@getAtividade']);
     Route::get('/{nomeSlug}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
-    Route::get('/minhaAgenda/{nomeSlug}', ['as' => 'galeria', 'uses' => 'EventosController@getMinhaAgenda', 'middleware' => 'auth']);
+    Route::get('/minhaAgenda/{nomeSlug}', ['as' => 'minhaAgenda', 'uses' => 'EventosController@getMinhaAgenda', 'middleware' => 'auth']);
     Route::get('/galeria/{nomeSlug}', ['as' => 'galeria', 'uses' => 'EventosController@getVisualizarGaleria']);
     Route::get('/avisos/{nomeSlug}', ['as' => 'avisos', 'uses' => 'EventosController@getVisualizarAvisos']);
     Route::post('/participar/{nomeSlug}', ['as' => 'participar', 'uses' => 'EventosController@getParticiparEvento', 'middleware' => 'auth']);
@@ -200,6 +205,12 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], fu
 
         /* Fins de Evento */
         Route::get('/credenciamento/{nomeSlug}', ['as' => 'credenciamento', 'uses' => 'EventosController@getCredenciamento']);
+        Route::get('/relatoriosAtividade/{nomeSlug}', ['as' => 'relatoriosAtividade', 'uses' => 'EventosController@getRelatorioAtividades']);
+        Route::get('/listasDePresencas/{nomeSlug}', ['as' => 'listasDePresencas', 'uses' => 'EventosController@getListasDePresencas']);
+        Route::get('/listaDePresenca/{id}', ['as' => 'listaDePresenca', 'uses' => 'EventosController@getListaDePresenca']);
+        Route::get('/lancamentoDePresenca/{id}', ['as' => 'lancamentoDePresenca', 'uses' => 'EventosController@getLancamentoDePresenca']);
+        Route::get('/lancamentoDePresencaExtra/{id}', ['as' => 'lancamentoDePresencaExtra', 'uses' => 'EventosController@getListaDePresenca']);
+        Route::post('/lancarPresenca/{id}', ['as' => 'lancarPresenca', 'uses' => 'EventosController@getLancarPresenca']);
 
         Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
             Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);

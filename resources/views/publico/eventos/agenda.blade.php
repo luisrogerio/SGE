@@ -48,15 +48,15 @@
                 <div class="col-lg-2 col-md-2 text-center">
                     @foreach($atividadesDatasHoras
                                 ->filter( function ($dataHora) use ($diaDoEvento) { return ($dataHora->data->eq($diaDoEvento)); })
-                                ->filter( function ($dataHora) { return $dataHora->horarioInicio->gt(\Carbon\Carbon::createFromFormat('H:i:s', '03:00:00')) && $dataHora->horarioInicio->lte(\Carbon\Carbon::createFromFormat('H:i:s', '12:00:00'));})
+                                ->filter( function ($dataHora) { return $dataHora->horarioInicio->gt(\Carbon\Carbon::createFromFormat('H:i:s', '00:00:00')) && $dataHora->horarioInicio->lte(\Carbon\Carbon::createFromFormat('H:i:s', '12:00:00'));})
                                 as $atividadeDataHora)
                         <div class="visible-xs visible-sm">
                             {{ $atividadeDataHora->data->formatLocalized('%d de %B') }}
                         </div>
                         <p class="text-center">
                             <strong>{{ $atividadeDataHora->horarioInicio->formatLocalized('%H:%Mh') }} até
-                                {{ $atividadeDataHora->horarioTermino->formatLocalized('%H:%Mh') }} </strong> -
-                            {{ $atividadeDataHora->atividade->nome }}. <strong>Local:</strong>
+                                {{ $atividadeDataHora->horarioTermino->formatLocalized('%H:%Mh') }} </strong><br/>
+                            {{ $atividadeDataHora->atividade->nome }}. <br/><strong>Local:</strong>
                             {{ $atividadeDataHora->atividade->unidade->nome }} -
                             {{ $atividadeDataHora->atividade->local->nome }} -
                             {{ $atividadeDataHora->atividade->sala->nome }}
@@ -81,8 +81,8 @@
                         </div>
                         <p class="text-center">
                             <strong>{{ $atividadeDataHora->horarioInicio->formatLocalized('%H:%Mh') }} até
-                                {{ $atividadeDataHora->horarioTermino->formatLocalized('%H:%Mh') }} </strong> -
-                            {{ $atividadeDataHora->atividade->nome }}. <strong>Local:</strong>
+                                {{ $atividadeDataHora->horarioTermino->formatLocalized('%H:%Mh') }} </strong><br/>
+                            {{ $atividadeDataHora->atividade->nome }}. <br/><strong>Local:</strong>
                             {{ $atividadeDataHora->atividade->unidade->nome }} -
                             {{ $atividadeDataHora->atividade->local->nome }} -
                             {{ $atividadeDataHora->atividade->sala->nome }}
@@ -100,15 +100,15 @@
                 <div class="col-lg-2 col-md-2 text-center">
                     @foreach($atividadesDatasHoras
                                 ->filter( function ($dataHora) use ($diaDoEvento) { return ($dataHora->data->eq($diaDoEvento)); })
-                                ->filter( function ($dataHora) { return $dataHora->horarioInicio->gt(\Carbon\Carbon::createFromFormat('H:i:s', '18:00:00')) && $dataHora->horarioInicio->lte(\Carbon\Carbon::createFromFormat('H:i:s', '03:00:00'));})
+                                ->filter( function ($dataHora) { return $dataHora->horarioInicio->gt(\Carbon\Carbon::createFromFormat('H:i:s', '18:00:00')) && $dataHora->horarioInicio->lte(\Carbon\Carbon::createFromFormat('H:i:s', '00:00:00')->addDay());})
                                                 as $atividadeDataHora)
                         <div class="visible-xs visible-sm">
                             {{ $atividadeDataHora->data->formatLocalized('%d de %B') }}
                         </div>
                         <p class="text-center">
                             <strong>{{ $atividadeDataHora->horarioInicio->formatLocalized('%H:%Mh') }} até
-                                {{ $atividadeDataHora->horarioTermino->formatLocalized('%H:%Mh') }} </strong> -
-                            {{ $atividadeDataHora->atividade->nome }}. <strong>Local:</strong>
+                                {{ $atividadeDataHora->horarioTermino->formatLocalized('%H:%Mh') }} </strong><br/>
+                            {{ $atividadeDataHora->atividade->nome }}. <br/><strong>Local:</strong>
                             {{ $atividadeDataHora->atividade->unidade->nome }} -
                             {{ $atividadeDataHora->atividade->local->nome }} -
                             {{ $atividadeDataHora->atividade->sala->nome }}

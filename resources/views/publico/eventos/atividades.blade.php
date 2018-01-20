@@ -29,7 +29,7 @@
                             {{ $atividade->local->nome or "Não alocado" }}
                         </h4>
                         <h4 class="card-title">
-                            <small>Sala: </small>
+                            <small>Sala:</small>
                             {{ $atividade->sala->tipoDeEspaco->nome }} {{ $atividade->sala->nome or "Não alocado" }}
                         </h4>
                         <h4 class="card-title">
@@ -44,24 +44,30 @@
                                 @endforeach
                             </ul>
                         </h4>
-                        <h4 class="card-title">
-                            <small>Vagas Restantes:</small>
-                            {{ $atividade->quantidadeVagas - $atividade->participantes_count }}
-                        </h4>
+                        @if(\Carbon\Carbon::now()->between($evento->dataInicioInscricao, $evento->dataFimInscricao))
+                            <h4 class="card-title">
+                                <small>Vagas Restantes:</small>
+                                {{ $atividade->quantidadeVagas - $atividade->participantes_count }}
+                            </h4>
+                        @endif
                         <div class="espacos"></div>
                         <button class="button button-cyan" data-id="{{ $atividade->id }}" data-toggle="modal"
                                 data-target="#showActivity"><i class="fa fa-plus"></i> Saiba Mais
                         </button>
                         @if(Auth::check())
-                            @if($evento->isParticipante(Auth::user()->id) and \Carbon\Carbon::now()->between($evento->dataInicioInscricao, $evento->dataFimInscricao))
-                                @if(!$atividade->isParticipante(Auth::user()->id))
-                                    <a href="{{ route('eventosPublico::participarAtividade', $atividade->id) }}"
-                                       class="button button-green"><i class="fa fa-plus"></i>
-                                        Participar</a>
-                                @else
-                                    <a href="{{ route('eventosPublico::revogarParticipacaoAtividade', $atividade->id) }}"
-                                       class="button button-orange"><i class="fa fa-minus"></i>
-                                        Abandonar</a>
+                            @if(!$atividade->atividadesDatasHoras->search(function ($atividadeDataHora, $key) {
+                                    return \Carbon\Carbon::tomorrow()->gte($atividadeDataHora->data);
+                                }))
+                                @if($evento->isParticipante(Auth::user()->id) and (\Carbon\Carbon::now()->between($evento->dataInicioInscricao, $evento->dataFimInscricao)))
+                                    @if(!$atividade->isParticipante(Auth::user()->id))
+                                        <a href="{{ route('eventosPublico::participarAtividade', $atividade->id) }}"
+                                           class="button button-green"><i class="fa fa-plus"></i>
+                                            Participar</a>
+                                    @else
+                                        <a href="{{ route('eventosPublico::revogarParticipacaoAtividade', $atividade->id) }}"
+                                           class="button button-orange"><i class="fa fa-minus"></i>
+                                            Abandonar</a>
+                                    @endif
                                 @endif
                             @endif
                         @endif

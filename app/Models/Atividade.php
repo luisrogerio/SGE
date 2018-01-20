@@ -118,7 +118,7 @@ class Atividade extends Model
 
     public function participantes()
     {
-        return $this->belongsToMany('App\Models\Usuario', 'atividades_participantes', 'idAtividades', 'idUsuarios');
+        return $this->belongsToMany('App\Models\Usuario', 'atividades_participantes', 'idAtividades', 'idUsuarios')->withPivot('presenca')->orderBy('nome');
     }
 
     public function isParticipante($id)

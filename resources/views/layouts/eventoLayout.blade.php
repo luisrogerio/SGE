@@ -58,6 +58,8 @@
                     @endif
                     <li><a href="{{ route('eventosPublico::atividadesEvento', ['nomeSlug' => $evento->nomeSlug]) }}"><i
                                     class="fa fa-th-list" aria-hidden="true"></i> Atividades</a></li>
+                    <li><a href="{{ route('eventosPublico::minhaAgenda', ['nomeSlug' => $evento->nomeSlug]) }}"><i
+                                    class="fa fa-calendar-o" aria-hidden="true"></i> Minha Agenda</a></li>
                     @if(Auth::guest())
                         <li><a href="{{route('auth::login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
                                 Login</a></li>

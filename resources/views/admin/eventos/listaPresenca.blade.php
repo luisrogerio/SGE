@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+
 <head>
     <!--Informações de Dispositivo para Bootstrap 3-->
     <meta charset="utf-8">
@@ -9,7 +8,7 @@
     <!--CSS para Bootstrap, Select e Ícones-->
     {{ Html::favicon('http://www.jf.ifsudestemg.edu.br/imagens/ifet.ico') }}
     {{ Html::style('css/bootstrap.min.css') }}
-    <title>SGE - Lista de Credenciamento</title>
+    <title>SGE - Lista de Presença</title>
     <style type="text/css">
         table {
             page-break-inside: auto;
@@ -42,13 +41,17 @@
         crossorigin="anonymous"></script>
 {{ Html::script('js/bootstrap.js') }}
 <div class="container">
-    @foreach($participantesPorLetra as $letra => $participantes)
-        <table class="row table table-striped">
+    @foreach($atividade->atividadesDatasHoras as $atividadeDataHora)
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th colspan="2">
                     <img src="{{ asset('uploads/eventos/1/cabecalhoEvento.png') }}" width="100%">
-                    <h4>Lista de Credenciamento - ({{ $evento->dataInicio->format('d/m/Y') }} até {{ $evento->dataTermino->format('d/m/Y') }}) - Letra {{ $letra }}</h4>
+                    <h4>Lista de Presença
+                        - {{ $atividadeDataHora->atividade->nome }}
+                        ({{ $atividadeDataHora->data->format('d/m/Y') }}
+                        de {{ $atividadeDataHora->horarioInicio->format('H:i') }}h
+                        até {{ $atividadeDataHora->horarioTermino->format('H:i') }}h)</h4>
                 </th>
             </tr>
             <tr>
@@ -61,11 +64,11 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($participantes as $participante)
+            @foreach($atividadeDataHora->atividade->participantes as $participante)
                 <tr>
                     <td>
                         <div class="text-uppercase">
-                            {{ $participante }}
+                            {{ $participante->nome }}
                         </div>
                     </td>
                     <td>
