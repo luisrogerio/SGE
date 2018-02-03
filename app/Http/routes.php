@@ -210,7 +210,9 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], fu
         Route::get('/listaDePresenca/{id}', ['as' => 'listaDePresenca', 'uses' => 'EventosController@getListaDePresenca']);
         Route::get('/lancamentoDePresenca/{id}', ['as' => 'lancamentoDePresenca', 'uses' => 'EventosController@getLancamentoDePresenca']);
         Route::get('/lancamentoDePresencaExtra/{id}', ['as' => 'lancamentoDePresencaExtra', 'uses' => 'EventosController@getListaDePresenca']);
+        Route::get('/lancamentoDePresencaEvento/{id}', ['as' => 'lancamentoDePresencaEvento', 'uses' => 'EventosController@getLancamentoDePresencaEvento']);
         Route::post('/lancarPresenca/{id}', ['as' => 'lancarPresenca', 'uses' => 'EventosController@getLancarPresenca']);
+        Route::post('/lancarPresencaEvento/{id}', ['as' => 'lancarPresencaEvento', 'uses' => 'EventosController@getLancarPresencaEvento']);
 
         Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
             Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);

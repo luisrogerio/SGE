@@ -153,7 +153,7 @@ class Evento extends Model
 
     public function participantes()
     {
-        return $this->belongsToMany('App\Models\Usuario', 'eventos_participantes', 'idEventos', 'idUsuarios');
+        return $this->belongsToMany('App\Models\Usuario', 'eventos_participantes', 'idEventos', 'idUsuarios')->withPivot('presenca')->orderBy('nome');
     }
 
     public function isParticipante($id)

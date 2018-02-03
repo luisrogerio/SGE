@@ -252,10 +252,31 @@ class EventosController extends Controller
         return $pdf->inline();
     }
 
+    public function getLancamentoDePresencaEvento($id)
+    {
+        $evento = Evento::with('participantes')->findOrFail($id);
+        return view('admin.eventos.lancamentoDePresencaEvento', compact('evento'));
+    }
+
     public function getLancamentoDePresenca($id)
     {
         $atividade = Atividade::with('participantes')->findOrFail($id);
         return view('admin.eventos.lancamentoDePresenca', compact('atividade'));
+    }
+
+    public function getLancarPresencaEvento(Request $request, $id)
+    {
+        $evento = Evento::with('participantes')->findOrFail($id);
+        $listaDePresentes = collect($request->presenca);
+        foreach ($evento->participantes as $participante){
+            if($listaDePresentes->contains($participante->id)){
+                $participante->pivot->presenca = true;
+            } else{
+                $participante->pivot->presenca = false;
+            }
+            $participante->pivot->save();
+        }
+        return redirect()->route('eventos::lancamentoDePresencaEvento', ['id' => $id]);
     }
 
     public function getLancarPresenca(Request $request, $id)
