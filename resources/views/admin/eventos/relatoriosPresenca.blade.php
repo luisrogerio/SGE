@@ -36,6 +36,10 @@
                                    target="_blank">
                                     Lista de Presença
                                 </a></li>
+                            <li><a href="{{ route('eventos::certificarMinistrantes', ['id' => $atividade->id]) }}"
+                                   target="_blank">
+                                    Certificar Ministrantes
+                                </a></li>
                         </ul>
                     </div>
                 </td>

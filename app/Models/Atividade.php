@@ -118,7 +118,21 @@ class Atividade extends Model
 
     public function participantes()
     {
-        return $this->belongsToMany('App\Models\Usuario', 'atividades_participantes', 'idAtividades', 'idUsuarios')->withPivot('presenca')->orderBy('nome');
+        return $this->belongsToMany('App\Models\Usuario', 'atividades_participantes', 'idAtividades', 'idUsuarios')->withPivot('id', 'presenca')->orderBy('nome');
+    }
+
+    public function scopeAtividadesPresente($query, $idUsuario) {
+        return $query->whereHas('participantes', function ($q) use ($idUsuario) {
+            $q->where('atividades_participantes.presenca', '=', true)
+            ->where('atividades_participantes.idUsuarios', '=', $idUsuario);
+        });
+    }
+
+    public function scopeAtividadePivot($query, $idPivot) {
+        return $query->whereHas('participantes', function ($q) use ($idPivot) {
+            $q->where('atividades_participantes.presenca', '=', true)
+                ->where('atividades_participantes.id', '=', $idPivot);
+        });
     }
 
     public function isParticipante($id)

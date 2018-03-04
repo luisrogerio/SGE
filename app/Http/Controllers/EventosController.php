@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Atividade;
 use App\Models\AtividadeDataHora;
+use App\Models\AtividadeResponsavel;
+use App\Models\AutorAvaliador;
 use App\Models\EventoNoticia;
 use App\Models\LinkExterno;
+use App\Models\Usuario;
 use App\Models\UsuarioTipo;
 use Carbon\Carbon;
 use App\Models\Aparencia;
 use App\Models\Evento;
 use App\Models\EventoContato;
+use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use App\Http\Requests\EventosRequest;
 
@@ -217,7 +221,7 @@ class EventosController extends Controller
         $evento = $this->evento->with('participantes')->whereNomeslug($nomeSlug)->first();
         $atividades = Atividade::aceitas()->where('idEventos', '=', $evento->id)->orderBy('nome')->withCount('participantes')->get();
         $views = "<html>";
-        foreach ($atividades as $atividade){
+        foreach ($atividades as $atividade) {
             if ($atividade->participantes_count >= 200) {
                 $participantesPorLetra = $atividade->participantes->map(function ($item, $key) {
                     return mb_strtoupper($item->nome, 'UTF-8');
@@ -228,9 +232,9 @@ class EventosController extends Controller
             } else {
                 $view = view('admin.eventos.listaPresenca', compact('atividade'))->render();
             }
-            $views = $views.$view;
+            $views = $views . $view;
         }
-        $views = $views."</html>";
+        $views = $views . "</html>";
         $pdf = \PDF::loadHtml($views);
         return $pdf->inline();
     }
@@ -264,14 +268,36 @@ class EventosController extends Controller
         return view('admin.eventos.lancamentoDePresenca', compact('atividade'));
     }
 
+    public function getLancamentoDePresencaTrabalhos($id)
+    {
+        $evento = Evento::with('trabalhos')->findOrFail($id);
+        $trabalhos = AutorAvaliador::select('idTrabalho', 'tituloTrabalho')
+            ->where('evento_id', '=', $evento->id)
+            ->where('relacaoTrabalho', '=', 1)
+            ->groupBy('idTrabalho')
+            ->groupBy('tituloTrabalho')
+            ->orderBy('tituloTrabalho')
+            ->get();
+        return view('admin.eventos.lancamentoDePresencaTrabalhos', compact('evento', 'trabalhos'));
+    }
+
+    public function getLancamentoDePresencaTrabalho($id)
+    {
+        $trabalhos = AutorAvaliador::
+        where('idTrabalho', '=', $id)
+            ->where('relacaoTrabalho', '=', 1)
+            ->get();
+        return view('admin.eventos.lancamentoDePresencaTrabalho', compact('trabalhos', 'id'));
+    }
+
     public function getLancarPresencaEvento(Request $request, $id)
     {
         $evento = Evento::with('participantes')->findOrFail($id);
         $listaDePresentes = collect($request->presenca);
-        foreach ($evento->participantes as $participante){
-            if($listaDePresentes->contains($participante->id)){
+        foreach ($evento->participantes as $participante) {
+            if ($listaDePresentes->contains($participante->id)) {
                 $participante->pivot->presenca = true;
-            } else{
+            } else {
                 $participante->pivot->presenca = false;
             }
             $participante->pivot->save();
@@ -283,15 +309,29 @@ class EventosController extends Controller
     {
         $atividade = Atividade::with('participantes')->findOrFail($id);
         $listaDePresentes = collect($request->presenca);
-        foreach ($atividade->participantes as $participante){
-            if($listaDePresentes->contains($participante->id)){
+        foreach ($atividade->participantes as $participante) {
+            if ($listaDePresentes->contains($participante->id)) {
                 $participante->pivot->presenca = true;
-            } else{
+            } else {
                 $participante->pivot->presenca = false;
             }
             $participante->pivot->save();
         }
         return redirect()->route('eventos::lancamentoDePresenca', ['id' => $id]);
+    }
+
+    public function getLancarPresencaTrabalhos(Request $request, $id)
+    {
+        $eventoId = null;
+        $trabalhos = AutorAvaliador::where('idTrabalho', '=', $id)
+            ->where('relacaoTrabalho', '=', 1)->get();
+        foreach ($trabalhos as $trabalho) {
+            $eventoId = $trabalho->evento_id;
+            $trabalho->presenca = $request->presenca[$trabalho->id];
+            $trabalho->apresentacao = $request->apresentacao[$trabalho->id];
+            $trabalho->save();
+        }
+        return redirect()->route('eventos::lancamentoDePresencaTrabalhos', ['id' => $eventoId]);
     }
 
     public function getIndexPublico($query = null)
@@ -397,6 +437,14 @@ class EventosController extends Controller
         return view('publico.eventos.agenda', compact('evento', 'atividadesDatasHoras', 'diasDoEvento'));
     }
 
+    public function getVisualizarCertificados($nomeSlug)
+    {
+        $evento = $this->evento->whereNomeslug($nomeSlug)->first();
+        $atividadesCertificadas = Atividade::atividadesPresente(\Auth::user()->id)->get();
+        $trabalhosCertificados = AutorAvaliador::trabalhosPresente(\Auth::user()->id)->get();
+        return view('publico.eventos.certificados', compact('evento', 'atividadesCertificadas', 'trabalhosCertificados'));
+    }
+
     public function getParticiparEvento($nomeSlug)
     {
         $evento = $this->evento->whereNomeslug($nomeSlug)->first();
@@ -404,4 +452,225 @@ class EventosController extends Controller
         Session::flash('message', 'Você está agora inscrito no evento ' . $evento->nome . '.');
         return redirect(route('eventosPublico::visualizar', ['nomeSlug' => $nomeSlug]));
     }
+
+    public function getCertificarEvento($nomeSlug)
+    {
+        $evento = $this->evento->with('participantes')->whereNomeslug($nomeSlug)->first();
+        if ($evento->participantes->contains(\Auth::user())) {
+            $participante = $evento->participantes->where('id', \Auth::user()->id)->first();
+            if ($participante->pivot->presenca == true) {
+                $codigoAutenticidade = encrypt('E' . $participante->pivot->id);
+                return \PDF::loadHtml(
+                    view('publico.certificados.certificadoEvento',
+                        compact('evento', 'participante', 'codigoAutenticidade'))->render())
+                    ->setPaper('a4')
+                    ->setOrientation('landscape')
+                    ->setOption('margin-bottom', 0)
+                    ->download('Certificado' . str_slug($evento->nome) . '.pdf');
+            }
+        }
+        return back();
+    }
+
+    public function getCertificarAtividade($id)
+    {
+        $atividade = Atividade::with('participantes')->findOrFail($id);
+        if ($atividade->participantes->contains(\Auth::user())) {
+            $participante = $atividade->participantes->where('id', \Auth::user()->id)->first();
+            if ($participante->pivot->presenca == true) {
+                $codigoAutenticidade = encrypt('A' . $participante->pivot->id);
+                $cargaEmSegundos = 0;
+                foreach ($atividade->atividadesDatasHoras as $atividadeDatasHora) {
+                    $cargaEmSegundos += ($atividadeDatasHora->horarioTermino->diffInSeconds($atividadeDatasHora->horarioInicio));
+                }
+                $cargaHoraria = gmdate("H:i", $cargaEmSegundos);
+                return \PDF::loadHtml(
+                    view('publico.certificados.certificadoAtividade',
+                        compact('atividade', 'participante', 'cargaHoraria', 'codigoAutenticidade'))->render())
+                    ->setPaper('a4')
+                    ->setOrientation('landscape')
+                    ->setOption('margin-bottom', 0)
+                    ->download('Certificado' . str_slug($atividade->nome) . '.pdf');
+            }
+        }
+        return back();
+    }
+
+
+    public function getCertificarAutor($id)
+    {
+        $trabalho = AutorAvaliador::findOrFail($id);
+        if (($trabalho->idUser == \Auth::user()) && ($trabalho->presenca == true) && ($trabalho->relacaoTrabalho == 1)) {
+            $codigoAutenticidade = encrypt('W' . $trabalho->id);
+            return \PDF::loadHtml(
+                view('publico.certificados.certificadoAutor',
+                    compact('trabalho', 'codigoAutenticidade'))->render())
+                ->setPaper('a4')
+                ->setOrientation('landscape')
+                ->setOption('margin-bottom', 0)
+                ->download('Certificado' . str_slug("autor" . $trabalho->tituloTrabalho) . '.pdf');
+        }
+        return back();
+    }
+
+    public function getCertificarBanner($id)
+    {
+        $trabalho = AutorAvaliador::findOrFail($id);
+        if (($trabalho->idUser == \Auth::user()) && ($trabalho->presenca == true) && ($trabalho->apresentacao == 1)
+            && ($trabalho->relacaoTrabalho == 1)) {
+            $codigoAutenticidade = encrypt('B' . $trabalho->id);
+            return \PDF::loadHtml(
+                view('publico.certificados.certificadoBanner',
+                    compact('trabalho', 'codigoAutenticidade'))->render())
+                ->setPaper('a4')
+                ->setOrientation('landscape')
+                ->setOption('margin-bottom', 0)
+                ->download('Certificado' . str_slug("banner" . $trabalho->tituloTrabalho) . '.pdf');
+        }
+        return back();
+    }
+
+    public function getCertificarOral($id)
+    {
+        $trabalho = AutorAvaliador::findOrFail($id);
+        if (($trabalho->idUser == \Auth::user()) && ($trabalho->presenca == true) && ($trabalho->apresentacao == 2)
+            && ($trabalho->relacaoTrabalho == 1)) {
+            $codigoAutenticidade = encrypt('O' . $trabalho->id);
+            return \PDF::loadHtml(
+                view('publico.certificados.certificadoOral',
+                    compact('trabalho', 'codigoAutenticidade'))->render())
+                ->setPaper('a4')
+                ->setOrientation('landscape')
+                ->setOption('margin-bottom', 0)
+                ->download('Certificado' . str_slug("oral" . $trabalho->tituloTrabalho) . '.pdf');
+        }
+        return back();
+    }
+
+    public function getCertificarRevisor($id)
+    {
+        $trabalho = AutorAvaliador::findOrFail($id);
+        if (($trabalho->idUser == \Auth::user()) && ($trabalho->relacaoTrabalho == 2)) {
+            $codigoAutenticidade = encrypt('R' . $trabalho->id);
+            return \PDF::loadHtml(
+                view('publico.certificados.certificadoRevisor',
+                    compact('trabalho', 'codigoAutenticidade'))->render())
+                ->setPaper('a4')
+                ->setOrientation('landscape')
+                ->setOption('margin-bottom', 0)
+                ->download('Certificado' . str_slug("revisor" . $trabalho->tituloTrabalho) . '.pdf');
+        }
+        return back();
+    }
+
+    public function getCertificarMinistrantes($id)
+    {
+        $atividade = Atividade::with('atividadesResponsaveis')->findOrFail($id);
+        $view = "<html>";
+
+        $cargaEmSegundos = 0;
+        foreach ($atividade->atividadesDatasHoras as $atividadeDatasHora) {
+            $cargaEmSegundos += ($atividadeDatasHora->horarioTermino->diffInSeconds($atividadeDatasHora->horarioInicio));
+        }
+        $cargaHoraria = gmdate("H:i", $cargaEmSegundos);
+
+        foreach ($atividade->atividadesResponsaveis as $atividadesResponsavel) {
+            $codigoAutenticidade = encrypt('M' . $atividadesResponsavel->id);
+            $view .= view('publico.certificados.certificadoMinistrantes',
+                compact('atividade', 'codigoAutenticidade', 'cargaHoraria', 'atividadesResponsavel'))->render();
+        }
+        $view .= "</html>";
+
+        return \PDF::loadHtml($view)
+            ->setPaper('a4')
+            ->setOrientation('landscape')
+            ->setOption('margin-bottom', 0)
+            ->download('Certificado' . str_slug($atividade->nome) . '.pdf');
+    }
+
+    public function getAutenticarCertificado($codigo)
+    {
+        $codigoResolvido = decrypt($codigo);
+        $codigoCertificacao = substr($codigoResolvido, 0, 1);
+        $idCertificado = substr($codigoResolvido, 1);
+        $informacoes = "";
+        switch ($codigoCertificacao){
+            case "A":
+                $atividade = Atividade::atividadePivot($idCertificado)->get()->first();
+                $atividadesDatasHoras = AtividadeDataHora::whereIdatividades($atividade->id)->get();
+                $participante = Usuario::usuarioPivotAtividade($idCertificado)->get()->first();
+                $cargaEmSegundos = 0;
+                foreach ($atividadesDatasHoras as $atividadeDatasHora) {
+                    $cargaEmSegundos += ($atividadeDatasHora->horarioTermino->diffInSeconds($atividadeDatasHora->horarioInicio));
+                }
+                $cargaHoraria = gmdate("H:i", $cargaEmSegundos);
+
+                $informacoes = "Certificado do(a) ".$atividade->nome."
+                                .<br> Participante: ".$participante->nome."
+                                .<br> Carga Horária: ".$cargaHoraria."h.";
+                break;
+            case "E":
+                $evento = Evento::eventoPivot($idCertificado)->get()->first();
+                $participante = Usuario::usuarioPivotEvento($idCertificado)->get()->first();
+                $informacoes = "Certificado do evento ".$evento->nome."
+                                .<br> Participante: ".$participante->nome."
+                                .<br> Carga Horária: 24h.";
+                break;
+            case 'W':
+                $trabalho = AutorAvaliador::findOrFail($idCertificado);
+                if(($trabalho->presenca == true) && ($trabalho->relacaoTrabalho == 1)){
+                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
+                                .<br> Autor: ".$trabalho->nomePessoa.".";
+                }
+                break;
+            case 'W':
+                $trabalho = AutorAvaliador::findOrFail($idCertificado);
+                if($trabalho->presenca == true){
+                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
+                                .<br> Autor: ".$trabalho->nomePessoa.".";
+                }
+                break;
+            case 'B':
+                $trabalho = AutorAvaliador::findOrFail($idCertificado);
+                if(($trabalho->presenca == true) && ($trabalho->apresentacao == 1) && ($trabalho->relacaoTrabalho == 1)){
+                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
+                                .<br> Apresentador do Pôster: ".$trabalho->nomePessoa.".";
+                }
+                break;
+            case 'O':
+                $trabalho = AutorAvaliador::findOrFail($idCertificado);
+                if(($trabalho->presenca == true) && ($trabalho->apresentacao == 2) && ($trabalho->relacaoTrabalho == 1)){
+                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
+                                .<br> Apresentador Oral: ".$trabalho->nomePessoa.".";
+                }
+                break;
+            case 'R':
+                $trabalho = AutorAvaliador::findOrFail($idCertificado);
+                if($trabalho->relacaoTrabalho == 2){
+                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
+                                .<br> Revisor: ".$trabalho->nomePessoa.".";
+                }
+                break;
+            case 'M':
+                $ministrante = AtividadeResponsavel::findOrFail($idCertificado);
+                $atividade = $ministrante->atividade;
+
+                $cargaEmSegundos = 0;
+                foreach ($atividade->atividadesDatasHoras as $atividadeDatasHora) {
+                    $cargaEmSegundos += ($atividadeDatasHora->horarioTermino->diffInSeconds($atividadeDatasHora->horarioInicio));
+                }
+                $cargaHoraria = gmdate("H:i", $cargaEmSegundos);
+
+                $informacoes = "Certificado do(a) ".$atividade->atividadeTipo." ".$atividade->nome."
+                                .<br> Ministrante: ".$ministrante->nome."
+                                .<br> Carga Horária: ".$cargaHoraria."h.";
+                break;
+            default:
+                $informacoes = "Houve um erro ao ler o código. Favor informar o suporte sobre este erro!";
+                break;
+        }
+        return view('publico.autenticidade', compact('informacoes'));
+
+    }
+
 }

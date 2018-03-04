@@ -153,13 +153,25 @@ class Evento extends Model
 
     public function participantes()
     {
-        return $this->belongsToMany('App\Models\Usuario', 'eventos_participantes', 'idEventos', 'idUsuarios')->withPivot('presenca')->orderBy('nome');
+        return $this->belongsToMany('App\Models\Usuario', 'eventos_participantes', 'idEventos', 'idUsuarios')->withPivot('id', 'presenca')->orderBy('nome');
+    }
+
+    public function trabalhos()
+    {
+        return $this->hasMany('App\Models\AutorAvaliador', 'evento_id', 'id');
     }
 
     public function isParticipante($id)
     {
         $participante = Usuario::findOrFail($id);
         return (bool) $this->participantes()->get()->contains($participante);
+    }
+
+    public function scopeEventoPivot($query, $idPivot) {
+        return $query->whereHas('participantes', function ($q) use ($idPivot) {
+            $q->where('eventos_participantes.presenca', '=', true)
+                ->where('eventos_participantes.id', '=', $idPivot);
+        });
     }
 
     public function getEventosPai()

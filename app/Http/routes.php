@@ -51,7 +51,11 @@ Route::get('/propostas/iv-simepe', function () {
 //Route::post('/salvarResponsavel', ['as' => 'salvarResponsavelPublico', 'uses' => 'AtividadesResponsaveisController@postSalvarResponsavelPublico']);
 
 Route::group(['prefix' => 'eventos/', 'as' => 'eventosPublico::'], function () {
-    Route::get('/{query?}', ['as' => 'index', 'uses' => 'EventosController@getIndexPublico',]);
+    Route::get('/{query?}', ['as' => 'index', 'uses' => 'EventosController@getIndexPublico']);
+});
+
+Route::group(['prefix' => 'certificados/'], function () {
+    Route::get('/autenticar/{codigo}', ['uses' => 'EventosController@getAutenticarCertificado']);
 });
 
 Route::group(['prefix' => 'evento/', 'as' => 'eventosPublico::'], function () {
@@ -59,6 +63,7 @@ Route::group(['prefix' => 'evento/', 'as' => 'eventosPublico::'], function () {
     Route::post('/atividade/{id}', ['as' => 'atividade', 'uses' => 'AtividadesController@getAtividade']);
     Route::get('/{nomeSlug}', ['as' => 'visualizar', 'uses' => 'EventosController@getVisualizarPublico']);
     Route::get('/minhaAgenda/{nomeSlug}', ['as' => 'minhaAgenda', 'uses' => 'EventosController@getMinhaAgenda', 'middleware' => 'auth']);
+    Route::get('/certificados/{nomeSlug}', ['as' => 'certificados', 'uses' => 'EventosController@getVisualizarCertificados', 'middleware' => 'auth']);
     Route::get('/galeria/{nomeSlug}', ['as' => 'galeria', 'uses' => 'EventosController@getVisualizarGaleria']);
     Route::get('/avisos/{nomeSlug}', ['as' => 'avisos', 'uses' => 'EventosController@getVisualizarAvisos']);
     Route::post('/participar/{nomeSlug}', ['as' => 'participar', 'uses' => 'EventosController@getParticiparEvento', 'middleware' => 'auth']);
@@ -209,10 +214,22 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], fu
         Route::get('/listasDePresencas/{nomeSlug}', ['as' => 'listasDePresencas', 'uses' => 'EventosController@getListasDePresencas']);
         Route::get('/listaDePresenca/{id}', ['as' => 'listaDePresenca', 'uses' => 'EventosController@getListaDePresenca']);
         Route::get('/lancamentoDePresenca/{id}', ['as' => 'lancamentoDePresenca', 'uses' => 'EventosController@getLancamentoDePresenca']);
+        Route::get('/lancamentoDePresencaTrabalhos/{id}', ['as' => 'lancamentoDePresencaTrabalhos', 'uses' => 'EventosController@getLancamentoDePresencaTrabalhos']);
+        Route::get('/lancamentoDePresencaTrabalho/{id}', ['as' => 'lancamentoDePresencaTrabalho', 'uses' => 'EventosController@getLancamentoDePresencaTrabalho']);
         Route::get('/lancamentoDePresencaExtra/{id}', ['as' => 'lancamentoDePresencaExtra', 'uses' => 'EventosController@getListaDePresenca']);
         Route::get('/lancamentoDePresencaEvento/{id}', ['as' => 'lancamentoDePresencaEvento', 'uses' => 'EventosController@getLancamentoDePresencaEvento']);
         Route::post('/lancarPresenca/{id}', ['as' => 'lancarPresenca', 'uses' => 'EventosController@getLancarPresenca']);
         Route::post('/lancarPresencaEvento/{id}', ['as' => 'lancarPresencaEvento', 'uses' => 'EventosController@getLancarPresencaEvento']);
+        Route::post('/lancarPresencaTrabalhos/{id}', [ 'as' => 'lancarPresencaTrabalhos', 'uses' => 'EventosController@getLancarPresencaTrabalhos']);
+
+        /* Certificados */
+        Route::post('/certificarEvento/{nomeSlug}', ['as' => 'certificarEvento', 'uses' => 'EventosController@getCertificarEvento']);
+        Route::post('/certificarAtividade/{id}', ['as' => 'certificarAtividade', 'uses' => 'EventosController@getCertificarAtividade']);
+        Route::post('/certificarAutor/{id}', ['as' => 'certificarAutor', 'uses' => 'EventosController@getCertificarAutor']);
+        Route::post('/certificarBanner/{id}', ['as' => 'certificarBanner', 'uses' => 'EventosController@getCertificarBanner']);
+        Route::post('/certificarOral/{id}', ['as' => 'certificarOral', 'uses' => 'EventosController@getCertificarOral']);
+        Route::post('/certificarRevisor/{id}', ['as' => 'certificarRevisor', 'uses' => 'EventosController@getCertificarRevisor']);
+        Route::get('/certificarMinistrantes/{id}', ['as' => 'certificarMinistrantes', 'uses' => 'EventosController@getCertificarMinistrantes']);
 
         Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
             Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);

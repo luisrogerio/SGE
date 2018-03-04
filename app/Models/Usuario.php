@@ -68,7 +68,7 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
     public function atividades()
     {
         return $this->belongsToMany('App\Models\Atividade', 'atividades_participantes',
-            'idUsuarios', 'idAtividades');
+            'idUsuarios', 'idAtividades')->withPivot('id', 'presenca');
     }
 
     public function usuariosGrupos()
@@ -79,7 +79,7 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
 
     public function eventos()
     {
-        return $this->belongsToMany('App\Models\Evento', 'eventos_participantes', 'idUsuarios', 'idEventos');
+        return $this->belongsToMany('App\Models\Evento', 'eventos_participantes', 'idUsuarios', 'idEventos')->withPivot('id', 'presenca');
     }
 
     public function getAuthPassword()
@@ -96,5 +96,19 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
             $papel = 'Administrador';
         }
         return $grupos->contains('nome', $papel);
+    }
+
+    public function scopeUsuarioPivotAtividade($query, $idPivot) {
+        return $query->whereHas('atividades', function ($q) use ($idPivot) {
+            $q->where('atividades_participantes.presenca', '=', true)
+                ->where('atividades_participantes.id', '=', $idPivot);
+        });
+    }
+
+    public function scopeUsuarioPivotEvento($query, $idPivot) {
+        return $query->whereHas('eventos', function ($q) use ($idPivot) {
+            $q->where('eventos_participantes.presenca', '=', true)
+                ->where('eventos_participantes.id', '=', $idPivot);
+        });
     }
 }
