@@ -30,7 +30,7 @@
                         <ul class="dropdown-menu">
                             <li></li>
                             <li><a href="{{ route('eventos::lancamentoDePresenca', ['id' => $atividade->id]) }}">Lançamento de Presença</a></li>
-                            <li><a href="#">Lançamento Extra</a></li>
+                            <li><a href="{{ route('eventos::lancamentoDePresencaExtra', ['id' => $atividade->id]) }}">Lançamento Extra</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ route('eventos::listaDePresenca', ['id' => $atividade->id]) }}"
                                    target="_blank">

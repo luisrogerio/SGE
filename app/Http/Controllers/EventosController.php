@@ -268,6 +268,21 @@ class EventosController extends Controller
         return view('admin.eventos.lancamentoDePresenca', compact('atividade'));
     }
 
+    public function getLancamentoDePresencaExtra(Request $request = null, $id)
+    {
+        $atividade = Atividade::findOrFail($id);
+        $usuariosNaoParticipantes = [];
+        if ($request->buscaParticipante != null) {
+            $usuarios = Usuario::usuarioWithName($request->buscaParticipante)->get();
+            foreach ($usuarios as $usuario) {
+                if (!$atividade->participantes->contains($usuario)) {
+                    $usuariosNaoParticipantes[] = $usuario;
+                }
+            }
+        }
+        return view('admin.eventos.lancamentoDePresencaExtra', compact('atividade', 'usuariosNaoParticipantes'));
+    }
+
     public function getLancamentoDePresencaTrabalhos($id)
     {
         $evento = Evento::with('trabalhos')->findOrFail($id);
@@ -318,6 +333,13 @@ class EventosController extends Controller
             $participante->pivot->save();
         }
         return redirect()->route('eventos::lancamentoDePresenca', ['id' => $id]);
+    }
+
+    public function getLancarPresencaExtra($id, $idParticipante)
+    {
+        $atividade = Atividade::findOrFail($id);
+        $atividade->participantes()->attach($idParticipante, ['presenca' => true]);
+        return redirect()->route('eventos::lancamentoDePresencaExtra', ['id' => $id]);
     }
 
     public function getLancarPresencaTrabalhos(Request $request, $id)
@@ -500,7 +522,7 @@ class EventosController extends Controller
     public function getCertificarAutor($id)
     {
         $trabalho = AutorAvaliador::findOrFail($id);
-        if (($trabalho->idUser == \Auth::user()) && ($trabalho->presenca == true) && ($trabalho->relacaoTrabalho == 1)) {
+        if (($trabalho->idUser == \Auth::user()->id) && ($trabalho->presenca == true) && ($trabalho->relacaoTrabalho == 1)) {
             $codigoAutenticidade = encrypt('W' . $trabalho->id);
             return \PDF::loadHtml(
                 view('publico.certificados.certificadoAutor',
@@ -516,7 +538,7 @@ class EventosController extends Controller
     public function getCertificarBanner($id)
     {
         $trabalho = AutorAvaliador::findOrFail($id);
-        if (($trabalho->idUser == \Auth::user()) && ($trabalho->presenca == true) && ($trabalho->apresentacao == 1)
+        if (($trabalho->idUser == \Auth::user()->id) && ($trabalho->presenca == true) && ($trabalho->apresentacao == 1)
             && ($trabalho->relacaoTrabalho == 1)) {
             $codigoAutenticidade = encrypt('B' . $trabalho->id);
             return \PDF::loadHtml(
@@ -533,7 +555,7 @@ class EventosController extends Controller
     public function getCertificarOral($id)
     {
         $trabalho = AutorAvaliador::findOrFail($id);
-        if (($trabalho->idUser == \Auth::user()) && ($trabalho->presenca == true) && ($trabalho->apresentacao == 2)
+        if (($trabalho->idUser == \Auth::user()->id) && ($trabalho->presenca == true) && ($trabalho->apresentacao == 2)
             && ($trabalho->relacaoTrabalho == 1)) {
             $codigoAutenticidade = encrypt('O' . $trabalho->id);
             return \PDF::loadHtml(
@@ -550,13 +572,13 @@ class EventosController extends Controller
     public function getCertificarRevisor($id)
     {
         $trabalho = AutorAvaliador::findOrFail($id);
-        if (($trabalho->idUser == \Auth::user()) && ($trabalho->relacaoTrabalho == 2)) {
+        if (($trabalho->idUser == \Auth::user()->id) && ($trabalho->relacaoTrabalho == 2)) {
             $codigoAutenticidade = encrypt('R' . $trabalho->id);
             return \PDF::loadHtml(
                 view('publico.certificados.certificadoRevisor',
                     compact('trabalho', 'codigoAutenticidade'))->render())
-                ->setPaper('a4')
                 ->setOrientation('landscape')
+                ->setOption('page-size', 'A4')
                 ->setOption('margin-bottom', 0)
                 ->download('Certificado' . str_slug("revisor" . $trabalho->tituloTrabalho) . '.pdf');
         }
@@ -594,7 +616,7 @@ class EventosController extends Controller
         $codigoCertificacao = substr($codigoResolvido, 0, 1);
         $idCertificado = substr($codigoResolvido, 1);
         $informacoes = "";
-        switch ($codigoCertificacao){
+        switch ($codigoCertificacao) {
             case "A":
                 $atividade = Atividade::atividadePivot($idCertificado)->get()->first();
                 $atividadesDatasHoras = AtividadeDataHora::whereIdatividades($atividade->id)->get();
@@ -605,50 +627,50 @@ class EventosController extends Controller
                 }
                 $cargaHoraria = gmdate("H:i", $cargaEmSegundos);
 
-                $informacoes = "Certificado do(a) ".$atividade->nome."
-                                .<br> Participante: ".$participante->nome."
-                                .<br> Carga Horária: ".$cargaHoraria."h.";
+                $informacoes = "Certificado do(a) " . $atividade->nome . "
+                                .<br> Participante: " . $participante->nome . "
+                                .<br> Carga Horária: " . $cargaHoraria . "h.";
                 break;
             case "E":
                 $evento = Evento::eventoPivot($idCertificado)->get()->first();
                 $participante = Usuario::usuarioPivotEvento($idCertificado)->get()->first();
-                $informacoes = "Certificado do evento ".$evento->nome."
-                                .<br> Participante: ".$participante->nome."
+                $informacoes = "Certificado do evento " . $evento->nome . "
+                                .<br> Participante: " . $participante->nome . "
                                 .<br> Carga Horária: 24h.";
                 break;
             case 'W':
                 $trabalho = AutorAvaliador::findOrFail($idCertificado);
-                if(($trabalho->presenca == true) && ($trabalho->relacaoTrabalho == 1)){
-                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
-                                .<br> Autor: ".$trabalho->nomePessoa.".";
+                if (($trabalho->presenca == true) && ($trabalho->relacaoTrabalho == 1)) {
+                    $informacoes = "Certificado do(a) trabalho " . $trabalho->tituloTrabalho . "
+                                .<br> Autor: " . $trabalho->nomePessoa . ".";
                 }
                 break;
             case 'W':
                 $trabalho = AutorAvaliador::findOrFail($idCertificado);
-                if($trabalho->presenca == true){
-                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
-                                .<br> Autor: ".$trabalho->nomePessoa.".";
+                if ($trabalho->presenca == true) {
+                    $informacoes = "Certificado do(a) trabalho " . $trabalho->tituloTrabalho . "
+                                .<br> Autor: " . $trabalho->nomePessoa . ".";
                 }
                 break;
             case 'B':
                 $trabalho = AutorAvaliador::findOrFail($idCertificado);
-                if(($trabalho->presenca == true) && ($trabalho->apresentacao == 1) && ($trabalho->relacaoTrabalho == 1)){
-                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
-                                .<br> Apresentador do Pôster: ".$trabalho->nomePessoa.".";
+                if (($trabalho->presenca == true) && ($trabalho->apresentacao == 1) && ($trabalho->relacaoTrabalho == 1)) {
+                    $informacoes = "Certificado do(a) trabalho " . $trabalho->tituloTrabalho . "
+                                .<br> Apresentador do Pôster: " . $trabalho->nomePessoa . ".";
                 }
                 break;
             case 'O':
                 $trabalho = AutorAvaliador::findOrFail($idCertificado);
-                if(($trabalho->presenca == true) && ($trabalho->apresentacao == 2) && ($trabalho->relacaoTrabalho == 1)){
-                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
-                                .<br> Apresentador Oral: ".$trabalho->nomePessoa.".";
+                if (($trabalho->presenca == true) && ($trabalho->apresentacao == 2) && ($trabalho->relacaoTrabalho == 1)) {
+                    $informacoes = "Certificado do(a) trabalho " . $trabalho->tituloTrabalho . "
+                                .<br> Apresentador Oral: " . $trabalho->nomePessoa . ".";
                 }
                 break;
             case 'R':
                 $trabalho = AutorAvaliador::findOrFail($idCertificado);
-                if($trabalho->relacaoTrabalho == 2){
-                    $informacoes = "Certificado do(a) trabalho ".$trabalho->tituloTrabalho."
-                                .<br> Revisor: ".$trabalho->nomePessoa.".";
+                if ($trabalho->relacaoTrabalho == 2) {
+                    $informacoes = "Certificado do(a) trabalho " . $trabalho->tituloTrabalho . "
+                                .<br> Revisor: " . $trabalho->nomePessoa . ".";
                 }
                 break;
             case 'M':
@@ -661,9 +683,9 @@ class EventosController extends Controller
                 }
                 $cargaHoraria = gmdate("H:i", $cargaEmSegundos);
 
-                $informacoes = "Certificado do(a) ".$atividade->atividadeTipo." ".$atividade->nome."
-                                .<br> Ministrante: ".$ministrante->nome."
-                                .<br> Carga Horária: ".$cargaHoraria."h.";
+                $informacoes = "Certificado do(a) " . $atividade->atividadeTipo . " " . $atividade->nome . "
+                                .<br> Ministrante: " . $ministrante->nome . "
+                                .<br> Carga Horária: " . $cargaHoraria . "h.";
                 break;
             default:
                 $informacoes = "Houve um erro ao ler o código. Favor informar o suporte sobre este erro!";

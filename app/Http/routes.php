@@ -214,11 +214,12 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], fu
         Route::get('/listasDePresencas/{nomeSlug}', ['as' => 'listasDePresencas', 'uses' => 'EventosController@getListasDePresencas']);
         Route::get('/listaDePresenca/{id}', ['as' => 'listaDePresenca', 'uses' => 'EventosController@getListaDePresenca']);
         Route::get('/lancamentoDePresenca/{id}', ['as' => 'lancamentoDePresenca', 'uses' => 'EventosController@getLancamentoDePresenca']);
+        Route::get('/lancamentoDePresencaExtra/{id}', ['as' => 'lancamentoDePresencaExtra', 'uses' => 'EventosController@getLancamentoDePresencaExtra']);
         Route::get('/lancamentoDePresencaTrabalhos/{id}', ['as' => 'lancamentoDePresencaTrabalhos', 'uses' => 'EventosController@getLancamentoDePresencaTrabalhos']);
         Route::get('/lancamentoDePresencaTrabalho/{id}', ['as' => 'lancamentoDePresencaTrabalho', 'uses' => 'EventosController@getLancamentoDePresencaTrabalho']);
-        Route::get('/lancamentoDePresencaExtra/{id}', ['as' => 'lancamentoDePresencaExtra', 'uses' => 'EventosController@getListaDePresenca']);
         Route::get('/lancamentoDePresencaEvento/{id}', ['as' => 'lancamentoDePresencaEvento', 'uses' => 'EventosController@getLancamentoDePresencaEvento']);
         Route::post('/lancarPresenca/{id}', ['as' => 'lancarPresenca', 'uses' => 'EventosController@getLancarPresenca']);
+        Route::post('/lancarPresencaExtra/{id}/{idParticipante}', ['as' => 'lancarPresencaExtra', 'uses' => 'EventosController@getLancarPresencaExtra']);
         Route::post('/lancarPresencaEvento/{id}', ['as' => 'lancarPresencaEvento', 'uses' => 'EventosController@getLancarPresencaEvento']);
         Route::post('/lancarPresencaTrabalhos/{id}', [ 'as' => 'lancarPresencaTrabalhos', 'uses' => 'EventosController@getLancarPresencaTrabalhos']);
 

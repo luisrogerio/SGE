@@ -23,15 +23,21 @@
                 font-style: italic;
             }
 
+            .page {
+                overflow: hidden;
+                page-break-after: always;
+            }
+
             #c0 {
                 margin: 0px;
                 width: 29.7cm;
                 height: 21cm;
-                background-color: #bbcccc;
+                background-color: white;
                 background-image: url("http://sistemas.jf.ifsudestemg.edu.br/sge/dede/base/fcs17_hp004d.jpg");
                 background-repeat: no-repeat;
-                //background-position: center;
+            //background-position: center;
                 background-size: 100%;
+                word-wrap: break-word;
             }
 
             #c1 {
@@ -40,25 +46,26 @@
             / / padding-right: 70 px;
             / / padding-left: 0 px;
                 text-align: center;
-                font-size: 16px;
-                white-space: nowrap;
+                font-size: 26px;
+                white-space: normal;
                 word-wrap: normal;
             }
 
             #c2 {
-                position: absolute;
-                margin-left: 10px;
-                padding-top: 5%;
-                text-align: left;
+                margin-left: 700px;
+                margin-top: 32%;
+                text-align: right;
                 font-size: 8px;
                 word-wrap: break-word;
-                width: 300px;
+                width: 400px;
                 color: #777;
+                position: relative;
+                bottom: 10px;
             }
         </style>
     </head>
     <body>
-        <div id='c0'>
+        <div id='c0' class="page">
             <div id='c1'>Certificamos que {{ $atividadesResponsavel->nome }} foi ministrante do(a) {{ $atividade->tipoDeAtividade->nome }}
                 <br/> {{ $atividade->nome }}
                 <br/> durante o {{ $atividade->evento->nome }}

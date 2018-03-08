@@ -111,4 +111,8 @@ class Usuario extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
                 ->where('eventos_participantes.id', '=', $idPivot);
         });
     }
+
+    public function scopeUsuarioWithName($query, $name) {
+        return $query->where('nome', 'LIKE', "%".$name."%");
+    }
 }

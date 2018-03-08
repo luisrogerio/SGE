@@ -27,11 +27,12 @@
                 margin: 0px;
                 width: 29.7cm;
                 height: 21cm;
-                background-color: #bbcccc;
+                background-color: white;
                 background-image: url("http://sistemas.jf.ifsudestemg.edu.br/sge/dede/base/fcs17_hp004d.jpg");
                 background-repeat: no-repeat;
-                //background-position: center;
+            //background-position: center;
                 background-size: 100%;
+                word-wrap: break-word;
             }
 
             #c1 {
@@ -40,22 +41,22 @@
             / / padding-right: 70 px;
             / / padding-left: 0 px;
                 text-align: center;
-                font-size: 16px;
-                white-space: nowrap;
+                font-size: 26px;
+                white-space: normal;
                 word-wrap: normal;
             }
 
+
             #c2 {
-                position: relative;
-                margin-left: 10px;
-                padding-top: 5%;
-                text-align: left;
+                position: fixed;
+                margin-left: 700px;
+                top: 90%;
+                text-align: right;
                 font-size: 8px;
                 word-wrap: break-word;
-                width: 300px;
+                width: 400px;
                 color: #777;
             }
-
         </style>
     </head>
     <body>

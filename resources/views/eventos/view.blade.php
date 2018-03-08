@@ -211,7 +211,7 @@
                                 {{ link_to_route('eventos::credenciamento', 'Lista de Credenciamento', array('nomeSlug' => $evento->nomeSlug), array('class' => 'button button-blue', 'target' => 'blank')) }}
                                 {{ link_to_route('eventos::lancamentoDePresencaEvento', 'Lançar Credenciamento - Presença', array('id' => $evento->id), array('class' => 'button button-blue', 'target' => 'blank')) }}
                                 {{ link_to_route('eventos::lancamentoDePresencaTrabalhos', 'Lançar Trabalhos - Presença', array('id' => $evento->id), array('class' => 'button button-blue', 'target' => 'blank')) }}
-                                {{ link_to_route('eventos::relatoriosAtividade', 'Relatórios de Atividade', array('nomeSlug' => $evento->nomeSlug), array('class' => 'button button-blue', 'target' => 'blank')) }}
+                                {{ link_to_route('eventos::relatoriosAtividade', 'Gestão de Atividades', array('nomeSlug' => $evento->nomeSlug), array('class' => 'button button-blue', 'target' => 'blank')) }}
                             </div>
                             <hr>
                             <div class="btn-group">
