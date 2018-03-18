@@ -36,7 +36,7 @@
             }
 
             #c1 {
-                padding-top: 200px;
+                padding-top: 270px;
                 padding-bottom: 70px;
             / / padding-right: 70 px;
             / / padding-left: 0 px;
@@ -57,12 +57,20 @@
                 width: 400px;
                 color: #777;
             }
+
+            .text-uppercase {
+                text-transform: uppercase;
+            }
+
+            .text-bold {
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
         <div id='c0'>
-            <div id='c1'>Certificamos que {{ $participante->nome }} participou do(a)
-                <br> {{ $evento->nome }}
+            <div id='c1'>Certificamos que <span class="text-bold"> {{ $participante->nome }}</span> participou do(a)
+                <br> <span class="text-uppercase"> {{ $evento->nome }}</span>
                 <br/><font size='-1'><em>(Carga horária: 24h)</em></font>
             </div>
             <div id='c2'>

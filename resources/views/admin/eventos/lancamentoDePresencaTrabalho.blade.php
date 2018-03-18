@@ -25,11 +25,20 @@
                                     1 => 'Apresentação Banner',
                                     2 => 'Apresentação Oral'],
                                     $trabalho->apresentacao,
-                                    ['class' => 'input-group']) }}
+                                    ['class' => 'form-control']) }}
                 </td>
             </tr>
         @endforeach
     </table>
+    <label for="classificacao">Premiação do Trabalho</label>
+    {{ Form::select('classificacao',
+                                [   null => 'Sem Colocação',
+                                    1 => '1° Lugar',
+                                    2 => '2° Lugar',
+                                    3 => '3° Lugar'],
+                                    $trabalho->classificacao,
+                                    ['class' => 'form-control']) }}
+    <br/>
     <div class="btn-group">
         {{ Form::submit('Lançar Presenças', ['class' => 'button button-blue']) }}
         <a href="{{ route('eventos::lancamentoDePresencaTrabalhos',['id' => $idEvento], ['style' => 'color:#fff;']) }}">

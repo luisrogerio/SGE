@@ -41,7 +41,7 @@
             }
 
             #c1 {
-                padding-top: 200px;
+                padding-top: 270px;
                 padding-bottom: 70px;
             / / padding-right: 70 px;
             / / padding-left: 0 px;
@@ -62,12 +62,20 @@
                 position: relative;
                 bottom: 10px;
             }
+
+            .text-uppercase {
+                text-transform: uppercase;
+            }
+
+            .text-bold {
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
         <div id='c0' class="page">
-            <div id='c1'>Certificamos que {{ $atividadesResponsavel->nome }} foi ministrante do(a) {{ $atividade->tipoDeAtividade->nome }}
-                <br/> {{ $atividade->nome }}
+            <div id='c1'>Certificamos que <span class="text-bold"> {{ $atividadesResponsavel->nome }}</span> foi ministrante do(a) {{ $atividade->tipoDeAtividade->nome }}
+                <br/> <span class="text-uppercase"> {{ $atividade->nome }}</span>
                 <br/> durante o {{ $atividade->evento->nome }}
                 <br/><font size='-1'><em>(Carga horária: {{ $cargaHoraria }}h)</em></font>
             </div>

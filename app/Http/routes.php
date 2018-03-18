@@ -71,6 +71,17 @@ Route::group(['prefix' => 'evento/', 'as' => 'eventosPublico::'], function () {
     Route::get('/revogarParticipacaoAtividade/{id}', ['as' => 'revogarParticipacaoAtividade', 'uses' => 'AtividadesController@revovarParticipacaoAtividade', 'middleware' => 'auth']);
 });
 
+Route::group(['prefix' => 'eventos/', 'as' => 'eventos::'], function (){
+    /* Certificados */
+    Route::post('/certificarEvento/{nomeSlug}', ['as' => 'certificarEvento', 'uses' => 'EventosController@getCertificarEvento']);
+    Route::post('/certificarAtividade/{id}', ['as' => 'certificarAtividade', 'uses' => 'EventosController@getCertificarAtividade']);
+    Route::post('/certificarAutor/{id}', ['as' => 'certificarAutor', 'uses' => 'EventosController@getCertificarAutor']);
+    Route::post('/certificarBanner/{id}', ['as' => 'certificarBanner', 'uses' => 'EventosController@getCertificarBanner']);
+    Route::post('/certificarOral/{id}', ['as' => 'certificarOral', 'uses' => 'EventosController@getCertificarOral']);
+    Route::post('/certificarRevisor/{id}', ['as' => 'certificarRevisor', 'uses' => 'EventosController@getCertificarRevisor']);
+
+});
+
 
 Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], function () {
 
@@ -223,14 +234,8 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'roles:admin']], fu
         Route::post('/lancarPresencaEvento/{id}', ['as' => 'lancarPresencaEvento', 'uses' => 'EventosController@getLancarPresencaEvento']);
         Route::post('/lancarPresencaTrabalhos/{id}', [ 'as' => 'lancarPresencaTrabalhos', 'uses' => 'EventosController@getLancarPresencaTrabalhos']);
 
-        /* Certificados */
-        Route::post('/certificarEvento/{nomeSlug}', ['as' => 'certificarEvento', 'uses' => 'EventosController@getCertificarEvento']);
-        Route::post('/certificarAtividade/{id}', ['as' => 'certificarAtividade', 'uses' => 'EventosController@getCertificarAtividade']);
-        Route::post('/certificarAutor/{id}', ['as' => 'certificarAutor', 'uses' => 'EventosController@getCertificarAutor']);
-        Route::post('/certificarBanner/{id}', ['as' => 'certificarBanner', 'uses' => 'EventosController@getCertificarBanner']);
-        Route::post('/certificarOral/{id}', ['as' => 'certificarOral', 'uses' => 'EventosController@getCertificarOral']);
-        Route::post('/certificarRevisor/{id}', ['as' => 'certificarRevisor', 'uses' => 'EventosController@getCertificarRevisor']);
         Route::get('/certificarMinistrantes/{id}', ['as' => 'certificarMinistrantes', 'uses' => 'EventosController@getCertificarMinistrantes']);
+
 
         Route::group(['prefix' => '{idPai?}'], function ($idPai = 0) {
             Route::get('/adicionar', ['as' => 'adicionarSubevento', 'uses' => 'EventosController@getAdicionar']);

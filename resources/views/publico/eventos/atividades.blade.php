@@ -19,7 +19,7 @@
             @forelse($atividades as $atividade)
                 <div class="gutter-sizer grid-item">
                     <div class="card card-block">
-                        <h2 class="card-title">{{ $atividade->nome }}</h2>
+                        <h2 class="card-title">{{ $atividade->tipoDeAtividade->nome }} {{ $atividade->nome }}</h2>
                         <h4>
                             <small>Unidade:</small>
                             {{ $atividade->unidade->nome or "Não alocado" }}

@@ -347,10 +347,12 @@ class EventosController extends Controller
         $eventoId = null;
         $trabalhos = AutorAvaliador::where('idTrabalho', '=', $id)
             ->where('relacaoTrabalho', '=', 1)->get();
+        $colocacao = $request->classificacao;
         foreach ($trabalhos as $trabalho) {
             $eventoId = $trabalho->evento_id;
             $trabalho->presenca = $request->presenca[$trabalho->id];
             $trabalho->apresentacao = $request->apresentacao[$trabalho->id];
+            $trabalho->classificacao = $colocacao;
             $trabalho->save();
         }
         return redirect()->route('eventos::lancamentoDePresencaTrabalhos', ['id' => $eventoId]);

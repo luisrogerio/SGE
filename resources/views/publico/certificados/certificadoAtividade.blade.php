@@ -36,7 +36,7 @@
             }
 
             #c1 {
-                padding-top: 200px;
+                padding-top: 270px;
                 padding-bottom: 70px;
             / / padding-right: 70 px;
             / / padding-left: 0 px;
@@ -56,12 +56,21 @@
                 width: 400px;
                 color: #777;
             }
+
+            .text-uppercase {
+                text-transform: uppercase;
+            }
+
+            .text-bold {
+                font-weight: bold;
+            }
+
         </style>
     </head>
     <body>
         <div id='c0'>
-            <div id='c1'>Certificamos que {{ $participante->nome }} participou do(a) {{ $atividade->tipoDeAtividade->nome }}
-                <br/> <div class="break-class"> {{ $atividade->nome }}</div>
+            <div id='c1'>Certificamos que <span class="text-bold"> {{ $participante->nome }}</span> participou do(a) {{ $atividade->tipoDeAtividade->nome }}
+                <br/> <div class="break-class text-uppercase"> {{ $atividade->nome }}</div>
                 <br/> durante o {{ $atividade->evento->nome }}
                 <br/><font size='-1'><em>(Carga horária: {{ $cargaHoraria }}h)</em></font>
             </div>
