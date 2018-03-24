@@ -60,6 +60,12 @@
                                     class="fa fa-th-list" aria-hidden="true"></i> Atividades</a></li>
                     <li><a href="{{ route('eventosPublico::minhaAgenda', ['nomeSlug' => $evento->nomeSlug]) }}"><i
                                     class="fa fa-calendar-o" aria-hidden="true"></i> Minha Agenda</a></li>
+                    @if($evento->eventoCaracteristica->dataLiberacaoCertificado->lte(\Carbon\Carbon::now()))
+                        <li>
+                            <a href="{{ route('eventosPublico::certificados', ['nomeSlug' => $evento->nomeSlug]) }}">
+                                <i class="fa fa-certificate" aria-hidden="true"></i> Certificados</a>
+                        </li>
+                    @endif
                     @if(Auth::guest())
                         <li><a href="{{route('auth::login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
                                 Login</a></li>
@@ -79,9 +85,6 @@
                                     <a class="btn button button-blue" href="{{ route('perfil') }}">
                                         <i class="fa fa-user" aria-hidden="true"></i> Perfil
                                     </a>
-                                    {{--<a class="btn button button-green" href="">--}}
-                                    {{--<i class="fa fa-certificate" aria-hidden="true"></i> Certificados--}}
-                                    {{--</a>--}}
                                     <a class="btn button button-orange" href="{{ route('auth::logout') }}">
                                         <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
                                     </a>

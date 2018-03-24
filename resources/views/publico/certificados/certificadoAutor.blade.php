@@ -70,7 +70,7 @@
         <div id='c0'>
             <div id='c1'>Certificamos que <span class="text-bold"> {{ $trabalho->nomePessoa }}</span> submeteu o trabalho como autor de
                 <br/> <span class="text-uppercase"> {{ $trabalho->tituloTrabalho }}</span>
-                <br/> para o {{ $trabalho->evento->nome }}
+                <br/> para o {{ $trabalho->evento->nome }}.
                 @if ($trabalho->classificacao != null)
                 <br/> Premiação: {{ $trabalho->classificacao }}° Lugar
                 @endif

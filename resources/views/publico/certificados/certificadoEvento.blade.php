@@ -70,7 +70,7 @@
     <body>
         <div id='c0'>
             <div id='c1'>Certificamos que <span class="text-bold"> {{ $participante->nome }}</span> participou do(a)
-                <br> <span class="text-uppercase"> {{ $evento->nome }}</span>
+                <br> <span class="text-uppercase"> {{ $evento->nome }}</span>.
                 <br/><font size='-1'><em>(Carga horária: 24h)</em></font>
             </div>
             <div id='c2'>

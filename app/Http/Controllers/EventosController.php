@@ -490,7 +490,7 @@ class EventosController extends Controller
                     ->setPaper('a4')
                     ->setOrientation('landscape')
                     ->setOption('margin-bottom', 0)
-                    ->download('Certificado' . str_slug($evento->nome) . '.pdf');
+                    ->download('Certificado-' . str_slug($evento->nome) . '.pdf');
             }
         }
         return back();
@@ -514,7 +514,7 @@ class EventosController extends Controller
                     ->setPaper('a4')
                     ->setOrientation('landscape')
                     ->setOption('margin-bottom', 0)
-                    ->download('Certificado' . str_slug($atividade->nome) . '.pdf');
+                    ->download('Certificado-' . str_slug($atividade->nome) . '.pdf');
             }
         }
         return back();
@@ -532,7 +532,7 @@ class EventosController extends Controller
                 ->setPaper('a4')
                 ->setOrientation('landscape')
                 ->setOption('margin-bottom', 0)
-                ->download('Certificado' . str_slug("autor" . $trabalho->tituloTrabalho) . '.pdf');
+                ->download('Certificado-' . str_slug("autor" . $trabalho->tituloTrabalho) . '.pdf');
         }
         return back();
     }
@@ -549,7 +549,7 @@ class EventosController extends Controller
                 ->setPaper('a4')
                 ->setOrientation('landscape')
                 ->setOption('margin-bottom', 0)
-                ->download('Certificado' . str_slug("banner" . $trabalho->tituloTrabalho) . '.pdf');
+                ->download('Certificado-' . str_slug("banner" . $trabalho->tituloTrabalho) . '.pdf');
         }
         return back();
     }
@@ -566,7 +566,7 @@ class EventosController extends Controller
                 ->setPaper('a4')
                 ->setOrientation('landscape')
                 ->setOption('margin-bottom', 0)
-                ->download('Certificado' . str_slug("oral" . $trabalho->tituloTrabalho) . '.pdf');
+                ->download('Certificado-' . str_slug("oral" . $trabalho->tituloTrabalho) . '.pdf');
         }
         return back();
     }
@@ -582,7 +582,7 @@ class EventosController extends Controller
                 ->setOrientation('landscape')
                 ->setOption('page-size', 'A4')
                 ->setOption('margin-bottom', 0)
-                ->download('Certificado' . str_slug("revisor" . $trabalho->tituloTrabalho) . '.pdf');
+                ->download('Certificado-' . str_slug("revisor" . $trabalho->tituloTrabalho) . '.pdf');
         }
         return back();
     }
@@ -609,7 +609,7 @@ class EventosController extends Controller
             ->setPaper('a4')
             ->setOrientation('landscape')
             ->setOption('margin-bottom', 0)
-            ->download('Certificado' . str_slug($atividade->nome) . '.pdf');
+            ->download('Certificado-' . str_slug($atividade->nome) . '.pdf');
     }
 
     public function getAutenticarCertificado($codigo)

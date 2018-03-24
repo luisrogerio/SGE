@@ -71,7 +71,7 @@
         <div id='c0'>
             <div id='c1'>Certificamos que <span class="text-bold"> {{ $trabalho->nomePessoa }}</span>  avaliou o trabalho
                 <br/> <span class="text-uppercase"> {{ $trabalho->tituloTrabalho }}</span>
-                <br/> no {{ $trabalho->evento->nome }}
+                <br/> no {{ $trabalho->evento->nome }}.
             </div>
             <div id='c2'>
                 <p>
